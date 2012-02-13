@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
 gem 'pg'
+gem 'devise'
+gem 'haml'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -15,6 +17,10 @@ gem 'jquery-rails'
 
 group :development do
   gem 'heroku'
+end
+
+group :test do
+  gem 'factory_girl'
 end
 
 group :production do
