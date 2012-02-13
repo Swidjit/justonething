@@ -5,6 +5,11 @@ gem 'pg'
 gem 'devise'
 gem 'haml'
 gem 'unicorn'
+gem 'foreigner'
+gem 'draper'
+gem 'cancan'
+gem 'compass-susy-plugin', '~> 0.9'
+gem 'bourbon'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,5 +26,9 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 1.2'
   gem 'rspec-rails'
   gem 'capybara-webkit'
+  gem 'guard'
+  gem 'turnip'
+  gem 'spork'
+  gem 'guard-rspec'
 end
 
