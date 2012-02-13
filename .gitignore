@@ -5,7 +5,7 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 /config/database.yml
-/test/fixtures
+/test
 
 # Ignore bundler config
 /.bundle
