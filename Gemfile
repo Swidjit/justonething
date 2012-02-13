@@ -4,6 +4,7 @@ gem 'rails', '3.2.1'
 gem 'pg'
 gem 'devise'
 gem 'haml'
+gem 'unicorn'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -15,14 +16,10 @@ end
 
 gem 'jquery-rails'
 
-group :development do
+group :development, :test do
   gem 'heroku'
-end
-
-group :test do
   gem 'factory_girl'
+  gem 'rspec-rails'
+  gem 'capybara-webkit'
 end
 
-group :production do
-  gem 'thin'
-end
