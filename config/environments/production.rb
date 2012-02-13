@@ -11,7 +11,6 @@ Swidjit::Application.configure do
     :domain         => 'heroku.com'
   }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perfom_deliveries = true
   config.action_mailer.default_url_options = { :host => 'swidjit.herokuapp.com' }
 
   # Code is not reloaded between requests
