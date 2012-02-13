@@ -1,0 +1,5 @@
+rvm install 1.9.3
+rvm --create 1.9.3@swidjit
+if ! command -v bundle ; then
+  gem install bundler --no-ri --no-rdoc
+fi
