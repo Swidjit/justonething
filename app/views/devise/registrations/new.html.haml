@@ -1,0 +1,26 @@
+%h2 Sign up
+
+= form_for(@user, :url => registration_path(User)) do |f|
+
+  = error_messages_for(@user)
+
+  %div
+    = f.label :email
+    %br
+    = f.email_field :email
+
+  %div
+    = f.label :password
+    %br
+    = f.password_field :password
+
+  %div
+    = f.label :password_confirmation
+    %br
+    = f.password_field :password_confirmation
+
+  %div
+    = f.check_box :is_thirteen
+    = f.label :is_thirteen, 'I am at least 13 years of age'
+
+  %div= f.submit "Sign up"
