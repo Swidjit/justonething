@@ -18,7 +18,7 @@ gem 'jquery-rails'
 
 group :development, :test do
   gem 'heroku'
-  gem 'factory_girl'
+  gem 'factory_girl_rails', '~> 1.2'
   gem 'rspec-rails'
   gem 'capybara-webkit'
 end
