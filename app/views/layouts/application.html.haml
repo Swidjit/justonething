@@ -9,4 +9,5 @@
 
     %p.notice= notice
     %p.alert= alert
+    = link_to "Log out", destroy_user_session_url, :method => 'delete'
     = yield

@@ -1,0 +1,40 @@
+.sign_in
+
+  %h2 Sign in
+
+  = form_for(@user, :url => session_path(User)) do |f|
+    %div
+      = f.label :email
+      %br
+      = f.email_field :email
+
+    %div
+      = f.label :password
+      %br
+      = f.password_field :password
+
+    %div= f.submit "Sign in"
+
+  = link_to "Forgot your password?", new_password_path(User)
+
+.register
+  %h2 Sign up
+
+  = form_for(@user, :url => registration_path(User)) do |f|
+
+    %div
+      = f.label :email
+      %br
+      = f.email_field :email
+
+    %div
+      = f.label :password
+      %br
+      = f.password_field :password
+
+    %div
+      = f.label :password_confirmation
+      %br
+      = f.password_field :password_confirmation
+
+    %div= f.submit "Sign up"
