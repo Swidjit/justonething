@@ -11,6 +11,9 @@ gem 'cancan'
 gem 'compass-susy-plugin', '~> 0.9'
 gem 'bourbon'
 
+gem 'omniauth-facebook'
+gem 'formtastic'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -32,5 +35,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'rb-fsevent'
+  gem 'shoulda'
 end
 

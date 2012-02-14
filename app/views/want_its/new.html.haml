@@ -1,0 +1,6 @@
+= semantic_form_for @want_it do |f|
+  = f.inputs do
+    = f.input :description, :as => :text
+    = f.input :title
+    = f.input :expires_in, :as => :radio, :collection => [ '1 day', '5 days', '15 days', '30 days', 'never' ]
+  = f.submit 'Post'
