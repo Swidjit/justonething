@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
       :display_name
 
   validate :is_thirteen?, :on => :create
+  validates_uniqueness_of :display_name
 
   attr_accessor :is_thirteen
 
