@@ -5,6 +5,21 @@
   = error_messages_for(@user)
 
   %div
+    = f.label :display_name
+    %br
+    = f.text_field :display_name
+
+  %div
+    = f.label :first_name
+    %br
+    = f.text_field :first_name
+
+  %div
+    = f.label :last_name
+    %br
+    = f.text_field :last_name
+
+  %div
     = f.label :email
     %br
     = f.email_field :email

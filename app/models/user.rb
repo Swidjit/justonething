@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :confirmable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :is_thirteen
+  attr_accessible :email, :password, :password_confirmation, :is_thirteen, :last_name, :first_name,
+      :display_name
 
   validate :is_thirteen?, :on => :create
 
