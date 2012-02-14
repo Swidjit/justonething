@@ -30,5 +30,7 @@ group :development, :test do
   gem 'turnip'
   gem 'spork'
   gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'rb-fsevent'
 end
 
