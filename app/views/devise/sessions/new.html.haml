@@ -2,7 +2,9 @@
 
   %h2 Sign in
 
-  = form_for(@user, :url => session_path(User)) do |f|
+  = link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
+
+  = form_for(@user, :url => session_path(User), :html => {:id => 'login_form'}) do |f|
 
     = error_messages_for(@user)
 
