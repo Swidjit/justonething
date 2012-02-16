@@ -21,12 +21,17 @@ class User < ActiveRecord::Base
       user
     else # Create a user with a stub password.
       username = data['username'] || (data['first_name'] + data['last_name'])
-      User.create!(:email => data.email,
+      user = User.new(:email => data.email,
           :password => Devise.friendly_token[0,20],
           :first_name => data['first_name'],
           :last_name => data['last_name'],
           :display_name => username,
           :is_thirteen => 1) # Facebook requires the user to be at least 13 as well
+
+      # Facebook requires a valid email before allowing the user to add Apps like Swidjit
+      user.skip_confirmation!
+      user.save
+      user
     end
   end
 
