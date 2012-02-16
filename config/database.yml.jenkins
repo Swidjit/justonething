@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: swidjit_development
+  pool: 5
+  username: root
+  password:
+  min_messages: warning
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: swidjit_test
+  pool: 5
+  username: root
+  password:
+  min_messages: warning
