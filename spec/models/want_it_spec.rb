@@ -25,4 +25,11 @@ describe WantIt do
   end
 
   it { should belong_to :user }
+
+  it 'should convert expires in to an expiration date' do
+    subject = Factory.build(:item)
+    subject.expires_in = '5'
+    subject.save
+    subject.expires_on.should == 5.days.from_now.to_date
+  end
 end
