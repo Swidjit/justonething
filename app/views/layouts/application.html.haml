@@ -10,4 +10,6 @@
     %p.notice= notice
     %p.alert= alert
     = link_to "Log out", destroy_user_session_url, :method => 'delete'
+    = link_to 'have-it', new_have_it_path, :id => 'post_have_it'
+    = link_to 'want-it', new_want_it_path, :id => 'post_want_it'
     = yield
