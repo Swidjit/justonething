@@ -22,6 +22,11 @@ describe WantIt do
       # Comparing dates directly doesn't work for some reason so we cast them to a string
       subject.expires_on.to_s.should == 2.days.from_now.to_s
     end
+
+    it 'a tag list' do
+      subject.tag_list = 'big, hairy, orange'
+      subject.tag_list.should == 'big, hairy, orange'
+    end
   end
 
   it { should belong_to :user }
@@ -33,5 +38,12 @@ describe WantIt do
     subject.expires_in = '5'
     subject.save
     subject.expires_on.should == 5.days.from_now.to_date
+  end
+
+  it 'should convert tag_list to tags' do
+    subject = Factory.build(:item)
+    subject.tag_list = 'big, hairy, orange'
+    subject.save
+    subject.tags.count.should == 3
   end
 end
