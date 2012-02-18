@@ -34,14 +34,14 @@ describe WantIt do
   it { should have_and_belong_to_many :tags }
 
   it 'should convert expires in to an expiration date' do
-    subject = Factory.build(:item)
+    subject = Factory.build(:want_it)
     subject.expires_in = '5'
     subject.save
     subject.expires_on.should == 5.days.from_now.to_date
   end
 
   it 'should convert tag_list to tags' do
-    subject = Factory.build(:item)
+    subject = Factory.build(:want_it)
     subject.tag_list = 'big, hairy, orange'
     subject.save
     subject.tags.count.should == 3
