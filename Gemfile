@@ -36,6 +36,7 @@ group :development, :test do
   gem 'guard-spork'
   gem 'rb-fsevent'
   gem 'shoulda'
+  gem 'shoulda-matchers'
 
   # Jenkins CI needs a JS runtime
   gem 'therubyracer'

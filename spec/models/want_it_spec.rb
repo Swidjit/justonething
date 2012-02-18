@@ -24,5 +24,5 @@ describe WantIt do
     end
   end
 
-  it { pending; should belong_to :user }
+  it { should belong_to :user }
 end
