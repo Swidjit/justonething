@@ -10,7 +10,9 @@ class HaveItsController < ApplicationController
   end
 
   def create
-    @have_it = HaveIt.create(params[:have_it])
+    @have_it = HaveIt.new(params[:have_it])
+    @have_it.user ||= current_user
+    @have_it.save
     respond_with @have_it
   end
 end

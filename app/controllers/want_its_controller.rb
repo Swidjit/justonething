@@ -10,7 +10,9 @@ class WantItsController < ApplicationController
   end
 
   def create
-    @want_it = WantIt.create(params[:want_it])
+    @want_it = WantIt.new(params[:want_it])
+    @want_it.user ||= current_user
+    @want_it.save
     respond_with @want_it
   end
 end

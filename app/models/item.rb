@@ -3,9 +3,13 @@ class Item < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :tags, :uniq => true
 
+  delegate :display_name, :to => :user, :prefix => true
+
   attr_accessible :user_id, :user, :title, :description, :expires_in, :tag_list
 
   attr_accessor :expires_in, :tag_list
+
+  validates_presence_of :title, :description, :user
 
   before_save :convert_expires_in_to_expires_on, :convert_tag_list_to_tags
 

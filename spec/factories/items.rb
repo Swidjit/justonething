@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :item do
     title 'Important Item'
     description 'This item is very important'
+    user { |a| a.association(:user) }
   end
 
   factory :want_it, :parent => :item, :class => 'want_it' do

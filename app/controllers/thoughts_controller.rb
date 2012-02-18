@@ -10,7 +10,9 @@ class ThoughtsController < ApplicationController
   end
 
   def create
-    @thought = Thought.create(params[:thought])
+    @thought = Thought.new(params[:thought])
+    @thought.user ||= current_user
+    @thought.save
     respond_with @thought
   end
 end

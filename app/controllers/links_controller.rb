@@ -10,7 +10,9 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = Link.create(params[:link])
+    @link = Link.new(params[:link])
+    @link.user ||= current_user
+    @link.save
     respond_with @link
   end
 end
