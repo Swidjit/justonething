@@ -4,3 +4,6 @@
 %li
   Description:
   = item.description
+%li
+  Tagged as:
+  = item.tags.collect(&:name).sort.join(', ')
