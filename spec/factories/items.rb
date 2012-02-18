@@ -8,6 +8,13 @@ FactoryGirl.define do
   factory :want_it, :parent => :item, :class => 'want_it' do
   end
 
+  factory :event, :parent => :item, :class => 'event' do
+    cost '3 Sheep'
+    location 'Stewart Park'
+    start_time '2012-12-21 07:00 am'
+    end_time '2012-12-21 07:00 pm'
+  end
+
   factory :have_it, :parent => :item, :class => 'have_it' do
     cost '3 Sheep'
     condition 'Rough'
