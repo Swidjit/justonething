@@ -2,7 +2,7 @@ class HaveItsController < ApplicationController
   respond_to :html
 
   def show
-    @have_it = HaveIt.find(params[:id])
+    @have_it = HaveItDecorator.find(params[:id])
   end
 
   def new
