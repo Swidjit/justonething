@@ -2,7 +2,7 @@ Swidjit::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations",
       :omniauth_callbacks => "omniauth_callbacks" }
 
-  resources :want_its, :have_its
+  resources :want_its, :have_its, :thoughts
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

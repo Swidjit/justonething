@@ -1,0 +1,2 @@
+class Thought < Item
+end
