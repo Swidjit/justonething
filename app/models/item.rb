@@ -6,4 +6,13 @@ class Item < ActiveRecord::Base
 
   attr_accessor :expires_in
 
+  before_save :convert_expires_in_to_expires_on
+
+  private
+  def convert_expires_in_to_expires_on
+    if expires_in.present? && expires_in.to_i > 0
+      self.expires_on = expires_in.to_i.days.from_now
+    end
+  end
+
 end
