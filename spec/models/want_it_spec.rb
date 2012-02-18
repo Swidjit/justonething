@@ -26,6 +26,8 @@ describe WantIt do
 
   it { should belong_to :user }
 
+  it { should have_and_belong_to_many :tags }
+
   it 'should convert expires in to an expiration date' do
     subject = Factory.build(:item)
     subject.expires_in = '5'
