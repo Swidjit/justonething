@@ -1,7 +1,2 @@
 %ul
-  %li
-    Title:
-    = @want_it.title
-  %li
-    Description:
-    = @want_it.description
+  = render :partial => 'items/show', :locals => { :item => @want_it }
