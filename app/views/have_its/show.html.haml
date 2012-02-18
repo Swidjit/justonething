@@ -1,0 +1,8 @@
+%ul
+  = render :partial => 'items/show', :locals => { :item => @have_it }
+  %li
+    Cost:
+    = @have_it.cost
+  %li
+    Condition:
+    = @have_it.condition
