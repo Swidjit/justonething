@@ -11,4 +11,11 @@ FactoryGirl.define do
     cost '3 Sheep'
     condition 'Rough'
   end
+
+  factory :link, :parent => :item, :class => 'link' do
+    link 'http://example.com'
+  end
+
+  factory :thought, :parent => :item, :class => 'thought' do
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120218161903) do
+ActiveRecord::Schema.define(:version => 20120218180233) do
 
   create_table "items", :force => true do |t|
     t.string   "title",       :null => false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20120218161903) do
     t.string   "type"
     t.string   "cost"
     t.string   "condition"
+    t.string   "link"
   end
 
   create_table "items_tags", :id => false, :force => true do |t|
