@@ -10,6 +10,7 @@ class Item < ActiveRecord::Base
   attr_accessor :expires_in, :tag_list
 
   validates_presence_of :title, :description, :user
+  validates_presence_of :expires_in, :on => :create
 
   before_save :convert_expires_in_to_expires_on, :convert_tag_list_to_tags
 
