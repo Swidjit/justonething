@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   respond_to :html
+  authorize_resource :only => :destroy
 
   def show
     @event = EventDecorator.find(params[:id])
@@ -16,5 +17,16 @@ class EventsController < ApplicationController
     @event.user ||= current_user
     @event.save
     respond_with @event
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    @event.destroy
+    flash[:notice] = "Event successfully deleted."
+    if request.referer == event_url(params[:id])
+      redirect_to root_path
+    else
+      redirect_to :back
+    end
   end
 end

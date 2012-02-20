@@ -1,5 +1,6 @@
 class WantItsController < ApplicationController
   respond_to :html
+  authorize_resource :only => :destroy
 
   def show
     @want_it = WantItDecorator.find(params[:id])
@@ -14,5 +15,16 @@ class WantItsController < ApplicationController
     @want_it.user ||= current_user
     @want_it.save
     respond_with @want_it
+  end
+
+  def destroy
+    @want_it = WantIt.find(params[:id])
+    @want_it.destroy
+    flash[:notice] = "Want It successfully deleted."
+    if request.referer == want_it_url(params[:id])
+      redirect_to root_path
+    else
+      redirect_to :back
+    end
   end
 end
