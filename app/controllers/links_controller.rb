@@ -1,19 +1,27 @@
 class LinksController < ApplicationController
   respond_to :html
-  authorize_resource :only => :destroy
+  authorize_resource :only => [:destroy, :edit, :update]
+  before_filter :load_decorated_resource, :only => [:show,:edit,:update]
 
   def show
-    @link = LinkDecorator.find(params[:id])
   end
 
   def new
-    @link = Link.new
+    @link = LinkDecorator.new Link.new
   end
 
   def create
     @link = Link.new(params[:link])
     @link.user ||= current_user
     @link.save
+    respond_with @link
+  end
+
+  def edit
+  end
+
+  def update
+    @link.update_attributes(params[:link])
     respond_with @link
   end
 
@@ -26,5 +34,10 @@ class LinksController < ApplicationController
     else
       redirect_to :back
     end
+  end
+
+  private
+  def load_decorated_resource
+    @link = LinkDecorator.find(params[:id])
   end
 end

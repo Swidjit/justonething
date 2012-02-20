@@ -1,19 +1,27 @@
 class ThoughtsController < ApplicationController
   respond_to :html
-  authorize_resource :only => :destroy
+  authorize_resource :only => [:destroy, :edit, :update]
+  before_filter :load_decorated_resource, :only => [:show,:edit,:update]
 
   def show
-    @thought = ThoughtDecorator.find(params[:id])
   end
 
   def new
-    @thought = Thought.new
+    @thought = ThoughtDecorator.new Thought.new
   end
 
   def create
     @thought = Thought.new(params[:thought])
     @thought.user ||= current_user
     @thought.save
+    respond_with @thought
+  end
+
+  def edit
+  end
+
+  def update
+    @thought.update_attributes(params[:thought])
     respond_with @thought
   end
 
@@ -26,5 +34,10 @@ class ThoughtsController < ApplicationController
     else
       redirect_to :back
     end
+  end
+
+  private
+  def load_decorated_resource
+    @thought = ThoughtDecorator.find(params[:id])
   end
 end

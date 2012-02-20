@@ -1,19 +1,27 @@
 class WantItsController < ApplicationController
   respond_to :html
-  authorize_resource :only => :destroy
+  authorize_resource :only => [:destroy,:edit,:update]
+  before_filter :load_decorated_resource, :only => [:show,:edit,:update]
 
   def show
-    @want_it = WantItDecorator.find(params[:id])
   end
 
   def new
-    @want_it = WantIt.new
+    @want_it = WantItDecorator.new WantIt.new
   end
 
   def create
     @want_it = WantIt.new(params[:want_it])
     @want_it.user ||= current_user
     @want_it.save
+    respond_with @want_it
+  end
+
+  def edit
+  end
+
+  def update
+    @want_it.update_attributes(params[:want_it])
     respond_with @want_it
   end
 
@@ -26,5 +34,10 @@ class WantItsController < ApplicationController
     else
       redirect_to :back
     end
+  end
+
+  private
+  def load_decorated_resource
+    @want_it = WantItDecorator.find(params[:id])
   end
 end

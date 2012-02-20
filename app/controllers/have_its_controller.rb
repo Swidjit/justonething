@@ -1,19 +1,27 @@
 class HaveItsController < ApplicationController
   respond_to :html
-  authorize_resource :only => :destroy
+  authorize_resource :only => [:destroy, :edit, :update]
+  before_filter :load_decorated_resource, :only => [:show,:edit,:update]
 
   def show
-    @have_it = HaveItDecorator.find(params[:id])
   end
 
   def new
-    @have_it = HaveIt.new
+    @have_it = HaveItDecorator.new HaveIt.new
   end
 
   def create
     @have_it = HaveIt.new(params[:have_it])
     @have_it.user ||= current_user
     @have_it.save
+    respond_with @have_it
+  end
+
+  def edit
+  end
+
+  def update
+    @have_it.update_attributes(params[:have_it])
     respond_with @have_it
   end
 
@@ -26,5 +34,10 @@ class HaveItsController < ApplicationController
     else
       redirect_to :back
     end
+  end
+
+  private
+  def load_decorated_resource
+    @have_it = HaveItDecorator.find(params[:id])
   end
 end
