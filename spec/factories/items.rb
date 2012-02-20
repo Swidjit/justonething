@@ -3,6 +3,7 @@ FactoryGirl.define do
     title 'Important Item'
     description 'This item is very important'
     user { |a| a.association(:user) }
+    expires_in 0
   end
 
   factory :want_it, :parent => :item, :class => 'want_it' do
