@@ -3,10 +3,10 @@ step "I visit the Home Page" do
 end
 
 step "I am logged in" do
-  user = Factory(:user, :password => 'fakepass', :password_confirmation => 'fakepass')
+  @current_user = Factory(:user, :password => 'fakepass', :password_confirmation => 'fakepass')
   visit new_user_session_path
   within '#login_form' do
-    fill_in 'user_email', :with => user.email
+    fill_in 'user_email', :with => @current_user.email
     fill_in 'user_password', :with => 'fakepass'
     click_button 'Sign in'
   end
