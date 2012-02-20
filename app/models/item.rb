@@ -16,9 +16,8 @@ class Item < ActiveRecord::Base
 
   private
   def convert_expires_in_to_expires_on
-    if expires_in.present? && expires_in.to_i > 0
-      self.expires_on = expires_in.to_i.days.from_now.to_date
-    end
+    self.expires_on = expires_in.to_i.days.from_now.to_date if expires_in.present? && expires_in.to_i > 0
+    self.expires_on = nil if expires_in.present? && expires_in.to_i == 0
   end
 
   def convert_tag_list_to_tags
