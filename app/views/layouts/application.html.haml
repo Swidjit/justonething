@@ -14,6 +14,7 @@
     %p.alert= alert
     - if signed_in?
       = link_to "Log out", destroy_user_session_url, :method => 'delete'
+      = link_to "profile", user_path(current_user.id)
       = link_to 'have-it', new_have_it_path, :id => 'post_have_it'
       = link_to 'want-it', new_want_it_path, :id => 'post_want_it'
       = link_to 'thoughts', new_thought_path, :id => 'post_thought'
