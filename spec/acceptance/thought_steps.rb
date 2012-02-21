@@ -1,5 +1,5 @@
-step 'I click the thought to Post a Thought' do
-  click_thought 'post_thought'
+step 'I click the link to Post a Thought' do
+  click_link 'post_thought'
 end
 
 step 'the Thought should be posted' do

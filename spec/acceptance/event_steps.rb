@@ -1,5 +1,5 @@
-step 'I click the event to Post a Event' do
-  click_event 'post_event'
+step 'I click the link to Post an Event' do
+  click_link 'post_event'
 end
 
 step 'the Event should be posted' do
@@ -24,6 +24,6 @@ end
 
 step 'I fill out all required fields of the form for an Event' do
   fill_in 'Location', :with => 'The moon'
-  fill_in 'Start Time', :with => '01/01/1999 12:30 pm'
-  fill_in 'End Time', :with => '01/01/2050 12:30 pm'
+  fill_in 'Start time', :with => '01/01/1999 12:30 pm'
+  fill_in 'End time', :with => '01/01/2050 12:30 pm'
 end

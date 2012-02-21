@@ -36,6 +36,7 @@ Feature: Manage Items
     When I visit the Home Page
     And I click the link to Post a Link
     And I fill out all required fields of the form
+    And I fill out the link field
     And I submit the form
     Then the Link should be posted
     And I click edit
@@ -62,7 +63,7 @@ Feature: Manage Items
   Scenario: User can manage a Event
     Given I am logged in
     When I visit the Home Page
-    And I click the link to Post a Event
+    And I click the link to Post an Event
     And I fill out all required fields of the form
     And I fill out all required fields of the form for an Event
     And I submit the form

@@ -21,3 +21,7 @@ step 'the Link should be updated' do
   @link.reload
   @link.updated_at.should_not == @link.created_at
 end
+
+step 'I fill out the link field' do
+  fill_in 'Link', :with => 'http://example.com'
+end
