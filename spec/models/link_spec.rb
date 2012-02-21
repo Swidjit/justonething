@@ -7,4 +7,6 @@ describe Link do
       subject.link.should == 'http://example.com'
     end
   end
+
+  it_should_behave_like 'an item'
 end

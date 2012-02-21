@@ -12,4 +12,6 @@ describe HaveIt do
       subject.condition.should == 'Fair'
     end
   end
+
+  it_should_behave_like 'an item'
 end

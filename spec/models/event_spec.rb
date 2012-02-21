@@ -23,4 +23,6 @@ describe Event do
       subject.end_time.to_s.should == 3.days.from_now.to_s
     end
   end
+
+  it_should_behave_like 'an item'
 end
