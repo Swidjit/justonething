@@ -11,7 +11,7 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = Link.new(params[:link])
+    @link = LinkDecorator.new Link.new(params[:link])
     @link.user ||= current_user
     @link.save
     respond_with @link
@@ -29,6 +29,7 @@ class LinksController < ApplicationController
     @link = Link.find(params[:id])
     @link.destroy
     flash[:notice] = "Link successfully deleted."
+    # if deleted from show go to root else go back to feed
     if request.referer == link_url(params[:id])
       redirect_to root_path
     else

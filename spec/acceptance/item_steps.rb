@@ -13,9 +13,13 @@ step "I am logged in" do
 end
 
 step 'I fill out all required fields of the form' do
-  fill_in 'want_it_description', :with => 'Basic description'
-  fill_in 'want_it_title', :with => 'Title here'
+  fill_in 'Description', :with => 'Basic description'
+  fill_in 'Title', :with => 'Title here'
   choose '30 days'
+end
+
+step 'I change the description' do
+  fill_in 'Description', :with => 'New Basic description'
 end
 
 step 'I submit the form' do
