@@ -12,10 +12,6 @@ step "I am logged in" do
   end
 end
 
-step 'I click the link to Post a Want-it' do
-  click_link 'post_want_it'
-end
-
 step 'I fill out all required fields of the form' do
   fill_in 'want_it_description', :with => 'Basic description'
   fill_in 'want_it_title', :with => 'Title here'
@@ -26,7 +22,14 @@ step 'I submit the form' do
   click_button 'Post'
 end
 
-step 'the Want-it should be posted' do
-  # TODO: Make this reflect how we want interface to act when we find out what that is
-  WantIt.count.should == 1
+step 'I click edit' do
+  click_link 'Edit'
+end
+
+step 'I click Update' do
+  click_button 'Update'
+end
+
+step 'I click delete' do
+  click_link 'Delete'
 end
