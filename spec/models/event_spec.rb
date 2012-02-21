@@ -13,8 +13,9 @@ describe Event do
     end
 
     it "a start time" do
-      subject.start_time = 2.days.from_now
-      subject.start_time.to_s.should == 2.days.from_now.to_s
+      start_time = 2.days.from_now
+      subject.start_time = start_time
+      subject.start_time.to_s.should == start_time.to_s
     end
 
     it "an end time" do
