@@ -29,7 +29,7 @@ group :development, :test do
   gem 'heroku'
   gem 'factory_girl_rails', '~> 1.2'
   gem 'rspec-rails'
-  gem 'capybara-webkit', '~> 0.9'
+  gem 'capybara-webkit', '0.9.0'
   gem 'guard'
   gem 'turnip'
   gem 'spork'
