@@ -228,7 +228,7 @@ PLATFORMS
 DEPENDENCIES
   bourbon
   cancan
-  capybara-webkit
+  capybara-webkit (~> 0.9)
   coffee-rails (~> 3.2.1)
   compass-susy-plugin (~> 0.9)
   devise
