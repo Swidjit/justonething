@@ -11,7 +11,7 @@ class Item < ActiveRecord::Base
 
   validates_presence_of :title, :description, :user
   validates_presence_of :expires_in, :on => :create
-  validates_inclusion_of :active, :in => [true,false]
+  validates_inclusion_of :active, :public, :in => [true,false]
 
   before_save :convert_expires_in_to_expires_on, :convert_tag_list_to_tags
 
