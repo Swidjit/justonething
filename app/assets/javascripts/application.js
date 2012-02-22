@@ -14,8 +14,7 @@
 //= require_tree .
 
 $(document).ready(function(){
-  $('.date_picker input').datetimepicker({
-    ampm: true
-  });
+  $('.datepicker').datepicker();
+  $('.timepicker').timepicker({showPeriod: true});
   $("#ui-datepicker-div").hide();
 });

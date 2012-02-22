@@ -5,16 +5,32 @@ class EventDecorator < ItemDecorator
     event.cost || 'Free'
   end
 
-  def start_time
-    event.start_time.strftime(time_format) if event.start_time.present?
+  def start_datetime(format = 'datetime')
+    if params[:event].present? && params[:event]["start_#{format}".to_sym].present?
+      params[:event]["start_#{format}".to_sym]
+    elsif event.start_datetime.present?
+      event.start_datetime.strftime(send("#{format}_format"))
+    end
   end
 
-  def end_time
-    event.end_time.strftime(time_format) if event.end_time.present?
+  def end_datetime(format = 'datetime')
+    if params[:event].present? && params[:event]["end_#{format}".to_sym].present?
+      params[:event]["end_#{format}".to_sym]
+    elsif event.end_datetime.present?
+      event.end_datetime.strftime(send("#{format}_format"))
+    end
   end
 
   private
+  def date_format
+    '%m/%d/%Y'
+  end
+
+  def datetime_format
+    date_format + ' ' + time_format
+  end
+
   def time_format
-    '%m/%d/%Y %l:%M %P'
+    '%l:%M %P'
   end
 end
