@@ -51,7 +51,6 @@ class ItemsController < ApplicationController
     else
       @item = item_decorator.new item_class.new
     end
-    Rails.logger.debug @item
   end
 
   def item_class
