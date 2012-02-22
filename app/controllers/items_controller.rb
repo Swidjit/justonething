@@ -36,6 +36,16 @@ class ItemsController < ApplicationController
     end
   end
 
+  def toggle_active
+    if @item.active
+      @item.active = false
+    else
+      @item.active = true
+    end
+    @item.save
+    redirect_to :back
+  end
+
   private
   def authorize_create_item
     authorize! :create, Item

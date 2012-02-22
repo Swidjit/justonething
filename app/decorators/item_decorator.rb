@@ -22,7 +22,9 @@ class ItemDecorator < ApplicationDecorator
     if h.can? :manage, item
       edit_link = link_to('Edit', send("edit_#{item.class.to_s.underscore}_path",item))
       delete_link = link_to('Delete', item, :confirm => 'Are you sure?', :method => :delete)
-      content_tag :li, "#{edit_link} #{delete_link}".html_safe
+      toggle_active_text = item.active ? 'Deactivate' : 'Activate'
+      toggle_active_link = link_to( toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
+      content_tag :li, "#{edit_link} #{delete_link} #{toggle_active_link}".html_safe
     end
   end
 

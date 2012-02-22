@@ -15,7 +15,8 @@ class Item < ActiveRecord::Base
 
   before_save :convert_expires_in_to_expires_on, :convert_tag_list_to_tags
 
-  default_scope :order => "#{self.table_name}.created_at DESC"
+  default_scope :conditions => "#{self.table_name}.active = true",
+                :order => "#{self.table_name}.created_at DESC"
 
   scope :active, :conditions => "#{self.table_name}.active = true"
 

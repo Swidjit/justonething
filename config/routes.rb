@@ -3,7 +3,11 @@ Swidjit::Application.routes.draw do
       :omniauth_callbacks => "omniauth_callbacks" }
 
   resources :users, :only => [:show]
-  resources :want_its, :have_its, :thoughts, :links, :events
+  resources :want_its, :have_its, :thoughts, :links, :events do
+    member do
+      get :toggle_active
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
