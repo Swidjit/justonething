@@ -1,9 +1,5 @@
 module ApplicationHelper
 
-  def authorized_items(model, item_type='items')
-    model.send(item_type).accessible_by(current_ability)
-  end
-
   def error_messages_for(resource)
     return "" if resource.errors.empty?
 
