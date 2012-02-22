@@ -1,14 +1,14 @@
 %ul
-  = render :partial => 'items/show', :locals => { :item => @event }
+  = render :partial => 'items/show', :locals => { :item => @item }
   %li
     Cost:
-    = @event.cost
+    = @item.cost
   %li
     Location
-    = @event.location
+    = @item.location
   %li
     Starts At:
-    = @event.start_time
+    = @item.start_time
   %li
     Ends At:
-    = @event.end_time
+    = @item.end_time

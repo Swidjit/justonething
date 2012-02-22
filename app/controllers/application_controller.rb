@@ -7,10 +7,6 @@ class ApplicationController < ActionController::Base
     redirect_to new_user_session_path, :alert => exception.message
   end
 
-  def authorize_create_item
-    authorize! :create, Item
-  end
-
   def set_time_zone
     Time.zone = 'Eastern Time (US & Canada)'
   end
