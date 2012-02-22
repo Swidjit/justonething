@@ -20,4 +20,6 @@
       = link_to 'thoughts', new_thought_path, :id => 'post_thought'
       = link_to 'link', new_link_path, :id => 'post_link'
       = link_to 'event', new_event_path, :id => 'post_event'
+    - else
+      = link_to 'Sign in/Register', new_user_session_path
     = yield
