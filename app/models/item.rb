@@ -5,14 +5,19 @@ class Item < ActiveRecord::Base
 
   delegate :display_name, :to => :user, :prefix => true
 
-  attr_accessible :user_id, :user, :title, :description, :expires_in, :tag_list
+  attr_accessible :user_id, :user, :title, :description, :expires_in, :tag_list, :active
 
   attr_accessor :expires_in, :tag_list
 
   validates_presence_of :title, :description, :user
   validates_presence_of :expires_in, :on => :create
+  validates_inclusion_of :active, :in => [true,false]
 
   before_save :convert_expires_in_to_expires_on, :convert_tag_list_to_tags
+
+  default_scope :order => "#{self.table_name}.created_at DESC"
+
+  scope :active, :conditions => "#{self.table_name}.active = true"
 
   private
   def convert_expires_in_to_expires_on

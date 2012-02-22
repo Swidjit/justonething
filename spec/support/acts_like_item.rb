@@ -27,6 +27,11 @@ shared_examples "an item" do
       subject.tag_list = 'big, hairy, orange'
       subject.tag_list.should == 'big, hairy, orange'
     end
+
+    it 'an active flag' do
+      subject.active = false
+      subject.active.should == false
+    end
   end
 
   it { should belong_to :user }

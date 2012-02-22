@@ -1,4 +1,5 @@
 = f.inputs do
   = f.input :expires_in, :as => :radio, :collection => { '1 day' => 1, '5 days' => 5, '15 days' => 15, '30 days' => 30, 'never' => 0 }
+  = f.input :active
 = item.expires_on
 = f.submit 'Update'
