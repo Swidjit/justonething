@@ -2,4 +2,4 @@
   %h1= @user.display_name
 %div
   %ul.feed
-    = render :partial => 'items/item', :collection => ItemDecorator.decorate(@user.items)
+    = render :partial => 'items/item', :collection => ItemDecorator.decorate(authorized_items(@user))

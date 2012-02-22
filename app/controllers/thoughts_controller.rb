@@ -2,6 +2,7 @@ class ThoughtsController < ApplicationController
   respond_to :html
   authorize_resource :only => [:destroy, :edit, :update]
   before_filter :load_decorated_resource, :only => [:show,:edit,:update]
+  before_filter :authorize_create_item, :only => [:create,:new]
 
   def show
   end
@@ -11,7 +12,7 @@ class ThoughtsController < ApplicationController
   end
 
   def create
-    @thought = Thought.new(params[:thought])
+    @thought = ThoughtDecorator.new Thought.new(params[:thought])
     @thought.user ||= current_user
     @thought.save
     respond_with @thought

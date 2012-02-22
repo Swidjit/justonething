@@ -2,6 +2,7 @@ class HaveItsController < ApplicationController
   respond_to :html
   authorize_resource :only => [:destroy, :edit, :update]
   before_filter :load_decorated_resource, :only => [:show,:edit,:update]
+  before_filter :authorize_create_item, :only => [:create,:new]
 
   def show
   end
@@ -11,7 +12,7 @@ class HaveItsController < ApplicationController
   end
 
   def create
-    @have_it = HaveIt.new(params[:have_it])
+    @have_it = HaveItDecorator.new HaveIt.new(params[:have_it])
     @have_it.user ||= current_user
     @have_it.save
     respond_with @have_it

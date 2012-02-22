@@ -3,6 +3,7 @@ class EventsController < ApplicationController
   authorize_resource :only => [:destroy, :edit, :update]
   before_filter :load_decorated_resource, :only => [:show,:edit,:update]
   before_filter :convert_times_to_db_format, :only => [:create,:update]
+  before_filter :authorize_create_item, :only => [:create,:new]
 
   def show
   end
@@ -12,7 +13,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(params[:event])
+    @event = EventDecorator.new Event.new(params[:event])
     @event.user ||= current_user
     @event.save
     respond_with @event

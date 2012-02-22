@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
 
   delegate :display_name, :to => :user, :prefix => true
 
-  attr_accessible :user_id, :user, :title, :description, :expires_in, :tag_list, :active
+  attr_accessible :user_id, :user, :title, :description, :expires_in, :tag_list, :active, :public
 
   attr_accessor :expires_in, :tag_list
 
