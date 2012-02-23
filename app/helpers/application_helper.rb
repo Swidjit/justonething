@@ -17,4 +17,17 @@ module ApplicationHelper
 
     html.html_safe
   end
+
+  def tabbed_item_types(param_to_overwrite)
+    tabs = []
+    %w( All WantIts HaveIts Events Thoughts Links ).each do |item_type|
+      if params[:action] == item_type.underscore
+        tabs << item_type.titleize
+      else
+        tabs << link_to(item_type.titleize, params.merge({param_to_overwrite.to_sym => item_type.underscore}))
+      end
+    end
+
+    tabs.join(' ').html_safe
+  end
 end
