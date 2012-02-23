@@ -15,7 +15,7 @@ end
 step 'I fill out all required fields of the form' do
   fill_in 'Description', :with => 'Basic description'
   fill_in 'Title', :with => 'Title here'
-  choose '30 days'
+  choose 'Never'
 end
 
 step 'I change the description' do

@@ -10,7 +10,7 @@ class ItemDecorator < ApplicationDecorator
     end
   end
 
-  def expires_on
+  def expires_on_string
     if item.expires_on.present?
       content_tag :div, "Currently Expires on: #{item.expires_on.strftime('%m/%d/%Y')}"
     else

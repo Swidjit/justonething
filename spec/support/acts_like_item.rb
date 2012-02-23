@@ -12,9 +12,9 @@ shared_examples "an item" do
       subject.title.should == 'New title'
     end
 
-    it 'the amount of time it should last' do
-      subject.expires_in = '1 day'
-      subject.expires_in.should == '1 day'
+    it 'a has expiration flag' do
+      subject.has_expiration = 1
+      subject.has_expiration.should == 1
     end
 
     it 'an expiration date' do
@@ -42,13 +42,6 @@ shared_examples "an item" do
   it { should belong_to :user }
 
   it { should have_and_belong_to_many :tags }
-
-  it 'should convert expires in to an expiration date' do
-    subject = Factory.build(:want_it)
-    subject.expires_in = '5'
-    subject.save
-    subject.expires_on.should == 5.days.from_now.to_date
-  end
 
   it 'should convert tag_list to tags' do
     subject = Factory.build(:want_it)
