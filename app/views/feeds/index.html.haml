@@ -1,0 +1,9 @@
+%h3
+  Feed for
+  = @feed_title
+
+- if @feed_items.count == 0
+  %p No items found.
+- else
+  %ul
+    = render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items)
