@@ -1,9 +1,15 @@
 class FeedsController < ApplicationController
 
-  def tag
-    @tag = Tag.find_by_name(params[:tag_name])
-    @feed_items = @tag.present? ? @tag.items.accessible_by(current_ability) : []
-    @feed_title = "Tag: #{params[:tag_name]}"
+  def all
+    if params[:tag_name].present?
+      @tag = Tag.find_by_name(params[:tag_name])
+      @feed_items = @tag.items.accessible_by(current_ability)
+      @feed_title = "All Items with Tag: #{params[:tag_name]}"
+    else
+      @feed_items = Item.accessible_by(current_ability)
+      @feed_title = "All Items"
+    end
+    @feed_items = @feed_items
     render :index
   end
 
