@@ -42,7 +42,7 @@ class ItemsController < ApplicationController
     else
       @item.active = true
     end
-    @item.save
+    @item.save(:validate => false)
     redirect_to :back
   end
 
