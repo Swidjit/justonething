@@ -7,6 +7,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     can :manage, ITEMS << User, :user_id => user.id
     can :read, ITEMS, :public => true
+    can :read, ITEMS if user.id.present?
     can :read, User
   end
 end
