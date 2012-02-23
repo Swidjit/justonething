@@ -18,6 +18,10 @@ class ItemDecorator < ApplicationDecorator
     end
   end
 
+  def linkified_tags
+    item.tags.collect{|tag| link_to( tag.name, {:controller => 'feeds', :action => :all, :tag_name => tag.name }) }.join(', ')
+  end
+
   def manage_links
     if h.can? :manage, item
       edit_link = link_to('Edit', send("edit_#{item.class.to_s.underscore}_path",item))
@@ -30,7 +34,7 @@ class ItemDecorator < ApplicationDecorator
 
   def tagged_as
     if item.tags.any?
-      content_tag :li, "Tagged as: #{tag_list}"
+      content_tag :li, "Tagged as: #{linkified_tags}".html_safe
     end
   end
 
