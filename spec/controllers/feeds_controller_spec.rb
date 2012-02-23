@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe FeedsController do
-  describe "GET tag" do
+  describe "GET all" do
     it 'should only load tagged item' do
       user = Factory(:user)
-      item = Factory(:thought, :user => user, :tag_list => 'ice cream')
+      item = Factory(:thought, :user => user, :tag_list => 'icecream')
       sign_in user
-      get :tag, :tag_name => 'ice cream'
+      get :all, :tag_name => 'icecream'
       assigns(:feed_items).should == [item]
-      get :tag, :tag_name => 'elephant'
+      get :all, :tag_name => 'elephant'
       assigns(:feed_items).should == []
     end
   end
