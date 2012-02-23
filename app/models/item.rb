@@ -12,8 +12,9 @@ class Item < ActiveRecord::Base
   validates_presence_of :title, :description, :user
   validates_presence_of :expires_in, :on => :create
   validates_inclusion_of :active, :public, :in => [true,false]
+  validates_associated :tags, :message => 'cannot contain forward slashes'
 
-  before_save :convert_expires_in_to_expires_on, :convert_tag_list_to_tags
+  before_validation :convert_expires_in_to_expires_on, :convert_tag_list_to_tags
 
   default_scope :order => "#{self.table_name}.created_at DESC"
 
@@ -26,7 +27,8 @@ class Item < ActiveRecord::Base
   end
 
   def convert_tag_list_to_tags
-    self.tags = tag_list.present? ? tag_list.split(',').map{|t| Tag.find_or_create_by_name(t.strip)} : []
+    self.tags = []
+    tag_list.split(',').map{|t| self.tags << Tag.find_or_initialize_by_name(t.strip)} if tag_list.present?
   end
 
 end
