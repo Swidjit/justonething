@@ -9,7 +9,8 @@ Swidjit::Application.routes.draw do
     end
   end
 
-  match 'feeds/:action/:tag_name' => 'feeds'
+  match 'feeds/:action(/:tag_name)' => 'feeds', :action => /((?!tag).)*/
+  match 'feeds/tag/:tag_name' => 'feeds#tag'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

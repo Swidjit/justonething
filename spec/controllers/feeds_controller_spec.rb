@@ -12,4 +12,17 @@ describe FeedsController do
       assigns(:feed_items).should == []
     end
   end
+
+  describe 'GET specific item type' do
+    it 'should only load items of the correct type' do
+      user = Factory(:user)
+      thought = Factory(:thought, :user => user)
+      want_it = Factory(:want_it, :user => user)
+      sign_in user
+      get :thoughts
+      assigns(:feed_items).should == [thought]
+      get :want_its
+      assigns(:feed_items).should == [want_it]
+    end
+  end
 end
