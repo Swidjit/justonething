@@ -8,7 +8,7 @@ module SharedTagDecorations
         if model.send(attr.to_sym).present?
           new_text = model.send(attr.to_sym).gsub(/#([^\s]+)/) do |hash_tag|
             tag_name = hash_tag[1..-1]
-            link_to( "##{tag_name}", all_feeds_path(:tag_name => tag_name) )
+            link_to( "##{tag_name}", all_feeds_path(:tag_name => tag_name.downcase) )
           end
           sanitize new_text, :tags => 'a'
         end
