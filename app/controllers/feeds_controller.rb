@@ -21,7 +21,11 @@ class FeedsController < ApplicationController
     define_method item_type.underscore.pluralize do
       if params[:tag_name].present?
         @tag = Tag.find_by_name(params[:tag_name])
-        @feed_items = @tag.items.active.where({:type => item_type}).accessible_by(current_ability)
+        if @tag.present?
+          @feed_items = @tag.items.active.where({:type => item_type}).accessible_by(current_ability)
+        else
+          @feed_items = []
+        end
         @feed_title = "#{item_type.titleize.pluralize} with Tag: #{params[:tag_name]}"
       else
         @feed_items = item_type.constantize.active.accessible_by(current_ability)
