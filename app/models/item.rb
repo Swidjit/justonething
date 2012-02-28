@@ -21,6 +21,7 @@ class Item < ActiveRecord::Base
   default_scope :order => "#{self.table_name}.created_at DESC"
 
   scope :active, :conditions => "#{self.table_name}.active = true"
+  scope :deactivated, :conditions => "#{self.table_name}.active = false"
 
   def set_defaults
     self.has_expiration = self.expires_on.present? ? '1' : '0'

@@ -14,6 +14,7 @@ Swidjit::Application.routes.draw do
       %w( all have_its want_its events thoughts links ).each do |act|
         get "#{act.to_sym}(/:tag_name)", :action => act.to_sym, :as => "#{act}"
       end
+      get :drafts
     end
   end
 

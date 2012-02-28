@@ -36,6 +36,10 @@ class FeedsController < ApplicationController
     end
   end
 
+  def drafts
+    @feed_items  = current_user.items.deactivated
+  end
+
   # Per discussion between Isaiah and Sonny: single action for each item type
   # Eventually List action
   # Index action with query string that combines all types of filtering
