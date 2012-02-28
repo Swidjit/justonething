@@ -1,6 +1,10 @@
+require("#{Rails.root}/lib/shared_tag_decorations.rb")
 class ItemDecorator < ApplicationDecorator
   decorates :item
   include Draper::LazyHelpers
+
+  extend SharedTagDecorations
+  linkifies_tags_in :description
 
   def bottom_of_form(f)
     if item.persisted?

@@ -9,7 +9,13 @@ Swidjit::Application.routes.draw do
     end
   end
 
-  match 'feeds/:action(/:tag_name)' => 'feeds'
+  resource :feeds, :only => [] do
+    member do
+      %w( all have_its want_its events thoughts links ).each do |act|
+        get "#{act.to_sym}(/:tag_name)", :action => act.to_sym, :as => "#{act}"
+      end
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
