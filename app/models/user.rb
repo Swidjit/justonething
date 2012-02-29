@@ -6,10 +6,11 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :is_thirteen, :last_name, :first_name,
-      :display_name
+      :display_name, :url
 
   validate :is_thirteen?, :on => :create
-  validates_presence_of :first_name, :last_name, :display_name
+  validates_presence_of :first_name, :last_name, :display_name, :url
+  validates_uniqueness_of :url
 
   attr_accessor :is_thirteen
 
