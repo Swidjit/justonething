@@ -9,8 +9,12 @@ class User < ActiveRecord::Base
       :display_name, :url
 
   validate :is_thirteen?, :on => :create
-  validates_presence_of :first_name, :last_name, :display_name, :url
-  validates_uniqueness_of :url
+  validates_presence_of :first_name, :last_name, :display_name
+  validates :url, :uniqueness => true, :presence => true, :format => { :with => /[a-z0-9]+/ }
+
+  before_validation :set_default_url, :on => :create
+  before_validation :check_updated_url, :on => :update
+  before_update :set_user_set_url
 
   attr_accessor :is_thirteen
 
@@ -45,7 +49,36 @@ class User < ActiveRecord::Base
   end
 
   private
+  def check_updated_url
+    if self.url_changed? && self.user_set_url
+      self.url = self.url_was
+    end
+  end
+
   def is_thirteen?
     errors.add(:base,'You must be at least 13 years of age to register') if is_thirteen.blank? || is_thirteen.to_i != 1
+  end
+
+  def set_default_url
+    if self.url.blank? && self.display_name.present?
+      base_url = self.display_name.downcase.gsub(/[^a-z0-9]/,'')
+      similarly_named_users = User.where("url LIKE ?", "#{base_url}%").order("url")
+      taken_names = similarly_named_users.collect(&:url)
+
+      new_url = base_url
+      added_number = 0
+
+      while taken_names.include? new_url do
+        added_number += 1
+        new_url = "#{base_url}#{added_number}"
+      end
+      self.url = new_url
+    end
+  end
+
+  def set_user_set_url
+    if self.url_changed?
+      self.user_set_url = true
+    end
   end
 end

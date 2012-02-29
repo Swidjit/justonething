@@ -1,0 +1,12 @@
+%h3 Edit Profile
+
+= form_for @user do |f|
+  %div
+    = f.label :url
+    %br
+    - if @user.user_set_url
+      = @user.url
+    - else
+      = f.text_field :url
+  %div
+    = f.submit "Update Profile"

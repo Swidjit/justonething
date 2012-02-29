@@ -1,7 +1,7 @@
 = item.manage_links
 %li
   Poster:
-  = link_to item.user_display_name, item.user
+  = link_to item.user_display_name, profile_path(item.user.url)
 %li
   Title:
   = item.title
