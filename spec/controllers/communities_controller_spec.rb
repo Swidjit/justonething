@@ -21,11 +21,33 @@ describe CommunitiesController do
       Community.count.should == 1
       Community.first.user.should == user
     end
+  end
 
+  describe 'view' do
     it 'should GET show successfully' do
       c = Factory(:community)
       get :show, :id => c.id
       response.should be_success
+    end
+  end
+
+  describe 'joining' do
+    it 'should successfully add a user to the community' do
+      user = Factory(:user)
+      com = Factory(:community)
+      sign_in user
+      post :join, :id => com.id
+      response.should be_redirect
+      com.reload
+      com.users.should include(user)
+    end
+
+    it 'should not add a user that is not logged in' do
+      com = Factory(:community)
+      post :join, :id => com.id
+      response.should be_redirect
+      com.reload
+      com.users.count.should == 1 #The creator
     end
   end
 end

@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   attr_accessor :is_thirteen
 
   has_many :items
+  has_and_belongs_to_many :communities, :uniq => true
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token.extra.raw_info

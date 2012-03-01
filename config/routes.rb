@@ -17,7 +17,11 @@ Swidjit::Application.routes.draw do
     end
   end
 
-  resources :communities, :only => [:new,:create,:show]
+  resources :communities, :only => [:new,:create,:show] do
+    member do
+      post :join
+    end
+  end
 
   resources :users, :only => [:edit, :update]
 
