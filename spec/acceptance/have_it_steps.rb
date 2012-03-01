@@ -21,3 +21,7 @@ step 'the Have It should be updated' do
   @have_it.reload
   @have_it.updated_at.should_not == @have_it.created_at
 end
+
+step 'I fill out all required fields of the form for a Have It' do
+  select 'New'
+end

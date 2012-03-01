@@ -22,6 +22,7 @@ Feature: Manage Items
     When I visit the Home Page
     And I click the link to Post a Have It
     And I fill out all required fields of the form
+    And I fill out all required fields of the form for a Have It
     And I submit the form
     Then the Have It should be posted
     And I click edit
