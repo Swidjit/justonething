@@ -67,7 +67,9 @@ class ItemsController < ApplicationController
   end
 
   def format_expires_on
-    @item.expires_on = Date.strptime(params[item_class.to_s.underscore.to_sym][:expires_on],'%m/%d/%Y')
+    if @item.has_expiration == '1' && @item.expires_on.present?
+      @item.expires_on = Date.strptime(params[item_class.to_s.underscore.to_sym][:expires_on],'%m/%d/%Y')
+    end
   end
 
   def item_class
