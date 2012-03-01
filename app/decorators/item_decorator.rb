@@ -10,7 +10,7 @@ class ItemDecorator < ApplicationDecorator
     if item.persisted?
       render :partial => 'items/bottom_of_edit_form', :locals => { :f => f, :item => self }
     else
-      render :partial => 'items/bottom_of_new_form', :locals => { :f => f }
+      render :partial => 'items/bottom_of_new_form', :locals => { :f => f, :item => self }
     end
   end
 
@@ -20,6 +20,17 @@ class ItemDecorator < ApplicationDecorator
     else
       content_tag :div, "Not Currently set to Expire"
     end
+  end
+
+  def expires_on
+    if item.expires_on.present?
+      item.expires_on.strftime('%m/%d/%Y')
+    end
+  end
+
+  def expires_on_fields(f)
+    expires_on_input = f.input :expires_on, :as => :string_for_radio, :input_html => {:class => 'datepicker', :value => expires_on}
+    f.input :has_expiration, :as => :radio, :label => 'Expires', :collection => { 'Never' => 0, "#{expires_on_input}".html_safe => 1 }
   end
 
   def linkified_tags

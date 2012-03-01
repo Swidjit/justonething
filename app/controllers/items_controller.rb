@@ -12,6 +12,7 @@ class ItemsController < ApplicationController
 
   def create
     @item.assign_attributes(params[item_class.to_s.underscore.to_sym])
+    format_expires_on
     @item.user ||= current_user
     @item.save
     respond_with @item
@@ -21,7 +22,9 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item.update_attributes(params[item_class.to_s.underscore.to_sym])
+    @item.assign_attributes(params[item_class.to_s.underscore.to_sym])
+    format_expires_on
+    @item.save
     respond_with @item
   end
 
@@ -61,6 +64,10 @@ class ItemsController < ApplicationController
     else
       @item = item_decorator.new item_class.new
     end
+  end
+
+  def format_expires_on
+    @item.expires_on = Date.strptime(params[item_class.to_s.underscore.to_sym][:expires_on],'%m/%d/%Y')
   end
 
   def item_class

@@ -18,11 +18,6 @@ module ApplicationHelper
     html.html_safe
   end
 
-  def expires_on_fields(f)
-    expires_on_input = f.input :expires_on, :as => :string_for_radio, :input_html => {:class => 'datepicker'}
-    f.input :has_expiration, :as => :radio, :label => 'Expires', :collection => { 'Never' => 0, "#{expires_on_input}".html_safe => 1 }
-  end
-
   def tabbed_item_types(param_to_overwrite)
     tabs = []
     %w( All WantIts HaveIts Events Thoughts Links ).each do |item_type|

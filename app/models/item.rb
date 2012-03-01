@@ -24,6 +24,9 @@ class Item < ActiveRecord::Base
   scope :deactivated, :conditions => "#{self.table_name}.active = false"
 
   def set_defaults
+    if !self.persisted?
+      self.expires_on = 10.days.from_now
+    end
     self.has_expiration = self.expires_on.present? ? '1' : '0'
   end
 
