@@ -34,5 +34,8 @@
       = link_to "Thoughts", thoughts_feeds_path
       = link_to "Links", links_feeds_path
       = link_to 'Events', events_feeds_path
+      - if signed_in?
+        %br
+        = link_to 'Create a Community', new_community_path
     #content
       = yield
