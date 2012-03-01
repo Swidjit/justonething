@@ -2,5 +2,5 @@
   = render :partial => 'items/top_of_form', :locals => { :f => f }
   = f.inputs do
     = f.input :cost
-    = f.input :condition
+    = f.input :condition, :as => :select, :collection => HaveIt::CONDITIONS
   = @item.bottom_of_form(f)
