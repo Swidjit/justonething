@@ -23,4 +23,11 @@
       = link_to 'my drafts', drafts_feeds_path
     - else
       = link_to 'Sign in/Register', new_user_session_path
-    = yield
+    #sideNav
+      = link_to "Have Its", have_its_feeds_path
+      = link_to "Want Its", want_its_feeds_path
+      = link_to "Thoughts", thoughts_feeds_path
+      = link_to "Links", links_feeds_path
+      = link_to 'Events', events_feeds_path
+    #content
+      = yield

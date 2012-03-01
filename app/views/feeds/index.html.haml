@@ -2,8 +2,9 @@
   Feed for
   = @feed_title
 
-%div
-  = tabbed_item_types('action')
+- if params[:tag_name].present?
+  %div
+    = tabbed_item_types('action')
 
 - if @feed_items.count == 0
   %p No items found.

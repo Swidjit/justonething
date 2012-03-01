@@ -11,3 +11,11 @@
  *= require_self
  *= require_tree .
 */
+#sideNav {
+  margin-top: 15px;
+  width: 200px;
+}
+
+#sideNav a {
+  display: block;
+}
