@@ -9,3 +9,9 @@
   Description:
   = item.description
 = item.tagged_as
+
+- content_for :head do
+  %meta{:property => "og:title", :content => "Swidjit - #{item.title}"}
+  %meta{:property => "og:url", :content => item.distinct_url}
+  %meta{:property => "og:site_name", :content => "Swidjit"}
+  %meta{:property => "fb:admins", :content => Facebook::APP_ID}

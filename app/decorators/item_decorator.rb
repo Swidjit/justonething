@@ -33,18 +33,24 @@ class ItemDecorator < ApplicationDecorator
     f.input :has_expiration, :as => :radio, :label => 'Expires', :collection => { 'Never' => 0, "#{expires_on_input}".html_safe => 1 }
   end
 
+  def facebook_like_button
+    "<div class='fb-like' data-href='#{distinct_url}' data-send='false' data-layout='button_count' data-width='50' data-show-faces='false'></div>"
+  end
+
   def linkified_tags
     item.tags.collect{|tag| link_to( tag.name, {:controller => 'feeds', :action => :all, :tag_name => tag.name }) }.join(', ')
   end
 
   def manage_links
+    links = []
     if h.can? :manage, item
-      edit_link = link_to('Edit', send("edit_#{item.class.to_s.underscore}_path",item))
-      delete_link = link_to('Delete', item, :confirm => 'Are you sure?', :method => :delete)
+      links << link_to('Edit', send("edit_#{item.class.to_s.underscore}_path",item))
+      links << link_to('Delete', item, :confirm => 'Are you sure?', :method => :delete)
       toggle_active_text = item.active ? 'Deactivate' : 'Activate'
-      toggle_active_link = link_to( toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
-      content_tag :li, "#{edit_link} #{delete_link} #{toggle_active_link}".html_safe
+      links << link_to( toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
     end
+    links << facebook_like_button
+    content_tag :li, links.join(' ').html_safe
   end
 
   def tagged_as
@@ -55,6 +61,10 @@ class ItemDecorator < ApplicationDecorator
 
   def tag_list
     item.tags.collect(&:name).sort.join(', ')
+  end
+
+  def distinct_url
+    send("#{item.class.to_s.underscore}_url",item)
   end
 
 end
