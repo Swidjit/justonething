@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301190409) do
+ActiveRecord::Schema.define(:version => 20120301194011) do
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20120301190409) do
     t.integer "community_id", :null => false
   end
 
+  add_index "communities_users", ["community_id"], :name => "index_communities_users_on_community_id"
   add_index "communities_users", ["user_id", "community_id"], :name => "index_communities_users_on_user_id_and_community_id", :unique => true
 
   create_table "items", :force => true do |t|
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20120301190409) do
   end
 
   add_index "items_tags", ["item_id", "tag_id"], :name => "index_items_tags_on_item_id_and_tag_id", :unique => true
+  add_index "items_tags", ["tag_id"], :name => "index_items_tags_on_tag_id"
 
   create_table "tags", :force => true do |t|
     t.string "name", :null => false
