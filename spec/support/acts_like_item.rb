@@ -49,4 +49,11 @@ shared_examples "an item" do
     subject.save
     subject.tags.count.should == 3
   end
+
+  it 'should find hashtags in description and add them to tags' do
+    subject = Factory.build(:want_it)
+    subject.description = "This is for #you my #dear"
+    subject.save
+    subject.tags.collect(&:name).sort.should == %w( dear you )
+  end
 end
