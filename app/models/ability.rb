@@ -5,10 +5,17 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-    can :manage, User, :id => user.id
-    can :manage, ITEMS, :user_id => user.id
-    can :read, ITEMS, :public => true
-    can :read, ITEMS if user.id.present?
+    if user.persisted?
+      can :manage, User, :id => user.id
+      can :manage, ITEMS, :user_id => user.id
+      can :manage, Community, :user_id => user.id
+      can :create, Community
+      can :read, ITEMS
+    else
+      cannot :create, :all
+      can :read, ITEMS, :public => true
+    end
     can :read, User
+    can :read, Community
   end
 end

@@ -17,6 +17,8 @@ Swidjit::Application.routes.draw do
     end
   end
 
+  resources :communities, :only => [:new,:create,:show]
+
   resources :users, :only => [:edit, :update]
 
   # This needs to stay at the bottom such that a user can't override a preset URL

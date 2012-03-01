@@ -1,0 +1,10 @@
+%ul
+  %li
+    Name:
+    = @community.name
+  %li
+    Creator:
+    = link_to @community.user.display_name, profile_path(@community.user.url)
+  %li
+    Description:
+    = @community.description
