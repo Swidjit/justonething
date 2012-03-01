@@ -50,4 +50,27 @@ describe CommunitiesController do
       com.users.count.should == 1 #The creator
     end
   end
+
+  describe 'leaving' do
+    it 'should successfully remove a user if they are not the creator' do
+      com = Factory(:community)
+      usr = Factory(:user)
+      com.users << usr
+      com.save
+      com.users.count.should == 2
+      sign_in com.user
+      delete :leave, :id => com.id
+      response.should be_redirect
+      com.reload
+      com.users.count.should == 2
+
+      sign_out com.user
+
+      sign_in usr
+      delete :leave, :id => com.id
+      response.should be_redirect
+      com.reload
+      com.users.count.should == 1
+    end
+  end
 end

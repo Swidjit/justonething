@@ -13,6 +13,7 @@ class Ability
       can :read, ITEMS
     else
       cannot :create, :all
+      cannot :join, Community
       can :read, ITEMS, :public => true
     end
     can :read, User
