@@ -34,7 +34,11 @@ class CommunitiesController < ApplicationController
     else
       flash[:notice] = "Failed to join Community"
     end
-    redirect_to :back
+    if request.referer.present?
+      redirect_to :back
+    else
+      redirect_to community_path(@community)
+    end
   end
 
   def leave
@@ -46,7 +50,11 @@ class CommunitiesController < ApplicationController
         flash[:notice] = "Failed to leave Community"
       end
     end
-    redirect_to :back
+    if request.referer.present?
+      redirect_to :back
+    else
+      redirect_to community_path(@community)
+    end
   end
 
 private

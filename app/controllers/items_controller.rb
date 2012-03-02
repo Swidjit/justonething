@@ -49,7 +49,11 @@ class ItemsController < ApplicationController
       @item.active = true
     end
     @item.save(:validate => false)
-    redirect_to :back
+    if request.referer.present?
+      redirect_to :back
+    else
+      redirect_to item_path(@item)
+    end
   end
 
   def duplicate
