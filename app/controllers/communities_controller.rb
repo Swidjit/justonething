@@ -28,7 +28,6 @@ class CommunitiesController < ApplicationController
   end
 
   def leave
-    Rails.logger.debug current_user.inspect
     if @community.users.include?(current_user) && current_user != @community.user
       @community.users.delete(current_user)
       if @community.save
