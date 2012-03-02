@@ -52,6 +52,14 @@ class ItemsController < ApplicationController
     redirect_to :back
   end
 
+  def duplicate
+    item_to_duplicate = item_class.find(params[:id])
+    @item = item_decorator.decorate item_to_duplicate.dup
+    @item.tags = item_to_duplicate.tags
+    @item.set_defaults
+    render :new
+  end
+
   private
   def authorize_create_item
     authorize! :create, Item

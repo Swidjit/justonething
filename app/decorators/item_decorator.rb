@@ -49,6 +49,7 @@ class ItemDecorator < ApplicationDecorator
       toggle_active_text = item.active ? 'Deactivate' : 'Activate'
       links << link_to( toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
     end
+    links << link_to('Duplicate', send("duplicate_#{item.class.to_s.underscore}_path",item))
     links << facebook_like_button
     content_tag :li, links.join(' ').html_safe
   end

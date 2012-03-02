@@ -5,6 +5,7 @@ Swidjit::Application.routes.draw do
   resources :want_its, :have_its, :thoughts, :links, :events, :except => :index do
     member do
       get :toggle_active
+      get :duplicate
     end
   end
 
