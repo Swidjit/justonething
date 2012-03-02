@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     if %w( events have_its want_its links thoughts ).include? item_type
       @feed_items = @user.items.where(:type => item_type.camelize.singularize).active.accessible_by(current_ability)
     else
+      params[:type] = 'all'
       @feed_items = @user.items.active.accessible_by(current_ability)
     end
   end
