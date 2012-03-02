@@ -10,11 +10,11 @@ class Ability
       can :manage, ITEMS, :user_id => user.id
       can :manage, Community, :user_id => user.id
       can :create, Community
-      can :read, ITEMS
+      can :read, ITEMS, :active => true
     else
       cannot :create, :all
       cannot :join, Community
-      can :read, ITEMS, :public => true
+      can :read, ITEMS, :public => true, :active => true
     end
     can :read, User
     can :read, Community

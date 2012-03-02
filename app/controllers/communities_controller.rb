@@ -1,17 +1,23 @@
 class CommunitiesController < ApplicationController
   respond_to :html
   authorize_resource
-  before_filter :load_deocarted_resource, :only => [:show,:join,:leave]
+  before_filter :load_deocarted_resource
 
   def show
+    item_type = params[:type] || 'all'
+    if %w( events have_its want_its links thoughts ).include? item_type
+      @feed_items = @community.items.where(:type => item_type.camelize.singularize).accessible_by(current_ability)
+    else
+      params[:type] = 'all'
+      @feed_items = @community.items.accessible_by(current_ability)
+    end
   end
 
   def new
-    @community = CommunityDecorator.decorate Community.new
   end
 
   def create
-    @community = Community.new(params[:community])
+    @community.assign_attributes(params[:community])
     @community.user = current_user
     @community.save
     respond_with @community
@@ -41,6 +47,10 @@ class CommunitiesController < ApplicationController
 
 private
   def load_deocarted_resource
-    @community = CommunityDecorator.find(params[:id])
+    if params[:id].present?
+      @community = CommunityDecorator.find(params[:id])
+    else
+      @community = CommunityDecorator.decorate Community.new
+    end
   end
 end
