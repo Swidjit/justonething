@@ -1,7 +1,11 @@
 class CommunitiesController < ApplicationController
   respond_to :html
   authorize_resource
-  before_filter :load_deocarted_resource
+  before_filter :load_deocarted_resource, :except => :index
+
+  def index
+    @communities = CommunityDecorator.decorate Community.accessible_by(current_ability)
+  end
 
   def show
     item_type = params[:type] || 'all'

@@ -1,0 +1,7 @@
+%h2 Communities
+
+%ul
+  - @communities.each do |comm|
+    %li
+      = link_to comm.name, comm
+      = comm.manage_links('span')

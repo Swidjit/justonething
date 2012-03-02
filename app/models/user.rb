@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  BLACK_LISTED_USER_URLS = %w( communities )
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :encryptable,
@@ -10,7 +13,8 @@ class User < ActiveRecord::Base
 
   validate :is_thirteen?, :on => :create
   validates_presence_of :first_name, :last_name, :display_name
-  validates :url, :uniqueness => true, :presence => true, :format => { :with => /[a-z0-9]+/ }
+  validates :url, :uniqueness => true, :presence => true, :format => { :with => /[a-z0-9]+/ },
+      :exclusion => { :in => BLACK_LISTED_USER_URLS }
 
   before_validation :set_default_url, :on => :create
   before_validation :check_updated_url, :on => :update
@@ -64,7 +68,7 @@ class User < ActiveRecord::Base
     if self.url.blank? && self.display_name.present?
       base_url = self.display_name.downcase.gsub(/[^a-z0-9]/,'')
       similarly_named_users = User.where("url LIKE ?", "#{base_url}%").order("url")
-      taken_names = similarly_named_users.collect(&:url)
+      taken_names = similarly_named_users.collect(&:url) + BLACK_LISTED_USER_URLS
 
       new_url = base_url
       added_number = 0

@@ -32,6 +32,7 @@
       = link_to 'Events', events_feeds_path
       - if signed_in?
         %br
+        = link_to 'List of Communities', communities_path
         = link_to 'Create a Community', new_community_path
         - current_user.communities.each do |comm|
           = link_to comm.name, comm
