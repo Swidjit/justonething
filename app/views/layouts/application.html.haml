@@ -20,12 +20,8 @@
     - if signed_in?
       = link_to "Log out", destroy_user_session_url, :method => 'delete'
       = link_to "profile", profile_path(current_user.url)
-      = link_to 'have-it', new_have_it_path, :id => 'post_have_it'
-      = link_to 'want-it', new_want_it_path, :id => 'post_want_it'
-      = link_to 'thoughts', new_thought_path, :id => 'post_thought'
-      = link_to 'link', new_link_path, :id => 'post_link'
-      = link_to 'event', new_event_path, :id => 'post_event'
       = link_to 'my drafts', drafts_feeds_path
+      = current_decorated_user.item_creation_links
     - else
       = link_to 'Sign in/Register', new_user_session_path
     #sideNav

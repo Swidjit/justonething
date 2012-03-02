@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def current_decorated_user
+    @current_decorated_user ||= UserDecorator.decorate current_user
+  end
+
   def error_messages_for(resource)
     return "" if resource.errors.empty?
 

@@ -8,6 +8,9 @@ class ItemsController < ApplicationController
   end
 
   def new
+    if params[:community_id].present?
+      @item.communities << Community.find(params[:community_id])
+    end
   end
 
   def create

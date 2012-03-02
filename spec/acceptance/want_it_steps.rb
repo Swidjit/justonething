@@ -2,6 +2,14 @@ step 'I click the link to Post a Want-it' do
   click_link 'post_want_it'
 end
 
+step 'I should not see a link to post a Want It' do
+  page.has_selector?('#post_want_it').should == false
+end
+
+step 'I should see a link to post a Want It' do
+  page.has_selector?('#post_want_it').should == true
+end
+
 step 'the Want-it should be posted' do
   WantIt.count.should == 1
   @want_it = WantIt.first

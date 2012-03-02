@@ -2,10 +2,14 @@ class Item < ActiveRecord::Base
 
   belongs_to :user
   has_and_belongs_to_many :tags, :uniq => true
+  has_many :item_visibility_rules, :dependent => :destroy
+  has_many :communities, :through => :item_visibility_rules, :source => :visibility,
+      :source_type => 'Community', :uniq => true
 
   delegate :display_name, :to => :user, :prefix => true
 
-  attr_accessible :user_id, :user, :title, :description, :has_expiration, :tag_list, :active, :public, :expires_on
+  attr_accessible :user_id, :user, :title, :description, :has_expiration, :tag_list,
+      :active, :public, :expires_on, :community_ids
 
   attr_accessor :has_expiration, :tag_list
 
@@ -15,6 +19,7 @@ class Item < ActiveRecord::Base
   validates_inclusion_of :active, :public, :in => [true,false]
   validates_inclusion_of :has_expiration, :in => ['0','1']
   validates_associated :tags, :message => 'can only contain letters, numbers, and hyphens'
+  validate :user_belongs_to_communities
 
   before_validation :handle_has_expiration, :convert_tag_list_to_tags
 
@@ -43,6 +48,10 @@ class Item < ActiveRecord::Base
     self.description.scan(/#([^\s]+)/) do |tag|
       self.tags << Tag.find_or_initialize_by_name(tag[0].strip.downcase)
     end
+  end
+
+  def user_belongs_to_communities
+    self.user.community_ids.include? self.community_ids
   end
 
 end

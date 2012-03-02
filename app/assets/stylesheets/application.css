@@ -19,3 +19,7 @@
 #sideNav a {
   display: block;
 }
+
+.hidden {
+  display: none;
+}
