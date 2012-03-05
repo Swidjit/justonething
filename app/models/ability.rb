@@ -15,9 +15,13 @@ class Ability
       can :manage, Community, :user_id => user.id
       can :create, Community
       can :read, ITEMS, :active => true
+<<<<<<< HEAD
       can :manage, List, :user_id => user.id
       can :manage, Bookmark, :user_id => user.id
       can :manage, Vouch, :voucher_id => user.id
+=======
+      can [:accept,:decline], CommunityInvitations, :invitee_id => user.id, :status => 'P'
+>>>>>>> IR of Community invites
     else
       cannot :create, :all
       cannot :join, Community
