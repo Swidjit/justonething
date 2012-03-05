@@ -45,7 +45,7 @@ class Item < ActiveRecord::Base
   def convert_tag_list_to_tags
     self.tags = []
     tag_list.split(',').map{|t| self.tags << Tag.find_or_initialize_by_name(t.strip.downcase)} if tag_list.present?
-    self.description.scan(/#([^\s]+)/) do |tag|
+    self.description.scan(/#([a-zA-Z0-9-]+)/) do |tag|
       self.tags << Tag.find_or_initialize_by_name(tag[0].strip.downcase)
     end
   end
