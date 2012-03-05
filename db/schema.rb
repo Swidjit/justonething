@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120302134242) do
+ActiveRecord::Schema.define(:version => 20120305191309) do
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(:version => 20120302134242) do
 
   add_index "communities_users", ["community_id"], :name => "index_communities_users_on_community_id"
   add_index "communities_users", ["user_id", "community_id"], :name => "index_communities_users_on_user_id_and_community_id", :unique => true
+
+  create_table "community_invitations", :force => true do |t|
+    t.integer  "invitee_id",                                 :null => false
+    t.integer  "inviter_id"
+    t.integer  "community_id"
+    t.string   "status",       :limit => 1, :default => "P"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
 
   create_table "item_visibility_rules", :force => true do |t|
     t.integer "visibility_id",   :null => false
@@ -84,13 +93,12 @@ ActiveRecord::Schema.define(:version => 20120302134242) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "display_name"
-    t.string   "url"
-    t.boolean  "user_set_url",           :default => false, :null => false
+    t.boolean  "user_set_display_name",  :default => false, :null => false
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
+  add_index "users", ["display_name"], :name => "index_users_on_display_name"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-  add_index "users", ["url"], :name => "index_users_on_url", :unique => true
 
 end

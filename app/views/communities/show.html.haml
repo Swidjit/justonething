@@ -5,7 +5,7 @@
     = @community.name
   %li
     Creator:
-    = link_to @community.user.display_name, profile_path(@community.user.url)
+    = link_to @community.user.display_name, profile_path(@community.user.display_name)
   %li
     Description:
     = @community.description

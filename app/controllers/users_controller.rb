@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   respond_to :html
   authorize_resource :only => :show
-  before_filter :load_resource_by_url, :only => :show
+  before_filter :load_resource_by_display_name, :only => :show
   before_filter :load_resource, :only => [:edit, :update]
 
   def show
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(params[:user])
-      redirect_to profile_path(@user.url)
+      redirect_to profile_path(@user.display_name)
     else
       render :edit
     end
@@ -30,12 +30,11 @@ class UsersController < ApplicationController
     @user = UserDecorator.find(params[:id])
   end
 
-  def load_resource_by_url
-    if params[:url].downcase != params[:url]
-      redirect_to profile_path(params[:url].downcase)
-    else
-      @user = UserDecorator.decorate User.find_by_url(params[:url])
-      raise ActiveRecord::RecordNotFound if @user.nil?
+  def load_resource_by_display_name
+    @user = UserDecorator.decorate User.by_lower_display_name(params[:display_name])
+    raise ActiveRecord::RecordNotFound if @user.nil?
+    if @user.display_name != params[:display_name]
+      redirect_to profile_path(@user.display_name)
     end
   end
 end

@@ -2,11 +2,11 @@
 
 = form_for @user do |f|
   %div
-    = f.label :url
+    = f.label :display_name
     %br
-    - if @user.user_set_url
-      = @user.url
+    - if @user.user_set_display_name
+      = @user.display_name
     - else
-      = f.text_field :url
+      = f.text_field :display_name
   %div
     = f.submit "Update Profile"

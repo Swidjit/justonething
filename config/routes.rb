@@ -28,7 +28,7 @@ Swidjit::Application.routes.draw do
   resources :users, :only => [:edit, :update]
 
   # This needs to stay at the bottom such that a user can't override a preset URL
-  match '/:url', :controller => :users, :action => :show, :as => :profile
+  match '/:display_name', :controller => :users, :action => :show, :as => :profile
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
