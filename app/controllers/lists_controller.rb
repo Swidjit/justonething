@@ -2,7 +2,7 @@ class ListsController < ApplicationController
 
   respond_to :json, :html
 
-  load_and_authorize_resource :only => [:show]
+  load_and_authorize_resource :only => [:show,:destroy]
 
   before_filter :load_and_authorize_list, :only => [:add_user,:delete_user]
 
@@ -16,6 +16,11 @@ class ListsController < ApplicationController
     @list.user = current_user
     @list.save
     respond_with @list
+  end
+
+  def destroy
+    @list.destroy
+    redirect_to root_path
   end
 
   def add_user

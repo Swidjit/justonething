@@ -25,7 +25,7 @@ Swidjit::Application.routes.draw do
     end
   end
 
-  resources :lists, :only => [:show,:create] do
+  resources :lists, :only => [:show,:create,:destroy] do
     member do
       post :add_user
       post :delete_user
