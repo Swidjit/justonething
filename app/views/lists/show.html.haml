@@ -5,8 +5,23 @@
   - @list.users.each do |usr|
     %li
       = usr.display_name
-      = link_to 'X', delete_user_list_path(:list => @list, :user_id => usr.id)
+      = link_to 'X', delete_user_list_path(:id => @list.id, :user_id => usr.id), :class => 'remove_user_from_list'
 
 %h3 Feed
 %ul.feed
-  = render :partial => 'items/item', :collection => @feed_items
+  = render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items)
+
+:javascript
+  $('.remove_user_from_list').live('click',function(){
+    var $this_li = $(this).parent('li');
+    var $users_items = $(".feed input[type='hidden'][name='item_user_id']").parent('li');
+    $.ajax({
+      type: 'POST',
+      url: $(this).attr("href"),
+      success: function(data){
+        $this_li.remove();
+        $users_items.remove();
+      }
+    });
+    return false;
+  });

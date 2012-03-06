@@ -7,7 +7,7 @@ class ListsController < ApplicationController
   before_filter :load_and_authorize_list, :only => [:add_user,:delete_user]
 
   def show
-    @feed_items = Item.find_all_by_user_id(@list.users.map(&:id))
+    @feed_items = Item.accessible_by(current_ability).find_all_by_user_id(@list.users.collect(&:id))
   end
 
   def create
@@ -19,9 +19,15 @@ class ListsController < ApplicationController
   end
 
   def add_user
-    @list.users << User.find(params[:user_id])
+    user = User.find(params[:user_id])
+    if @list.users.include?(user)
+      notice = "User already in list #{@list.name}"
+    else
+      @list.users << user
+      notice = "Successfully added user to #{@list.name}"
+    end
     respond_to do |f|
-      f.json { render :json => {:notice => 'Successfully added user', :success => true }}
+      f.json { render :json => {:notice => notice, :success => true }}
     end
   end
 

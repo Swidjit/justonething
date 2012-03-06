@@ -27,4 +27,21 @@ $(document).ready(function(){
       $("#new_list_errors").text("List name already in use");
     }
   });
+
+  $("#add_user_to_list_dropdown").change(function(){
+    var user_id = $("#user_id_for_list").val();
+    var list_id = this.value;
+    var url = base_list_url.replace('/0','/'+list_id) + '/add_user';
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: { user_id: user_id },
+      success: function(data){
+        $("#add_user_to_list_message").text(data.notice);
+        $("#add_user_to_list_dropdown").val("");
+      },
+      error: function(xhr,status,data){
+      }
+    });
+  });
 });

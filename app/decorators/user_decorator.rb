@@ -1,6 +1,15 @@
 class UserDecorator < ApplicationDecorator
   decorates :user
 
+  def add_to_list
+    if h.current_user.lists.any?
+      html = h.content_tag :div, h.select("user_id", "", h.current_user.lists.collect {|p| [ p.name, p.id ] },
+          {:include_blank => 'add to list'}, {:id => 'add_user_to_list_dropdown' })
+      html += h.hidden_field_tag 'user_id_for_list', user.id, :id => 'user_id_for_list'
+      html += h.content_tag :div, '', :id => 'add_user_to_list_message'
+    end
+  end
+
   def manage_links
     if h.can? :manage, user
       h.link_to 'Edit Profile', h.edit_user_path(user)
