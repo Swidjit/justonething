@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   attr_accessor :is_thirteen
 
   has_many :items
+  has_many :lists
   has_and_belongs_to_many :communities, :uniq => true
 
   def self.by_lower_display_name(display_name)

@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :list do
+    name 'Cool people'
+    user { |a| a.association(:user) }
   end
 end

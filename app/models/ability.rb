@@ -11,6 +11,7 @@ class Ability
       can :manage, Community, :user_id => user.id
       can :create, Community
       can :read, ITEMS, :active => true
+      can :manage, List, :user_id => user.id
     else
       cannot :create, :all
       cannot :join, Community

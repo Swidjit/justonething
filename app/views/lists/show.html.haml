@@ -1,0 +1,12 @@
+%h2= @list.name
+
+%h3 Users
+%ul
+  - @list.users.each do |usr|
+    %li
+      = usr.display_name
+      = link_to 'X', delete_user_list_path(:list => @list, :user_id => usr.id)
+
+%h3 Feed
+%ul.feed
+  = render :partial => 'item/item', :collection => @feed_items
