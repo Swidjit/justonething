@@ -5,10 +5,12 @@
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'
     = stylesheet_link_tag    'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/ui-lightness/jquery-ui.css'
+    = javascript_include_tag 'http://malsup.github.com/jquery.form.js'
     = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
     :javascript
-      var fb_app_id = #{Facebook::APP_ID};
+      var base_list_url = '#{list_path(0)}';
+      var fb_app_id = '#{Facebook::APP_ID}';
+    = javascript_include_tag "application"
     = yield :head
     = csrf_meta_tags
   %body
@@ -37,5 +39,14 @@
         = link_to 'Create a Community', new_community_path
         - current_user.communities.each do |comm|
           = link_to comm.name, comm
+        %br
+        Lists
+        %br
+        - current_user.lists.each do |list|
+          = link_to list.name, list
+        = form_for List.new do |f|
+          = f.submit '+'
+          = f.text_field :name, :placeholder => 'list name'
+        #new_list_errors
     #content
       = yield

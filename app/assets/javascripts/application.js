@@ -17,4 +17,14 @@ $(document).ready(function(){
   $('.datepicker').datepicker();
   $('.timepicker').timepicker({showPeriod: true});
   $("#ui-datepicker-div").hide();
+
+  $("#new_list").ajaxForm({
+    success: function(data){
+      $("#new_list_errors").text("");
+      var new_link = $("<a>").attr("href",base_list_url.replace('/0','/'+data.id)).text(data.name);
+      $("#new_list").before(new_link);
+    }, error: function(xhr,status,data){
+      $("#new_list_errors").text("List name already in use");
+    }
+  });
 });
