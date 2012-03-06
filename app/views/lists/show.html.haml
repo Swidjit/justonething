@@ -14,10 +14,12 @@
 :javascript
   $('.remove_user_from_list').live('click',function(){
     var $this_li = $(this).parent('li');
-    var $users_items = $(".feed input[type='hidden'][name='item_user_id']").parent('li');
+    var url = $(this).attr("href");
+    var user_id = url.split('=')[url.split('=').length-1];
+    var $users_items = $(".feed input[type='hidden'][name='item_user_id'][value='"+user_id+"']").parent('li');
     $.ajax({
       type: 'POST',
-      url: $(this).attr("href"),
+      url: url,
       success: function(data){
         $this_li.remove();
         $users_items.remove();
