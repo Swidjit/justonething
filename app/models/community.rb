@@ -7,6 +7,8 @@ class Community < ActiveRecord::Base
   has_many :item_visibility_rules, :as => :visibility, :dependent => :destroy
   has_many :items, :through => :item_visibility_rules, :uniq => true
 
+  attr_accessible :name
+
   before_create :add_creator_as_user
 
 private
