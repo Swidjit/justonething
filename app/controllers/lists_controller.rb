@@ -7,7 +7,14 @@ class ListsController < ApplicationController
   before_filter :load_and_authorize_list, :only => [:add_user,:delete_user]
 
   def show
-    @feed_items = Item.accessible_by(current_ability).find_all_by_user_id(@list.users.collect(&:id))
+    item_type = params[:type] || 'all'
+    if %w( events have_its want_its links thoughts ).include? item_type
+      item_class = item_type.camelize.singularize.constantize
+    else
+      params[:type] = 'all'
+      item_class = Item
+    end
+    @feed_items = item_class.accessible_by(current_ability).find_all_by_user_id(@list.users.collect(&:id))
   end
 
   def create
