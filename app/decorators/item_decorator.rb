@@ -6,6 +6,13 @@ class ItemDecorator < ApplicationDecorator
   extend SharedTagDecorations
   linkifies_tags_in :description
 
+  def add_visibility_rule_dropdown
+    option_hash = {}
+    option_hash[:communities] = h.current_user.communities.collect{|c| [c.name,c.id] }
+    option_hash[:lists] = h.current_user.lists.collect{|c| [c.name,c.id] }
+    h.select('add_visibility_rule','',grouped_options_for_select(option_hash),{:include_blank => 'add viewers'})
+  end
+
   def expires_on_string
     if item.expires_on.present?
       content_tag :div, "Currently Expires on: #{item.expires_on.strftime('%m/%d/%Y')}"
@@ -54,6 +61,16 @@ class ItemDecorator < ApplicationDecorator
 
   def tag_list
     item.tags.collect(&:name).sort.join(', ')
+  end
+
+  def tokenized_visibility_rules
+    tokenized_rules = []
+    item.item_visibility_rules.each do |rule|
+      this_obj = rule.visibility
+      tokenized_rules << h.content_tag(:div, (this_obj.name + ' ' + link_to('x','#',:class => 'visibility_rule',
+          'data-rule-type' => rule.visibility_type, 'data-visibility-id' => rule.visibility_id)).html_safe)
+    end
+    tokenized_rules.join(' ').html_safe
   end
 
   def distinct_url
