@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   authorize_resource :only => [:destroy, :edit, :update]
   before_filter :load_decorated_resource
   before_filter :authorize_create_item, :only => [:create,:new]
+  before_filter :arrayify_ids_fields_in_params, :only => [:create,:update]
 
   def show
   end
@@ -72,7 +73,16 @@ class ItemsController < ApplicationController
     render :new
   end
 
-  private
+private
+  def arrayify_ids_fields_in_params
+    ic_sym = item_class.to_s.underscore.to_sym
+    %w( community_ids list_ids ).each do |ids_field|
+      if params[ic_sym][ids_field].present? && params[ic_sym][ids_field].is_a?(String)
+        params[ic_sym][ids_field] = params[ic_sym][ids_field].split(',')
+      end
+    end
+  end
+
   def authorize_create_item
     authorize! :create, Item
   end
