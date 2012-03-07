@@ -6,14 +6,6 @@ class ItemDecorator < ApplicationDecorator
   extend SharedTagDecorations
   linkifies_tags_in :description
 
-  def bottom_of_form(f)
-    if item.persisted?
-      render :partial => 'items/bottom_of_edit_form', :locals => { :f => f, :item => self }
-    else
-      render :partial => 'items/bottom_of_new_form', :locals => { :f => f, :item => self }
-    end
-  end
-
   def expires_on_string
     if item.expires_on.present?
       content_tag :div, "Currently Expires on: #{item.expires_on.strftime('%m/%d/%Y')}"

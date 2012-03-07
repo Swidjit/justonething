@@ -7,4 +7,4 @@
     = f.input :start_time, :input_html => {:value => @item.start_datetime('time'), :class => 'timepicker'}
     = f.input :end_date, :input_html => {:value => @item.end_datetime('date'), :class => 'datepicker event_end_date'}
     = f.input :end_time, :input_html => {:value => @item.end_datetime('time'), :class => 'timepicker'}
-  = @item.bottom_of_form(f)
+  = render :partial => 'items/bottom_of_form', :locals => { :f => f }

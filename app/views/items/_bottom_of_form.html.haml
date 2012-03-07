@@ -1,0 +1,4 @@
+= f.inputs do
+  = @item.expires_on_fields(f)
+  = f.input :active
+= f.submit (@item.persisted? ? 'Update' : 'Post')

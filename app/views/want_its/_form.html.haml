@@ -1,3 +1,3 @@
 = semantic_form_for @item do |f|
   = render :partial => 'items/top_of_form', :locals => { :f => f }
-  = @item.bottom_of_form(f)
+  = render :partial => 'items/bottom_of_form', :locals => { :f => f }
