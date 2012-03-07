@@ -6,6 +6,8 @@ class Item < ActiveRecord::Base
   has_many :item_visibility_rules, :dependent => :destroy
   has_many :communities, :through => :item_visibility_rules, :source => :visibility,
       :source_type => 'Community', :uniq => true
+  has_many :lists, :through => :item_visibility_rules, :source => :visibility,
+      :source_type => 'List', :uniq => true
 
   delegate :display_name, :to => :user, :prefix => true
 
@@ -20,7 +22,7 @@ class Item < ActiveRecord::Base
   validates_inclusion_of :active, :public, :in => [true,false]
   validates_inclusion_of :has_expiration, :in => ['0','1']
   validates_associated :tags, :message => 'can only contain letters, numbers, and hyphens'
-  validate :user_belongs_to_communities, :posted_by_user_is_delegatee_of_user
+  validate :user_belongs_to_communities, :user_owns_lists, :posted_by_user_is_delegatee_of_user
 
   before_validation :handle_has_expiration, :convert_tag_list_to_tags
 
@@ -60,4 +62,9 @@ class Item < ActiveRecord::Base
       self.errors.add(:user, "cannot post as") unless posted_by_user.delegators.include? self.user
     end
   end
+
+  def user_owns_lists
+    self.user.list_ids.include? self.list_ids
+  end
 end
+
