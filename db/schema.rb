@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306162501) do
+ActiveRecord::Schema.define(:version => 20120308145131) do
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
@@ -29,13 +29,11 @@ ActiveRecord::Schema.define(:version => 20120306162501) do
   add_index "communities_users", ["community_id"], :name => "index_communities_users_on_community_id"
   add_index "communities_users", ["user_id", "community_id"], :name => "index_communities_users_on_user_id_and_community_id", :unique => true
 
-  create_table "community_invitations", :force => true do |t|
-    t.integer  "invitee_id",                                 :null => false
-    t.integer  "inviter_id"
-    t.integer  "community_id"
-    t.string   "status",       :limit => 1, :default => "P"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+  create_table "delegates", :force => true do |t|
+    t.integer  "delegator_id"
+    t.integer  "delegatee_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "item_visibility_rules", :force => true do |t|
@@ -117,5 +115,8 @@ ActiveRecord::Schema.define(:version => 20120306162501) do
   add_index "users", ["display_name"], :name => "index_users_on_display_name"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  add_foreign_key "delegates", "users", :name => "delegates_delegatee_id_fk", :column => "delegatee_id"
+  add_foreign_key "delegates", "users", :name => "delegates_delegator_id_fk", :column => "delegator_id"
 
 end

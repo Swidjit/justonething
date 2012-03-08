@@ -28,6 +28,11 @@ class User < ActiveRecord::Base
   has_many :lists
   has_and_belongs_to_many :communities, :uniq => true
 
+  has_many :delegates_as_delegator, :foreign_key => :delegator_id, :class_name => "Delegate"
+  has_many :delegates_as_delegatee, :foreign_key => :delegatee_id, :class_name => "Delegate"
+  has_many :delegators, :through => :delegates_as_delegatee
+  has_many :delegatees, :through => :delegates_as_delegator
+
   def self.by_lower_display_name(display_name)
     self.where('lower(display_name) = ?',[display_name.downcase]).first
   end
