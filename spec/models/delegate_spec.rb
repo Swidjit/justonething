@@ -15,5 +15,10 @@ describe Delegate do
     it "should add the delegator to the delegatee" do
       @delegatee.delegators.first.should == @delegator
     end
+
+    it "should not allow duplicate delegates" do
+      duplicate = Factory.build(:delegate, :delegator => @delegator, :delegatee => @delegatee)
+      duplicate.should_not be_valid
+    end
   end
 end
