@@ -1,4 +1,4 @@
-class DelegatesControllerController < ApplicationController
+class DelegatesController < ApplicationController
   def create
     if params[:delegatee_id].present?
       delegation = Delegate.new

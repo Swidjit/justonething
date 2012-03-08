@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DelegatesControllerController do
+describe DelegatesController do
   before(:each) { request.env["HTTP_REFERER"] = "/" }
 
   context "logged in user" do
