@@ -34,6 +34,8 @@ Swidjit::Application.routes.draw do
 
   resources :users, :only => [:edit, :update]
 
+  resources :delegates, :only => [:create,:destroy]
+
   # This needs to stay at the bottom such that a user can't override a preset URL
   match '/:display_name', :controller => :users, :action => :show, :as => :profile
 

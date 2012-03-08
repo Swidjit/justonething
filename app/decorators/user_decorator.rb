@@ -11,9 +11,20 @@ class UserDecorator < ApplicationDecorator
   end
 
   def manage_links
-    if h.can? :manage, user
-      h.link_to 'Edit Profile', h.edit_user_path(user)
+    html = []
+    if h.current_user != user
+      unless h.current_user.delegatees.include?(user)
+        html << h.link_to('add as delegate', h.delegates_path(:delegatee_id => user.id), :method => :post)
+      else
+        html << h.link_to('remove as delegate', h.delegate_path, :method => :delete)
+      end
     end
+
+    if h.can? :manage, user
+      html << h.link_to('Edit Profile', h.edit_user_path(user))
+    end
+
+    return html.join(' ').html_safe
   end
 
   def item_creation_links
