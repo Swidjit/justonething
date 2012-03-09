@@ -13,8 +13,24 @@ describe UsersController do
       render_views
 
       context "logged in user view own profile" do
+        before(:each) do
+          @user = Factory(:user)
+          sign_in @user
+          get :show, :display_name => @user.display_name
+        end
+
         it "should not display add delegat link" do
           response.body.should_not =~ /add as delegate/
+        end
+
+        it "should not display delegates if none are present" do
+          response.body.should_not =~ /delegates/
+        end
+
+        it "should display delegates if one is present" do
+          delegation = Factory(:delegate, :delegator => @user, :delegatee => @target_user)
+          get :show, :display_name => @user.display_name # update response to reflect new object
+          response.body.should =~ /delegates/
         end
       end
 
