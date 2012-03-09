@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308145131) do
+ActiveRecord::Schema.define(:version => 20120309192749) do
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
@@ -35,6 +35,9 @@ ActiveRecord::Schema.define(:version => 20120308145131) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  add_index "delegates", ["delegatee_id"], :name => "index_delegates_on_delegatee_id"
+  add_index "delegates", ["delegator_id", "delegatee_id"], :name => "index_delegates_on_delegator_id_and_delegatee_id", :unique => true
 
   create_table "item_visibility_rules", :force => true do |t|
     t.integer "visibility_id",   :null => false
