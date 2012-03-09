@@ -21,4 +21,10 @@ describe Delegate do
       duplicate.should_not be_valid
     end
   end
+
+  it "should not allow the delegator to delegate to themselves" do
+    both = Factory(:user)
+    tautology = Factory.build(:delegate, :delegator => both, :delegatee => both)
+    tautology.should_not be_valid
+  end
 end
