@@ -32,6 +32,14 @@ describe UsersController do
           response.body.should =~ /add as delegate/
         end
       end
+
+      it "logged in user viewing their delegate's profile should see remove as delegate link" do
+        delegation = Factory(:delegate, :delegatee => @target_user)
+        sign_in delegation.delegator
+        get :show, :display_name => @target_user.display_name
+
+        response.body.should =~ /remove as delegate/
+      end
     end
   end
 end

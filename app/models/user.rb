@@ -67,6 +67,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def delegation_for_user(user)
+    @delegation = Delegate.first(:conditions => {:delegator_id => self.id, :delegatee_id => user.id})
+  end
+
   private
   def check_updated_display_name
     if self.display_name_changed? && self.user_set_display_name

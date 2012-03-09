@@ -12,11 +12,14 @@ class UserDecorator < ApplicationDecorator
 
   def manage_links
     html = []
+
     if h.current_user != user
-      unless h.current_user.delegatees.include?(user)
+      delegation = h.current_user.delegation_for_user(user)
+
+      if delegation.blank?
         html << h.link_to('add as delegate', h.delegates_path(:delegatee_id => user.id), :method => :post)
       else
-        html << h.link_to('remove as delegate', h.delegate_path, :method => :delete)
+        html << h.link_to('remove as delegate', h.delegate_path(delegation), :method => :delete)
       end
     end
 
