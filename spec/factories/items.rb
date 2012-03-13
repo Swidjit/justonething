@@ -11,13 +11,17 @@ FactoryGirl.define do
   factory :event, :parent => :item, :class => 'event' do
     cost '3 Sheep'
     location 'Stewart Park'
-    start_time '2012-12-21 07:00 am'
-    end_time '2012-12-21 07:00 pm'
+    start_time '07:00 AM'
+    end_time '07:00 PM'
+    end_date '12/21/2012'
+    start_date '12/21/2012'
+    end_datetime '2012-12-21 07:00 pm'
+    start_datetime '2012-12-21 07:00 am'
   end
 
   factory :have_it, :parent => :item, :class => 'have_it' do
     cost '3 Sheep'
-    condition 'Rough'
+    condition 'New'
   end
 
   factory :link, :parent => :item, :class => 'link' do
