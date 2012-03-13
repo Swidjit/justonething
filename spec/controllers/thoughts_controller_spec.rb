@@ -16,4 +16,6 @@ describe ThoughtsController do
       dup_item.id.should_not == item.id
     end
   end
+
+  it_should_behave_like 'an item controller'
 end

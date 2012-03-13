@@ -14,9 +14,17 @@ class ItemsController < ApplicationController
   end
 
   def create
+    if item_params[:user_id].present?
+      @item.posted_by_user = current_user
+      @item.user = User.find(item_params[:user_id])
+      item_params.delete(:user_id)
+    else
+      @item.user = current_user
+    end
+
     @item.assign_attributes(item_params)
+
     format_expires_on
-    @item.user ||= current_user
     @item.save
     respond_with @item
   end
