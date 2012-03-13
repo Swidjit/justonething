@@ -1,8 +1,10 @@
 class ItemsController < ApplicationController
-  respond_to :html
-  authorize_resource :only => [:destroy, :edit, :update]
+  respond_to :html, :json
+  authorize_resource :only => [:destroy, :edit, :update, :add_visibility_rule,
+    :remove_visibility_rule]
   before_filter :load_decorated_resource
   before_filter :authorize_create_item, :only => [:create,:new]
+  before_filter :arrayify_ids_fields_in_params, :only => [:create,:update]
 
   def show
   end
@@ -72,7 +74,36 @@ class ItemsController < ApplicationController
     render :new
   end
 
-  private
+  def add_visibility_rule
+    if %( community list ).include? params[:visibility_type]
+      rule_obj = params[:visibility_type].camelize.constantize.find(params[:visibility_id])
+      @item.send(params[:visibility_type].pluralize) << rule_obj
+    end
+    respond_to do |f|
+      f.json { render :json => {:success => @item.valid?, :item => @item.to_json} }
+    end
+  end
+
+  def remove_visibility_rule
+    if %( community list ).include? params[:visibility_type]
+      rule_obj = params[:visibility_type].camelize.constantize.find(params[:visibility_id])
+      @item.send(params[:visibility_type].pluralize).destroy rule_obj
+    end
+    respond_to do |f|
+      f.json { render :json => {:success => @item.valid?, :item => @item.to_json} }
+    end
+  end
+
+private
+  def arrayify_ids_fields_in_params
+    ic_sym = item_class.to_s.underscore.to_sym
+    %w( community_ids list_ids ).each do |ids_field|
+      if params[ic_sym][ids_field].present? && params[ic_sym][ids_field].is_a?(String)
+        params[ic_sym][ids_field] = params[ic_sym][ids_field].split(',')
+      end
+    end
+  end
+
   def authorize_create_item
     authorize! :create, Item
   end

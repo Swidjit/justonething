@@ -1,0 +1,82 @@
+%div.item_visibility
+  = item.add_visibility_rule_dropdown
+  = item.tokenized_visibility_rules
+
+- if !ajax
+  :javascript
+    $('.visibility_rule_remove').live('click',function(){
+      var ruleType = $(this).attr('data-rule-type');
+      var visibilityID = $(this).attr('data-visibility-id');
+      var $idInput = $(this).closest('li').siblings('li[id*="'+ruleType+'"]').children('input');
+      var $thisRule = $(this).closest('div');
+      var arIds = $.unique($idInput.val().split(','));
+      var i =0, arLen = arIds.length;
+      while(i < arLen){
+        if(arIds[i] == visibilityID){
+          arIds.splice(i,1);
+          break;
+        }
+        i++;
+      }
+      $idInput.val(arIds.join(','));
+      $thisRule.remove();
+      return false;
+    });
+
+    $(document).ready(function(){
+      $("#add_visibility_rule").val('');
+      $("#add_visibility_rule").change(function(){
+        var ruleType = $(this).val().split('-')[0];
+        var visibilityID = $(this).val().split('-')[1];
+        var existingRule = $('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
+        if( existingRule == 0 ){
+          var $idInput = $(this).closest('li').siblings('li[id*="'+ruleType+'"]').children('input');
+          var arIds = $idInput.val().length > 0 ? $idInput.val().split(',') : new Array();
+          arIds.push(visibilityID);
+          var ruleName = $(this).find('option:selected').text();
+          $newRule = $("<div>"+ruleName+" <a href='#' class='visibility_rule_remove'"+
+            " data-visibility-id='"+visibilityID+"' data-rule-type='"+ruleType+"'>x</a></div>");
+          $idInput.val($.unique(arIds).join(','));
+          $(this).after($newRule);
+        }
+        $(this).val('');
+      });
+    });
+- else
+  :javascript
+    $('.visibility_rule_remove').live('click',function(){
+      var ruleType = $(this).attr('data-rule-type');
+      var visibilityID = $(this).attr('data-visibility-id');
+      var $thisRule = $(this).closest('div');
+      $.post("#{item.remove_visibility_rule_path}.json",
+        {'_method':'delete','visibility_type':ruleType,'visibility_id':visibilityID},
+        function(data){
+          if(data['success']){
+            $thisRule.remove();
+          }
+        }, 'json');
+      return false;
+    });
+
+    $(document).ready(function(){
+      $("#add_visibility_rule").val('');
+      $("#add_visibility_rule").change(function(){
+        var ruleType = $(this).val().split('-')[0];
+        var visibilityID = $(this).val().split('-')[1];
+        var existingRule = $('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
+        if( existingRule == 0 ){
+          $self = $(this);
+          var ruleName = $self.find('option:selected').text();
+          $.post("#{item.add_visibility_rule_path}.json",
+            {'visibility_type':ruleType,'visibility_id':visibilityID},
+            function(data){
+              if(data['success']){
+                $newRule = $("<div>"+ruleName+" <a href='#' class='visibility_rule_remove'"+
+                  " data-visibility-id='"+visibilityID+"' data-rule-type='"+ruleType+"'>x</a></div>");
+                $self.after($newRule);
+              }
+            }, 'json');
+        }
+        $(this).val('');
+      });
+    });

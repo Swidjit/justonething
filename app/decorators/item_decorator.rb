@@ -6,12 +6,11 @@ class ItemDecorator < ApplicationDecorator
   extend SharedTagDecorations
   linkifies_tags_in :description
 
-  def bottom_of_form(f)
-    if item.persisted?
-      render :partial => 'items/bottom_of_edit_form', :locals => { :f => f, :item => self }
-    else
-      render :partial => 'items/bottom_of_new_form', :locals => { :f => f, :item => self }
-    end
+  def add_visibility_rule_dropdown
+    option_hash = {}
+    option_hash[:communities] = h.current_user.communities.collect{|c| [c.name,"community-#{c.id}"] }
+    option_hash[:lists] = h.current_user.lists.collect{|c| [c.name,"list-#{c.id}"] }
+    h.select('add_visibility_rule','',grouped_options_for_select(option_hash),{:include_blank => 'add viewers'},{:id => 'add_visibility_rule'})
   end
 
   def expires_on_string
@@ -64,8 +63,36 @@ class ItemDecorator < ApplicationDecorator
     item.tags.collect(&:name).sort.join(', ')
   end
 
+  def tokenized_visibility_rules
+    tokenized_rules = []
+    item.item_visibility_rules.each do |rule|
+      this_obj = rule.visibility
+      tokenized_rules << h.content_tag(:div, (''.html_safe + this_obj.name + ' ' + link_to('x','#',:class => 'visibility_rule_remove',
+          'data-rule-type' => rule.visibility_type.downcase, 'data-visibility-id' => rule.visibility_id)))
+    end
+    tokenized_rules.join(' ').html_safe
+  end
+
+  def visibility_form
+    if h.can? :manage, item
+      h.content_tag(:li, render(:partial => 'visibility_form', :locals => { :ajax => true, :item => self }))
+    end
+  end
+
+###
+# URL Methods
+###
+
+  def add_visibility_rule_path
+    send("add_visibility_rule_#{item.class.to_s.underscore}_path",item)
+  end
+
   def distinct_url
     send("#{item.class.to_s.underscore}_url",item)
+  end
+
+  def remove_visibility_rule_path
+    send("remove_visibility_rule_#{item.class.to_s.underscore}_path",item)
   end
 
 end

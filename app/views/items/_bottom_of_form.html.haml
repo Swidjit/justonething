@@ -1,0 +1,9 @@
+= f.inputs do
+  = @item.expires_on_fields(f)
+  = f.inputs do
+    = f.input :community_ids, :as => :hidden, :input_html => {:value => @item.community_ids.join(',')}
+    = f.input :list_ids, :as => :hidden, :input_html => {:value => @item.list_ids.join(',')}
+    %li
+      = render :partial => 'items/visibility_form', :locals => { :ajax => false, :item => @item }
+  = f.input :active
+= f.submit (@item.persisted? ? 'Update' : 'Post')
