@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120309192749) do
+ActiveRecord::Schema.define(:version => 20120309195113) do
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
@@ -49,12 +49,12 @@ ActiveRecord::Schema.define(:version => 20120309192749) do
   add_index "item_visibility_rules", ["visibility_id", "visibility_type", "item_id"], :name => "uniq_item_visibility_index", :unique => true
 
   create_table "items", :force => true do |t|
-    t.string   "title",                            :null => false
+    t.string   "title",                               :null => false
     t.text     "description"
     t.date     "expires_on"
     t.integer  "user_id"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "type"
     t.string   "cost"
     t.string   "condition"
@@ -62,8 +62,9 @@ ActiveRecord::Schema.define(:version => 20120309192749) do
     t.string   "location"
     t.datetime "start_datetime"
     t.datetime "end_datetime"
-    t.boolean  "active",         :default => true, :null => false
-    t.boolean  "public",         :default => true, :null => false
+    t.boolean  "active",            :default => true, :null => false
+    t.boolean  "public",            :default => true, :null => false
+    t.integer  "posted_by_user_id"
   end
 
   create_table "items_tags", :id => false, :force => true do |t|
@@ -121,5 +122,7 @@ ActiveRecord::Schema.define(:version => 20120309192749) do
 
   add_foreign_key "delegates", "users", :name => "delegates_delegatee_id_fk", :column => "delegatee_id"
   add_foreign_key "delegates", "users", :name => "delegates_delegator_id_fk", :column => "delegator_id"
+
+  add_foreign_key "items", "users", :name => "items_posted_by_user_id_fk", :column => "posted_by_user_id"
 
 end

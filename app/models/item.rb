@@ -1,6 +1,8 @@
 class Item < ActiveRecord::Base
 
   belongs_to :user
+  belongs_to :posted_by_user, :class_name => "User"
+
   has_and_belongs_to_many :tags, :uniq => true
   has_many :item_visibility_rules, :dependent => :destroy
   has_many :communities, :through => :item_visibility_rules, :source => :visibility,

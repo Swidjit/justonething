@@ -41,6 +41,8 @@ shared_examples "an item" do
 
   it { should belong_to :user }
 
+  it { should belong_to :posted_by_user }
+
   it { should have_and_belong_to_many :tags }
 
   it 'should convert tag_list to tags' do
