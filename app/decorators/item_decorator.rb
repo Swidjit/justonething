@@ -8,9 +8,9 @@ class ItemDecorator < ApplicationDecorator
 
   def add_visibility_rule_dropdown
     option_hash = {}
-    option_hash[:communities] = h.current_user.communities.collect{|c| [c.name,c.id] }
-    option_hash[:lists] = h.current_user.lists.collect{|c| [c.name,c.id] }
-    h.select('add_visibility_rule','',grouped_options_for_select(option_hash),{:include_blank => 'add viewers'})
+    option_hash[:communities] = h.current_user.communities.collect{|c| [c.name,"community-#{c.id}"] }
+    option_hash[:lists] = h.current_user.lists.collect{|c| [c.name,"list-#{c.id}"] }
+    h.select('add_visibility_rule','',grouped_options_for_select(option_hash),{:include_blank => 'add viewers'},{:id => 'add_visibility_rule'})
   end
 
   def expires_on_string
@@ -67,8 +67,8 @@ class ItemDecorator < ApplicationDecorator
     tokenized_rules = []
     item.item_visibility_rules.each do |rule|
       this_obj = rule.visibility
-      tokenized_rules << h.content_tag(:div, (this_obj.name + ' ' + link_to('x','#',:class => 'visibility_rule',
-          'data-rule-type' => rule.visibility_type, 'data-visibility-id' => rule.visibility_id)).html_safe)
+      tokenized_rules << h.content_tag(:div, (''.html_safe + this_obj.name + ' ' + link_to('x','#',:class => 'visibility_rule_remove',
+          'data-rule-type' => rule.visibility_type.downcase, 'data-visibility-id' => rule.visibility_id)))
     end
     tokenized_rules.join(' ').html_safe
   end

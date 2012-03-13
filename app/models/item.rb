@@ -11,8 +11,13 @@ class Item < ActiveRecord::Base
 
   delegate :display_name, :to => :user, :prefix => true
 
+<<<<<<< HEAD
   attr_protected :user, :posted_by_user
   attr_accessible :title, :description, :has_expiration, :tag_list, :active, :public, :expires_on, :community_ids
+=======
+  attr_accessible :user_id, :user, :title, :description, :has_expiration, :tag_list,
+      :active, :public, :expires_on, :community_ids, :list_ids
+>>>>>>> Add JS to add/remove visibility rules
 
   attr_accessor :has_expiration, :tag_list
 
