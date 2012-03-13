@@ -1,5 +1,4 @@
 class Item < ActiveRecord::Base
-
   belongs_to :user
   belongs_to :posted_by_user, :class_name => "User"
 
@@ -10,8 +9,8 @@ class Item < ActiveRecord::Base
 
   delegate :display_name, :to => :user, :prefix => true
 
-  attr_accessible :user_id, :user, :title, :description, :has_expiration, :tag_list,
-      :active, :public, :expires_on, :community_ids
+  attr_protected :user
+  attr_accessible :title, :description, :has_expiration, :tag_list, :active, :public, :expires_on, :community_ids
 
   attr_accessor :has_expiration, :tag_list
 
