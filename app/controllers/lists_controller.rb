@@ -14,7 +14,7 @@ class ListsController < ApplicationController
       params[:type] = 'all'
       item_class = Item
     end
-    @feed_items = item_class.accessible_by(current_ability).find_all_by_user_id(@list.users.collect(&:id))
+    @feed_items = item_class.access_controlled_for(current_user,current_ability).find_all_by_user_id(@list.users.collect(&:id))
   end
 
   def create

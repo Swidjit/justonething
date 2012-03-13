@@ -4,13 +4,13 @@ class FeedsController < ApplicationController
     if params[:tag_name].present?
       @tag = Tag.find_by_name(params[:tag_name])
       if @tag.present?
-        @feed_items = @tag.items.active.accessible_by(current_ability)
+        @feed_items = @tag.items.access_controlled_for(current_user,current_ability)
       else
         @feed_items = []
       end
       @feed_title = "All Items with Tag: #{params[:tag_name]}"
     else
-      @feed_items = Item.active.accessible_by(current_ability)
+      @feed_items = Item.access_controlled_for(current_user,current_ability)
       @feed_title = "All Items"
     end
     @feed_items = @feed_items
@@ -22,13 +22,13 @@ class FeedsController < ApplicationController
       if params[:tag_name].present?
         @tag = Tag.find_by_name(params[:tag_name])
         if @tag.present?
-          @feed_items = @tag.items.active.where({:type => item_type}).accessible_by(current_ability)
+          @feed_items = @tag.items.where({:type => item_type}).access_controlled_for(current_user,current_ability)
         else
           @feed_items = []
         end
         @feed_title = "#{item_type.titleize.pluralize} with Tag: #{params[:tag_name]}"
       else
-        @feed_items = item_type.constantize.active.accessible_by(current_ability)
+        @feed_items = item_type.constantize.access_controlled_for(current_user,current_ability)
         @feed_title = item_type.titleize.pluralize
       end
       @feed_items = @feed_items

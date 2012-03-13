@@ -32,6 +32,24 @@ class Item < ActiveRecord::Base
   scope :active, :conditions => "#{self.table_name}.active = true"
   scope :deactivated, :conditions => "#{self.table_name}.active = false"
 
+  def self.access_controlled_for(user,ability)
+    user ||= User.new
+    controlled_scope = joins("LEFT JOIN #{ItemVisibilityRule.table_name} ivr ON #{self.table_name}.id = ivr.item_id")
+    if user.persisted?
+      controlled_scope = controlled_scope.joins("LEFT JOIN #{List.table_name} ivrl ON ivr.visibility_id = ivrl.id AND ivr.visibility_type = 'List' " +
+        "LEFT JOIN lists_users lus ON lus.list_id = ivrl.id AND lus.user_id = #{user.id} " +
+        "LEFT JOIN #{Community.table_name} ivrc ON ivr.visibility_id = ivrc.id AND ivr.visibility_type = 'Community' " +
+        "LEFT JOIN communities_users cus ON cus.community_id = ivrc.id AND cus.user_id = #{user.id} "
+      ).having("( COUNT(ivr.*) = 0 OR COUNT(lus.*) > 0 OR COUNT(cus.*) > 0 ) OR #{self.table_name}.user_id = #{user.id}"
+      )
+    else
+      controlled_scope = controlled_scope.having("COUNT(ivr.*) = 0")
+    end
+
+    controlled_scope.group( %w( id title description expires_on user_id created_at updated_at type cost condition link location start_datetime end_datetime active public posted_by_user_id ).map{|col| "#{self.table_name}.#{col}"}.join(',')
+      ).accessible_by(ability)
+  end
+
   def set_defaults
     if !self.persisted?
       self.expires_on = 10.days.from_now

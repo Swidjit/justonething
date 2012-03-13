@@ -10,10 +10,10 @@ class CommunitiesController < ApplicationController
   def show
     item_type = params[:type] || 'all'
     if %w( events have_its want_its links thoughts ).include? item_type
-      @feed_items = @community.items.where(:type => item_type.camelize.singularize).accessible_by(current_ability)
+      @feed_items = @community.items.where(:type => item_type.camelize.singularize).access_controlled_for(current_user,current_ability)
     else
       params[:type] = 'all'
-      @feed_items = @community.items.accessible_by(current_ability)
+      @feed_items = @community.items.access_controlled_for(current_user,current_ability)
     end
   end
 
