@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
-  respond_to :html
-  authorize_resource :only => [:destroy, :edit, :update]
+  respond_to :html, :json
+  authorize_resource :only => [:destroy, :edit, :update, :add_visibility_rule,
+    :remove_visibility_rule]
   before_filter :load_decorated_resource
   before_filter :authorize_create_item, :only => [:create,:new]
   before_filter :arrayify_ids_fields_in_params, :only => [:create,:update]
@@ -71,6 +72,26 @@ class ItemsController < ApplicationController
     @item.tags = item_to_duplicate.tags
     @item.set_defaults
     render :new
+  end
+
+  def add_visibility_rule
+    if %( community list ).include? params[:visibility_type]
+      rule_obj = params[:visibility_type].camelize.constantize.find(params[:visibility_id])
+      @item.send(params[:visibility_type].pluralize) << rule_obj
+    end
+    respond_to do |f|
+      f.json { render :json => {:success => @item.valid?, :item => @item.to_json} }
+    end
+  end
+
+  def remove_visibility_rule
+    if %( community list ).include? params[:visibility_type]
+      rule_obj = params[:visibility_type].camelize.constantize.find(params[:visibility_id])
+      @item.send(params[:visibility_type].pluralize).destroy rule_obj
+    end
+    respond_to do |f|
+      f.json { render :json => {:success => @item.valid?, :item => @item.to_json} }
+    end
   end
 
 private

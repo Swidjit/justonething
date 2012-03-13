@@ -73,8 +73,26 @@ class ItemDecorator < ApplicationDecorator
     tokenized_rules.join(' ').html_safe
   end
 
+  def visibility_form
+    if h.can? :manage, item
+      h.content_tag(:li, render(:partial => 'visibility_form', :locals => { :ajax => true, :item => self }))
+    end
+  end
+
+###
+# URL Methods
+###
+
+  def add_visibility_rule_path
+    send("add_visibility_rule_#{item.class.to_s.underscore}_path",item)
+  end
+
   def distinct_url
     send("#{item.class.to_s.underscore}_url",item)
+  end
+
+  def remove_visibility_rule_path
+    send("remove_visibility_rule_#{item.class.to_s.underscore}_path",item)
   end
 
 end

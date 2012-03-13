@@ -6,6 +6,8 @@ Swidjit::Application.routes.draw do
     member do
       get :toggle_active
       get :duplicate
+      post :add_visibility_rule
+      delete :remove_visibility_rule
     end
   end
 

@@ -17,5 +17,30 @@ describe ThoughtsController do
     end
   end
 
+  describe "Visibility Rules" do
+    it 'should remove the visibility rule' do
+      user = Factory(:user)
+      item = Factory(:thought)
+      list = Factory(:list, :user => user)
+      item.lists << list
+      item.list_ids.count.should == 1
+      sign_in user
+      delete :remove_visibility_rule, :id => item.id, :visibility_type => 'list', :visibility_id => list.id, :format => :json
+      response.should be_success
+      item.list_ids.count.should == 0
+    end
+
+    it 'should add the visibility rule' do
+      user = Factory(:user)
+      item = Factory(:thought)
+      list = Factory(:list, :user => user)
+      item.list_ids.count.should == 0
+      sign_in user
+      post :add_visibility_rule, :id => item.id, :visibility_type => 'list', :visibility_id => list.id, :format => :json
+      response.should be_success
+      item.list_ids.count.should == 1
+    end
+  end
+
   it_should_behave_like 'an item controller'
 end
