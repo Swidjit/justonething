@@ -9,7 +9,7 @@ class Item < ActiveRecord::Base
 
   delegate :display_name, :to => :user, :prefix => true
 
-  attr_protected :user
+  attr_protected :user, :posted_by_user
   attr_accessible :title, :description, :has_expiration, :tag_list, :active, :public, :expires_on, :community_ids
 
   attr_accessor :has_expiration, :tag_list
@@ -20,7 +20,7 @@ class Item < ActiveRecord::Base
   validates_inclusion_of :active, :public, :in => [true,false]
   validates_inclusion_of :has_expiration, :in => ['0','1']
   validates_associated :tags, :message => 'can only contain letters, numbers, and hyphens'
-  validate :user_belongs_to_communities
+  validate :user_belongs_to_communities, :posted_by_user_is_delegatee_of_user
 
   before_validation :handle_has_expiration, :convert_tag_list_to_tags
 
@@ -55,4 +55,9 @@ class Item < ActiveRecord::Base
     self.user.community_ids.include? self.community_ids
   end
 
+  def posted_by_user_is_delegatee_of_user
+    if posted_by_user.present?
+      self.errors.add(:user, "cannot post as") unless posted_by_user.delegators.include? self.user
+    end
+  end
 end

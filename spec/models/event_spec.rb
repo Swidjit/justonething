@@ -24,5 +24,6 @@ describe Event do
     end
   end
 
+  before(:all) { @item_class = Event }
   it_should_behave_like 'an item'
 end

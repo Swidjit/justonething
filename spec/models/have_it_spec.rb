@@ -13,5 +13,6 @@ describe HaveIt do
     end
   end
 
+  before(:all) { @item_class = HaveIt }
   it_should_behave_like 'an item'
 end

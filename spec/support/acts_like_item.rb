@@ -58,4 +58,10 @@ shared_examples "an item" do
     subject.save
     subject.tags.collect(&:name).sort.should == %w( dear you )
   end
+
+  it 'should not be valid if posted_by_user is not a delegatee of user' do
+    item = Factory.build(@item_class.to_s.underscore.to_sym, :posted_by_user => Factory(:user))
+    item.should be_invalid
+    item.errors.messages.should have_key(:user)
+  end
 end
