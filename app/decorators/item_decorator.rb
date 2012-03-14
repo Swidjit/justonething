@@ -1,9 +1,8 @@
-require("#{Rails.root}/lib/shared_tag_decorations.rb")
 class ItemDecorator < ApplicationDecorator
   decorates :item
   include Draper::LazyHelpers
 
-  extend SharedTagDecorations
+  extend SharedDecorations
   linkifies_tags_in :description
 
   def add_visibility_rule_dropdown

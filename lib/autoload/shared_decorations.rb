@@ -1,4 +1,4 @@
-module SharedTagDecorations
+module SharedDecorations
   def linkifies_tags_in(attributes)
     if !attributes.is_a?(Array)
       attributes = [attributes]
