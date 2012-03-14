@@ -2,14 +2,18 @@ class ItemDecorator < ApplicationDecorator
   decorates :item
   include Draper::LazyHelpers
 
-  extend SharedDecorations
-  linkifies_tags_in :description
+  include SharedDecorations
+  linkifies_all_in :description, :title
 
   def add_visibility_rule_dropdown
     option_hash = {}
     option_hash[:communities] = h.current_user.communities.collect{|c| [c.name,"community-#{c.id}"] }
     option_hash[:lists] = h.current_user.lists.collect{|c| [c.name,"list-#{c.id}"] }
     h.select('add_visibility_rule','',grouped_options_for_select(option_hash),{:include_blank => 'add viewers'},{:id => 'add_visibility_rule'})
+  end
+
+  def description
+    linkified_description
   end
 
   def expires_on_string
@@ -60,6 +64,10 @@ class ItemDecorator < ApplicationDecorator
 
   def tag_list
     item.tags.collect(&:name).sort.join(', ')
+  end
+
+  def title
+    linkified_title
   end
 
   def tokenized_visibility_rules
