@@ -58,4 +58,20 @@ describe UsersController do
       end
     end
   end
+
+  describe 'GET references' do
+    before(:each) { @target_user = Factory(:user) }
+
+    it "should find appropriate items" do
+      tagged_desc = "This is at @#{@target_user.display_name}"
+      item1 = Factory(:thought, :description => tagged_desc)
+      item2 = Factory(:want_it)
+      item3 = Factory(:have_it, :active => false, :description => tagged_desc)
+
+      sign_in @target_user
+      get :references, :id => @target_user.id
+      response.should be_success
+      assigns(:feed_items).length.should == 1
+    end
+  end
 end

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   respond_to :html
   authorize_resource :only => :show
   before_filter :load_resource_by_display_name, :only => :show
-  before_filter :load_resource, :only => [:edit, :update]
+  before_filter :load_resource, :only => [:edit, :update, :references]
 
   def show
     item_type = params[:type] || 'all'
@@ -22,6 +22,16 @@ class UsersController < ApplicationController
       redirect_to profile_path(@user.display_name)
     else
       render :edit
+    end
+  end
+
+  def references
+    item_type = params[:type] || 'all'
+    if %w( events have_its want_its links thoughts ).include? item_type
+      @feed_items = Item.referencing(@user).where(:type => item_type.camelize.singularize).access_controlled_for(current_user,current_ability)
+    else
+      params[:type] = 'all'
+      @feed_items = Item.referencing(@user).access_controlled_for(current_user,current_ability)
     end
   end
 

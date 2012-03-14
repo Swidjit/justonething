@@ -37,6 +37,7 @@ Swidjit::Application.routes.draw do
   resources :users, :only => [:edit, :update] do
     member do
       get :visibility_options
+      get :references
     end
   end
 
