@@ -25,6 +25,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def visibility_options
+    item = Item.new
+
+    # 0 is used as a placeholder for current user
+    if params[:id].present? && params[:id].to_i > 0
+      user = User.find(params[:id])
+      item.user = user
+    end
+
+    @item = ItemDecorator.new(item)
+
+    render :partial => 'items/visibility_form', :locals => { :ajax => false, :item => @item }
+  end
+
   private
   def load_resource
     @user = UserDecorator.find(params[:id])

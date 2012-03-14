@@ -6,9 +6,11 @@ class ItemDecorator < ApplicationDecorator
   linkifies_all_in :description, :title
 
   def add_visibility_rule_dropdown
+    user = item.user || h.current_user
+
     option_hash = {}
-    option_hash[:communities] = h.current_user.communities.collect{|c| [c.name,"community-#{c.id}"] }
-    option_hash[:lists] = h.current_user.lists.collect{|c| [c.name,"list-#{c.id}"] }
+    option_hash[:communities] = user.communities.collect{|c| [c.name,"community-#{c.id}"] }
+    option_hash[:lists] = user.lists.collect{|c| [c.name,"list-#{c.id}"] }
     h.select('add_visibility_rule','',grouped_options_for_select(option_hash),{:include_blank => 'add viewers'},{:id => 'add_visibility_rule'})
   end
 

@@ -34,7 +34,11 @@ Swidjit::Application.routes.draw do
     end
   end
 
-  resources :users, :only => [:edit, :update]
+  resources :users, :only => [:edit, :update] do
+    member do
+      get :visibility_options
+    end
+  end
 
   resources :delegates, :only => [:create,:destroy]
 

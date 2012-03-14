@@ -1,7 +1,7 @@
 = f.semantic_errors
 = f.inputs do
   - if current_user.delegators.present?
-    = f.input :user_id, :as => :select, :collection => current_user.delegators, :label => "Post As", :include_blank => current_user.display_name
+    = f.input :user_id, :as => :select, :collection => current_user.delegators, :label => "Post As", :include_blank => current_user.display_name, :input_html => { :onchange => 'swidjit.updateVisibilityForm(this)' }
   = f.input :public
   = f.input :title
   = f.input :description, :as => :text
