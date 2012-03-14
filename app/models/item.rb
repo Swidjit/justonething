@@ -50,6 +50,17 @@ class Item < ActiveRecord::Base
       ).accessible_by(ability)
   end
 
+  def self.referencing(user)
+    where_clause = []
+    where_params = []
+    %w( description title ).each do |field|
+      where_clause << "lower(#{self.table_name}.#{field}) ~ ? "
+      where_params << "@#{user.display_name.downcase}([^a-z0-9]|$)"
+    end
+    where_params.prepend(where_clause.join(' OR '))
+    self.where(where_params)
+  end
+
   def set_defaults
     if !self.persisted?
       self.expires_on = 10.days.from_now
