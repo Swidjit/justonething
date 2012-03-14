@@ -32,9 +32,13 @@ class UsersController < ApplicationController
 
   def load_resource_by_display_name
     @user = UserDecorator.decorate User.by_lower_display_name(params[:display_name])
-    raise ActiveRecord::RecordNotFound if @user.model.nil?
-    if @user.display_name != params[:display_name]
-      redirect_to profile_path(@user.display_name)
+    if @user.model.nil?
+      @object = "User Profile for #{params[:display_name]}"
+      render 'errors/404', :status => 404
+    else
+      if @user.display_name != params[:display_name]
+        redirect_to profile_path(@user.display_name)
+      end
     end
   end
 end
