@@ -9,6 +9,7 @@ class Item < ActiveRecord::Base
   has_many :lists, :through => :item_visibility_rules, :source => :visibility,
       :source_type => 'List', :uniq => true
   has_many :recommendations, :dependent => :destroy
+  has_many :recommendation_users, :through => :recommendations, :source => :user
 
   delegate :display_name, :to => :user, :prefix => true
 

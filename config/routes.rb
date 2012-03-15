@@ -8,6 +8,7 @@ Swidjit::Application.routes.draw do
       get :duplicate
       post :add_visibility_rule
       delete :remove_visibility_rule
+      resources :recommendations, :only => :create
     end
   end
 

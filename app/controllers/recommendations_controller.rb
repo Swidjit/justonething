@@ -2,7 +2,7 @@ class RecommendationsController < ApplicationController
 
   def create
     @recommendation = Recommendation.new(params["recommendation"])
-    @recommendation.item = Item.find(params["item_id"])
+    @recommendation.item = Item.find(params["id"])
     @recommendation.user = current_user
     @recommendation.save
     respond_to do |f|
