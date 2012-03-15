@@ -38,6 +38,7 @@ group :development, :test do
   gem 'rb-fsevent'
   gem 'shoulda'
   gem 'shoulda-matchers'
+  gem 'railroad', :git => 'git://github.com/sonnym/RailRoad.git'
 
   # Jenkins CI needs a JS runtime
   gem 'therubyracer'
