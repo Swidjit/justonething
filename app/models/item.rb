@@ -33,6 +33,8 @@ class Item < ActiveRecord::Base
 
   scope :active, :conditions => "#{self.table_name}.active = true"
   scope :deactivated, :conditions => "#{self.table_name}.active = false"
+  scope :recommended, where("#{self.table_name}.recommendations_count > 0"
+    ).reorder("#{self.table_name}.recommendations_count DESC, #{self.table_name}.created_at DESC")
 
   def self.access_controlled_for(user,ability)
     user ||= User.new

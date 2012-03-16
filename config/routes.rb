@@ -18,6 +18,7 @@ Swidjit::Application.routes.draw do
         get "#{act.to_sym}(/:tag_name)", :action => act.to_sym, :as => "#{act}"
       end
       get :drafts
+      get :recommendations
     end
   end
 
