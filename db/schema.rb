@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120315182614) do
+ActiveRecord::Schema.define(:version => 20120316124105) do
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(:version => 20120315182614) do
 
   add_index "communities_users", ["community_id"], :name => "index_communities_users_on_community_id"
   add_index "communities_users", ["user_id", "community_id"], :name => "index_communities_users_on_user_id_and_community_id", :unique => true
+
+  create_table "community_invitations", :force => true do |t|
+    t.integer  "invitee_id",                                 :null => false
+    t.integer  "inviter_id"
+    t.integer  "community_id"
+    t.string   "status",       :limit => 1, :default => "P"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
 
   create_table "delegates", :force => true do |t|
     t.integer  "delegator_id"
@@ -49,12 +58,12 @@ ActiveRecord::Schema.define(:version => 20120315182614) do
   add_index "item_visibility_rules", ["visibility_id", "visibility_type", "item_id"], :name => "uniq_item_visibility_index", :unique => true
 
   create_table "items", :force => true do |t|
-    t.string   "title",                               :null => false
+    t.string   "title",                                   :null => false
     t.text     "description"
     t.date     "expires_on"
     t.integer  "user_id"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "type"
     t.string   "cost"
     t.string   "condition"
@@ -62,9 +71,10 @@ ActiveRecord::Schema.define(:version => 20120315182614) do
     t.string   "location"
     t.datetime "start_datetime"
     t.datetime "end_datetime"
-    t.boolean  "active",            :default => true, :null => false
-    t.boolean  "public",            :default => true, :null => false
+    t.boolean  "active",                :default => true, :null => false
+    t.boolean  "public",                :default => true, :null => false
     t.integer  "posted_by_user_id"
+    t.integer  "recommendations_count", :default => 0,    :null => false
   end
 
   create_table "items_tags", :id => false, :force => true do |t|

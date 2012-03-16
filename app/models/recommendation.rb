@@ -1,7 +1,7 @@
 class Recommendation < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :item
+  belongs_to :item, :counter_cache => true
 
   validates_presence_of :user, :item, :description
   validates_uniqueness_of :user_id, :scope => :item_id
