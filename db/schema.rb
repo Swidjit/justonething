@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316124105) do
+ActiveRecord::Schema.define(:version => 20120316184103) do
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
@@ -47,6 +47,11 @@ ActiveRecord::Schema.define(:version => 20120316124105) do
 
   add_index "delegates", ["delegatee_id"], :name => "index_delegates_on_delegatee_id"
   add_index "delegates", ["delegator_id", "delegatee_id"], :name => "index_delegates_on_delegator_id_and_delegatee_id", :unique => true
+
+  create_table "item_preset_tags", :force => true do |t|
+    t.string "tag"
+    t.string "item_type"
+  end
 
   create_table "item_visibility_rules", :force => true do |t|
     t.integer "visibility_id",   :null => false
@@ -133,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20120316124105) do
     t.string   "last_name"
     t.string   "display_name"
     t.boolean  "user_set_display_name",  :default => false, :null => false
+    t.boolean  "is_admin",               :default => false
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

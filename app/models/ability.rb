@@ -6,6 +6,9 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
     if user.persisted?
+      if user.is_admin
+        can :manage, ItemPresetTag
+      end
       can :manage, User, :id => user.id
       can :manage, ITEMS, :user_id => user.id
       can :manage, Community, :user_id => user.id

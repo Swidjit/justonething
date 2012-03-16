@@ -1,0 +1,6 @@
+%h2 New Preset Tag
+
+= semantic_form_for @item_preset_tag do |f|
+  = f.input :tag
+  = f.input :item_type, :as => :select, :collection => ItemPresetTag::ITEM_TYPES
+  = f.submit 'Create Preset Tag'

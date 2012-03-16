@@ -28,6 +28,8 @@ Swidjit::Application.routes.draw do
     end
   end
 
+  resources :item_preset_tags, :only => [:index, :new, :create, :destroy]
+
   resources :communities, :only => [:new,:create,:show,:index] do
     member do
       post :join

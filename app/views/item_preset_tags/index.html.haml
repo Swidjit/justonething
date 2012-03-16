@@ -1,0 +1,16 @@
+%h2 Preset Tags
+
+= link_to 'Add Preset Tag', new_item_preset_tag_path
+
+- if @item_preset_tags.empty?
+  No preset tags yet.
+- else
+  %ul
+    - @item_preset_tags.group_by(&:item_type).each do |item_type, tags|
+      %li
+        = item_type
+        %ul
+          - tags.each do |tag|
+            %li
+              = tag.tag
+              = link_to 'x', item_preset_tag_path(tag), :confirm => 'Are you sure?', :method => :delete
