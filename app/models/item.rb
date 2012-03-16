@@ -48,7 +48,7 @@ class Item < ActiveRecord::Base
       controlled_scope = controlled_scope.having("COUNT(ivr.*) = 0")
     end
 
-    controlled_scope.group( %w( id title description expires_on user_id created_at updated_at type cost condition link location start_datetime end_datetime active public posted_by_user_id ).map{|col| "#{self.table_name}.#{col}"}.join(',')
+    controlled_scope.group( %w( id title description expires_on user_id created_at updated_at type cost condition link location start_datetime end_datetime active public posted_by_user_id recommendations_count ).map{|col| "#{self.table_name}.#{col}"}.join(',')
       ).accessible_by(ability)
   end
 
