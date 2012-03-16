@@ -54,7 +54,7 @@ class ItemDecorator < ApplicationDecorator
       links << link_to( toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
     end
     links << link_to('Duplicate', send("duplicate_#{item.class.to_s.underscore}_path",item))
-    if !item.recommendation_users.include? h.current_user && item.user != h.current_user
+    if !item.recommendation_users.include?(h.current_user) && item.user_id != h.current_user.id
       links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
     end
     links << facebook_like_button
