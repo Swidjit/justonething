@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery_ujs
+//= require jquery.tokeninput
 //= require_tree .
 
 $(document).ready(function(){

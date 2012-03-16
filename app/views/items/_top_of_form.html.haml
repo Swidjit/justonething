@@ -5,5 +5,15 @@
   = f.input :public
   = f.input :title
   = f.input :description, :as => :text
-  = f.input :tag_list, :label => 'Tags (comma separated)'
+  = f.input :tag_list, :label => 'Tags', :input_html => {"data-pre" => @item.tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
   = f.semantic_errors :tags
+
+:javascript
+  $(document).ready(function(){
+    $("##{@item.model.class.to_s.underscore}_tag_list").tokenInput(
+      "#{autocomplete_search_tags_path}", {
+        theme: "facebook",
+        preventDuplicates:"true"
+      }
+    );
+  });

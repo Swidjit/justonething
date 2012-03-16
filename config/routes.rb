@@ -22,6 +22,12 @@ Swidjit::Application.routes.draw do
     end
   end
 
+  resources :tags, :only => [] do
+    collection do
+      get :autocomplete_search
+    end
+  end
+
   resources :communities, :only => [:new,:create,:show,:index] do
     member do
       post :join
