@@ -14,7 +14,7 @@
   %li
     Recommendations:
     %ul
-      = render :partial => 'recommendations/for_item', :collection => item.recommendations
+      = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(item.recommendations)
 
 - content_for :head do
   %meta{:property => "og:title", :content => "Swidjit - #{item.title}"}
