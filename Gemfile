@@ -2,18 +2,18 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
 gem 'rake', "0.9.2.2"
-gem 'pg'
-gem 'devise'
-gem 'haml'
-gem 'unicorn'
-gem 'foreigner'
-gem 'draper'
-gem 'cancan'
+gem 'pg', '0.13.1'
+gem 'devise', '2.0.4'
+gem 'haml', '3.1.4'
+gem 'unicorn', '4.2.0'
+gem 'foreigner', '1.1.2'
+gem 'draper', '0.10.0'
+gem 'cancan', '1.6.7'
 gem 'compass-susy-plugin', '~> 0.9'
-gem 'bourbon'
+gem 'bourbon', '1.4.0'
 
-gem 'omniauth-facebook'
-gem 'formtastic'
+gem 'omniauth-facebook', '1.2.0'
+gem 'formtastic', '2.0.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -26,21 +26,21 @@ end
 gem 'jquery-rails'
 
 group :development, :test do
-  gem 'heroku'
+  gem 'heroku', '2.20.1'
   gem 'factory_girl_rails', '~> 1.2'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '2.8.1'
   gem 'capybara-webkit', '0.9.0'
-  gem 'guard'
-  gem 'turnip'
-  gem 'spork'
-  gem 'guard-rspec'
-  gem 'guard-spork'
-  gem 'rb-fsevent'
-  gem 'shoulda'
-  gem 'shoulda-matchers'
+  gem 'guard', '1.0.0'
+  gem 'turnip', '0.3.0'
+  gem 'spork', '0.9.0'
+  gem 'guard-rspec', '0.6.0'
+  gem 'guard-spork', '0.5.2'
+  gem 'rb-fsevent', '0.9.0'
+  gem 'shoulda', '2.11.3'
+  gem 'shoulda-matchers', '1.0.0'
   gem 'railroad', :git => 'git://github.com/sonnym/RailRoad.git'
 
   # Jenkins CI needs a JS runtime
-  gem 'therubyracer'
+  gem 'therubyracer', '0.9.10'
 end
 
