@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316184103) do
+ActiveRecord::Schema.define(:version => 20120319140541) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -120,6 +120,14 @@ ActiveRecord::Schema.define(:version => 20120316184103) do
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
+
+  create_table "user_familiarities", :force => true do |t|
+    t.integer "user_id",                     :null => false
+    t.integer "familiar_id",                 :null => false
+    t.integer "familiarness", :default => 0, :null => false
+  end
+
+  add_index "user_familiarities", ["user_id", "familiar_id"], :name => "index_user_familiarities_on_user_id_and_familiar_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
