@@ -23,6 +23,7 @@
       = link_to "Log out", destroy_user_session_url, :method => 'delete'
       = link_to "profile", profile_path(current_user.display_name)
       = link_to "@#{current_user.display_name}", references_user_path(current_user)
+      = link_to "bookmarks", bookmarks_path
       = link_to 'my drafts', drafts_feeds_path
       = current_decorated_user.item_creation_links
       - if can? :manage, ItemPresetTag

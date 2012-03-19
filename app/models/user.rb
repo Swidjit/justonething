@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  BLACK_LISTED_USER_URLS = %w( communities item_preset_tags )
+  BLACK_LISTED_USER_URLS = %w( communities item_preset_tags bookmarks )
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable

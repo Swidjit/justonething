@@ -1,0 +1,7 @@
+%h3 Bookmarks
+
+- if @bookmarks.count == 0
+  %p No items found.
+- else
+  %ul
+    = render :partial => 'items/item', :collection => ItemDecorator.decorate(@bookmarks.map(&:item))

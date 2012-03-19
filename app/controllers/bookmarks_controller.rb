@@ -2,6 +2,10 @@ class BookmarksController < ApplicationController
   authorize_resource :only => :destroy
   before_filter :load_resource, :only => :destroy
 
+  def index
+    @bookmarks = Bookmark.for_user(current_user).all
+  end
+
   def create
     if params[:item_id].present?
       bookmark = Bookmark.new(:item_id => params[:item_id], :user => current_user)
