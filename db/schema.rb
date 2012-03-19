@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120309195113) do
+ActiveRecord::Schema.define(:version => 20120315185752) do
+
+  create_table "bookmarks", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "item_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "communities", :force => true do |t|
     t.string   "name",        :null => false
@@ -119,6 +126,9 @@ ActiveRecord::Schema.define(:version => 20120309195113) do
   add_index "users", ["display_name"], :name => "index_users_on_display_name"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  add_foreign_key "bookmarks", "items", :name => "bookmarks_item_id_fk"
+  add_foreign_key "bookmarks", "users", :name => "bookmarks_user_id_fk"
 
   add_foreign_key "delegates", "users", :name => "delegates_delegatee_id_fk", :column => "delegatee_id"
   add_foreign_key "delegates", "users", :name => "delegates_delegator_id_fk", :column => "delegator_id"
