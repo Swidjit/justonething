@@ -1,5 +1,9 @@
 class Recommendation < ActiveRecord::Base
 
+  include SharedScopes
+
+  references_users_in :description
+
   belongs_to :user
   belongs_to :item, :counter_cache => true
 

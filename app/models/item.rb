@@ -1,4 +1,9 @@
 class Item < ActiveRecord::Base
+
+  include SharedScopes
+
+  references_users_in :description, :title
+
   belongs_to :user
   belongs_to :posted_by_user, :class_name => "User"
 
@@ -52,17 +57,6 @@ class Item < ActiveRecord::Base
 
     controlled_scope.group( %w( id title description expires_on user_id created_at updated_at type cost condition link location start_datetime end_datetime active public posted_by_user_id recommendations_count ).map{|col| "#{self.table_name}.#{col}"}.join(',')
       ).accessible_by(ability)
-  end
-
-  def self.referencing(user)
-    where_clause = []
-    where_params = []
-    %w( description title ).each do |field|
-      where_clause << "lower(#{self.table_name}.#{field}) ~ ? "
-      where_params << "@#{user.display_name.downcase}([^a-z0-9]|$)"
-    end
-    where_params.prepend(where_clause.join(' OR '))
-    self.where(where_params)
   end
 
   def set_defaults
