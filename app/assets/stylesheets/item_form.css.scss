@@ -15,6 +15,10 @@ ul.token-input-list-facebook {
   list-style-type: none;
   clear: left;
 
+  &.preset_tags {
+    border: none;
+  }
+
   li input {
     border: 0;
     width: 100px;

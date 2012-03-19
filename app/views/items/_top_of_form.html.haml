@@ -6,15 +6,31 @@
   = f.input :title
   = f.input :description, :as => :text
   = f.input :tag_list, :label => 'Tags', :input_html => {"data-pre" => @item.tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
+  - if @item_preset_tags.any?
+    %li
+      %ul.preset_tags.token-input-list-facebook
+        - @item_preset_tags.each do |tag|
+          %li.token-input-token-facebook.preset_tag= tag.tag
   = f.semantic_errors :tags
 
 :javascript
   $(document).ready(function(){
-    $("##{@item.model.class.to_s.underscore}_tag_list").tokenInput(
+    var tag_list_selector = "##{@item.model.class.to_s.underscore}_tag_list";
+    $(tag_list_selector).tokenInput(
       "#{autocomplete_search_tags_path}", {
         theme: "facebook",
         preventDuplicates:"true",
         minChars: 2
       }
     );
+    $("li.preset_tag").click(function(){
+      var tag_name = $.trim($(this).text());
+      $(tag_list_selector).tokenInput(
+        "add",
+        {
+          id: tag_name,
+          name: tag_name
+        }
+      );
+    });
   });
