@@ -57,6 +57,14 @@ class ItemDecorator < ApplicationDecorator
     if !item.recommendation_users.include?(h.current_user) && item.user_id != h.current_user.id
       links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
     end
+
+    if h.current_user.bookmarks.map(&:item).include?(item)
+      bookmark = h.current_user.bookmarks.detect { |bookmark| bookmark.item == item }
+      links << link_to('Remove Bookmark', bookmark_path(bookmark), :method => :delete)
+    else
+      links << link_to('Bookmark', bookmarks_path(:item_id => item.id), :method => :post)
+    end
+
     links << facebook_like_button
     content_tag :li, links.join(' ').html_safe
   end

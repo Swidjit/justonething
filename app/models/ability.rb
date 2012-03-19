@@ -15,6 +15,7 @@ class Ability
       can :create, Community
       can :read, ITEMS, :active => true
       can :manage, List, :user_id => user.id
+      can :manage, Bookmark, :user_id => user.id
     else
       cannot :create, :all
       cannot :join, Community
