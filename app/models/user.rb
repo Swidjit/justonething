@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_many :lists
   has_and_belongs_to_many :communities, :uniq => true
   has_many :recommendations, :dependent => :destroy
+  has_many :bookmarks, :dependent => :destroy
 
   has_many :delegates_as_delegator, :foreign_key => :delegator_id, :class_name => "Delegate"
   has_many :delegates_as_delegatee, :foreign_key => :delegatee_id, :class_name => "Delegate"
