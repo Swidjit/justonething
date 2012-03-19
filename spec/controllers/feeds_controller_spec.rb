@@ -25,4 +25,16 @@ describe FeedsController do
       assigns(:feed_items).should == [want_it]
     end
   end
+
+  describe 'GET recommendations' do
+    it 'should load only items with recommendations' do
+      user = Factory(:user)
+      rec = Factory(:recommendation)
+      rec2 = Factory(:recommendation)
+      rec3 = Factory(:recommendation, :item => rec2.item)
+      sign_in user
+      get :recommendations
+      assigns(:feed_items).should == [rec2.item, rec.item]
+    end
+  end
 end

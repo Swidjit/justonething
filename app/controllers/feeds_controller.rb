@@ -40,6 +40,16 @@ class FeedsController < ApplicationController
     @feed_items  = current_user.items.deactivated
   end
 
+  def recommendations
+    item_type = params[:type] || 'all'
+    if %w( events have_its want_its links thoughts ).include? item_type
+      @feed_items = Item.recommended.where(:type => item_type.camelize.singularize).access_controlled_for(current_user,current_ability)
+    else
+      params[:type] = 'all'
+      @feed_items = Item.recommended.access_controlled_for(current_user,current_ability)
+    end
+  end
+
   # Per discussion between Isaiah and Sonny: single action for each item type
   # Eventually List action
   # Index action with query string that combines all types of filtering

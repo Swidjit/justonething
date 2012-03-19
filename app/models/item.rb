@@ -8,6 +8,8 @@ class Item < ActiveRecord::Base
       :source_type => 'Community', :uniq => true
   has_many :lists, :through => :item_visibility_rules, :source => :visibility,
       :source_type => 'List', :uniq => true
+  has_many :recommendations, :dependent => :destroy
+  has_many :recommendation_users, :through => :recommendations, :source => :user
 
   delegate :display_name, :to => :user, :prefix => true
 
@@ -31,6 +33,8 @@ class Item < ActiveRecord::Base
 
   scope :active, :conditions => "#{self.table_name}.active = true"
   scope :deactivated, :conditions => "#{self.table_name}.active = false"
+  scope :recommended, where("#{self.table_name}.recommendations_count > 0"
+    ).reorder("#{self.table_name}.recommendations_count DESC, #{self.table_name}.created_at DESC")
 
   def self.access_controlled_for(user,ability)
     user ||= User.new
@@ -46,7 +50,7 @@ class Item < ActiveRecord::Base
       controlled_scope = controlled_scope.having("COUNT(ivr.*) = 0")
     end
 
-    controlled_scope.group( %w( id title description expires_on user_id created_at updated_at type cost condition link location start_datetime end_datetime active public posted_by_user_id ).map{|col| "#{self.table_name}.#{col}"}.join(',')
+    controlled_scope.group( %w( id title description expires_on user_id created_at updated_at type cost condition link location start_datetime end_datetime active public posted_by_user_id recommendations_count ).map{|col| "#{self.table_name}.#{col}"}.join(',')
       ).accessible_by(ability)
   end
 

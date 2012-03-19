@@ -64,4 +64,12 @@ shared_examples "an item" do
     item.should be_invalid
     item.errors.messages.should have_key(:user)
   end
+
+  it 'should keep a counter cache of recommendations' do
+    item = Factory(:item)
+    item.recommendations_count.should == 0
+    rec = Factory(:recommendation, :item => item)
+    item.reload
+    item.recommendations_count.should == 1
+  end
 end

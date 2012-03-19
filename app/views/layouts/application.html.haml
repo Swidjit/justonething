@@ -25,6 +25,8 @@
       = link_to "@#{current_user.display_name}", references_user_path(current_user)
       = link_to 'my drafts', drafts_feeds_path
       = current_decorated_user.item_creation_links
+      - if can? :manage, ItemPresetTag
+        = link_to 'Manage Preset Tags', item_preset_tags_path
     - else
       = link_to 'Sign in/Register', new_user_session_path
     #sideNav
@@ -34,6 +36,7 @@
       = link_to "Thoughts", thoughts_feeds_path
       = link_to "Links", links_feeds_path
       = link_to 'Events', events_feeds_path
+      = link_to 'Recommendations', recommendations_feeds_path
       - if signed_in?
         %br
         = link_to 'List of Communities', communities_path

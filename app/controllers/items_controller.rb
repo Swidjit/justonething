@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   authorize_resource :only => [:destroy, :edit, :update, :add_visibility_rule,
     :remove_visibility_rule]
   before_filter :load_decorated_resource
+  before_filter :load_preset_tags, :only => [:new, :edit, :duplicate, :create]
   before_filter :authorize_create_item, :only => [:create,:new]
   before_filter :arrayify_ids_fields_in_params, :only => [:create,:update]
 
@@ -118,6 +119,10 @@ private
     else
       @item = item_decorator.new item_class.new
     end
+  end
+
+  def load_preset_tags
+    @item_preset_tags = ItemPresetTag.where(:item_type => item_class.to_s)
   end
 
   def format_expires_on

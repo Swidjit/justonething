@@ -1,0 +1,20 @@
+= link_to 'Recommend', '#', :id => "recommendation_link_#{item.id}"
+
+= form_for Recommendation.new, :url => recommendations_path(item.id), :html => { :id => "new_recommendation_#{item.id}", :class => 'hidden' } do |f|
+  = f.text_field :description
+  = f.submit 'Recommend'
+
+:javascript
+  $("#recommendation_link_#{item.id}").click(function(){
+    $("#new_recommendation_#{item.id}").show();
+    $(this).remove();
+    return false;
+  });
+  $("#new_recommendation_#{item.id}").ajaxForm({
+    success: function(data){
+      if( data['success'] ){
+        $("#new_recommendation_#{item.id}").after('Recommended');
+        $("#new_recommendation_#{item.id}").remove();
+      }
+    }
+  });

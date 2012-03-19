@@ -8,6 +8,7 @@ Swidjit::Application.routes.draw do
       get :duplicate
       post :add_visibility_rule
       delete :remove_visibility_rule
+      resources :recommendations, :only => :create
     end
   end
 
@@ -17,8 +18,17 @@ Swidjit::Application.routes.draw do
         get "#{act.to_sym}(/:tag_name)", :action => act.to_sym, :as => "#{act}"
       end
       get :drafts
+      get 'recommendations(/:type)', :action => :recommendations, :as => 'recommendations'
     end
   end
+
+  resources :tags, :only => [] do
+    collection do
+      get :autocomplete_search
+    end
+  end
+
+  resources :item_preset_tags, :only => [:index, :new, :create, :destroy]
 
   resources :communities, :only => [:new,:create,:show,:index] do
     member do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120315185752) do
+ActiveRecord::Schema.define(:version => 20120316184103) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(:version => 20120315185752) do
   add_index "delegates", ["delegatee_id"], :name => "index_delegates_on_delegatee_id"
   add_index "delegates", ["delegator_id", "delegatee_id"], :name => "index_delegates_on_delegator_id_and_delegatee_id", :unique => true
 
+  create_table "item_preset_tags", :force => true do |t|
+    t.string "tag"
+    t.string "item_type"
+  end
+
   create_table "item_visibility_rules", :force => true do |t|
     t.integer "visibility_id",   :null => false
     t.string  "visibility_type", :null => false
@@ -56,12 +61,12 @@ ActiveRecord::Schema.define(:version => 20120315185752) do
   add_index "item_visibility_rules", ["visibility_id", "visibility_type", "item_id"], :name => "uniq_item_visibility_index", :unique => true
 
   create_table "items", :force => true do |t|
-    t.string   "title",                               :null => false
+    t.string   "title",                                   :null => false
     t.text     "description"
     t.date     "expires_on"
     t.integer  "user_id"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "type"
     t.string   "cost"
     t.string   "condition"
@@ -69,9 +74,10 @@ ActiveRecord::Schema.define(:version => 20120315185752) do
     t.string   "location"
     t.datetime "start_datetime"
     t.datetime "end_datetime"
-    t.boolean  "active",            :default => true, :null => false
-    t.boolean  "public",            :default => true, :null => false
+    t.boolean  "active",                :default => true, :null => false
+    t.boolean  "public",                :default => true, :null => false
     t.integer  "posted_by_user_id"
+    t.integer  "recommendations_count", :default => 0,    :null => false
   end
 
   create_table "items_tags", :id => false, :force => true do |t|
@@ -99,6 +105,16 @@ ActiveRecord::Schema.define(:version => 20120315185752) do
   add_index "lists_users", ["list_id", "user_id"], :name => "index_lists_users_on_list_id_and_user_id", :unique => true
   add_index "lists_users", ["user_id"], :name => "index_lists_users_on_user_id"
 
+  create_table "recommendations", :force => true do |t|
+    t.text     "description"
+    t.integer  "user_id",     :null => false
+    t.integer  "item_id",     :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "recommendations", ["item_id", "user_id"], :name => "index_recommendations_on_item_id_and_user_id", :unique => true
+
   create_table "tags", :force => true do |t|
     t.string "name", :null => false
   end
@@ -120,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20120315185752) do
     t.string   "last_name"
     t.string   "display_name"
     t.boolean  "user_set_display_name",  :default => false, :null => false
+    t.boolean  "is_admin",               :default => false
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

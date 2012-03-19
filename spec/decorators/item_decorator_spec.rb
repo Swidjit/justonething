@@ -1,7 +1,11 @@
 require 'spec_helper'
 
 describe ItemDecorator do
-  before { ApplicationController.new.set_current_view_context }
+  before do
+    c = ApplicationController.new
+    c.request = ActionDispatch::TestRequest.new
+    c.set_current_view_context
+  end
 
   it "should linkify hashtags" do
     item = ItemDecorator.decorate Factory.build(:item, :description => "test #tags in descriptions")
