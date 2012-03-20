@@ -101,8 +101,11 @@
           if (li) {
             e.stopImmediatePropagation();
             e.preventDefault();
-            hideList(data);
-            onUserSelected(li,data);
+
+            // prevent newline from being included in textarea value
+            data.ta.value = data.ta.value.substr(0, data.ta.value.length - 1);
+            onUserSelected(li, data);
+
             return false;
           }
           hideList(data);
@@ -119,7 +122,7 @@
       }
 
       var text = getWord(data);
-      console.log("getWord return ",text);
+      //console.log("getWord return ",text);
       if (text && text !== "") {
         // query the server for suggestions
         data.on.query(text, function(list) {
@@ -149,43 +152,52 @@
     // whitespace delimited
     if (text.match(/\s$/)) return;
 
-    var pos = text.length - 1;
-    while (pos > -1) {
-      var symbol_at_start_or_preceded_by_whitespace = text.charAt(pos) === '@' && (pos === 0 || text.charAt(pos - 1).match(/\s/));
+    var symbol_pos = getLocationOfNearestSymbolBeforeWhitespace(text);
 
-      if (symbol_at_start_or_preceded_by_whitespace) {
-        return text.substr(pos + 1, caret); // return text without @
-      }
-      pos--;
+    if (symbol_pos > -1) {
+      return text.substr(symbol_pos + 1, caret); // return text without @
     }
   }
 
   function onUserSelected(li, data) {
     var seletedText = $(li).attr("data-value");
+    console.log(seletedText);
 
-    var selectionEnd = $(data.ta).caret();
-    var text = data.ta.value;
-    text = text.substr(0,selectionEnd);
-    //if( text.charAt(text.length-1) == ' ' || text.charAt(text.length-1) == '\n' ) return "";
-    //var ret = [];
-    var wordsFound = 0;
-    var pos = text.length-1;
+    var caret = $(data.ta).caret();
+    var text = data.ta.value.substr(0, caret);
+    var symbol_pos = getLocationOfNearestSymbolBeforeWhitespace(text);
+    console.log(symbol_pos);
 
-    while( wordsFound < data.wordCount && pos >= 0 && text.charAt(pos) != '\n'){
-      //ret.unshift(text.charAt(pos));
-      pos--;
-      if( text.charAt(pos) == ' ' || pos < 0 ){
-        wordsFound++;
-      }
-    }
-    var a = data.ta.value.substr(0,pos+1);
-    var c = data.ta.value.substr(selectionEnd,data.ta.value.length);
-    var scrollTop = data.ta.scrollTop;
-    data.ta.value = a+seletedText+c;
-    data.ta.scrollTop = scrollTop;
-    data.ta.selectionEnd = pos+1+seletedText.length;
+    // store text around @partial_name based on caret and symbol positions
+    var val_before = data.ta.value.substr(0, symbol_pos + 1);
+    var val_after = data.ta.value.substr(caret, data.ta.value.length);
+
     hideList(data);
+
+    // update textarea
+    data.ta.value = val_before + seletedText + val_after;
+    $(data.ta).caret(symbol_pos + seletedText.length + 1);
     $(data.ta).focus();
+
+    var scrollTop = data.ta.scrollTop;
+    data.ta.scrollTop = scrollTop;
+  }
+
+  function getLocationOfNearestSymbolBeforeWhitespace(text) {
+    var pos = text.length - 1;
+
+    while (pos > -1) {
+      if (text.charAt(pos).match(/\s/)) return -1;
+
+      var symbol_at_start_or_preceded_by_whitespace = text.charAt(pos) === '@' && (pos === 0 || text.charAt(pos - 1).match(/\s/));
+      if (symbol_at_start_or_preceded_by_whitespace) {
+        break;
+      }
+
+      pos--;
+    }
+
+    return pos;
   }
 
     ////////////////////////////////////
