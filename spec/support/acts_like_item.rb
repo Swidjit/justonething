@@ -72,4 +72,13 @@ shared_examples "an item" do
     item.reload
     item.recommendations_count.should == 1
   end
+
+  it 'should update user familiarity on save' do
+    item = Factory(:item)
+    user = Factory(:user)
+    item.description = "I know @#{user.display_name} too!"
+    item.save
+    uf = UserFamiliarity.find_by_user_id_and_familiar_id(item.user.id,user.id)
+    uf.familiarness.should > 0
+  end
 end

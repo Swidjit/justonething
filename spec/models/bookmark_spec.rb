@@ -17,4 +17,10 @@ describe Bookmark do
       Bookmark.for_user(bk2.user).should == [bk2]
     end
   end
+
+  it 'should update user familiarity for recommends on save' do
+    bm = Factory(:bookmark)
+    uf = UserFamiliarity.find_by_user_id_and_familiar_id(bm.user.id,bm.item.user.id)
+    uf.familiarness.should > 0
+  end
 end

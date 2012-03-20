@@ -10,8 +10,13 @@ class Recommendation < ActiveRecord::Base
   validates_presence_of :user, :item, :description
   validates_uniqueness_of :user_id, :scope => :item_id
   validate :user_cannot_recommend_own_item
+  after_save :update_user_familiarity
 
   attr_accessible :description
+
+  def update_user_familiarity
+    UserFamiliarity.update_for(self.user,self.item.user)
+  end
 
   def user_cannot_recommend_own_item
     errors.add(:base, 'You cannot recommend your own item') if item.user == user

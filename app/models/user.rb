@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
   has_many :delegators, :through => :delegates_as_delegatee
   has_many :delegatees, :through => :delegates_as_delegator
 
+  def self.all_by_lower_display_name(display_names)
+    self.where('lower(display_name) IN (?)',display_names.map{|name| name.downcase})
+  end
+
   def self.by_lower_display_name(display_name)
     self.where('lower(display_name) = ?',[display_name.downcase]).first
   end
