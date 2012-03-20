@@ -24,22 +24,173 @@
     });
   }
 
-  var browser =  {isChrome: $.browser.webkit };
+  var _data = {};
+  var _count = 0;
+  function makeAutoComplete(ta,obj){
+    _count++;
+    _data[_count] = {
+      id:"auto_"+_count,
+      ta:ta,
+      wordCount:obj.wordCount,
+      on:obj.on,
+      clone:null,
+      lineHeight:0,
+      list:null,
+      charInLines:{},
+      mode:obj.mode,
+      chars:getDefaultCharArray()};
 
-  function getTextAreaSelectionEnd(ta) {
-     var textArea = ta;//document.getElementById('textarea1');
-     if (document.selection) { //IE
-      var bm = document.selection.createRange().getBookmark();
-      var sel = textArea.createTextRange();
-      sel.moveToBookmark(bm);
-      var sleft = textArea.createTextRange();
-      sleft.collapse(true);
-      sleft.setEndPoint("EndToStart", sel);
-      return sleft.text.length + sel.text.length;
-    }
-    return textArea.selectionEnd;  //ff & chrome
+    var clone = createClone(_count);
+    _data[_count].clone = clone;
+    setCharSize(_data[_count]);
+    //_data[_count].lineHeight = $(ta).css("font-size");
+    _data[_count].list = createList(_data[_count]);
+    registerEvents(_data[_count]);
   }
 
+  function registerEvents(data){
+    $(data.list).delegate("li","click",function(e){
+      var li = this;
+      onUserSelected(li,data);
+      e.stopPropagation();
+      e.preventDefault();
+      return false;
+    });
+
+    $(data.ta).blur(function(e){
+      hideList(data);
+    });
+
+    $(data.ta).click(function(e){
+      hideList(data);
+    });
+
+    $(data.ta).keydown(function(e) {
+      //console.log("keydown keycode="+e.keyCode);
+
+      if (data.listVisible) {
+        if (e.keyCode === 27) { // esc
+          hideList(data);
+        } else if (e.keyCode === 13 || e.keyCode === 38 || e.keyCode === 40) { // control characters
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          return false;
+        }
+      }
+    });
+
+    $(data.ta).keyup(function(e) {
+      //console.log("keyup keycode="+e.keyCode);
+
+      // keyboard navigation
+      if (data.listVisible) {
+        if (e.keyCode === 40){ //down key
+          setSelected(+1,data);
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          return false;
+        }
+        if (e.keyCode === 3) { //up key
+          setSelected(-1,data);
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          return false;
+        }
+        if (e.keyCode == 13) { //enter key
+          var li = getCurrentSelected(data);
+          if (li) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            hideList(data);
+            onUserSelected(li,data);
+            return false;
+          }
+          hideList(data);
+        }
+        if (e.keyCode == 27) { // esc
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          return false;
+        }
+      }
+
+      if (e.keyCode === 27) { // esc
+        return true;
+      }
+
+      var text = getWord(data);
+      console.log("getWord return ",text);
+      if (text && text !== "") {
+        // query the server for suggestions
+        data.on.query(text, function(list) {
+          //console.log("got list = ",list);
+          if (list.length) {
+            showList(data,list,text);
+          } else {
+            hideList(data);
+          }
+        });
+      } else {
+        hideList(data);
+      }
+    });
+
+    $(data.ta).scroll(function(e){
+      var ta = e.target;
+      var miror = $(data.clone);
+      miror.get(0).scrollTop = ta.scrollTop;
+    });
+  }
+
+  function getWord(data) {
+    var caret = $(data.ta).caret();
+    var text = data.ta.value.substr(0, caret);
+
+    // whitespace delimited
+    if (text.match(/\s$/)) return;
+
+    var pos = text.length - 1;
+    while (pos > -1) {
+      var symbol_at_start_or_preceded_by_whitespace = text.charAt(pos) === '@' && (pos === 0 || text.charAt(pos - 1).match(/\s/));
+
+      if (symbol_at_start_or_preceded_by_whitespace) {
+        return text.substr(pos + 1, caret); // return text without @
+      }
+      pos--;
+    }
+  }
+
+  function onUserSelected(li, data) {
+    var seletedText = $(li).attr("data-value");
+
+    var selectionEnd = $(data.ta).caret();
+    var text = data.ta.value;
+    text = text.substr(0,selectionEnd);
+    //if( text.charAt(text.length-1) == ' ' || text.charAt(text.length-1) == '\n' ) return "";
+    //var ret = [];
+    var wordsFound = 0;
+    var pos = text.length-1;
+
+    while( wordsFound < data.wordCount && pos >= 0 && text.charAt(pos) != '\n'){
+      //ret.unshift(text.charAt(pos));
+      pos--;
+      if( text.charAt(pos) == ' ' || pos < 0 ){
+        wordsFound++;
+      }
+    }
+    var a = data.ta.value.substr(0,pos+1);
+    var c = data.ta.value.substr(selectionEnd,data.ta.value.length);
+    var scrollTop = data.ta.scrollTop;
+    data.ta.value = a+seletedText+c;
+    data.ta.scrollTop = scrollTop;
+    data.ta.selectionEnd = pos+1+seletedText.length;
+    hideList(data);
+    $(data.ta).focus();
+  }
+
+    ////////////////////////////////////
+   // incomprehensible display stuff //
+  ////////////////////////////////////
   function getDefaultCharArray(){
     return  {
     '`':0,
@@ -149,30 +300,6 @@
     }
   }
 
-  var _data = {};
-  var _count = 0;
-  function makeAutoComplete(ta,obj){
-    _count++;
-    _data[_count] = {
-      id:"auto_"+_count,
-      ta:ta,
-      wordCount:obj.wordCount,
-      on:obj.on,
-      clone:null,
-      lineHeight:0,
-      list:null,
-      charInLines:{},
-      mode:obj.mode,
-      chars:getDefaultCharArray()};
-
-    var clone = createClone(_count);
-    _data[_count].clone = clone;
-    setCharSize(_data[_count]);
-    //_data[_count].lineHeight = $(ta).css("font-size");
-    _data[_count].list = createList(_data[_count]);
-    registerEvents(_data[_count]);
-  }
-
   function createList(data){
     var ul = document.createElement("ul");
     $(ul).addClass("auto-list");
@@ -236,69 +363,8 @@
     return div;
   }
 
-  /*function breakLongLines(lines,miror){
-    var ret = [];
-    for( var i=0; i<lines.length; i++ ){
-      var lines2 = breakLine(lines[i],miror);
-      for( var j=0;j< lines2.length; j++ ){
-        ret.push(lines2[j]);
-      }
-    }
-    return ret;
-  }
-
-  var stats = {getCursorPosition:{start:0,end:0},breakLongLines:{start:0,end:0},
-    breakLine:{total:0, runCount:0}
-  };
-
-  function breakLine(line,miror){
-     var _start = new Date().getTime();
-     stats.breakLine.runCount++;
-     var ret =[line];
-     var count=0;
-     miror.html("<span style='display:inline-block;'>"+line+"</span>");
-     var span = miror.children("span");
-     if( span.width()+10 < miror.width()) return [line];
-     while( span.width() >= miror.width()-10 ){
-
-       count++;
-       var words = line.split(" ");
-       var left = words.slice(0,words.length-count);
-       var right = words.slice(words.length-count,words.length);
-       miror.html("<span style='display:inline-block;'>"+left.join(" ")+"</span>");
-       var span = miror.children("span");
-
-       ret = [left.join(" "),right.join(" ")];
-     }
-     var arr = breakLine(ret[1],miror);
-     var ret2= [ret[0]];
-     for( var i=0; i<arr.length; i++ ){
-       ret2.push(arr[i]);
-     }
-     stats.breakLine.total += (new Date().getTime() - _start);
-     return ret2;
-  }*/
-
-  function getWords(data){
-    var selectionEnd = getTextAreaSelectionEnd(data.ta);//.selectionEnd;
-    var text = data.ta.value;
-    text = text.substr(0,selectionEnd);
-    if( text.charAt(text.length-1) == ' ' || text.charAt(text.length-1) == '\n' ) return "";
-    var ret = [];
-    var wordsFound = 0;
-    var pos = text.length-1;
-    while( wordsFound < data.wordCount && pos >= 0 && text.charAt(pos) != '\n'){
-      ret.unshift(text.charAt(pos));
-      pos--;
-      if( text.charAt(pos) == ' ' || pos < 0 ){
-        wordsFound++;
-      }
-    }
-    return ret.join("");
-  }
-
   function showList(data,list,text){
-    if( !data.listVisible ){
+    if (!data.listVisible) {
       data.listVisible = true;
       var pos = getCursorPosition(data);
       $(data.list).css({
@@ -306,7 +372,6 @@
         top: pos.top+"px",
         display: "block"
       });
-
     }
 
     var html = "";
@@ -387,7 +452,7 @@
       return getOuterPosition(data);
     }
     //console.log("getCursorPosition: ta width=",$(data.ta).css("width")," ta clientWidth=",data.ta.clientWidth, "scrollWidth=",data.ta.scrollWidth," offsetWidth=",data.ta.offsetWidth," jquery.width=",$(data.ta).width());
-    if( browser.isChrome ){
+    if ($.browser.webkit) {
       $(data.clone).width(data.ta.clientWidth-data.chromeWidthFix);
     }
     else{
@@ -395,7 +460,7 @@
     }
 
     var ta = data.ta;
-    var selectionEnd = getTextAreaSelectionEnd(data.ta);
+    var selectionEnd = $(data.ta).caret();
     var text = ta.value;//.replace(/ /g,"&nbsp;");
 
     var subText = text.substr(0,selectionEnd);
@@ -454,135 +519,5 @@
     var selected = $(data.list).find("[data-selected=true]");
     if( selected.length == 1) return selected.get(0);
     return null;
-  }
-
-  function onUserSelected(li,data){
-    var seletedText = $(li).attr("data-value");
-
-    var selectionEnd = getTextAreaSelectionEnd(data.ta);//.selectionEnd;
-    var text = data.ta.value;
-    text = text.substr(0,selectionEnd);
-    //if( text.charAt(text.length-1) == ' ' || text.charAt(text.length-1) == '\n' ) return "";
-    //var ret = [];
-    var wordsFound = 0;
-    var pos = text.length-1;
-
-    while( wordsFound < data.wordCount && pos >= 0 && text.charAt(pos) != '\n'){
-      //ret.unshift(text.charAt(pos));
-      pos--;
-      if( text.charAt(pos) == ' ' || pos < 0 ){
-        wordsFound++;
-      }
-    }
-    var a = data.ta.value.substr(0,pos+1);
-    var c = data.ta.value.substr(selectionEnd,data.ta.value.length);
-    var scrollTop = data.ta.scrollTop;
-    data.ta.value = a+seletedText+c;
-    data.ta.scrollTop = scrollTop;
-    data.ta.selectionEnd = pos+1+seletedText.length;
-    hideList(data);
-    $(data.ta).focus();
-  }
-
-  function registerEvents(data){
-    $(data.list).delegate("li","click",function(e){
-      var li = this;
-      onUserSelected(li,data);
-      e.stopPropagation();
-      e.preventDefault();
-      return false;
-    });
-
-    $(data.ta).blur(function(e){
-      setTimeout(function(){
-        hideList(data);
-      },400);
-
-    });
-
-    $(data.ta).click(function(e){
-      hideList(data);
-    });
-
-    $(data.ta).keydown(function(e){
-      console.log("keydown keycode="+e.keyCode);
-      if( data.listVisible ){
-        switch(e.keyCode){
-          case 13:
-          case 40:
-          case 38:
-            console.log("huh?");
-            e.stopImmediatePropagation();
-            e.preventDefault();
-            return false;
-          case 27: //esc
-            hideList(data);
-        }
-
-      }
-    });
-
-    $(data.ta).keyup(function(e){
-      if( data.listVisible ){
-        //console.log("keCode=",e.keyCode);
-        if( e.keyCode == 40 ){//down key
-          setSelected(+1,data);
-          e.stopImmediatePropagation();
-          e.preventDefault();
-          return false;
-        }
-        if( e.keyCode == 38 ){//up key
-          setSelected(-1,data);
-          e.stopImmediatePropagation();
-          e.preventDefault();
-          return false;
-        }
-        if( e.keyCode == 13 ){//enter key
-          var li = getCurrentSelected(data);
-          if( li ){
-
-            e.stopImmediatePropagation();
-            e.preventDefault();
-            hideList(data);
-            onUserSelected(li,data);
-            return false;
-          }
-          hideList(data);
-        }
-        if( e.keyCode == 27 ){
-          e.stopImmediatePropagation();
-          e.preventDefault();
-          return false;
-        }
-      }
-      switch( e.keyCode ){
-        case 27:
-          return true;
-      }
-
-      var text = getWords(data);
-      //console.log("getWords return ",text);
-      if( text != "" ){
-        data.on.query(text,function(list){
-          //console.log("got list = ",list);
-          if( list.length ){
-            showList(data,list,text);
-          }
-          else{
-            hideList(data);
-          }
-
-        });
-      }
-      else{
-        hideList(data);
-      }
-    });
-
-    $(data.ta).scroll(function(e){
-        var ta = e.target;
-        var miror = $(data.clone);
-        miror.get(0).scrollTop = ta.scrollTop;
-    });
   }
 })(jQuery);

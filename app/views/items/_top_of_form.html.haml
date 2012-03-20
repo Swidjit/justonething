@@ -16,9 +16,9 @@
 :javascript
   $(document).ready(function(){
     $("#item_description").autocomplete({ wordCount: 1, mode: "outer", on: { query: function(text, cb) {
-      if (text.length === 1) return;
+      if (text.length === 0) return;
 
-      $.getJSON('/users/' + text.substr(1, text.length - 1) + '/suggestions.json', function(json) {
+      $.getJSON('/users/' + text + '/suggestions.json', function(json) {
         cb(json.users);
       });
     } } });
