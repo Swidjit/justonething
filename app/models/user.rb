@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
 
   def self.all_by_lower_display_name(display_names)
     self.where('lower(display_name) IN (?)',display_names.map{|name| name.downcase})
+  end
 
   def self.lower_display_name_like(display_name)
     self.where("lower(display_name) LIKE ?", ["%#{display_name.downcase}%"])
