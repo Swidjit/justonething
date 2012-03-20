@@ -44,9 +44,15 @@ class ListsController < ApplicationController
   end
 
   def delete_user
-    @list.users.destroy(User.find(params[:user_id]))
+    user_to_remove = ListsUser.find_by_user_id_and_list_id(params[:user_id], @list.id)
+    if user_to_remove.present?
+      @list.lists_users.destroy(user_to_remove)
+      message = 'Successfully removed user'
+    else
+      message = 'User not in list'
+    end
     respond_to do |f|
-      f.json { render :json => {:notice => 'Successfully removed user', :success => true }}
+      f.json { render :json => {:notice => message, :success => true }}
     end
   end
 

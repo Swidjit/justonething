@@ -1,4 +1,4 @@
-module SharedScopes
+module ModelReference
 
   extend ActiveSupport::Concern
 

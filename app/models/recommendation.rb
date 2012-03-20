@@ -1,6 +1,6 @@
 class Recommendation < ActiveRecord::Base
 
-  include SharedScopes
+  include ModelReference
 
   references_users_in :description
 

@@ -11,13 +11,14 @@ describe ListsController do
   end
 
   describe 'Adding a user' do
-    it 'should successfully add a user to their list' do
+    it 'should successfully add a user to their list and should update familiarity' do
       list = Factory(:list)
       user_to_add = Factory(:user)
 
       sign_in list.user
       post :add_user, :user_id => user_to_add.id, :id => list.id, :format => :json
       ActiveSupport::JSON.decode(response.body)["success"].should == true
+      UserFamiliarity.find_all_by_user_id_and_familiar_id(list.user_id,user_to_add.id).count.should == 1
     end
 
     it 'should fail to add a user to a list that is not theirs' do
@@ -28,6 +29,19 @@ describe ListsController do
       sign_in other_user
       post :add_user, :user_id => user_to_add.id, :id => list.id, :format => :json
       ActiveSupport::JSON.decode(response.body)["success"].should == false
+    end
+  end
+
+  describe 'Removing a user' do
+    it 'should successfully remove a user from their list and should update familiarity' do
+      list = Factory(:list)
+      user_to_remove = Factory(:user)
+      list.users << user_to_remove
+
+      sign_in list.user
+      post :delete_user, :user_id => user_to_remove.id, :id => list.id, :format => :json
+      ActiveSupport::JSON.decode(response.body)["success"].should == true
+      UserFamiliarity.find_all_by_user_id_and_familiar_id(list.user_id,user_to_remove.id).first.familiarness.should == 0
     end
   end
 

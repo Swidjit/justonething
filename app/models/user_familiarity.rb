@@ -16,6 +16,7 @@ class UserFamiliarity < ActiveRecord::Base
   end
 
   def self.update_for(user, familiar)
+    return if user.id == familiar.id
     user_familiarity = UserFamiliarity.find_or_initialize_by_user_id_and_familiar_id(user.id,familiar.id)
     new_familiarness = 0
 
@@ -44,7 +45,7 @@ class UserFamiliarity < ActiveRecord::Base
     new_familiarness += (num_recommends * 2)
 
     # +2 User bookmarks item posted by Familiar
-    num_bookmarks = user.bookmarks.joins(:items).where("#{Item.table_name}.user_id = ?",familiar.id).count
+    num_bookmarks = user.bookmarks.joins(:item).where("#{Item.table_name}.user_id = ?",familiar.id).count
     new_familiarness += (num_bookmarks * 2)
 
     # +1 User comments on item posted by Familiar
