@@ -12,6 +12,7 @@
 //
 //= require jquery_ujs
 //= require jquery.tokeninput
+//= require jquery.caret
 //= require auto
 //= require_tree .
 
