@@ -161,12 +161,10 @@
 
   function onUserSelected(li, data) {
     var seletedText = $(li).attr("data-value");
-    console.log(seletedText);
 
     var caret = $(data.ta).caret();
     var text = data.ta.value.substr(0, caret);
     var symbol_pos = getLocationOfNearestSymbolBeforeWhitespace(text);
-    console.log(symbol_pos);
 
     // store text around @partial_name based on caret and symbol positions
     var val_before = data.ta.value.substr(0, symbol_pos + 1);
