@@ -51,12 +51,15 @@ class UsersController < ApplicationController
 
   def suggestions
     # familiar users
+    users = current_user.familiar_users.lower_display_name_like(params[:id]).all(:select => 'display_name')
 
     # all users
-    @users = User.lower_display_name_like(params[:id]).all(:select => 'display_name').map(&:display_name)
+    users = User.lower_display_name_like(params[:id]).all(:select => 'display_name') if @users.blank?
 
-    respond_with(@users) do |format|
-      format.json { render :json => { :users => @users } }
+    display_names = users.map(&:display_name)
+
+    respond_with(display_names) do |format|
+      format.json { render :json => { :users => display_names } }
     end
   end
 

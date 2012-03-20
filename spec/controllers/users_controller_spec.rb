@@ -74,4 +74,39 @@ describe UsersController do
       assigns(:feed_items).length.should == 1
     end
   end
+
+  describe 'GET suggestions' do
+    before(:each) do
+      @user = Factory(:user)
+      sign_in @user
+    end
+
+    it "should get familiar users if they exist" do
+      name = 'friend'
+      Factory(:user_familiarity, :user => @user, :familiar => Factory(:user, :display_name => name))
+
+      for i in 0..name.length-1
+        get :suggestions, :id => name[0..i], :format => 'json'
+        response.should be_success
+        response.body.should == { :users => [:friend] }.to_json
+      end
+    end
+
+    it "should fall back to all users if they exist" do
+      name = 'stranger'
+      Factory(:user, :display_name => name)
+
+      for i in 0..name.length-1
+        get :suggestions, :id => name[0..i], :format => 'json'
+        response.should be_success
+        response.body.should == { :users => [:stranger] }.to_json
+      end
+    end
+
+    it "should get nothing if send dummy data" do
+      get :suggestions, :id => 'foo_bar_bim_baz', :format => 'json'
+      response.should be_success
+      response.body.should == { :users => [] }.to_json
+    end
+  end
 end
