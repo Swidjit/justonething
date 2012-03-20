@@ -1,4 +1,5 @@
 class FeedsController < ApplicationController
+  before_filter :authenticate_user!, :only => :familiar_users
 
   def all
     if params[:tag_name].present?
@@ -48,6 +49,19 @@ class FeedsController < ApplicationController
       params[:type] = 'all'
       @feed_items = Item.recommended.access_controlled_for(current_user,current_ability)
     end
+    render :generic_index
+  end
+
+  def familiar_users
+    item_type = params[:type] || 'all'
+    base_feed_items = Item.where("#{Item.table_name}.user_id IN (?)",current_user.familiar_users.collect(&:id))
+    if %w( events have_its want_its links thoughts ).include? item_type
+      @feed_items = base_feed_items.where(:type => item_type.camelize.singularize).access_controlled_for(current_user,current_ability)
+    else
+      params[:type] = 'all'
+      @feed_items = base_feed_items.access_controlled_for(current_user,current_ability)
+    end
+    render :generic_index
   end
 
   # Per discussion between Isaiah and Sonny: single action for each item type

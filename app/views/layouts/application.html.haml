@@ -39,6 +39,7 @@
       = link_to 'Events', events_feeds_path
       = link_to 'Recommendations', recommendations_feeds_path
       - if signed_in?
+        = link_to 'Familiar Users', familiar_users_feeds_path
         %br
         = link_to 'List of Communities', communities_path
         = link_to 'Create a Community', new_community_path

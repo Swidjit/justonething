@@ -1,7 +1,7 @@
 class UserFamiliarity < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :familiar, :class_name => 'user'
+  belongs_to :familiar, :class_name => 'User'
 
   validates_presence_of :user_id, :familiar_id, :familiarness
 
