@@ -12,6 +12,7 @@
 //
 //= require jquery_ujs
 //= require jquery.tokeninput
+//= require auto
 //= require_tree .
 
 $(document).ready(function(){
