@@ -49,6 +49,7 @@ Swidjit::Application.routes.draw do
     member do
       get :visibility_options
       get :references
+      get :suggestions
     end
   end
 

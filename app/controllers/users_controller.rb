@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  respond_to :html
+  respond_to :html, :json
   authorize_resource :only => :show
   before_filter :load_resource_by_display_name, :only => :show
   before_filter :load_resource, :only => [:edit, :update, :references]
@@ -47,6 +47,17 @@ class UsersController < ApplicationController
     @item = ItemDecorator.new(item)
 
     render :partial => 'items/visibility_form', :locals => { :ajax => false, :item => @item }
+  end
+
+  def suggestions
+    # familiar users
+
+    # all users
+    @users = User.lower_display_name_like(params[:id]).all(:select => 'display_name').map(&:display_name)
+
+    respond_with(@users) do |format|
+      format.json { render :json => { :users => @users } }
+    end
   end
 
   private
