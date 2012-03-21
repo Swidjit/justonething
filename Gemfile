@@ -11,7 +11,7 @@ gem 'draper', '0.10.0'
 gem 'cancan', '1.6.7'
 gem 'compass-susy-plugin', '~> 0.9'
 gem 'bourbon', '1.4.0'
-
+gem 'ancestry', '1.2.5'
 gem 'omniauth-facebook', '1.2.0'
 gem 'formtastic', '2.0.2'
 
