@@ -58,7 +58,8 @@
     });
 
     $(data.ta).blur(function(e){
-      hideList(data);
+      // delay hiding of list to allow text replacement to occur
+      setTimeout(function() { hideList(data) }, 400);
     });
 
     $(data.ta).click(function(e){
