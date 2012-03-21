@@ -386,14 +386,10 @@
     }
 
     var html = "";
-    var regEx = new RegExp("("+text+")");
+    var regEx = new RegExp("("+text+")", 'i');
     var taWidth = $(data.ta).width()-5;
     var width = data.mode == "outer" ? "style='width:"+taWidth+"px;'" : "";
     for( var i=0; i< list.length; i++ ){
-
-      //var a = list[i].replace(regEx,"<mark>$1</mark>");
-
-
       html += "<li data-value='"+list[i]+"' "+width+">"+list[i].replace(regEx,"<mark>$1</mark>")+"</li>";
     }
     $(data.list).html(html);
