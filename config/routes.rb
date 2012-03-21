@@ -9,6 +9,7 @@ Swidjit::Application.routes.draw do
       post :add_visibility_rule
       delete :remove_visibility_rule
       resources :recommendations, :only => :create
+      resources :comments, :only => :create
     end
   end
 

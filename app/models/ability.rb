@@ -9,6 +9,7 @@ class Ability
       if user.is_admin
         can :manage, ItemPresetTag
       end
+      can :manage, Comment, :user_id => user.id
       can :manage, User, :id => user.id
       can :manage, ITEMS, :user_id => user.id
       can :manage, Community, :user_id => user.id
@@ -23,6 +24,7 @@ class Ability
       can :read, ITEMS, :public => true, :active => true
     end
     can :read, User
+    can :read, Comment
     can :read, Community
   end
 end
