@@ -359,6 +359,8 @@
       html += "<li data-value='"+list[i]+"' "+width+">"+list[i].replace(regEx,"<mark>$1</mark>")+"</li>";
     }
     $(data.list).html(html);
+
+    setSelected(+1, data);
   }
 
   function breakLines(text,data){
