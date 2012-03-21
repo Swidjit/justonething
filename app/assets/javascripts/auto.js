@@ -159,7 +159,7 @@
   }
 
   function onUserSelected(li, data) {
-    var seletedText = $(li).attr("data-value");
+    var selectedText = $(li).attr("data-value");
 
     var caret = $(data.ta).caret();
     var text = data.ta.value.substr(0, caret);
@@ -172,8 +172,8 @@
     hideList(data);
 
     // update textarea
-    data.ta.value = val_before + seletedText + val_after;
-    $(data.ta).caret(symbol_pos + seletedText.length + 1);
+    data.ta.value = val_before + selectedText + val_after;
+    $(data.ta).caret(symbol_pos + selectedText.length + 1);
     $(data.ta).focus();
 
     var scrollTop = data.ta.scrollTop;
