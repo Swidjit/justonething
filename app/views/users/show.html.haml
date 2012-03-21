@@ -5,7 +5,7 @@
 %div
   = tabbed_item_types('type')
 
-- if @user.delegatees.size > 0
+- if @user.delegatees.size > 0 && can?(:manage, @user)
   %div
     %h2 delegates
     %h3 users can post on behalf of this account
