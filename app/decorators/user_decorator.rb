@@ -46,4 +46,9 @@ class UserDecorator < ApplicationDecorator
     end
     links.join(' ').html_safe
   end
+
+  def vouches_display
+    vouch_count = user.vouches.count
+    h.pluralize(vouch_count, 'vouch')
+  end
 end
