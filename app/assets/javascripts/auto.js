@@ -10,7 +10,6 @@
 (function($){
   /**
    * @param obj
-   *   @attr wordCount {Number} the number of words the user want to for matching it with the dictionary
    *  @attr mode {String} set "outer" for using an autocomplete that is being displayed in the outer layout of the textarea, as opposed to inner display
    *   @attr on {Object} containing the followings:
    *     @attr query {Function} will be called to query if there is any match for the user input
@@ -31,7 +30,6 @@
     _data[_count] = {
       id:"auto_"+_count,
       ta:ta,
-      wordCount:obj.wordCount,
       on:obj.on,
       clone:null,
       lineHeight:0,
