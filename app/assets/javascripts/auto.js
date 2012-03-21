@@ -17,9 +17,7 @@
   $.fn.autocomplete = function(obj){
     if( typeof $.browser.msie != 'undefined' ) obj.mode = 'outer';
     this.each(function(index,element){
-      if( element.nodeName == 'TEXTAREA' ){
-        makeAutoComplete(element,obj);
-      }
+      makeAutoComplete(element,obj);
     });
   }
 
@@ -64,8 +62,8 @@
       hideList(data);
     });
 
-    $(data.ta).keydown(function(e) {
-      //console.log("keydown keycode="+e.keyCode);
+    $(data.ta).keypress(function(e) {
+      //console.log("keypress keycode="+e.keyCode);
 
       if (data.listVisible) {
         if (e.keyCode === 27) { // esc
@@ -96,18 +94,18 @@
           return false;
         }
         if (e.keyCode == 13) { //enter key
+          e.stopImmediatePropagation();
+          e.preventDefault();
+
           var li = getCurrentSelected(data);
           if (li) {
-            e.stopImmediatePropagation();
-            e.preventDefault();
-
             // prevent newline from being included in textarea value
             data.ta.value = data.ta.value.substr(0, data.ta.value.length - 1);
             onUserSelected(li, data);
-
-            return false;
           }
           hideList(data);
+
+          return false;
         }
         if (e.keyCode == 27) { // esc
           e.stopImmediatePropagation();
