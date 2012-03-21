@@ -26,6 +26,12 @@ module ModelReference
           self.send(field).scan(/@([a-zA-Z0-9]+)/) do |profile_link|
             referenced_names << profile_link[0]
           end
+          field_was = self.send("#{field}_was")
+          if field_was.present?
+            field_was.scan(/@([a-zA-Z0-9]+)/) do |profile_link|
+              referenced_names << profile_link[0]
+            end
+          end
         end
         if referenced_names.size > 0
           users = User.all_by_lower_display_name(referenced_names.uniq)

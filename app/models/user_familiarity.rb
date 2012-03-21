@@ -20,41 +20,44 @@ class UserFamiliarity < ActiveRecord::Base
     user_familiarity = UserFamiliarity.find_or_initialize_by_user_id_and_familiar_id(user.id,familiar.id)
     new_familiarness = 0
 
-    # +5 User adds Familiar to a list
+    # +10 User adds Familiar to a list
     num_lists = user.lists.joins("INNER JOIN lists_users lu ON lu.list_id = #{List.table_name}.id
       AND lu.user_id = #{familiar.id}").select("DISTINCT #{List.table_name}.id").count
-    new_familiarness += (num_lists * 5)
+    new_familiarness += (num_lists * 10)
 
-    # +5 User mentions Familiar using @ symbol
+    # +10 User mentions Familiar using @ symbol
     num_mentions_in_items = user.items.referencing(familiar).count
     num_mentions_in_recommendations = user.recommendations.referencing(familiar).count
+    num_mentions_in_comments = user.comments.referencing(familiar).count
 
-    num_total_mentions = num_mentions_in_items + num_mentions_in_recommendations
-    new_familiarness += (num_total_mentions * 5)
+    num_total_mentions = num_mentions_in_items + num_mentions_in_recommendations + num_mentions_in_comments
+    new_familiarness += (num_total_mentions * 10)
 
-    # +3 User adds Familiar to a custom feed
+    # +6 User adds Familiar to a custom feed
     # Not implemented yet
 
-    # +2 User shares item posted by Familiar
+    # +4 User shares item posted by Familiar
     # Not implemented yet
 
-    # +2 User recommends item posted by Familiar
+    # +4 User recommends item posted by Familiar
     num_recommends = familiar.items.joins(:recommendations).where(
       "#{Recommendation.table_name}.user_id = ?", user.id).select(
       "DISTINCT #{Item.table_name}.id").count
-    new_familiarness += (num_recommends * 2)
+    new_familiarness += (num_recommends * 4)
 
-    # +2 User bookmarks item posted by Familiar
+    # +4 User bookmarks item posted by Familiar
     num_bookmarks = user.bookmarks.joins(:item).where("#{Item.table_name}.user_id = ?",familiar.id).count
-    new_familiarness += (num_bookmarks * 2)
+    new_familiarness += (num_bookmarks * 4)
 
-    # +1 User comments on item posted by Familiar
-    # Not implemented yet
+    # +2 User comments on item posted by Familiar
+    num_user_comments = user.comments.joins(:item).where("#{Item.table_name}.user_id = ?", familiar.id).count
+    new_familiarness += (num_user_comments * 2)
 
-    # +0.5 Familiar comments on item posted by User
-    # Not implemented yet
+    # +1 Familiar comments on item posted by User
+    num_familiar_comments = familiar.comments.joins(:item).where("#{Item.table_name}.user_id = ?", user.id).count
+    new_familiarness += (num_familiar_comments * 1)
 
-    # -10 User flags Familiar
+    # -20 User flags Familiar
     # Not implemented yet
 
     if new_familiarness != 0 || user_familiarity.persisted?

@@ -25,7 +25,7 @@
   Comment
   %ul
     = semantic_form_for item.comments.build do |f|
-      = f.input :text, :label => ''
+      = f.input :text, :label => ' ', :input_html => { :class => 'user-suggestion' }
       = f.submit 'Comment'
 
 - content_for :head do

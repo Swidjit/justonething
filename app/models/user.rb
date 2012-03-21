@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
     :conditions => "#{UserFamiliarity.table_name}.familiarness > 0",
     :order => "#{UserFamiliarity.table_name}.familiarness DESC"
   has_many :vouches, :foreign_key => :vouchee_id
+  has_many :comments
 
   has_many :delegates_as_delegator, :foreign_key => :delegator_id, :class_name => "Delegate"
   has_many :delegates_as_delegatee, :foreign_key => :delegatee_id, :class_name => "Delegate"

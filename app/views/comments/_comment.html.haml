@@ -7,7 +7,7 @@
     %ul
       = semantic_form_for comment.item.comments.build do |f|
         = f.input :parent_id, :as => :hidden, :input_html => { :value => comment.id }
-        = f.input :text, :label => ''
+        = f.input :text, :label => ' ', :input_html => { :class => 'user-suggestion' }
         = f.submit 'Reply'
   - if comment.children.any?
     %ul
