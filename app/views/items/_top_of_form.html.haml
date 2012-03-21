@@ -3,8 +3,8 @@
   - if current_user.delegators.present?
     = f.input :user_id, :as => :select, :collection => current_user.delegators, :label => "Post As", :include_blank => current_user.display_name, :input_html => { :onchange => 'swidjit.updateVisibilityForm(this)' }
   = f.input :public
-  = f.input :title
-  = f.input :description, :as => :text, :input_html => {:id => 'item_description'}
+  = f.input :title, :input_html => {:class => 'user-suggestion', :autocomplete => :off}
+  = f.input :description, :as => :text, :input_html => {:class => 'user-suggestion'}
   = f.input :tag_list, :label => 'Tags', :input_html => {"data-pre" => @item.tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
   - if @item_preset_tags.any?
     %li
@@ -15,14 +15,6 @@
 
 :javascript
   $(document).ready(function(){
-    $("#item_description").autocomplete({ mode: "outer", on: { query: function(text, cb) {
-      if (text.length === 0) return;
-
-      $.getJSON('/users/' + text + '/suggestions.json', function(json) {
-        cb(json.users);
-      });
-    } } });
-
     var tag_list_selector = "##{@item.model.class.to_s.underscore}_tag_list";
     $(tag_list_selector).tokenInput(
       "#{autocomplete_search_tags_path}", {

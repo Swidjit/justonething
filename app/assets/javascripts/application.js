@@ -47,4 +47,20 @@ $(document).ready(function(){
       }
     });
   });
+
+  $(".user-suggestion").autocomplete({ mode: "outer", on: { query: function(text, cb) {
+    $(".user-suggestion").autocomplete({ mode: "outer", on: { query: function(text, cb) {
+      if (text.length === 0) return;
+
+      $.getJSON('/users/' + text + '/suggestions.json', function(json) {
+        cb(json.users);
+      });
+    } } });
+
+    if (text.length === 0) return;
+
+    $.getJSON('/users/' + text + '/suggestions.json', function(json) {
+      cb(json.users);
+    });
+  } } });
 });
