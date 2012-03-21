@@ -15,6 +15,7 @@ class Item < ActiveRecord::Base
       :source_type => 'List', :uniq => true
   has_many :recommendations, :dependent => :destroy
   has_many :recommendation_users, :through => :recommendations, :source => :user
+  has_many :comments, :dependent => :destroy
 
   delegate :display_name, :to => :user, :prefix => true
 

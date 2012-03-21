@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :comment do
     text "Something random"
     user { |a| a.association(:user) }
-    item { |a| a.association(:item) }
+    item { |a| a.association(:have_it) }
   end
 
   factory :nest_comment, :parent => :comment do

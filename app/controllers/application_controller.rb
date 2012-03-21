@@ -10,4 +10,20 @@ class ApplicationController < ActionController::Base
   def set_time_zone
     Time.zone = 'Eastern Time (US & Canada)'
   end
+
+  def item_path(item)
+    if item.class == Item
+      super.item_path
+    else
+      send("#{item.class.underscore}_path",item)
+    end
+  end
+
+  def item_url(item)
+    if item.class == Item
+      super.item_path
+    else
+      send("#{item.class.underscore}_url",item)
+    end
+  end
 end

@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
 
-  attr_accessible :text
+  attr_accessible :text, :parent_id
 
   validates_presence_of :text, :item, :user
 
