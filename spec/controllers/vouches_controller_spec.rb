@@ -9,19 +9,19 @@ describe VouchesController do
     end
 
     it 'should be successful when valid' do
-      post :create, :id => @vouchee.id
+      post :create, :user_id => @vouchee.id
       @vouchee.vouches.count.should == 1
     end
 
     it 'should not allow a user to vouch for themselves' do
-      post :create, :id => @voucher.id
+      post :create, :user_id => @voucher.id
       @voucher.vouches.count.should == 0
     end
 
     it 'should not allow a user to vouch multiple times for another user' do
-      post :create, :id => @vouchee.id
+      post :create, :user_id => @vouchee.id
       @vouchee.vouches.count.should == 1
-      post :create, :id => @vouchee.id
+      post :create, :user_id => @vouchee.id
       @vouchee.vouches.count.should == 1
     end
   end

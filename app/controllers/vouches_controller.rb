@@ -3,7 +3,7 @@ class VouchesController < ApplicationController
   def create
     vouch = Vouch.new
     vouch.voucher_id = current_user.id
-    vouch.vouchee_id = params[:id]
+    vouch.vouchee_id = params[:user_id]
     if vouch.save
       flash[:notice] = 'Successfully vouched for user'
     else

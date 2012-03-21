@@ -51,6 +51,7 @@ Swidjit::Application.routes.draw do
       get :references
       get :suggestions
     end
+    resources :vouches, :only => :create
   end
 
   resources :delegates, :only => [:create,:destroy]
