@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320130530) do
+ActiveRecord::Schema.define(:version => 20120320182557) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -151,6 +151,16 @@ ActiveRecord::Schema.define(:version => 20120320130530) do
   add_index "users", ["display_name"], :name => "index_users_on_display_name"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "vouches", :force => true do |t|
+    t.integer  "voucher_id"
+    t.integer  "vouchee_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "vouches", ["vouchee_id"], :name => "index_vouches_on_vouchee_id"
+  add_index "vouches", ["voucher_id", "vouchee_id"], :name => "index_vouches_on_voucher_id_and_vouchee_id", :unique => true
 
   add_foreign_key "bookmarks", "items", :name => "bookmarks_item_id_fk"
   add_foreign_key "bookmarks", "users", :name => "bookmarks_user_id_fk"

@@ -13,13 +13,17 @@ class UserDecorator < ApplicationDecorator
   def manage_links
     html = []
 
-    if h.current_user != user
+    if h.current_user != user && h.current_user.persisted?
       delegation = h.current_user.delegation_for_user(user)
 
       if delegation.blank?
         html << h.link_to('add as delegate', h.delegates_path(:delegatee_id => user.id), :method => :post)
       else
         html << h.link_to('remove as delegate', h.delegate_path(delegation), :method => :delete)
+      end
+
+      if !user.vouches.collect(&:voucher_id).include? h.current_user.id
+        html << h.link_to('vouch for', h.user_vouches_path(:user_id => user.id), :method => :post)
       end
     end
 
@@ -41,5 +45,10 @@ class UserDecorator < ApplicationDecorator
       links << h.link_to('event', h.new_event_path(path_options), :id => 'post_event')
     end
     links.join(' ').html_safe
+  end
+
+  def vouches_display
+    vouch_count = user.vouches.count
+    h.pluralize(vouch_count, 'vouch')
   end
 end
