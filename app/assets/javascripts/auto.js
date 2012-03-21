@@ -485,7 +485,6 @@
     else{
       selected.prev().attr("data-selected","true");
     }
-
   }
 
   function getCurrentSelected(data){
