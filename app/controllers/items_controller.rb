@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
   before_filter :arrayify_ids_fields_in_params, :only => [:create,:update]
 
   def show
+    @comments = @item.comments.roots
   end
 
   def new

@@ -16,6 +16,18 @@
     %ul
       = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(item.recommendations)
 
+- if @comments.any?
+  %li
+    %ul.comments
+      = render :partial => 'comments/comment', :collection => CommentDecorator.decorate(@comments.order(:created_at))
+
+%li
+  Comment
+  %ul
+    = semantic_form_for item.comments.build do |f|
+      = f.input :text, :label => ''
+      = f.submit 'Comment'
+
 - content_for :head do
   %meta{:property => "og:title", :content => "Swidjit - #{item.title}"}
   %meta{:property => "og:url", :content => item.distinct_url}

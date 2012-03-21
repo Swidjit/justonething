@@ -7,7 +7,7 @@ describe CommentsController do
       item = Factory(:have_it)
       sign_in user
       item.comments.count.should == 0
-      post :create, :comment => {:text => "I'm commenting LOLS"}, :item_id => item.id
+      post :create, :comment => {:text => "I'm commenting LOLS"}, :id => item.id
       item.comments.count.should == 1
     end
 
@@ -17,7 +17,7 @@ describe CommentsController do
       item = comment.item
       sign_in user
       item.comments.count.should == 1
-      post :create, :comment => {:text => "I'm commenting LOLS", :parent_id => comment.id }, :item_id => item.id
+      post :create, :comment => {:text => "I'm commenting LOLS", :parent_id => comment.id }, :id => item.id
       item.comments.count.should == 2
       comment.children.count.should == 1
     end
