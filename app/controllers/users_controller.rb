@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     users = current_user.familiar_users.lower_display_name_like(params[:id]).all(:select => 'display_name')
 
     # all users
-    users = User.lower_display_name_like(params[:id]).all(:select => 'display_name') if @users.blank?
+    users = User.lower_display_name_like(params[:id]).all(:select => 'display_name') if users.blank?
 
     display_names = users.map(&:display_name)
 
