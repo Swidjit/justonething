@@ -36,6 +36,7 @@ Swidjit::Application.routes.draw do
     member do
       post :join
       delete :leave
+      resources :community_invitations, :only => :create
     end
   end
 

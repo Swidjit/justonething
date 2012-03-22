@@ -14,7 +14,7 @@
    *   @attr on {Object} containing the followings:
    *     @attr query {Function} will be called to query if there is any match for the user input
    */
-  $.fn.autocomplete = function(obj){
+  $.fn.at_autocomplete = function(obj){
     if( typeof $.browser.msie != 'undefined' ) obj.mode = 'outer';
     this.each(function(index,element){
       makeAutoComplete(element,obj);

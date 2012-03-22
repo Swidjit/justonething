@@ -1,0 +1,3 @@
+= form_for community.community_invitations.build do |f|
+  = f.text_field :invitee_display_name, { :class => 'autocomplete-user' }
+  = f.submit 'Send Invite'

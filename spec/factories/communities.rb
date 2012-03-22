@@ -6,4 +6,8 @@ FactoryGirl.define do
     description "Something random"
     user { |a| a.association(:user) }
   end
+
+  factory :private_community, :parent => :community, do
+    is_public false
+  end
 end

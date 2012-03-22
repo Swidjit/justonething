@@ -28,11 +28,17 @@ class CommunitiesController < ApplicationController
   end
 
   def join
-    current_user.communities << @community
-    if current_user.save
-      flash[:notice] = "Successfully joined Community"
+    invites = CommunityInvitation.find_all_by_community_id_and_invitee_id_and_status(@community.id,current_user.id,'P')
+    if @community.is_public || invites.any?
+      CommunityInvitation.update_all({:status => 'A'}, {:id => invites.collect(&:id)})
+      current_user.communities << @community
+      if current_user.save
+        flash[:notice] = "Successfully joined Community"
+      else
+        flash[:notice] = "Failed to join Community"
+      end
     else
-      flash[:notice] = "Failed to join Community"
+      flash[:notice] = "This community requires an invitation to join"
     end
     if request.referer.present?
       redirect_to :back

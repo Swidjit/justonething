@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120321130933) do
+ActiveRecord::Schema.define(:version => 20120322123244) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -34,11 +34,12 @@ ActiveRecord::Schema.define(:version => 20120321130933) do
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "communities", :force => true do |t|
-    t.string   "name",        :null => false
+    t.string   "name",                          :null => false
     t.text     "description"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "is_public",   :default => true, :null => false
   end
 
   create_table "communities_users", :id => false, :force => true do |t|
@@ -48,6 +49,15 @@ ActiveRecord::Schema.define(:version => 20120321130933) do
 
   add_index "communities_users", ["community_id"], :name => "index_communities_users_on_community_id"
   add_index "communities_users", ["user_id", "community_id"], :name => "index_communities_users_on_user_id_and_community_id", :unique => true
+
+  create_table "community_invitations", :force => true do |t|
+    t.integer  "invitee_id",                                 :null => false
+    t.integer  "inviter_id"
+    t.integer  "community_id"
+    t.string   "status",       :limit => 1, :default => "P"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
 
   create_table "delegates", :force => true do |t|
     t.integer  "delegator_id"

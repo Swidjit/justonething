@@ -48,18 +48,41 @@ $(document).ready(function(){
     });
   });
 
-  $(".user-suggestion").autocomplete({ mode: "outer", on: { query: function(text, cb) {
+  var user_suggestion_url = function(text){
+    return '/users/' + text + '/suggestions.json'
+  }
+
+  var autocompete_user = { 'cache': {}, 'lastXhr': '' };
+  $(".autocomplete-user").autocomplete({
+    minLength: 1,
+    source: function( request, response ) {
+      var term = request.term;
+      if ( term in autocompete_user['cache'] ) {
+        response( autocompete_user['cache'][ term ] );
+        return;
+      }
+      console.log(request);
+      autocompete_user['lastXhr'] = $.getJSON( user_suggestion_url(term), function( data, status, xhr ) {
+        autocompete_user['cache'][ term ] = data.users;
+        if ( xhr === autocompete_user['lastXhr'] ) {
+          response( data.users );
+        }
+      });
+    }
+  });
+
+  $(".user-suggestion").at_autocomplete({ mode: "outer", on: { query: function(text, cb) {
     $(".user-suggestion").autocomplete({ mode: "outer", on: { query: function(text, cb) {
       if (text.length === 0) return;
 
-      $.getJSON('/users/' + text + '/suggestions.json', function(json) {
+      $.getJSON(user_suggestion_url(text), function(json) {
         cb(json.users);
       });
     } } });
 
     if (text.length === 0) return;
 
-    $.getJSON('/users/' + text + '/suggestions.json', function(json) {
+    $.getJSON(user_suggestion_url(text), function(json) {
       cb(json.users);
     });
   } } });
