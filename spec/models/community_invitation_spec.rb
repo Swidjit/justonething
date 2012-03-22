@@ -8,6 +8,11 @@ describe CommunityInvitation do
       subject.status.should == 'A'
     end
 
+    it 'a invitee_display_name' do
+      subject.invitee_display_name = 'User1'
+      subject.invitee_display_name.should == 'User1'
+    end
+
   end
 
   it { should belong_to :invitee }

@@ -49,6 +49,27 @@ describe CommunitiesController do
       com.reload
       com.users.count.should == 1 #The creator
     end
+
+    it 'should not allow join if private and no invite' do
+      com = Factory(:private_community)
+      user = Factory(:user)
+      sign_in user
+      post :join, :id => com.id
+      response.should be_redirect
+      com.reload
+      com.users.should_not include(user)
+    end
+
+    it 'should allow join if private and has invite' do
+      invite = Factory(:community_invitation)
+      com = invite.community
+      user = invite.invitee
+      sign_in user
+      post :join, :id => com.id
+      response.should be_redirect
+      com.reload
+      com.users.should include(user)
+    end
   end
 
   describe 'leaving' do

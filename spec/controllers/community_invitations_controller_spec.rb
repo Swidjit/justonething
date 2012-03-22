@@ -8,7 +8,7 @@ describe CommunityInvitationsController do
       community = Factory(:community)
       inviter.communities << community
       sign_in inviter
-      post :create, :community_id => community.id, :community_invitation => {:invitee_id => invitee.id}
+      post :create, :id => community.id, :community_invitation => {:invitee_display_name => invitee.display_name}
       flash[:notice].index('success').should be_present
     end
 
@@ -17,7 +17,7 @@ describe CommunityInvitationsController do
       invitee = Factory(:user)
       community = Factory(:community)
       sign_in inviter
-      post :create, :community_id => community.id, :community_invitation => {:invitee_id => invitee.id}
+      post :create, :id => community.id, :community_invitation => {:invitee_display_name => invitee.display_name}
       flash[:notice].index('fail').should be_present
     end
   end
@@ -26,19 +26,19 @@ describe CommunityInvitationsController do
     it 'should properly accept' do
       invitation = Factory(:community_invitation)
       sign_in invitation.invitee
-      post :accept, :community_invitation_id => invitation.id
+      post :accept, :id => invitation.id
       response.should be_redirect
 
       invitation.reload
       invitation.status.should == 'A'
 
-      invitation.invitee.communities.should include?(invitation.community)
+      invitation.invitee.communities.should include(invitation.community)
     end
 
     it 'should properly decline' do
       invitation = Factory(:community_invitation)
       sign_in invitation.invitee
-      post :decline, :community_invitation_id => invitation.id
+      post :decline, :id => invitation.id
       response.should be_redirect
 
       invitation.reload

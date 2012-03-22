@@ -28,7 +28,9 @@ class CommunityInvitation < ActiveRecord::Base
 
 protected
   def convert_invitee_display_name_to_id
-    self.invitee = User.by_lower_display_name(self.invitee_display_name)
+    unless self.invitee.present?
+      self.invitee = User.by_lower_display_name(self.invitee_display_name)
+    end
   end
 
   def inviter_belongs_to_community
