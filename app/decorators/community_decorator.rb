@@ -9,10 +9,10 @@ class CommunityDecorator < ApplicationDecorator
 
   def manage_links(container = 'li')
     links = []
-    has_invite = user.rec_comm_invites.pending.collect(&:community_id).include? community.id
+    has_invite = h.current_user.rec_comm_invites.pending.collect(&:community_id).include? community.id
     if !community.users.include?(h.current_user) && (community.is_public || has_invite)
       links << h.link_to("Join", h.join_community_path(community), {:method => :post})
-    elsif community.user != h.current_user
+    elsif community.user != h.current_user && community.users.include?(h.current_user)
       links << h.link_to("Leave", h.leave_community_path(community), {:method => :delete, :confirm => 'Are you sure?'})
     end
     if links.any?

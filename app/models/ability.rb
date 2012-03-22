@@ -23,11 +23,13 @@ class Ability
       can :create, CommunityInvitation, :community => { :id => user.community_ids, :is_public => true }
       # The creator of the community can issue invites regardless of public/private
       can :create, CommunityInvitation, :community => { :user_id => user.id }
+      can :read_items, Community, :id => user.community_ids
       can [:accept,:decline], CommunityInvitation, :invitee_id => user.id, :status => 'P'
     else
       cannot :create, :all
       cannot :join, Community
       can :read, ITEMS, :public => true, :active => true
+      can :read_items, Community, :is_public => true
     end
     can :read, User
     can :read, Comment
