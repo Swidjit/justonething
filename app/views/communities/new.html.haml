@@ -3,5 +3,6 @@
 = semantic_form_for @community do |f|
   = f.inputs do
     = f.input :name
+    = f.input :is_public, :label => 'Public community'
     = f.input :description
   = f.submit

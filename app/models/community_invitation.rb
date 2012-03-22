@@ -4,8 +4,16 @@ class CommunityInvitation < ActiveRecord::Base
   belongs_to :inviter, :class_name => User
   belongs_to :community
 
+  attr_accessible :community_id, :invitee_display_name
+
+  attr_accessor :invitee_display_name
+
+  before_validation :convert_invitee_display_name_to_id, :on => :create
+
   validates_presence_of :invitee, :inviter, :community, :status
   validate :inviter_belongs_to_community
+
+  scope :pending, :conditions => { :status => 'P' }
 
   def accept!
     self.status = 'A'
@@ -19,6 +27,10 @@ class CommunityInvitation < ActiveRecord::Base
   end
 
 protected
+  def convert_invitee_display_name_to_id
+    self.invitee = User.by_lower_display_name(self.invitee_display_name)
+  end
+
   def inviter_belongs_to_community
     unless self.inviter.present? && self.inviter.communities.include?(self.community)
       errors.add(:base,'You must belong to the community to invite others to it.')

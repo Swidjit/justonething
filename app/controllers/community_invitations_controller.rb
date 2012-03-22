@@ -3,17 +3,18 @@ class CommunityInvitationsController < ApplicationController
   respond_to :html
 
   load_and_authorize_resource :only => [:accept,:decline]
+  authorize_resource :only => :create
 
   def create
     @community_invitation = CommunityInvitation.new(params[:community_invitation])
     @community_invitation.inviter = current_user
-    @community_invitation.community_id = params[:community_id]
+    @community_invitation.community_id = params[:id]
     if @community_invitation.save
       flash[:notice] = 'Invitation successfully sent'
     else
-      flash[:notice] = 'Invitation failed to send'
+      flash[:notice] = "Invitation failed to send" #{@community_invitation.errors.full_messages}"
     end
-    redirect_to community_path(params[:community_id])
+    redirect_to community_path(params[:id])
   end
 
   def accept
