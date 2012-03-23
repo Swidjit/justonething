@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322123244) do
+ActiveRecord::Schema.define(:version => 20120323182152) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -128,6 +128,20 @@ ActiveRecord::Schema.define(:version => 20120322123244) do
   add_index "lists_users", ["list_id", "user_id"], :name => "index_lists_users_on_list_id_and_user_id", :unique => true
   add_index "lists_users", ["user_id"], :name => "index_lists_users_on_user_id"
 
+  create_table "offer_messages", :force => true do |t|
+    t.integer  "offer_id"
+    t.string   "text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "offers", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "recommendations", :force => true do |t|
     t.text     "description"
     t.integer  "user_id",     :null => false
@@ -192,5 +206,10 @@ ActiveRecord::Schema.define(:version => 20120322123244) do
   add_foreign_key "delegates", "users", :name => "delegates_delegator_id_fk", :column => "delegator_id"
 
   add_foreign_key "items", "users", :name => "items_posted_by_user_id_fk", :column => "posted_by_user_id"
+
+  add_foreign_key "offer_messages", "offers", :name => "offer_messages_offer_id_fk"
+
+  add_foreign_key "offers", "items", :name => "offers_item_id_fk"
+  add_foreign_key "offers", "users", :name => "offers_user_id_fk"
 
 end
