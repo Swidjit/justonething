@@ -34,23 +34,6 @@ $(document).ready(function(){
     }
   });
 
-  $("#add_user_to_list_dropdown").change(function(){
-    var user_id = $("#user_id_for_list").val();
-    var list_id = this.value;
-    var url = base_list_url.replace('/0','/'+list_id) + '/add_user';
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: { user_id: user_id },
-      success: function(data){
-        $("#add_user_to_list_message").text(data.notice);
-        $("#add_user_to_list_dropdown").val("");
-      },
-      error: function(xhr,status,data){
-      }
-    });
-  });
-
   var user_suggestion_url = function(text){
     return '/users/' + text + '/suggestions.json'
   }
@@ -103,6 +86,22 @@ $(document).ready(function(){
 });
 
 
+$("#add_user_to_list_dropdown a").live('click',function(){
+  var user_id = $("#user_id_for_list").val();
+  var list_id = $(this).attr('data-list-id');
+  var url = base_list_url.replace('/0','/'+list_id) + '/add_user';
+  $.ajax({
+    type: 'POST',
+    url: url,
+    data: { user_id: user_id },
+    success: function(data){
+      $("span.notice").text(data.notice);
+    },
+    error: function(xhr,status,data){
+    }
+  });
+});
+
 $("#add_item_button").live('click', function(){
   if( $("#add_item_form_wrapper").height() > 0 ){
     $("#add_item_form_wrapper").animate({height: "0"}, {queue:false, duration: 500});
@@ -131,13 +130,11 @@ var swidjit = function() {
       });
     },
     mainmenu : function(){
-      $(" #menu2 ul ").css({display: "none"}); // Opera Fix
-      $(" #menu2 li").hover(function(){
-          $(this).find('div:eq(1)').css({visibility: "visible",display: "none"}).fadeIn(400, queue=false);
-          $(this).find('div:eq(0)').css({visibility: "visible",display: "none"}).fadeIn(400, queue=false);
+      $(" .menu_with_dropdowns ul ").css({display: "none"}); // Opera Fix
+      $(" .menu_with_dropdowns li").hover(function(){
+          $(this).children('div').fadeIn(400, queue=false);
         },function(){
-          $(this).find('div:eq(1)').css({visibility: "hidden"});
-          $(this).find('div:eq(0)').css({visibility: "hidden"});
+          $(this).children('div').hide();
       });
     },
     addTitle : function() {

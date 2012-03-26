@@ -1080,7 +1080,7 @@ height: 16px;
 
 
 
-#menu2 {
+.menu_with_dropdowns {
   float:right;
   padding-right:20px;
   margin:25px 0 0 0;
@@ -1088,7 +1088,7 @@ height: 16px;
   
 }
 
-#menu2 li {
+.menu_with_dropdowns li {
   float:left;
   display:block;
   position:relative;
@@ -1096,22 +1096,22 @@ height: 16px;
   width:auto;
 }
 
-#menu2 li:hover {
+.menu_with_dropdowns li:hover {
   
   
 }
 
-#menu2 li a {
+.menu_with_dropdowns li a {
   display:block;
   outline:0;
   text-decoration:none;
   color:#564B47;
 }
 
-#menu2 li:hover a {
+.menu_with_dropdowns li:hover a {
   color:#30749F;
 }
-#menu2 li .drop {
+.menu_with_dropdowns li .drop {
   padding-right:0px;
   
 }
@@ -1177,12 +1177,12 @@ body.ie8 .dropdown_5columns {
 .dropdown_4columns {width: 590px;}
 .dropdown_5columns {width: 700px;}
 
-#menu2 li:hover .dropdown_1column, 
-#menu2 li:hover .dropdown_2columns, 
-#menu2 li:hover .dropdown_3columns,
-#menu2 li:hover .dropdown_4columns,
-#menu2 li:hover .drop_arrow_left,
-#menu2 li:hover .dropdown_5columns {
+.menu_with_dropdowns li:hover .dropdown_1column, 
+.menu_with_dropdowns li:hover .dropdown_2columns, 
+.menu_with_dropdowns li:hover .dropdown_3columns,
+.menu_with_dropdowns li:hover .dropdown_4columns,
+.menu_with_dropdowns li:hover .drop_arrow_left,
+.menu_with_dropdowns li:hover .dropdown_5columns {
   left:-1px;
   top:auto;
 }
@@ -1218,34 +1218,34 @@ body.ie8 .dropdown_5columns {
 
 
 
-#menu2 .menu_right {
+.menu_with_dropdowns .menu_right {
   float:right;
   margin-right:0px;
 }
-#menu2 li .align_right {
+.menu_with_dropdowns li .align_right {
   /* Rounded Corners */
   -moz-border-radius: 7px 7px 7px 7px;
     -webkit-border-radius: 7px 7px 7px 7px;
     border-radius: 7px 7px 7px 7px;
 }
 
-#menu2 li:hover .align_right1 {
+.menu_with_dropdowns li:hover .align_right1 {
   left:auto;
   right:0px;
   top:auto;
 }
-#menu2 li:hover .align_right2 {
+.menu_with_dropdowns li:hover .align_right2 {
   left:auto;
   right:-50px;
   top:auto;
 }
-#menu2 li:hover .align_right3 {
+.menu_with_dropdowns li:hover .align_right3 {
   left:auto;
   right:5px;
   top:auto;
 }
 
-#menu2 p, #menu2 h2, #menu2 h3, #menu2 ul li {
+.menu_with_dropdowns p, .menu_with_dropdowns h2, .menu_with_dropdowns h3, .menu_with_dropdowns ul li {
   font-family:"Garamond",Times,sans-serif;
   color:#434343;
   line-height:21px;
@@ -1262,13 +1262,13 @@ body.ie8 .dropdown_5columns {
   border-bottom:1px solid #eeeeee;
   color:#7cd6d4;
 }
-#menu2 h3 {
+.menu_with_dropdowns h3 {
   font-size:14px;
   margin:7px 0 14px 0;
   padding-bottom:7px;
   border-bottom:1px solid #888888;
 }
-#menu2 p {
+.menu_with_dropdowns p {
   line-height:18px;
   margin:0 0 0px 0;
 }
@@ -1279,7 +1279,7 @@ body.ie8 .dropdown_5columns {
   width:96px;
 }
 
-#menu2 li:hover div a {
+.menu_with_dropdowns li:hover div a {
   font-family:arial;
   font-size:14px;
   font-weight:bold;
@@ -1287,7 +1287,7 @@ body.ie8 .dropdown_5columns {
   margin:0 0 0 3px;
   color:#ffffff;
 }
-#menu2 li:hover div a:hover {
+.menu_with_dropdowns li:hover div a:hover {
   color:#eeeeee;
 }
 
@@ -1314,7 +1314,7 @@ body.ie8 .dropdown_5columns {
   margin:5px 15px 5px 5px;
 }
 
-#menu2 li .black_box {
+.menu_with_dropdowns li .black_box {
   background-color:#333333;
   color: #eeeeee;
   text-shadow: 1px 1px 1px #000;
@@ -1331,12 +1331,12 @@ body.ie8 .dropdown_5columns {
   box-shadow:inset 0 0 3px #000000;
 }
 
-#menu2 li ul {
+.menu_with_dropdowns li ul {
   list-style:none;
   padding:0;
   margin:0 0 12px 0;
 }
-#menu2 li ul li {
+.menu_with_dropdowns li ul li {
   font-size:12px;
   line-height:24px;
   position:relative;
@@ -1347,14 +1347,14 @@ body.ie8 .dropdown_5columns {
   text-align:left;
   width:130px;
 }
-#menu2 li ul li:hover {
+.menu_with_dropdowns li ul li:hover {
   background:none;
   border:none;
   padding:0;
   margin:0;
 }
 
-#menu2 li .greybox li {
+.menu_with_dropdowns li .greybox li {
   background:#F4F4F4;
   border:1px solid #bbbbbb;
   margin:0px 0px 4px 0px;
@@ -1367,7 +1367,7 @@ body.ie8 .dropdown_5columns {
     -khtml-border-radius: 5px;
     border-radius: 5px;
 }
-#menu2 li .greybox li:hover {
+.menu_with_dropdowns li .greybox li:hover {
   background:#ffffff;
   border:1px solid #aaaaaa;
   padding:4px 6px 4px 6px;

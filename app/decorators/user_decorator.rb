@@ -3,10 +3,7 @@ class UserDecorator < ApplicationDecorator
 
   def add_to_list
     if h.current_user.lists.any?
-      html = h.content_tag :div, h.select("user_id", "", h.current_user.lists.collect {|p| [ p.name, p.id ] },
-          {:include_blank => 'add to list'}, {:id => 'add_user_to_list_dropdown' })
-      html += h.hidden_field_tag 'user_id_for_list', user.id, :id => 'user_id_for_list'
-      html += h.content_tag :div, '', :id => 'add_user_to_list_message'
+      h.render :partial => 'add_to_list', :locals => {:user => model}
     end
   end
 
@@ -50,6 +47,7 @@ class UserDecorator < ApplicationDecorator
 
   def vouches_display
     vouch_count = user.vouches.count
-    h.pluralize(vouch_count, 'vouch')
+    vouch_label = h.content_tag :label, h.pluralize(vouch_count, 'vouch')
+    h.content_tag :div, "#{h.image_tag('voucher.png')} #{vouch_label}".html_safe,:class => 'voucher'
   end
 end
