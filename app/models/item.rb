@@ -68,6 +68,10 @@ class Item < ActiveRecord::Base
     self.has_expiration = self.expires_on.present? ? '1' : '0'
   end
 
+  def allows_offers?
+    return self.kind_of?(HaveIt) || self.kind_of?(WantIt)
+  end
+
   def has_offer_from?(user)
     return self.offers.map(&:user).include?(user)
   end

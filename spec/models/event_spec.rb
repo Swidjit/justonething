@@ -22,6 +22,10 @@ describe Event do
       subject.end_time = 3.days.from_now
       subject.end_time.to_s.should == 3.days.from_now.to_s
     end
+
+    it "should not allow offers" do
+      subject.allows_offers?.should be_false
+    end
   end
 
   before(:all) { @item_class = Event }

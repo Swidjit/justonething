@@ -11,6 +11,10 @@ describe HaveIt do
       subject.condition = 'Fair'
       subject.condition.should == 'Fair'
     end
+
+    it "should allow offers" do
+      subject.allows_offers?.should be_true
+    end
   end
 
   before(:all) { @item_class = HaveIt }

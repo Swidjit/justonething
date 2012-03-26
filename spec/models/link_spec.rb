@@ -6,6 +6,10 @@ describe Link do
       subject.link = 'http://example.com'
       subject.link.should == 'http://example.com'
     end
+
+    it "should not allow offers" do
+      subject.allows_offers?.should be_false
+    end
   end
 
   before(:all) { @item_class = Link }
