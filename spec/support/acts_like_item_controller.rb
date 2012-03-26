@@ -88,5 +88,4 @@ shared_examples "an item controller" do
       item.list_ids.count.should == 1
     end
   end
-
 end

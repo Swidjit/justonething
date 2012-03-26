@@ -99,6 +99,10 @@ class ItemDecorator < ApplicationDecorator
     end
   end
 
+  def offer_users_for_select
+    h.options_from_collection_for_select(item.offers.map(&:user), :id, :display_name, :include_blank => true)
+  end
+
 ###
 # URL Methods
 ###

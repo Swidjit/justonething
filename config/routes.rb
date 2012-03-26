@@ -13,6 +13,13 @@ Swidjit::Application.routes.draw do
     end
   end
 
+  resources :items, :only => [] do
+    resources :offers, :only => [:create, :index]
+    resources :users, :only => [] do
+      resources :offers, :only => :index
+    end
+  end
+
   resource :feeds, :only => [] do
     member do
       %w( all have_its want_its events thoughts links ).each do |act|
