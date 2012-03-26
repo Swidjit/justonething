@@ -15,6 +15,10 @@ class ItemsController < ApplicationController
     if params[:community_id].present?
       @item.communities << Community.find(params[:community_id])
     end
+    respond_to do |f|
+      f.html { render :new }
+      f.js { render 'new.html', :layout => false}
+    end
   end
 
   def create

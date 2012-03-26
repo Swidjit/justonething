@@ -70,7 +70,7 @@
         - if signed_in?
           .add_item_row
             .addLink
-              %a#moreLink2.addBtn{:href => ""} Add Item
+              %a#add_item_button{:href => "#"} Add Item
             = current_decorated_user.item_creation_links
             %div{:style => "clear:both;"}
           #add_item_form_wrapper
