@@ -25,6 +25,10 @@ class Ability
       can :create, CommunityInvitation, :community => { :user_id => user.id }
       can :read_items, Community, :id => user.community_ids
       can [:accept,:decline], CommunityInvitation, :invitee_id => user.id, :status => 'P'
+
+      can :read, Offer, :user_id => user.id
+      can :read, Offer, :item => { :user_id => user.id }
+      cannot :create, Offer, :item => { :user_id => user.id }
     else
       cannot :create, :all
       cannot :join, Community

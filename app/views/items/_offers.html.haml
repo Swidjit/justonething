@@ -1,0 +1,18 @@
+- if item.user != current_user && !item.has_offer_from?(current_user)
+  %h3 Offers
+  = semantic_form_for :offer do |f|
+    = f.inputs do
+      = f.input :item, :as => :hidden, :value => item.id
+      = f.input :text, :as => :text
+      = f.submit 'send offer', :as => :button
+
+- elsif item.user != current_user && item.has_offer_from?(current_user)
+  = render :partial => 'offers/_offer'
+
+- elsif item.user == current_user
+  %h3 Offers
+  - if item.offers.present?
+    = select_tag 'offer_user', item.offer_users_for_select, :onchange => "swidjit.updateOfferDisplay(this)"
+    %div#offer_display
+  - else
+    %p No offers yet.

@@ -10,6 +10,9 @@
   Description:
   = item.description
 = item.tagged_as
+
+= render :partial => 'offers', :locals => { :item => item } if item.allows_offers?
+
 - if item.recommendations.any?
   %li
     Recommendations:
