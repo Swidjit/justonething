@@ -7,7 +7,7 @@ class UserDecorator < ApplicationDecorator
     end
   end
 
-  def manage_links
+  def manage_links(link_wrapper)
     html = []
 
     if h.current_user != user && h.current_user.persisted?
@@ -26,6 +26,10 @@ class UserDecorator < ApplicationDecorator
 
     if h.can? :manage, user
       html << h.link_to('Edit Profile', h.edit_user_path(user))
+    end
+
+    if link_wrapper.present?
+      html.map!{|link| h.content_tag(link_wrapper,link)}
     end
 
     return html.join(' ').html_safe
