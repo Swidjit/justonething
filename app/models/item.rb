@@ -68,6 +68,10 @@ class Item < ActiveRecord::Base
     self.has_expiration = self.expires_on.present? ? '1' : '0'
   end
 
+  def has_offer_from?(user)
+    return self.offers.map(&:user).include?(user)
+  end
+
   private
   def handle_has_expiration
     if has_expiration.to_i == 0

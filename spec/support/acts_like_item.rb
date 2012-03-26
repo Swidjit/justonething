@@ -81,4 +81,11 @@ shared_examples "an item" do
     uf = UserFamiliarity.find_by_user_id_and_familiar_id(item.user.id,user.id)
     uf.familiarness.should > 0
   end
+
+  it "#has_offer_from?" do
+    offer = Factory(:offer)
+    offer.item.has_offer_from?(offer.user).should be_true
+
+    offer.item.has_offer_from?(Factory(:user)).should be_false
+  end
 end
