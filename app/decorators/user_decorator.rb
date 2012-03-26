@@ -37,7 +37,8 @@ class UserDecorator < ApplicationDecorator
   def item_creation_links
     links = []
     if h.params[:controller] != 'communities' || user.community_ids.include?(h.params[:id].to_i)
-      path_options = {:community_id => h.params[:id] } if h.params[:controller] == 'communities'
+      path_options = {:format => :js}
+      path_options.merge!({:community_id => h.params[:id] }) if h.params[:controller] == 'communities'
       links << h.link_to('have-it', h.new_have_it_path(path_options), :id => 'post_have_it', :class => 'add_item_txt item_first')
       links << h.link_to('want-it', h.new_want_it_path(path_options), :id => 'post_want_it', :class => 'add_item_txt')
       links << h.link_to('thoughts', h.new_thought_path(path_options), :id => 'post_thought', :class => 'add_item_txt')

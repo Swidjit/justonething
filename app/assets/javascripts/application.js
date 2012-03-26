@@ -98,19 +98,26 @@ $(document).ready(function(){
       $(".profileBio").animate({height: "100px"}, {queue:false, duration: 500})
       $('#moreLink').html('View Full Bio <img src="img/arrowDN.png" border="0" alt="" />');
     }
-  ); 
+  );
+
+});
 
 
-  $("#moreLink2").toggle(function (){
-      $("#add_item_form_wrapper").animate({height:$("#add_item_form").height()}, {queue:false, duration: 1000});
-    },
-    function (){
-      $("#add_item_form_wrapper").animate({height: "0"}, {queue:false, duration: 500});
-  });
+$("#add_item_button").live('click', function(){
+  if( $("#add_item_form_wrapper").height() > 0 ){
+    $("#add_item_form_wrapper").animate({height: "0"}, {queue:false, duration: 500});
+  } else {
+    $(".add_item_txt.item_first").click();
+  }
+  return false;
 });
 
 $(".add_item_txt").live("click",function(){
-
+  $("#add_item_form").load($(this).attr('href'),function(){
+    var target_height = $("#add_item_form").height() + parseInt($("#add_item_form").css('padding-top')) + parseInt($("#add_item_form").css('padding-bottom'));
+    $("#add_item_form_wrapper").animate({height:target_height}, {queue:false, duration: 1000});
+  });
+  return false;
 });
 
 var swidjit = function() {
