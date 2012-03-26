@@ -2,8 +2,8 @@
   .usrName= "@#{@user.display_name}"
   = @user.vouches_display
   %ul.menu_with_dropdowns
+    = @user.manage_links(:li)
     = @user.add_to_list
-  = @user.manage_links
 .contentRow
   %div
     = tabbed_item_types('type')

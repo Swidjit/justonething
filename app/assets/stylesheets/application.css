@@ -98,3 +98,7 @@ mark{
   font-weight: bold;
 }
 
+
+.menu_with_dropdowns li {
+  padding: 0px 3px;
+}
