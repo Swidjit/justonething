@@ -13,10 +13,13 @@
 //= require jquery_ujs
 //= require jquery.tokeninput
 //= require jquery.caret
+//= require jquery.multi-accordion-1.5.3
 //= require auto
 //= require_tree .
 
 $(document).ready(function(){
+  $('#multiAccordion').multiAccordion();
+  swidjit.mainmenu();
   $('.datepicker').datepicker();
   $('.timepicker').timepicker({showPeriod: true});
   $("#ui-datepicker-div").hide();
@@ -86,4 +89,54 @@ $(document).ready(function(){
       cb(json.users);
     });
   } } });
+
+  $("#moreLink").toggle(function(){
+      $(".profileBio").animate({height:$("#btxt").height()}, {queue:false, duration: 500});
+      $('#moreLink').html('View Less <img src="img/arrowUP.png" border="0" alt="" />');
+    },
+    function(){
+      $(".profileBio").animate({height: "100px"}, {queue:false, duration: 500})
+      $('#moreLink').html('View Full Bio <img src="img/arrowDN.png" border="0" alt="" />');
+    }
+  ); 
+
+
+  $("#moreLink2").toggle(function (){
+      $("#add_item_form_wrapper").animate({height:$("#add_item_form").height()}, {queue:false, duration: 1000});
+    },
+    function (){
+      $("#add_item_form_wrapper").animate({height: "0"}, {queue:false, duration: 500});
+  });
 });
+
+$(".add_item_txt").live("click",function(){
+
+});
+
+var swidjit = function() {
+  return {
+    updateVisibilityForm : function(sel) {
+      var val = $(sel).val();
+      if (val === '') { val = 0 }
+
+      $.get('/users/' + val + '/visibility_options', function(data) {
+        $('.item_visibility').replaceWith(data);
+      });
+    },
+    mainmenu : function(){
+      $(" #menu2 ul ").css({display: "none"}); // Opera Fix
+      $(" #menu2 li").hover(function(){
+          $(this).find('div:eq(1)').css({visibility: "visible",display: "none"}).fadeIn(400, queue=false);
+          $(this).find('div:eq(0)').css({visibility: "visible",display: "none"}).fadeIn(400, queue=false);
+        },function(){
+          $(this).find('div:eq(1)').css({visibility: "hidden"});
+          $(this).find('div:eq(0)').css({visibility: "hidden"});
+      });
+    },
+    addTitle : function() {
+      comm = $('#comments').val();
+      comm = comm.substring(0,15);
+      $('#title').val(comm);
+    }
+  };
+}();
