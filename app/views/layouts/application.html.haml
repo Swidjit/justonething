@@ -62,11 +62,12 @@
         .column_content_nav
           %span.notice= notice
           %span.alert= alert
-          = link_to "", edit_user_path(current_user), :class => 'topLinks top5'
-          %a.topLinks.top4{:href => "#notification-center"}
-          = link_to "", bookmarks_path, :class => 'topLinks top3'
-          = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2'
-          %a.topLinks.top1{:href => "#events-calendar"}
+          - if signed_in?
+            = link_to "", edit_user_path(current_user), :class => 'topLinks top5'
+            %a.topLinks.top4{:href => "#notification-center"}
+            = link_to "", bookmarks_path, :class => 'topLinks top3'
+            = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2'
+            %a.topLinks.top1{:href => "#events-calendar"}
         - if signed_in?
           .add_item_row
             .addLink

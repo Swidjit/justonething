@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
     end
     respond_to do |f|
       f.html { render :new }
-      f.js { render 'new.html', :layout => false}
+      f.js { render 'new', :format => :html, :layout => false}
     end
   end
 
