@@ -53,8 +53,9 @@ class FeedsController < ApplicationController
   end
 
   def familiar_users
+    @title = 'Feed of Your Most Familiar Users'
     item_type = params[:type] || 'all'
-    base_feed_items = Item.where("#{Item.table_name}.user_id IN (?)",current_user.familiar_users.collect(&:id))
+    base_feed_items = Item.where("#{Item.table_name}.user_id IN (?)",current_user.familiar_users.limit(25).collect(&:id))
     if %w( events have_its want_its links thoughts ).include? item_type
       @feed_items = base_feed_items.where(:type => item_type.camelize.singularize).access_controlled_for(current_user,current_ability)
     else
