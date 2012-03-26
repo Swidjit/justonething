@@ -10,15 +10,45 @@
  *
  *= require_self
  *= require_tree .
+ *= require jquery-ui-1.8.9.custom
 */
-#sideNav {
-  margin-top: 15px;
-  width: 200px;
+
+
+html{ height:100%; }
+body {
+  height:100%;
+  background-color: #075a8e;
+  font-size: 13px;
+  font-family: Arial, SunSans-Regular, Sans-Serif;
+  color:#564b47;  
+  padding:0 0px;
+  margin:0;
 }
 
-#sideNav a {
-  display: block;
+/*  positioning-colums */
+#container {
+  width:100%;
+  height:100%;
 }
+#menu {
+  float:left;
+  width: 225px;
+  height:100%;
+  left: 0px;
+  background-color: #075a8e;
+  padding:0;
+  margin:0;
+}
+#content {
+  height:100%;
+  margin-left:225px;
+  background-color:#e1e6e9;
+}
+
+.logo {
+  padding:10px 0 0 10px;
+}
+
 
 .hidden {
   display: none;

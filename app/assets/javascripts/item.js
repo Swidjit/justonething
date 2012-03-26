@@ -8,16 +8,3 @@ $('.event_end_date').live('change',function(){
   nextDayDate.setDate(nextDayDate.getDate() + 1);
   $('input[name="'+expires_on_name+'"]').datepicker('setDate', nextDayDate);
 });
-
-var swidjit = function() {
-  return {
-    updateVisibilityForm : function(sel) {
-      var val = $(sel).val();
-      if (val === '') { val = 0 }
-
-      $.get('/users/' + val + '/visibility_options', function(data) {
-        $('.item_visibility').replaceWith(data);
-      });
-    }
-  };
-}();

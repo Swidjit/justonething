@@ -7,6 +7,8 @@
     = stylesheet_link_tag    'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/ui-lightness/jquery-ui.css'
     = javascript_include_tag 'http://malsup.github.com/jquery.form.js'
     = stylesheet_link_tag    "application", :media => "all"
+    /[if IE 7]
+      = stylesheet_link_tag 'jqcss/ie_only.css'
     :javascript
       var base_list_url = '#{list_path(0)}';
       var fb_app_id = '#{Facebook::APP_ID}';
@@ -17,42 +19,68 @@
 
     = render :partial => 'layouts/facebook_js'
 
-    %p.notice= notice
-    %p.alert= alert
-    - if signed_in?
-      = link_to "Log out", destroy_user_session_url, :method => 'delete'
-      = link_to "profile", profile_path(current_user.display_name)
-      = link_to "@#{current_user.display_name}", references_user_path(current_user)
-      = link_to "bookmarks", bookmarks_path
-      = link_to 'my drafts', drafts_feeds_path
-      = current_decorated_user.item_creation_links
-      - if can? :manage, ItemPresetTag
-        = link_to 'Manage Preset Tags', item_preset_tags_path
-    - else
-      = link_to 'Sign in/Register', new_user_session_path
-    #sideNav
-      = link_to 'All Items', all_feeds_path
-      = link_to "Have Its", have_its_feeds_path
-      = link_to "Want Its", want_its_feeds_path
-      = link_to "Thoughts", thoughts_feeds_path
-      = link_to "Links", links_feeds_path
-      = link_to 'Events', events_feeds_path
-      = link_to 'Recommendations', recommendations_feeds_path
-      - if signed_in?
-        = link_to 'Familiar Users', familiar_users_feeds_path
-        %br
-        = link_to 'List of Communities', communities_path
-        = link_to 'Create a Community', new_community_path
-        - current_user.communities.each do |comm|
-          = link_to comm.name, comm
-        %br
-        Lists
-        %br
-        - current_user.lists.each do |list|
-          = link_to list.name, list
-        = form_for List.new do |f|
-          = f.submit '+'
-          = f.text_field :name, :placeholder => 'list name'
-        #new_list_errors
-    #content
-      = yield
+    #container
+      #menu
+        .logo= image_tag('logo.jpg')
+        #multiAccordion
+          %h3
+            %a.secHdr1{:href => "#"} System Feeds
+          %div
+            %ul.navMenus
+              %li= link_to 'All Items', all_feeds_path
+              %li= link_to "Have Its", have_its_feeds_path
+              %li= link_to "Want Its", want_its_feeds_path
+              %li= link_to "Thoughts", thoughts_feeds_path
+              %li= link_to "Links", links_feeds_path
+              %li= link_to 'Events', events_feeds_path
+              %li= link_to 'Recommendations', recommendations_feeds_path
+              - if signed_in?
+                %li= link_to 'Familiar Users', familiar_users_feeds_path
+          %h3
+            %a.secHdr2{:href => "#"} Communities
+          %div
+            %ul.navMenus
+              %li= link_to 'List of Communities', communities_path
+              - if signed_in?
+                %li= link_to 'Create a Community', new_community_path
+                - current_user.communities.each do |comm|
+                  %li= link_to comm.name, comm
+          - if signed_in?
+            %h3
+              %a.secHdr3{:href => "#"} Lists
+            %div
+              %ul.navMenus
+                - current_user.lists.each do |list|
+                  %li= link_to list.name, list
+                %li
+                  = form_for List.new do |f|
+                    = f.submit '+'
+                    = f.text_field :name, :placeholder => 'list name'
+                  #new_list_errors
+
+      #content
+        .column_content_nav
+          %span.notice= notice
+          %span.alert= alert
+          = link_to "", edit_user_path(current_user), :class => 'topLinks top5'
+          %a.topLinks.top4{:href => "#notification-center"}
+          = link_to "", bookmarks_path, :class => 'topLinks top3'
+          = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2'
+          %a.topLinks.top1{:href => "#events-calendar"}
+        - if signed_in?
+          .add_item_row
+            .addLink
+              %a#moreLink2.addBtn{:href => ""} Add Item
+            = current_decorated_user.item_creation_links
+            %div{:style => "clear:both;"}
+          #add_item_form_wrapper
+            #add_item_form
+          = link_to "Log out", destroy_user_session_url, :method => 'delete'
+          = link_to "@#{current_user.display_name}", references_user_path(current_user)
+          = link_to 'my drafts', drafts_feeds_path
+          - if can? :manage, ItemPresetTag
+            = link_to 'Manage Preset Tags', item_preset_tags_path
+        - else
+          = link_to 'Sign in/Register', new_user_session_path
+        .mainContent
+          = yield
