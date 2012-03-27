@@ -25,10 +25,11 @@ class ItemsController < ApplicationController
     if item_params[:user_id].present?
       @item.posted_by_user = current_user
       @item.user = User.find(item_params[:user_id])
-      item_params.delete(:user_id)
     else
       @item.user = current_user
     end
+
+    item_params.delete(:user_id)
 
     @item.assign_attributes(item_params)
 

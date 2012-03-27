@@ -104,7 +104,7 @@ mark{
 }
 
 
-.comment_block textarea {
+.comment_block textarea, .offer_reply_form textarea {
   height: 50px;
   width: 100%;
 }

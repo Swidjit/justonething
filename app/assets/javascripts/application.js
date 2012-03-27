@@ -123,6 +123,12 @@ $(".add_item_txt").live("click",function(){
 
 $(".comment_block a.reply").live("click",function(){
   $(this).parent().siblings('.comment-reply').slideToggle();
+  return false;
+});
+
+$(".toggle-offer-reply").live("click",function(){
+  $(this).siblings('.offer_reply_form').slideToggle();
+  return false;
 });
 
 var swidjit = function() {

@@ -59,41 +59,13 @@
     %p= item.description
     %p= item.iconic_information
   %div{:style => "clear:both;"}
-= render :partial => 'offers', :locals => { :item => item } if item.allows_offers?
-.contentRow
-  %p.header
-    %label Offers
-.contentRow.pad.without_border
-  .offer_top
-    - # render partial offers#index collection =>item.offers
-    .offer_heading
-      from
-      %span Lura Colket
-    .offer_rpt
-      %img{:alt => "user image"}/
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-    %div{:style => "clear:both;"}
-    .offer_rpt
-      %img{:alt => "user image"}/
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-    %div{:style => "clear:both;"}
-    .offer_rpt
-      %img{:alt => "user image"}/
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-      %br/
-      %br/
-      %a{:href => "#"} reply
-    %div{:style => "clear:both;"}
-    .offer_heading
-      from
-      %span Local First Ithaca
-    %div{:style => "clear:both;"}
-    .offer_rpt
-      %img{:alt => "user image"}/
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-      %br/
-      %br/
-      %a{:href => "#"} reply
+- if item.allows_offers?
+  .contentRow
+    %p.header
+      %label Offers
+  .contentRow.pad.without_border
+    .offer_top
+      = render :partial => 'offers', :locals => { :item => item }
     %div{:style => "clear:both;"}
 
 .contentRow
