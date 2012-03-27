@@ -300,8 +300,8 @@
 
   function setCharSize(data){
     for( var ch in data.chars ){
-      if( ch == ' ' ) $(data.clone).html("<span id='test-width_"+data.id+"' style='line-block'>&nbsp;</span>");
-      else $(data.clone).html("<span id='test-width_"+data.id+"' style='line-block'>"+ch+"</span>");
+      if( ch == ' ' ) $(data.clone).html("<span id='test-width_"+data.id+"'>&nbsp;</span>");
+      else $(data.clone).html("<span id='test-width_"+data.id+"'>"+ch+"</span>");
       var testWidth = $("#test-width_"+data.id).width();
       data.chars[ch] = testWidth;
     }
