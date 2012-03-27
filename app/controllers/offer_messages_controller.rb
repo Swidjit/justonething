@@ -10,6 +10,6 @@ private
 
   def load_and_authorize_offer
     @offer = Offer.find_by_id(params[:offer_id])
-    authorize! :create, OfferMessage
+    authorize! :update, @offer
   end
 end
