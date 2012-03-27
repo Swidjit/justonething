@@ -1,18 +1,17 @@
+%h3 Offers
+
 - if item.user != current_user && !item.has_offer_from?(current_user)
-  %h3 Offers
-  = semantic_form_for :offer do |f|
-    = f.inputs do
-      = f.input :item_id, :as => :hidden, :value => item.id
-      = f.input :text, :as => :text
-      = f.submit 'send offer', :as => :button
+  = form_for :offer, :url => item_offers_path(@item) do |f|
+    = f.hidden_field :item_id, :value => item.id
+    = f.text_area :text
+    = f.submit 'send offer', :as => :button
 
 - elsif item.user != current_user && item.has_offer_from?(current_user)
   = render :partial => 'offers/offer', :locals => { :@offer => item.offer_from(current_user) }
 
 - elsif item.user == current_user
-  %h3 Offers
   - if item.offers.present?
-    = select_tag 'offer_user', item.offer_users_for_select, :onchange => "swidjit.updateOfferDisplay(this)"
+    = select_tag 'offer_user', item.offer_users_for_select, :onchange => "swidjit.updateOfferDisplay(this, #{@item.id})", :include_blank => true
     %div#offer_display
   - else
     %p No offers yet.

@@ -141,6 +141,14 @@ var swidjit = function() {
       comm = $('#comments').val();
       comm = comm.substring(0,15);
       $('#title').val(comm);
+    },
+    updateOfferDisplay : function(sel, item_id) {
+      var selected = $(sel).val();
+      if (selected) {
+        $("#offer_display").load('/items/' + item_id + '/users/' + selected + '/offers')
+      } else {
+        $("#offer_display").empty();
+      }
     }
   };
 }();

@@ -2,8 +2,7 @@
   - @offer.messages.each do |message|
     %li= message.text
 
-= semantic_form_for :offer_message do |f|
-  = f.inputs do
-    = f.input :offer_id, :as => :hidden, :value => @offer.id
-    = f.input :text, :as => :text
-    = f.submit 'reply', :as => :button
+= form_for :offer_message, :url => offer_offer_messages_path(@offer) do |f|
+  = f.hidden_field :offer_id, :value => @offer.id
+  = f.text_area :text
+  = f.submit 'reply', :as => :button
