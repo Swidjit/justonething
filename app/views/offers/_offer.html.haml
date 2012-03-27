@@ -4,5 +4,6 @@
 
 = semantic_form_for :offer_message do |f|
   = f.inputs do
+    = f.input :offer_id, :as => :hidden, :value => @offer.id
     = f.input :text, :as => :text
     = f.submit 'reply', :as => :button

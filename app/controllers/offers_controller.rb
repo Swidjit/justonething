@@ -1,5 +1,5 @@
 class OffersController < ApplicationController
-  before_filter :load_and_authorize_offer, :only => :index
+  before_filter :load_and_authorize_offer, :only => [:index, :update]
 
   def create
   end

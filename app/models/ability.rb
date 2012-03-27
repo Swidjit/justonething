@@ -29,6 +29,9 @@ class Ability
       can :read, Offer, :user_id => user.id
       can :read, Offer, :item => { :user_id => user.id }
       cannot :create, Offer, :item => { :user_id => user.id }
+
+      can :create, OfferMessage, :offer => { :user_id => user.id }
+      can :create, OfferMessage, :offer => { :item => { :user_id => user.id } }
     else
       cannot :create, :all
       cannot :join, Community
