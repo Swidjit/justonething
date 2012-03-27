@@ -1,35 +1,120 @@
-= item.manage_links
-%li
-  Poster:
-  = link_to item.user_display_name, profile_path(item.user.display_name)
-%li
-  Title:
-  = item.title
-= item.visibility_form
-%li
-  Description:
-  = item.description
-= item.tagged_as
-
+:javascript
+  $(document).ready(function(){
+    $(".addTo2").toggle(
+      function () {
+        $("#visiEXP").animate(
+          {height:$(".visiRow").height()},
+          {queue:false, duration: 300},
+          $("#visiEXP").css('overflow','visible')
+        );
+      }, function () {
+        $("#visiEXP").css('overflow','hidden').animate(
+          {height: "0px"},
+          {queue:false, duration: 300});
+      }
+    );
+  });
+.contentRow
+  .inner_title_top
+    .title_heading= item.title
+    .itemIcons
+      = item.manage_links
+      - if can? :mamange, item
+        %span#addTo2.addTo2
+          %ul
+            %li
+              %a{:href => "#"}
+                = image_tag('visible_icon.jpg')
+                item visibility
+                = image_tag('arrowDN.png')
+- if can? :manage, item
+  #visiEXP
+    .visiRow.pad
+      = item.visibility_form
+      %p Visibility
+      .orange_box ithaca  X
+      .yellow_box ithaca Dance Community   X
+      .green_box friend list   X
+      %ul.menu_with_dropdowns{:style => "margin-top:15px;"}
+        %li{:style => "width:95px;"}
+          %a{:href => ""}
+            Add Viewers
+            = image_tag('arrowDN.png')
+          .drop_arrow_left
+          .dropdown_1column.align_right1
+            .col_1
+              %a{:href => "#"} Link 1
+              .divline
+            .col_1
+              %a{:href => "#"} Link 2
+              .divline
+            .col_1
+              %a{:href => "#"} Link 3
+              .divline
+      .xtraLine
+.contentRow.pad.without_border
+  .img_left
+    = image_tag('ipad.jpg')
+  .img_info
+    %p= item.description
+    %p= item.iconic_information
+  %div{:style => "clear:both;"}
 = render :partial => 'offers', :locals => { :item => item } if item.allows_offers?
+.contentRow
+  %p.header
+    %label Offers
+.contentRow.pad.without_border
+  .offer_top
+    - # render partial offers#index collection =>item.offers
+    .offer_heading
+      from
+      %span Lura Colket
+    .offer_rpt
+      %img{:alt => "user image"}/
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+    %div{:style => "clear:both;"}
+    .offer_rpt
+      %img{:alt => "user image"}/
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+    %div{:style => "clear:both;"}
+    .offer_rpt
+      %img{:alt => "user image"}/
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+      %br/
+      %br/
+      %a{:href => "#"} reply
+    %div{:style => "clear:both;"}
+    .offer_heading
+      from
+      %span Local First Ithaca
+    %div{:style => "clear:both;"}
+    .offer_rpt
+      %img{:alt => "user image"}/
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+      %br/
+      %br/
+      %a{:href => "#"} reply
+    %div{:style => "clear:both;"}
+
+.contentRow
+  %p.header
+    %label Comments
+.contentRow.pad.without_border
+  - if @comments.any?
+    = render :partial => 'comments/comment', :collection => CommentDecorator.decorate(@comments.order(:created_at))
+  .comment_block
+    Comment
+    %a#comment{:name => 'comment'}
+    %ul
+      = form_for item.comments.build do |f|
+        = f.text_area :text, :class => 'user-suggestion'
+        = f.submit 'Comment'
 
 - if item.recommendations.any?
-  %li
+  .contentRow.pad
     Recommendations:
     %ul
       = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(item.recommendations)
-
-- if @comments.any?
-  %li
-    %ul.comments
-      = render :partial => 'comments/comment', :collection => CommentDecorator.decorate(@comments.order(:created_at))
-
-%li
-  Comment
-  %ul
-    = semantic_form_for item.comments.build do |f|
-      = f.input :text, :label => ' ', :input_html => { :class => 'user-suggestion' }
-      = f.submit 'Comment'
 
 - content_for :head do
   %meta{:property => "og:title", :content => "Swidjit - #{item.title}"}

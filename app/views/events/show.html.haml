@@ -1,14 +1,15 @@
-%ul
-  = render :partial => 'items/show', :locals => { :item => @item }
-  %li
-    Cost:
-    = @item.cost
-  %li
-    Location
-    = @item.location
-  %li
-    Starts At:
-    = @item.start_datetime
-  %li
-    Ends At:
-    = @item.end_datetime
+= render :partial => 'items/show', :locals => { :item => @item }
+.contentRow
+  %ul
+    %li
+      Cost:
+      = @item.cost
+    %li
+      Location
+      = @item.location
+    %li
+      Starts At:
+      = @item.start_datetime
+    %li
+      Ends At:
+      = @item.end_datetime

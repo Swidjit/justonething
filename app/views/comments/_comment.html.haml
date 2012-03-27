@@ -1,14 +1,15 @@
-%li
-  = link_to comment.user.display_name, comment.user
-  says
-  .comment_text
-    = comment.text
-  .comment-reply
-    %ul
-      = semantic_form_for comment.item.comments.build do |f|
-        = f.input :parent_id, :as => :hidden, :input_html => { :value => comment.id }
-        = f.input :text, :label => ' ', :input_html => { :class => 'user-suggestion' }
-        = f.submit 'Reply'
+.comment_block
+  %p
+    %img{:alt => "user image"}/
+    %span= link_to comment.user.display_name, comment.user
+    says
+    %a.reply{:href => "#"} reply
+  %p= comment.text
+  .comment-reply.hidden
+    = form_for comment.item.comments.build do |f|
+      = f.hidden_field :parent_id, :value => comment.id
+      = f.text_area :text, :class => 'user-suggestion'
+      = f.submit 'Reply'
   - if comment.children.any?
-    %ul
+    .nested_comments
       = render :partial => 'comments/comment', :collection => CommentDecorator.decorate(comment.children.order(:created_at))

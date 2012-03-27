@@ -14,6 +14,10 @@ class ItemDecorator < ApplicationDecorator
     h.select('add_visibility_rule','',grouped_options_for_select(option_hash),{:include_blank => 'add viewers'},{:id => 'add_visibility_rule'})
   end
 
+  def creator
+    content_tag :div, link_to(item.user.display_name, profile_path(item.user.display_name)), :class => 'smIcon3 smIcon'
+  end
+
   def description
     linkified_description
   end
@@ -41,37 +45,63 @@ class ItemDecorator < ApplicationDecorator
     "<div class='fb-like' data-href='#{distinct_url}' data-send='false' data-layout='button_count' data-width='50' data-show-faces='false'></div>"
   end
 
+  def iconic_information(with_type=true)
+    icon_tags = []
+    icon_tags << tagged_as
+    icon_tags << creator
+    icon_tags << price_tag
+    if with_type
+      icon_tags << content_tag(:span, "#{image_tag('have_icon.jpg')} #{item.class.to_s.humanize}".html_safe)
+    end
+    icon_tags.join("").html_safe
+  end
+
   def linkified_tags
     item.tags.collect{|tag| link_to( tag.name, {:controller => 'feeds', :action => :all, :tag_name => tag.name }) }.join(', ')
   end
 
   def manage_links
     links = []
+
+    if h.current_user.bookmarks.map(&:item).include?(item)
+      bookmark = h.current_user.bookmarks.detect { |bookmark| bookmark.item == item }
+      links << link_to('', bookmark_path(bookmark), :method => :delete, :title => 'Remove Bookmark', :class => 'iconLink1 iconFirst')
+    else
+      links << link_to('', bookmarks_path(:item_id => item.id), :method => :post, :title => 'Bookmark', :class => 'iconLink1 iconFirst')
+    end
+
+    if h.can? :create, Comment
+      links << link_to('', send("#{item.class.to_s.underscore}_path",item,:anchor => 'comment'), :title => 'Comment', :class=> 'iconLink2')
+    end
+
+    #if h.can? :create, ItemFlag
+      links << link_to('', '#flagging', :class => 'iconLink3', :title => 'Flag')
+    #end
+
     if h.can? :manage, item
-      links << link_to('Edit', send("edit_#{item.class.to_s.underscore}_path",item))
+      links << link_to('', send("edit_#{item.class.to_s.underscore}_path",item), :title => 'Edit', :class => 'iconLink4')
       links << link_to('Delete', item, :confirm => 'Are you sure?', :method => :delete)
       toggle_active_text = item.active ? 'Deactivate' : 'Activate'
       links << link_to( toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
     end
-    links << link_to('Duplicate', send("duplicate_#{item.class.to_s.underscore}_path",item))
+    links << link_to('', send("duplicate_#{item.class.to_s.underscore}_path",item), :title=> 'Duplicate', :class => 'iconLink5')
     if !item.recommendation_users.include?(h.current_user) && item.user_id != h.current_user.id
       links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
     end
 
-    if h.current_user.bookmarks.map(&:item).include?(item)
-      bookmark = h.current_user.bookmarks.detect { |bookmark| bookmark.item == item }
-      links << link_to('Remove Bookmark', bookmark_path(bookmark), :method => :delete)
-    else
-      links << link_to('Bookmark', bookmarks_path(:item_id => item.id), :method => :post)
-    end
-
     links << facebook_like_button
-    content_tag :li, links.join(' ').html_safe
+    links.join(' ').html_safe
+  end
+
+  def price_tag
+    if item.cost.present?
+      content_tag :div, item.cost, :class => 'smIcon2 smIcon'
+    end
   end
 
   def tagged_as
     if item.tags.any?
-      content_tag :li, "Tagged as: #{linkified_tags}".html_safe
+      content_tag :div, linkified_tags.html_safe, :class => 'smIcon1 smIcon'
     end
   end
 

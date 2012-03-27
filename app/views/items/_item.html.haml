@@ -1,8 +1,15 @@
-%li
+.contentRow
   %input{:type=>'hidden',:value=>item.user.id, :name => 'item_user_id'}
-  %ul
-    %li
-      = link_to item.title, item
-    %li= item.description
-    = item.tagged_as
-    = item.manage_links
+  .itemPic
+    = item.model.class.to_s.titleize
+    %br
+    -#item.image
+  .itemInfo
+    .itemTitle= link_to item.title, item
+    .itemDesc= item.description
+    .multiLinks
+      = item.iconic_information(false)
+    .itemIcons
+      = item.manage_links
+
+    
