@@ -1,17 +1,16 @@
-%h3 Offers
-
 - if item.user != current_user && !item.has_offer_from?(current_user)
   = form_for :offer, :url => item_offers_path(@item) do |f|
     = f.hidden_field :item_id, :value => item.id
     = text_area_tag :text
-    = f.submit 'send offer', :as => :button
+    = f.submit 'send offer'
 
 - elsif item.user != current_user && item.has_offer_from?(current_user)
   = render :partial => 'offers/offer', :locals => { :@offer => item.offer_from(current_user) }
 
 - elsif item.user == current_user
   - if item.offers.present?
-    = select_tag 'offer_user', item.offer_users_for_select, :onchange => "swidjit.updateOfferDisplay(this, #{@item.id})", :include_blank => true
-    %div#offer_display
+    - # We can't use :as => :@offer for some reason so loop the collection ourselves
+    - item.offers.each do |offr|
+      = render :partial => 'offers/offer', :locals => { :@offer => offr }
   - else
     %p No offers yet.

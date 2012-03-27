@@ -1,8 +1,6 @@
-%ul
-  = render :partial => 'items/show', :locals => { :item => @item }
-  %li
-    Cost:
-    = @item.cost
-  %li
-    Condition:
-    = @item.condition
+= render :partial => 'items/show', :locals => { :item => @item }
+.contentRow
+  %ul
+    %li
+      Condition:
+      = @item.condition

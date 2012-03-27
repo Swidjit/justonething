@@ -1,8 +1,19 @@
-%ul
+.offer_wrapper
+  - if current_user != @offer.user
+    .offer_heading
+      from
+      %span
+        = link_to @offer.user.display_name, profile_path(@offer.user.display_name)
   - @offer.messages.each do |message|
-    %li= message.text
-
-= form_for :offer_message, :url => offer_offer_messages_path(@offer) do |f|
-  = f.hidden_field :offer_id, :value => @offer.id
-  = f.text_area :text
-  = f.submit 'reply', :as => :button
+    .offer_rpt
+      %img{:alt => "#{message.user.display_name} user image"}
+      = message.text
+    %div{:style => "clear:both;"}
+  
+  %a{:href => "#", :class => 'toggle-offer-reply'} reply
+  
+  .offer_reply_form.hidden
+    = form_for :offer_message, :url => offer_offer_messages_path(@offer) do |f|
+      = f.hidden_field :offer_id, :value => @offer.id
+      = f.text_area :text
+      = f.submit 'reply'

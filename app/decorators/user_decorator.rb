@@ -51,7 +51,7 @@ class UserDecorator < ApplicationDecorator
 
   def vouches_display
     vouch_count = user.vouches.count
-    vouch_label = h.content_tag :label, h.pluralize(vouch_count, 'vouch')
+    vouch_label = h.content_tag :div, h.pluralize(vouch_count, 'Vouch'), :class => 'label'
     h.content_tag :div, "#{h.image_tag('voucher.png')} #{vouch_label}".html_safe,:class => 'voucher'
   end
 end

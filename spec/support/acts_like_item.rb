@@ -18,9 +18,9 @@ shared_examples "an item" do
     end
 
     it 'an expiration date' do
-      subject.expires_on = 2.days.from_now
-      # Comparing dates directly doesn't work for some reason so we cast them to a string
-      subject.expires_on.to_s.should == 2.days.from_now.to_s
+      two_days_from_now = 2.days.from_now
+      subject.expires_on = two_days_from_now
+      subject.expires_on.to_s.should == two_days_from_now.to_s
     end
 
     it 'a tag list' do

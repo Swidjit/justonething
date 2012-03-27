@@ -1,5 +1,4 @@
-%ul
-  = render :partial => 'items/show', :locals => { :item => @item }
-  %li
-    Link:
-    = @item.link_tag
+= render :partial => 'items/show', :locals => { :item => @item }
+.contentRow
+  Link:
+  = @item.link_tag

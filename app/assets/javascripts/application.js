@@ -113,9 +113,21 @@ $("#add_item_button").live('click', function(){
 
 $(".add_item_txt").live("click",function(){
   $("#add_item_form").load($(this).attr('href'),function(){
+    $('#add_item_form .datepicker').datepicker();
+    $('#add_item_form .timepicker').timepicker({showPeriod: true});
     var target_height = $("#add_item_form").height() + parseInt($("#add_item_form").css('padding-top')) + parseInt($("#add_item_form").css('padding-bottom'));
     $("#add_item_form_wrapper").animate({height:target_height}, {queue:false, duration: 1000});
   });
+  return false;
+});
+
+$(".comment_block a.reply").live("click",function(){
+  $(this).parent().siblings('.comment-reply').slideToggle();
+  return false;
+});
+
+$(".toggle-offer-reply").live("click",function(){
+  $(this).siblings('.offer_reply_form').slideToggle();
   return false;
 });
 

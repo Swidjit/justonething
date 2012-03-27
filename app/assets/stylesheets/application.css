@@ -102,3 +102,9 @@ mark{
 .menu_with_dropdowns li {
   padding: 0px 3px;
 }
+
+
+.comment_block textarea, .offer_reply_form textarea {
+  height: 50px;
+  width: 100%;
+}
