@@ -11,9 +11,9 @@ class OffersController < ApplicationController
 private
 
   def load_and_authorize_offer
-    user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
-    item = Item.find(params[:item_id])
-    @offer = Offer.find(:first, :conditions => { :user_id => user.id, :item_id => item.id })
+    item_id = params[:item_id]
+    user_id = params[:user_id] || current_user.id
+    @offer = Offer.find(:first, :conditions => { :user_id => user_id, :item_id => item_id })
 
     authorize! :read, @offer
   end
