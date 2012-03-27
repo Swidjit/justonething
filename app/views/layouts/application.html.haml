@@ -8,7 +8,7 @@
     = javascript_include_tag 'http://malsup.github.com/jquery.form.js'
     = stylesheet_link_tag    "application", :media => "all"
     /[if IE 7]
-      = stylesheet_link_tag 'jqcss/ie_only.css'
+      = stylesheet_link_tag '/assets/jqcss/ie_only.css'
     :javascript
       var base_list_url = '#{list_path(0)}';
       var fb_app_id = '#{Facebook::APP_ID}';
