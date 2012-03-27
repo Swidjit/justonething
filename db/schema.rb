@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323182152) do
+ActiveRecord::Schema.define(:version => 20120327140807) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20120323182152) do
     t.string   "text"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id",    :null => false
   end
 
   create_table "offers", :force => true do |t|
@@ -208,6 +209,7 @@ ActiveRecord::Schema.define(:version => 20120323182152) do
   add_foreign_key "items", "users", :name => "items_posted_by_user_id_fk", :column => "posted_by_user_id"
 
   add_foreign_key "offer_messages", "offers", :name => "offer_messages_offer_id_fk"
+  add_foreign_key "offer_messages", "users", :name => "offer_messages_user_id_fk"
 
   add_foreign_key "offers", "items", :name => "offers_item_id_fk"
   add_foreign_key "offers", "users", :name => "offers_user_id_fk"
