@@ -1,7 +1,7 @@
 class Offer < ActiveRecord::Base
   belongs_to :user
   belongs_to :item
-  has_many :messages, :class_name => "OfferMessage", :dependent => :destroy, :order => "#{OfferMessage.table_name}.created_at ASC"
+  has_many :messages, :class_name => "OfferMessage", :order => "#{OfferMessage.table_name}.created_at ASC", :dependent => :delete_all
 
   attr_accessible :user, :item_id
 
@@ -13,9 +13,15 @@ class Offer < ActiveRecord::Base
 
   validate :item_type_is_allowed
 
+  after_create :send_notification_email
+
 private
 
   def item_type_is_allowed
     errors.add(:item, "type not allowed") unless item.allows_offers?
+  end
+
+  def send_notification_email
+    OfferMailer.new_offer_email(self).deliver
   end
 end

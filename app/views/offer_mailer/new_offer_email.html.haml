@@ -1,0 +1,3 @@
+%p= "You have received an offer on #{@item.title}"
+%p The offer is as follows:
+%p= @offer.try(:messages).try(:first).try(:text)
