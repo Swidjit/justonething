@@ -4,5 +4,5 @@ class OfferMessage < ActiveRecord::Base
 
   validates_presence_of :offer_id, :offer, :user, :text
 
-  attr_accessible :offer, :user, :text
+  attr_accessible :offer, :offer_id, :user, :text
 end

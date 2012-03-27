@@ -3,7 +3,7 @@
 - if item.user != current_user && !item.has_offer_from?(current_user)
   = form_for :offer, :url => item_offers_path(@item) do |f|
     = f.hidden_field :item_id, :value => item.id
-    = f.text_area :text
+    = text_area_tag :text
     = f.submit 'send offer', :as => :button
 
 - elsif item.user != current_user && item.has_offer_from?(current_user)

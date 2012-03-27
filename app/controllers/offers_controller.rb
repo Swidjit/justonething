@@ -3,7 +3,7 @@ class OffersController < ApplicationController
 
   def create
     offer = Offer.create(:item_id => params[:item_id], :user => current_user)
-    OfferMessage.create(:offer => offer, :user => current_user, :text => params[:text])
+    OfferMessage.create(:offer_id => offer.id, :user => current_user, :text => params[:text])
     redirect_to :back
   end
 
