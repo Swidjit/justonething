@@ -15,17 +15,17 @@ shared_examples "an item with offers controller" do
     describe "a logged in user looking at their own item" do
       before(:each) { sign_in @item.user }
 
-      it "should not display the offer user dropdown when no offers exist" do
+      it "should let the user know when no offers exist" do
         get :show, :id => @item.id
         response.should be_success
         response.body.should =~ /No offers yet./
       end
 
-      it "should display the offer user dropdown if it has offers" do
+      it "should display the offers if it has any" do
         Factory(:offer, :item => @item)
         get :show, :id => @item.id
         response.should be_success
-        response.body.should =~ /offer_display/
+        response.body.should =~ /offer_heading/
       end
     end
 
