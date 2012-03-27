@@ -1,7 +1,10 @@
 class OffersController < ApplicationController
-  before_filter :load_and_authorize_offer, :only => [:index, :update]
+  before_filter :load_and_authorize_offer, :only => :index
 
   def create
+    offer = Offer.create(:item_id => params[:item_id], :user => current_user)
+    OfferMessage.create(:offer => offer, :user => current_user, :text => params[:text])
+    redirect_to :back
   end
 
   def index

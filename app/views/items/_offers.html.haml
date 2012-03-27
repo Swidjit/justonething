@@ -2,7 +2,7 @@
   %h3 Offers
   = semantic_form_for :offer do |f|
     = f.inputs do
-      = f.input :item, :as => :hidden, :value => item.id
+      = f.input :item_id, :as => :hidden, :value => item.id
       = f.input :text, :as => :text
       = f.submit 'send offer', :as => :button
 
