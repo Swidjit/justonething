@@ -1,6 +1,22 @@
 %div.item_visibility
-  = item.add_visibility_rule_dropdown
+%p
+  Visibility
   = item.tokenized_visibility_rules
+  %ul.menu_with_dropdowns{:style => "margin-top:15px;"}
+    %li{:style => "width:95px;"}
+      %a{:href => ""}
+        Add Viewers
+        = image_tag('arrowDN.png')
+      .drop_arrow_left
+      #add_visibility_rule.dropdown_1column.align_right1
+        - item.add_visibility_rule_options.each do |group,rules|
+          .col_1
+            = group.titleize
+            .divline
+          - rules.each do |rule|
+            .col_1
+              %a{:href => "#", 'data-rule-type' => rule[:type], 'data-visibility-id' => rule[:vis_id] }= rule[:name]
+              .divline
 
 - if !ajax
   :javascript
@@ -23,24 +39,22 @@
       return false;
     });
 
-    $(document).ready(function(){
-      $("#add_visibility_rule").val('');
-      $("#add_visibility_rule").change(function(){
-        var ruleType = $(this).val().split('-')[0];
-        var visibilityID = $(this).val().split('-')[1];
-        var existingRule = $('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
-        if( existingRule == 0 ){
-          var $idInput = $(this).closest('li').siblings('li[id*="'+ruleType+'"]').children('input');
-          var arIds = $idInput.val().length > 0 ? $idInput.val().split(',') : new Array();
-          arIds.push(visibilityID);
-          var ruleName = $(this).find('option:selected').text();
-          $newRule = $("<div>"+ruleName+" <a href='#' class='visibility_rule_remove'"+
-            " data-visibility-id='"+visibilityID+"' data-rule-type='"+ruleType+"'>x</a></div>");
-          $idInput.val($.unique(arIds).join(','));
-          $(this).after($newRule);
-        }
-        $(this).val('');
-      });
+    $("#add_visibility_rule a").live('click',function(){
+      var ruleType = $(this).attr('data-rule-type');
+      var visibilityID = $(this).attr('data-visibility-id');
+      var existingRule = $(this).closest('p').children('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
+      if( existingRule == 0 ){
+        var $idInput = $(this).closest('ul').closest('li').siblings('li[id*="'+ruleType+'"]').children('input');
+        console.log($idInput);
+        var arIds = $idInput.val().length > 0 ? $idInput.val().split(',') : new Array();
+        arIds.push(visibilityID);
+        var ruleName = $(this).text();
+        $newRule = $("<div class='"+ruleType+"_token'>"+ruleName+" <a href='#' class='visibility_rule_remove'"+
+          " data-visibility-id='"+visibilityID+"' data-rule-type='"+ruleType+"'>x</a></div>");
+        $idInput.val($.unique(arIds).join(','));
+        $(this).closest('ul').before($newRule);
+      }
+      return false;
     });
 - else
   :javascript
@@ -58,25 +72,22 @@
       return false;
     });
 
-    $(document).ready(function(){
-      $("#add_visibility_rule").val('');
-      $("#add_visibility_rule").change(function(){
-        var ruleType = $(this).val().split('-')[0];
-        var visibilityID = $(this).val().split('-')[1];
-        var existingRule = $('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
-        if( existingRule == 0 ){
-          $self = $(this);
-          var ruleName = $self.find('option:selected').text();
-          $.post("#{item.add_visibility_rule_path}.json",
-            {'visibility_type':ruleType,'visibility_id':visibilityID},
-            function(data){
-              if(data['success']){
-                $newRule = $("<div>"+ruleName+" <a href='#' class='visibility_rule_remove'"+
-                  " data-visibility-id='"+visibilityID+"' data-rule-type='"+ruleType+"'>x</a></div>");
-                $self.after($newRule);
-              }
-            }, 'json');
-        }
-        $(this).val('');
-      });
+    $("#add_visibility_rule a").live('click',function(){
+      var ruleType = $(this).attr('data-rule-type');
+      var visibilityID = $(this).attr('data-visibility-id');
+      var existingRule = $('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
+      if( existingRule == 0 ){
+        $self = $(this);
+        var ruleName = $self.text();
+        $.post("#{item.add_visibility_rule_path}.json",
+          {'visibility_type':ruleType,'visibility_id':visibilityID},
+          function(data){
+            if(data['success']){
+              $newRule = $("<div class='"+ruleType+"_token'>"+ruleName+" <a href='#' class='visibility_rule_remove'"+
+                " data-visibility-id='"+visibilityID+"' data-rule-type='"+ruleType+"'>x</a></div>");
+              $self.closest('ul').before($newRule);
+            }
+          }, 'json');
+      }
+      return false;
     });

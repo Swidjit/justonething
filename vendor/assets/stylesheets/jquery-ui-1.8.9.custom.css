@@ -911,7 +911,7 @@ a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5 {
   color:#88068e;
 
 }
-.orange_box {
+.orange_box, .city_token {
   background-color:#45ADA8;
   font-size:12px;
   float:left;
@@ -921,7 +921,7 @@ a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5 {
   font-weight:bold;
   margin-right:10px;
 }
-.yellow_box {
+.yellow_box, .community_token {
   background-color:#9DE0AD;
   font-size:12px;
   float:left;
@@ -931,7 +931,7 @@ a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5 {
   font-weight:bold;
   margin-right:10px;
 }
-.green_box {
+.green_box, .list_token {
   background-color:#E5FCC2;
   font-size:12px;
   float:left;

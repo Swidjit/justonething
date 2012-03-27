@@ -5,13 +5,13 @@ class ItemDecorator < ApplicationDecorator
   include SharedDecorations
   linkifies_all_in :description, :title
 
-  def add_visibility_rule_dropdown
+  def add_visibility_rule_options
     user = item.user || h.current_user
 
     option_hash = {}
-    option_hash[:communities] = user.communities.collect{|c| [c.name,"community-#{c.id}"] }
-    option_hash[:lists] = user.lists.collect{|c| [c.name,"list-#{c.id}"] }
-    h.select('add_visibility_rule','',grouped_options_for_select(option_hash),{:include_blank => 'add viewers'},{:id => 'add_visibility_rule'})
+    option_hash['communities'] = user.communities.collect{|c| {:name => c.name, :type => "community", :vis_id => c.id} }
+    option_hash['lists'] = user.lists.collect{|c| {:name => c.name, :type => "list", :vis_id => c.id} }
+    option_hash
   end
 
   def creator
@@ -117,15 +117,19 @@ class ItemDecorator < ApplicationDecorator
     tokenized_rules = []
     item.item_visibility_rules.each do |rule|
       this_obj = rule.visibility
-      tokenized_rules << h.content_tag(:div, (''.html_safe + this_obj.name + ' ' + link_to('x','#',:class => 'visibility_rule_remove',
-          'data-rule-type' => rule.visibility_type.downcase, 'data-visibility-id' => rule.visibility_id)))
+      token_class = "#{rule.visibility_type.downcase}_token"
+      tokenized_rules << h.content_tag(:div, (''.html_safe + this_obj.name + ' ' +
+        link_to('x','#',:class => 'visibility_rule_remove',
+          'data-rule-type' => rule.visibility_type.downcase,
+          'data-visibility-id' => rule.visibility_id)),
+        :class => token_class)
     end
     tokenized_rules.join(' ').html_safe
   end
 
   def visibility_form
     if h.can? :manage, item
-      h.content_tag(:li, render(:partial => 'visibility_form', :locals => { :ajax => true, :item => self }))
+      render(:partial => 'visibility_form', :locals => { :ajax => true, :item => self })
     end
   end
 
