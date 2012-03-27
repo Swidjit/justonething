@@ -76,6 +76,10 @@ class Item < ActiveRecord::Base
     return self.offers.map(&:user).include?(user)
   end
 
+  def offer_from(user)
+    return Offer.find(:first, :conditions => { :user_id => user.id, :item_id => self.id })
+  end
+
   private
   def handle_has_expiration
     if has_expiration.to_i == 0

@@ -41,12 +41,12 @@ shared_examples "an item with offers controller" do
         response.body.should =~ /send offer/
       end
 
-      it "should display the reply form if already created"# do
-#        Factory(:offer, :user => @other_user, :item => @item)
-#        get :show, :id => @item.id
-#        response.should be_success
-#        response.body.should =~ /reply/
-#      end
+      it "should display the reply form if already created" do
+        Factory(:offer, :user => @other_user, :item => @item)
+        get :show, :id => @item.id
+        response.should be_success
+        response.body.should =~ /reply/
+      end
     end
   end
 end

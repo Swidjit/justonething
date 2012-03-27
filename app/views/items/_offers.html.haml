@@ -7,7 +7,7 @@
       = f.submit 'send offer', :as => :button
 
 - elsif item.user != current_user && item.has_offer_from?(current_user)
-  = render :partial => 'offers/_offer'
+  = render :partial => 'offers/offer', :locals => { :@offer => item.offer_from(current_user) }
 
 - elsif item.user == current_user
   %h3 Offers

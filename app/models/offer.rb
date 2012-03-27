@@ -1,7 +1,7 @@
 class Offer < ActiveRecord::Base
   belongs_to :user
   belongs_to :item
-  has_many :messages, :class_name => "OfferMessage", :dependent => :destroy
+  has_many :messages, :class_name => "OfferMessage", :dependent => :destroy, :order => "#{OfferMessage.table_name}.created_at ASC"
 
   validates_uniqueness_of :item_id, :scope => :user_id, :message => "You can only have one offer per item."
 

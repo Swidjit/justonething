@@ -1,1 +1,8 @@
+%ul
+  - @offer.messages.each do |message|
+    %li= message.text
 
+= semantic_form_for :offer_message do |f|
+  = f.inputs do
+    = f.input :text, :as => :text
+    = f.submit 'reply', :as => :button
