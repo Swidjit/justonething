@@ -1,0 +1,10 @@
+.contentRow
+  .title_heading
+    = image_tag('notification.png')
+    your notifications
+- @notifications.each do |note|
+  .contentRow
+    .title_heading.left= note.user_friendly_type
+    = note.linked_sender
+    = note.middle_text
+    = note.notifier_link
