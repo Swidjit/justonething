@@ -13,6 +13,8 @@ class CommunityInvitation < ActiveRecord::Base
   validates_presence_of :invitee, :inviter, :community, :status
   validate :inviter_belongs_to_community
 
+  after_create :notify_recipient
+
   scope :pending, :conditions => { :status => 'P' }
 
   def accept!
@@ -37,5 +39,13 @@ protected
     unless self.inviter.present? && self.inviter.communities.include?(self.community)
       errors.add(:base,'You must belong to the community to invite others to it.')
     end
+  end
+
+  def notify_recipient
+    notification = Notification.new
+    notification.notifier = self
+    notification.sender = self.inviter
+    notification.receiver = self.invitee
+    notification.save
   end
 end

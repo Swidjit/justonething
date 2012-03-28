@@ -30,4 +30,9 @@ describe CommunityInvitation do
     subject.inviter.communities << subject.community
     subject.valid?.should be_true
   end
+
+  it 'should notify invitee after creation' do
+    invite = Factory(:community_invitation)
+    invite.invitee.notifications.count.should > 0
+  end
 end

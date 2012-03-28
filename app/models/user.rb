@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
     :order => "#{UserFamiliarity.table_name}.familiarness DESC"
   has_many :vouches, :foreign_key => :vouchee_id
   has_many :comments
+  has_many :notifications, :foreign_key => :receiver_id
 
   # Open Hours
   has_many :open_hours, :dependent => :destroy

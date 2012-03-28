@@ -10,4 +10,9 @@ describe Comment do
 
   it { should belong_to :item }
   it { should belong_to :user }
+
+  it 'should notify item owner after creation' do
+    comment = Factory(:comment)
+    comment.item.user.notifications.count.should > 0
+  end
 end
