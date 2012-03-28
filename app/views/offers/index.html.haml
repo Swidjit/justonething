@@ -10,6 +10,8 @@
           from
           %span= link_to offer.user.display_name, profile_path(offer.user.display_name)
 
+        %span.right= link_to 'delete offer', offer_path(offer), :method => :delete
+
         %div.clear
 
         -# float right delete_offer

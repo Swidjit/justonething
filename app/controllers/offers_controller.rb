@@ -1,4 +1,8 @@
 class OffersController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :load_resource, :only => :destroy
+  authorize_resource :only => :destroy
+
   def create
     offer = Offer.create(:item_id => params[:item_id], :user => current_user)
     OfferMessage.create(:offer_id => offer.id, :user => current_user, :text => params[:text])
@@ -16,8 +20,17 @@ class OffersController < ApplicationController
       load_all_offers_for_current_user
     end
   end
+  
+  def destroy
+    @offer.destroy
+    redirect_to :back
+  end
 
 private
+
+  def load_resource
+    @offer = Offer.find(params[:id])
+  end
 
   def load_and_authorize_offer
     item_id = params[:item_id]

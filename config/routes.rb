@@ -68,7 +68,7 @@ Swidjit::Application.routes.draw do
 
   resources :bookmarks, :only => [:create,:destroy,:index]
 
-  resources :offers, :only => [] do
+  resources :offers, :only => [:destroy] do
     resources :offer_messages, :only => [:create]
   end
 

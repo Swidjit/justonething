@@ -1,6 +1,31 @@
 require 'spec_helper'
 
 describe OffersController do
+  describe "#index" do
+    before(:each) do
+      @offer = Factory(:offer)
+      sign_in @offer.user
+    end
+
+    it "should work with just an item_id" do
+      get :index, :item_id => @offer.item.id
+      response.should be_success
+      response.should_not render_template('layouts/application')
+    end
+
+    it "should work with just a user_id" do
+      get :index, :user_id => @offer.item.user.display_name
+      response.should be_success
+      response.should render_template('index')
+    end
+
+    it "should work with both an item_id and a user_id" do
+      get :index, :user_id => @offer.user.id, :item_id => @offer.item.id
+      response.should be_success
+      response.should_not render_template('layouts/application')
+    end
+  end
+
   describe "an existing offer" do
     before(:each) { @offer = Factory(:offer) }
 
@@ -20,6 +45,22 @@ describe OffersController do
       sign_in Factory(:user)
       get :index, :item_id => @offer.item.id, :user_id => @offer.user.id
       response.should_not be_success
+    end
+
+    context "deleting the offer" do
+      before(:each) { request.env["HTTP_REFERER"] = "/" }
+
+      it "can only be destroyed by its owner" do
+        sign_in @offer.item.user
+        delete :destroy, :id => @offer.id
+        Offer.all.count.should == 0
+      end
+
+      it "can not be destroyed by its owner" do
+        sign_in @offer.user
+        delete :destroy, :id => @offer.id
+        Offer.all.count.should == 1
+      end
     end
   end
 

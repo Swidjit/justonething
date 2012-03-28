@@ -129,4 +129,5 @@ mark{
   padding-bottom: 15px;
 }
 
+.right { float: right; }
 .clear { clear: both; }
