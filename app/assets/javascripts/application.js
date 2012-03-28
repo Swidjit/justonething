@@ -104,7 +104,7 @@ $("#add_user_to_list_dropdown a").live('click',function(){
 
 $("#add_item_button").live('click', function(){
   if( $("#add_item_form_wrapper").height() > 0 ){
-    $("#add_item_form_wrapper").animate({height: "0"}, {queue:false, duration: 500});
+    $("#add_item_form_wrapper").css('overflow','hidden').animate({height: "0"}, {queue:false, duration: 500});
   } else {
     $(".add_item_txt.item_first").click();
   }
@@ -116,7 +116,11 @@ $(".add_item_txt").live("click",function(){
     $('#add_item_form .datepicker').datepicker();
     $('#add_item_form .timepicker').timepicker({showPeriod: true});
     var target_height = $("#add_item_form").height() + parseInt($("#add_item_form").css('padding-top')) + parseInt($("#add_item_form").css('padding-bottom'));
-    $("#add_item_form_wrapper").animate({height:target_height}, {queue:false, duration: 1000});
+    $("#add_item_form_wrapper").animate(
+      {height:target_height},
+      {queue:false, duration: 1000},
+      $("#add_item_form_wrapper").css('overflow','visible')
+    );
   });
   return false;
 });
@@ -129,6 +133,12 @@ $(".comment_block a.reply").live("click",function(){
 $(".toggle-offer-reply").live("click",function(){
   $(this).siblings('.offer_reply_form').slideToggle();
   return false;
+});
+
+$(".item_description").live("change",function(){
+  comm = $(this).val();
+  comm = comm.substring(0,15);
+  $(this).closest('fieldset').find('.item_title').val(comm);
 });
 
 var swidjit = function() {
@@ -148,11 +158,6 @@ var swidjit = function() {
         },function(){
           $(this).children('div').hide();
       });
-    },
-    addTitle : function() {
-      comm = $('#comments').val();
-      comm = comm.substring(0,15);
-      $('#title').val(comm);
     },
     updateOfferDisplay : function(sel, item_id) {
       var selected = $(sel).val();

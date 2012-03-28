@@ -9,8 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
  *= require jquery-ui-1.8.9.custom
+ *= require_tree .
 */
 
 
@@ -23,6 +23,11 @@ body {
   color:#564b47;  
   padding:0 0px;
   margin:0;
+}
+
+fieldset {
+  border: none;
+  padding: 0px;
 }
 
 /*  positioning-colums */
@@ -103,6 +108,9 @@ mark{
   padding: 0px 3px;
 }
 
+.left {
+  float: left;
+}
 
 .comment_block textarea, .offer_reply_form textarea {
   height: 50px;

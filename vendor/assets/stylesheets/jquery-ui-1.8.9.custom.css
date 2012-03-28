@@ -771,7 +771,7 @@ a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5 {
   border-width: 0px 3px;
 }
 #add_item_form {
-  padding: 9px 0px;
+  padding: 0px 0px 9px 0px;
 }
 .comnt {
   height:150px;
@@ -862,8 +862,8 @@ a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5 {
   text-align:center;
   line-height:22px;
   padding:0 5px;
+  color:#ffffff;
 }
-.tag_list ul li a { text-decoration:none;color:#ffffff; }
 .title_box2 {
   padding-top:10px;
 }

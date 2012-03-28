@@ -13,7 +13,7 @@ shared_examples "an item controller" do
     it "should not show the user_id select if the user is not a delagatee" do
       sign_in Factory(:user)
       get :new
-      response.body.should_not =~ /Post As/
+      response.body.should_not =~ /Posting as/
     end
 
     it "should show the user_id select if the user is a delegatee" do
@@ -21,7 +21,7 @@ shared_examples "an item controller" do
       Factory(:delegate, :delegatee => delegatee)
       sign_in delegatee
       get :new
-      response.body.should =~ /Post As/
+      response.body.should =~ /Posting as/
     end
   end
 

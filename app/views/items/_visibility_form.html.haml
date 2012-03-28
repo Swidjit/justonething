@@ -1,10 +1,9 @@
 %div.item_visibility
-%p
-  Visibility
+  %p.vis_label Visibility
   = item.tokenized_visibility_rules
   %ul.menu_with_dropdowns{:style => "margin-top:15px;"}
-    %li{:style => "width:95px;"}
-      %a{:href => ""}
+    %li
+      %a{:href => "", :onclick => 'return false;'}
         Add Viewers
         = image_tag('arrowDN.png')
       .drop_arrow_left
@@ -42,7 +41,7 @@
     $("#add_visibility_rule a").live('click',function(){
       var ruleType = $(this).attr('data-rule-type');
       var visibilityID = $(this).attr('data-visibility-id');
-      var existingRule = $(this).closest('p').children('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
+      var existingRule = $(this).closest('ul').parent().find('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
       if( existingRule == 0 ){
         var $idInput = $(this).closest('ul').closest('li').siblings('li[id*="'+ruleType+'"]').children('input');
         console.log($idInput);
@@ -75,7 +74,8 @@
     $("#add_visibility_rule a").live('click',function(){
       var ruleType = $(this).attr('data-rule-type');
       var visibilityID = $(this).attr('data-visibility-id');
-      var existingRule = $('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
+      console.log($(this).closest('ul').siblings());
+      var existingRule = $(this).closest('ul').parent().find('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
       if( existingRule == 0 ){
         $self = $(this);
         var ruleName = $self.text();

@@ -1,17 +1,9 @@
 = f.semantic_errors
-= f.inputs do
-  - if current_user.delegators.present?
-    = f.input :user_id, :as => :select, :collection => current_user.delegators, :label => "Post As", :include_blank => current_user.display_name, :input_html => { :onchange => 'swidjit.updateVisibilityForm(this)' }
-  = f.input :public
-  = f.input :title, :input_html => {:class => 'user-suggestion', :autocomplete => :off}
-  = f.input :description, :as => :text, :input_html => {:class => 'user-suggestion'}
-  = f.input :tag_list, :label => 'Tags', :input_html => {"data-pre" => @item.tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
-  - if @item_preset_tags.any?
-    %li
-      %ul.preset_tags.token-input-list-facebook
-        - @item_preset_tags.each do |tag|
-          %li.token-input-token-facebook.preset_tag= tag.tag
-  = f.semantic_errors :tags
+= f.inputs :class => 'title_box' do
+  = f.input :description, :as => :text, :input_html => {:class => 'user-suggestion item_description comnt'}
+  %li.label
+    %label Title
+  = f.input :title, :input_html => {:class => 'user-suggestion item_title', :autocomplete => :off}
 
 :javascript
   $(document).ready(function(){
