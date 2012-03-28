@@ -60,6 +60,13 @@ Swidjit::Application.routes.draw do
       get :references
       get :suggestions
     end
+
+    resources :calendar, :only => [:index] do
+      collection do
+        resources :week, :only => [:show], :controller => :calendar, :as => 'calander_week'
+      end
+    end
+
     resources :offers, :only => :index
     resources :vouches, :only => :create
     resources :notifications, :only => :index
