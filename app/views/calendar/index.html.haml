@@ -1,0 +1,13 @@
+%div.left{:style => 'width: 50%'}
+  %div.contentRow
+    %div.title_heading your events
+
+  = render :partial => 'items/item', :collection => ItemDecorator.decorate(@user_events)
+
+%div.left{:style => 'width: 50%'}
+  %div.contentRow
+    %div.title_heading.left upcoming events
+    %span.right select date
+    %span.right filters
+
+  = render :partial => 'items/item', :collection => ItemDecorator.decorate(@events)
