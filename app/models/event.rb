@@ -4,6 +4,11 @@ class Event < Item
   validates_presence_of :location, :start_datetime, :end_datetime, :start_date, :start_time,
     :end_date, :end_time
   attr_accessor :start_time, :start_date, :end_time, :end_date
+  
+  scope :for_week, lambda { |week| {
+    :conditions => ["#{Event.table_name}.start_datetime >= ? AND #{Event.table_name}.start_datetime <= ?",
+                    (week * 7).days.from_now.beginning_of_day, ((week + 1) * 7).days.from_now.end_of_day]
+  } }
 
   # week is zero-indexed starting with the current day as the first day of the first week
   scope :for_week, lambda { |week| {
