@@ -60,6 +60,7 @@ Swidjit::Application.routes.draw do
       get :references
       get :suggestions
     end
+    resources :offers, :only => :index
     resources :vouches, :only => :create
   end
 

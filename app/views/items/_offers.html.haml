@@ -5,7 +5,12 @@
     = f.submit 'send offer'
 
 - elsif item.user != current_user && item.has_offer_from?(current_user)
-  = render :partial => 'offers/offer', :locals => { :@offer => item.offer_from(current_user) }
+  - offer = item.offer_from(current_user)
+  .offer_heading
+    from
+    %span
+      = link_to offer.user.display_name, profile_path(offer.user.display_name)
+  = render :partial => 'offers/offer', :locals => { :@offer => offer }
 
 - elsif item.user == current_user
   - if item.offers.present?

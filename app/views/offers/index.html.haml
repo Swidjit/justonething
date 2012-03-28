@@ -1,0 +1,17 @@
+%div.title_heading your offers
+
+- @offers.group_by(&:item).each do |item, offers|
+  %div.contentRow
+    %div.title_heading= item.title
+    - offers.each do |offer|
+      %div.offer_container
+        %a{:href => "#", :class => 'toggle-offer-wrapper'}= image_tag 'right_arrow.png', :class => 'left'
+        .accordian_offer_heading
+          from
+          %span= link_to offer.user.display_name, profile_path(offer.user.display_name)
+
+        %div.clear
+
+        -# float right delete_offer
+        %div.offer_wrapper.hidden
+          = render :partial => 'offer', :locals => { :@offer => offer }

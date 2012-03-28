@@ -130,6 +130,20 @@ $(".comment_block a.reply").live("click",function(){
   return false;
 });
 
+$(".toggle-offer-wrapper").live("click", function() {
+  var img_tag = $(this).children().first();
+  var slider = $(this).siblings('.offer_wrapper');
+
+  if ($(slider).css('display') === 'block') {
+    img_tag.attr('src', '/assets/right_arrow.png');
+  } else {
+    img_tag.attr('src', '/assets/down_arrow.png');
+  }
+
+  slider.slideToggle();
+  return false;
+});
+
 $(".toggle-offer-reply").live("click",function(){
   $(this).siblings('.offer_reply_form').slideToggle();
   return false;

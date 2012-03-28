@@ -116,3 +116,17 @@ mark{
   height: 50px;
   width: 100%;
 }
+
+.offer_container {
+  padding-top: 5px;
+}
+
+.accordian_offer_heading {
+  float: left;
+  font-size: 14px;
+  line-height: 9px;
+  padding-left: 10px;
+  padding-bottom: 15px;
+}
+
+.clear { clear: both; }
