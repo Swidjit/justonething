@@ -1,6 +1,25 @@
 require 'spec_helper'
 
 describe User do
+  describe 'supports reading and writing of' do
+    it 'an about' do
+      subject.about = "I'm silly!"
+      subject.about.should == "I'm silly!"
+    end
+    it 'websites' do
+      subject.websites = "qwantz.com xkcd.com"
+      subject.websites.should == "qwantz.com xkcd.com"
+    end
+    it 'an address' do
+      subject.address = "1234 Lunar St, Moon"
+      subject.address.should == "1234 Lunar St, Moon"
+    end
+    it 'a phone number' do
+      subject.phone = "555-481-7985"
+      subject.phone.should == "555-481-7985"
+    end
+  end
+
   describe "Display Name" do
     it "can be changed once" do
       u1 = Factory(:user, :display_name => 'JohnDoe', :user_set_display_name => false)
