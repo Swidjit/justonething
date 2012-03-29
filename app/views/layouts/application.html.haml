@@ -64,8 +64,7 @@
           %span.alert= alert
           - if signed_in?
             = link_to "", edit_user_path(current_user), :class => 'topLinks top5'
-            %a.topLinks{:href => user_offers_path(current_user.display_name)}
-              %img{:src => '', :alt => 'your offers'}
+            = link_to "", user_offers_path(current_user.display_name), :class => 'topLinks icon_offer'
             %a.topLinks.top4{:href => "#notification-center"}
             = link_to "", bookmarks_path, :class => 'topLinks top3'
             = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2'
