@@ -4,11 +4,22 @@ class CalendarController < ApplicationController
   def index
   end
 
+  def show
+    render :index
+  end
+
 private
 
   def load_events
-    week = params[:id] || 0
-    @events = Event.for_week(week).all
-    @user_events = Event.for_week(week).owned_or_bookmarked_by(current_user).all
+    if params[:month].present? && params[:day].present? && params[:year].present?
+      date = Date.civil(params[:year].to_i, params[:month].to_i, params[:day].to_i)
+      scope = lambda { |event_class| event_class.for_date(date) }
+    else
+      week = params[:week_no].to_i || 0
+      scope = lambda { |event_class| event_class.for_week(week) }
+    end
+
+    @events = scope.call(Event).all
+    @user_events = current_user.present? ? scope.call(Event).owned_or_bookmarked_by(current_user).all : nil
   end
 end

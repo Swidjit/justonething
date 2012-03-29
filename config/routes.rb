@@ -67,7 +67,10 @@ Swidjit::Application.routes.draw do
 
   resources :calendar, :only => [:index] do
     collection do
-      resources :week, :only => [:show], :controller => :calendar, :as => 'calander_week'
+      resource :week, :path => "week/:week_no", :only => [:show], :controller => :calendar, :as => 'calendar_week'
+    end
+    collection do
+      resource :date, :path => "date/:month/:day/:year", :only => [:show], :controller => :calendar, :as => 'calendar_day'
     end
   end
 

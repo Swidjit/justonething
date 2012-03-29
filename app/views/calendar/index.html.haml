@@ -1,13 +1,24 @@
-%div.left{:style => 'width: 50%'}
-  %div.contentRow
-    %div.title_heading your events
+- if @user_events.present?
+  %div.left{:style => 'width: 50%'}
+    %div.contentRow
+      %div.title_heading your events
 
-  = render :partial => 'items/item', :collection => ItemDecorator.decorate(@user_events)
+    = render :partial => 'items/item', :collection => ItemDecorator.decorate(@user_events)
 
-%div.left{:style => 'width: 50%'}
-  %div.contentRow
-    %div.title_heading.left upcoming events
-    %span.right select date
-    %span.right filters
+  %div.left{:style => 'width: 50%'}
+    %div.contentRow
+      %div.title_heading.left upcoming events
+      %input.datepicker#calendar_select_date_hidden{:type => :hidden}
+      %a.right#calendar_select_date{:href => '#'} select date
+      %span.right filters
 
-  = render :partial => 'items/item', :collection => ItemDecorator.decorate(@events)
+    = render :partial => 'items/item', :collection => ItemDecorator.decorate(@events)
+
+- else
+  %div.left{:style => 'width: 100%'}
+    %div.contentRow
+      %div.title_heading.left upcoming events
+      %span.right select date
+      %span.right filters
+
+    = render :partial => 'items/item', :collection => ItemDecorator.decorate(@events)

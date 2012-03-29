@@ -11,6 +11,10 @@ class Event < Item
                     (week * 7).days.from_now.beginning_of_day, ((week + 1) * 7).days.from_now.end_of_day]
   } }
 
+  scope :for_date, lambda { |date| {
+    :conditions => ["#{Event.table_name}.start_datetime >= ? AND #{Event.table_name}.start_datetime <= ?", date.beginning_of_day, date.end_of_day]
+  } }
+
   scope :owned_or_bookmarked_by, lambda { |user| {
     :select => "DISTINCT #{Item.table_name}.*",
     :joins => "LEFT JOIN #{Bookmark.table_name} ON #{Bookmark.table_name}.item_id = #{Item.table_name}.id",
