@@ -22,6 +22,7 @@ class EventDecorator < ItemDecorator
   end
 
   private
+  # TODO: Move this to an initializer and use datetime.to_s(:format_defined_in_initializer)
   def date_format
     '%m/%d/%Y'
   end

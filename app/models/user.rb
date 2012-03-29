@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :is_thirteen, :last_name, :first_name,
       :display_name, :as => [:default,:devise]
 
+  attr_accessible :about, :websites, :address, :phone, :as => :default
   attr_accessible :user_set_display_name, :as => :devise
 
   validate :is_thirteen?, :on => :create
@@ -20,9 +21,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :display_name, :case_sensitive => false
 
   before_validation :check_updated_display_name, :on => :update
+  before_validation :update_open_hours_if_present
   before_update :set_user_set_display_name
 
-  attr_accessor :is_thirteen
+  attr_accessor :is_thirteen, :new_open_hours
 
   has_many :items
   has_many :lists
@@ -35,6 +37,10 @@ class User < ActiveRecord::Base
     :order => "#{UserFamiliarity.table_name}.familiarness DESC"
   has_many :vouches, :foreign_key => :vouchee_id
   has_many :comments
+
+  # Open Hours
+  has_many :open_hours, :dependent => :destroy
+  accepts_nested_attributes_for :open_hours
 
   #Recieved and sent CommunityInvitations
   has_many :rec_comm_invites, :foreign_key => :invitee_id, :class_name => 'CommunityInvitation'
@@ -120,6 +126,20 @@ class User < ActiveRecord::Base
   def set_user_set_display_name
     if self.display_name_changed?
       self.user_set_display_name = true
+    end
+  end
+
+  def update_open_hours_if_present
+    if new_open_hours.present?
+      open_hours = []
+      new_open_hours.each do |day,oh|
+        if oh[:open_time].present? || oh[:close_time].present?
+          open_hour = OpenHour.new(oh)
+          open_hour.user = self
+          open_hours << open_hour
+        end
+      end
+      self.open_hours = open_hours
     end
   end
 end

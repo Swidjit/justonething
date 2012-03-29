@@ -23,7 +23,7 @@
     .title_heading.left profile info
     %span anything you add here is visible publicly on your profile page
     %ul.profile-fields
-      %li= f.label :about, 'about'
+      %li= f.label :about, 'about me'
       %li= f.text_area :about
       %li= f.label :websites, 'websites'
       %li= f.text_field :websites
@@ -31,5 +31,23 @@
       %li= f.text_field :address
       %li= f.label :phone, 'phone'
       %li= f.text_field :phone
+      %li
+        %label hours of operation
+      %li
+        %table
+          %tr
+            %td &nbsp;
+            %td.center open
+            %td &nbsp;
+            %td.center close
+          - Date::DAYNAMES.each do |day|
+            %tr
+              = fields_for "open_hours[#{day}]",@user.open_hours.find_or_initialize_by_day_of_week(day) do |oh|
+                %td.text-right
+                  = day
+                  = oh.hidden_field :day_of_week
+                %td= oh.text_field :open_time
+                %td to
+                %td= oh.text_field :close_time
   %div.pad
     = f.submit "Update Profile"
