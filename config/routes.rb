@@ -60,6 +60,7 @@ Swidjit::Application.routes.draw do
       get :references
       get :suggestions
     end
+    resources :offers, :only => :index
     resources :vouches, :only => :create
   end
 
@@ -67,7 +68,7 @@ Swidjit::Application.routes.draw do
 
   resources :bookmarks, :only => [:create,:destroy,:index]
 
-  resources :offers, :only => [] do
+  resources :offers, :only => [:destroy] do
     resources :offer_messages, :only => [:create]
   end
 

@@ -46,4 +46,18 @@ describe Offer do
     Factory(:offer_message, :offer => offer, :user => offer.user)
     ActionMailer::Base.deliveries.size.should == original_size + 1
   end
+
+  it "#for_user" do
+    item = Factory(:have_it)
+    Offer.for_user(item.user).count.should == 0
+
+    Factory(:offer, :item => item)
+    Offer.for_user(item.user).count.should == 1
+
+    Factory(:offer, :item => item)
+    Offer.for_user(item.user).count.should == 2
+
+    Factory(:offer, :item => Factory(:have_it, :user => item.user))
+    Offer.for_user(item.user).count.should == 3
+  end
 end

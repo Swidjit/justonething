@@ -25,7 +25,7 @@ shared_examples "an item with offers controller" do
         Factory(:offer, :item => @item)
         get :show, :id => @item.id
         response.should be_success
-        response.body.should =~ /offer_heading/
+        response.body.should =~ /offer_top/
       end
     end
 

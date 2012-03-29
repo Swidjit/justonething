@@ -120,3 +120,17 @@ mark{
 .menu_with_dropdowns .dropdown_1column {
   z-index: 50;
 }
+.offer_container {
+  padding-top: 5px;
+}
+
+.accordian_offer_heading {
+  float: left;
+  font-size: 14px;
+  line-height: 9px;
+  padding-left: 10px;
+  padding-bottom: 15px;
+}
+
+.right { float: right; }
+.clear { clear: both; }

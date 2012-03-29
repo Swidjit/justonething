@@ -15,6 +15,8 @@ class Offer < ActiveRecord::Base
 
   after_create :send_notification_email
 
+  scope :for_user, lambda { |user| { :joins => :item, :conditions => ["#{Item.table_name}.user_id = ?", user.id] } }
+
 private
 
   def item_type_is_allowed
