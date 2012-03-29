@@ -1,0 +1,36 @@
+.account-basics {
+  .left {
+    margin: 10px;
+  }
+}
+
+.profile-info {
+  .title_heading {
+    width: auto;
+    margin-right: 15px;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      color: #88068e;
+      padding: 0px 15px;
+
+      label {
+        margin-left: -15px;
+      }
+
+      textarea,input {
+        width: 100%;
+        margin: 0px;
+        color: #333;
+        margin-bottom: 10px
+      }
+
+      textarea {
+        height: 70px;
+      }
+    }
+  }
+}

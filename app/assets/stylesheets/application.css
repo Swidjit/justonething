@@ -111,6 +111,9 @@ mark{
 .left {
   float: left;
 }
+.text-right {
+  text-align: right;
+}
 
 .comment_block textarea, .offer_reply_form textarea {
   height: 50px;

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327140807) do
+ActiveRecord::Schema.define(:version => 20120329133610) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -128,6 +128,15 @@ ActiveRecord::Schema.define(:version => 20120327140807) do
   add_index "lists_users", ["list_id", "user_id"], :name => "index_lists_users_on_list_id_and_user_id", :unique => true
   add_index "lists_users", ["user_id"], :name => "index_lists_users_on_user_id"
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "notifier_id"
+    t.string   "notifier_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "offer_messages", :force => true do |t|
     t.integer  "offer_id"
     t.string   "text"
@@ -183,6 +192,10 @@ ActiveRecord::Schema.define(:version => 20120327140807) do
     t.string   "display_name"
     t.boolean  "user_set_display_name",  :default => false, :null => false
     t.boolean  "is_admin",               :default => false
+    t.text     "about"
+    t.string   "websites"
+    t.string   "address"
+    t.string   "phone"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
