@@ -5,7 +5,7 @@ describe NotificationsController do
     it 'should be successful when logged in' do
       rec = Factory(:recommendation)
       sign_in rec.item.user
-      get :index
+      get :index, :user_id => rec.item.user.id
       response.should be_success
       assigns(:notifications).count.should == 1
     end
