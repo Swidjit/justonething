@@ -25,6 +25,8 @@ class NotificationDecorator < ApplicationDecorator
         else
           'has replied to their offer on your item'
         end
+      when 'Delegate'
+        'has added you as a delegate, you can now post items as them'
     end
   end
 
@@ -37,21 +39,21 @@ class NotificationDecorator < ApplicationDecorator
         h.link_to(target.offer.item.title,h.send("#{target.offer.item.class.to_s.underscore}_path",target.offer.item))
       when 'CommunityInvitation'
         h.link_to(target.community.name,h.community_path(target.community))
+      when 'Delegate'
+        '' # No link for this
     end
   end
 
   def user_friendly_type
     case notification.notifier_type
-      when 'Comment'
-        'comment'
-      when 'Offer'
-        'offer'
-      when 'Recommendation'
-        'recommendation'
+      when 'Comment','Offer','Recommendation'
+        notification.notifier_type.downcase
       when 'CommunityInvitation'
         'invitation'
       when 'OfferMessage'
         'offer reply'
+      when 'Delegate'
+        'delegation'
     end
   end
 end
