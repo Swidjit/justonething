@@ -16,8 +16,23 @@ class Comment < ActiveRecord::Base
   after_save :update_user_familiarity
   after_destroy :update_user_familiarity
 
+  after_create :notify_appropriate_user
+
   def update_user_familiarity
     UserFamiliarity.update_for(self.user,self.item.user)
     UserFamiliarity.update_for(self.item.user,self.user)
+  end
+
+private
+  def notify_appropriate_user
+    notification = Notification.new
+    notification.notifier = self
+    notification.sender = self.user
+    if self.is_root?
+      notification.receiver = self.item.user
+    else
+      notification.receiver = self.parent.user
+    end
+    notification.save
   end
 end

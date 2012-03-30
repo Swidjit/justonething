@@ -12,6 +12,8 @@ class Recommendation < ActiveRecord::Base
   validate :user_cannot_recommend_own_item
   after_save :update_user_familiarity
 
+  after_create :notify_item_owner
+
   attr_accessible :description
 
   def update_user_familiarity
@@ -20,6 +22,15 @@ class Recommendation < ActiveRecord::Base
 
   def user_cannot_recommend_own_item
     errors.add(:base, 'You cannot recommend your own item') if item.user == user
+  end
+
+private
+  def notify_item_owner
+    notification = Notification.new
+    notification.notifier = self
+    notification.sender = self.user
+    notification.receiver = self.item.user
+    notification.save
   end
 
 end

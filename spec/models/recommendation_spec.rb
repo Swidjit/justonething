@@ -26,4 +26,9 @@ describe Recommendation do
     uf = UserFamiliarity.find_by_user_id_and_familiar_id(rec.user.id,rec.item.user.id)
     uf.familiarness.should > 0
   end
+
+  it 'should notify item owner after creation' do
+    rec = Factory(:recommendation)
+    rec.item.user.notifications.count.should > 0
+  end
 end

@@ -60,4 +60,9 @@ describe Offer do
     Factory(:offer, :item => Factory(:have_it, :user => item.user))
     Offer.for_user(item.user).count.should == 3
   end
+
+  it 'should notify item owner after creation' do
+    offer = Factory(:offer)
+    offer.item.user.notifications.count.should > 0
+  end
 end

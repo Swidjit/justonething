@@ -27,4 +27,9 @@ describe Delegate do
     tautology = Factory.build(:delegate, :delegator => both, :delegatee => both)
     tautology.should_not be_valid
   end
+
+  it "should notify the delegatee after creation" do
+    delegation = Factory(:delegate)
+    delegation.delegatee.notifications.count.should == 1
+  end
 end
