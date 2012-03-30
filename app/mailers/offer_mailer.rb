@@ -1,5 +1,5 @@
 class OfferMailer < ActionMailer::Base
-  default from: "no-reply@swidjit.com"
+  default from: "swidjit@swidjit.com"
 
   def new_offer_email(offer)
     @offer = offer
