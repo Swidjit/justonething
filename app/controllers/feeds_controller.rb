@@ -62,6 +62,7 @@ class FeedsController < ApplicationController
       params[:type] = 'all'
       @feed_items = base_feed_items.access_controlled_for(current_user,current_ability)
     end
+    @test_output = current_user.familiar_users.limit(25)
     render :generic_index
   end
 

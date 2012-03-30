@@ -4,6 +4,12 @@
 %div
   = tabbed_item_types('type')
 
+- if @test_output.present?
+  Familiar users in descending order
+  %ul
+    - @test_output.each do |usr|
+      %li= usr.display_name
+
 - if @feed_items.count == 0
   %p No items found.
 - else
