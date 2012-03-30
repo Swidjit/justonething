@@ -8,7 +8,11 @@ class NotificationDecorator < ApplicationDecorator
   def middle_text
     case notification.notifier_type
       when 'Comment'
-        'has commented on your item'
+        if notification.notifier.is_root?
+          'has commented on your item'
+        else
+          'has replied to your comment on the item'
+        end
       when 'Offer'
         'has made an offer on your item'
       when 'Recommendation'

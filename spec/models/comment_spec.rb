@@ -11,8 +11,17 @@ describe Comment do
   it { should belong_to :item }
   it { should belong_to :user }
 
-  it 'should notify item owner after creation' do
+  it 'should notify item owner after creation only if it is a top level comment' do
     comment = Factory(:comment)
-    comment.item.user.notifications.count.should > 0
+    comment.item.user.notifications.count.should == 1
+
+    reply = Factory(:comment, :parent_id => comment.id)
+    comment.item.user.notifications.count.should == 1
+  end
+
+  it 'should notify comment poster after reply' do
+    comment = Factory(:comment)
+    reply = Factory(:comment, :parent_id => comment.id)
+    comment.user.notifications.count.should == 1
   end
 end

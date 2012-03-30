@@ -16,7 +16,7 @@ class Comment < ActiveRecord::Base
   after_save :update_user_familiarity
   after_destroy :update_user_familiarity
 
-  after_create :notify_item_owner
+  after_create :notify_appropriate_user
 
   def update_user_familiarity
     UserFamiliarity.update_for(self.user,self.item.user)
@@ -24,11 +24,15 @@ class Comment < ActiveRecord::Base
   end
 
 private
-  def notify_item_owner
+  def notify_appropriate_user
     notification = Notification.new
     notification.notifier = self
     notification.sender = self.user
-    notification.receiver = self.item.user
+    if self.is_root?
+      notification.receiver = self.item.user
+    else
+      notification.receiver = self.parent.user
+    end
     notification.save
   end
 end
