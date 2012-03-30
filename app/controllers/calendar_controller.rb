@@ -11,15 +11,15 @@ class CalendarController < ApplicationController
 private
 
   def load_events
-    if params[:month].present? && params[:day].present? && params[:year].present?
-      date = Date.civil(params[:year].to_i, params[:month].to_i, params[:day].to_i)
-      scope = lambda { |event_class| event_class.for_date(date) }
+    day, month, year = params[:day], params[:month], params[:year]
+
+    if month.present? && day.present? && year.present?
+      events = Event.for_date(Date.civil(year.to_i, month.to_i, day.to_i))
     else
-      week = params[:week_no].to_i || 0
-      scope = lambda { |event_class| event_class.for_week(week) }
+      events = Event.for_week(params[:week_no].to_i || 0)
     end
 
-    @events = scope.call(Event).all
-    @user_events = current_user.present? ? scope.call(Event).owned_or_bookmarked_by(current_user).all : nil
+    @events = events.all
+    @user_events = current_user.present? ? events.owned_or_bookmarked_by(current_user).all : nil
   end
 end
