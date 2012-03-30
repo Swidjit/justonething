@@ -36,6 +36,8 @@
               %li= link_to 'Recommendations', recommendations_feeds_path
               - if signed_in?
                 %li= link_to 'Familiar Users', familiar_users_feeds_path
+                %li= link_to "mentions", references_user_path(current_user)
+                %li= link_to 'my drafts', drafts_feeds_path
           %h3
             %a.secHdr2{:href => "#"} Communities
           %div
@@ -57,6 +59,13 @@
                     = f.submit '+'
                     = f.text_field :name, :placeholder => 'list name'
                   #new_list_errors
+          %ul.navMenus
+            - if signed_in?
+              %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
+              - if can? :manage, ItemPresetTag
+                %li= link_to 'Manage Preset Tags', item_preset_tags_path
+            - else
+              %li= link_to 'Sign in/Register', new_user_session_path
 
       #content
         .column_content_nav
@@ -77,12 +86,5 @@
             %div{:style => "clear:both;"}
           #add_item_form_wrapper
             #add_item_form
-          = link_to "Log out", destroy_user_session_url, :method => 'delete'
-          = link_to "@#{current_user.display_name}", references_user_path(current_user)
-          = link_to 'my drafts', drafts_feeds_path
-          - if can? :manage, ItemPresetTag
-            = link_to 'Manage Preset Tags', item_preset_tags_path
-        - else
-          = link_to 'Sign in/Register', new_user_session_path
         .mainContent
           = yield
