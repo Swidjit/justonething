@@ -6,19 +6,33 @@
     = render :partial => 'items/item', :collection => ItemDecorator.decorate(@user_events)
 
   %div.left{:style => 'width: 50%'}
-    %div.contentRow
-      %div.title_heading.left upcoming events
-      %input.datepicker#calendar_select_date_hidden{:type => :hidden}
-      %a.right#calendar_select_date{:href => '#'} select date
-      %span.right filters
+    %div.contentRow.visible_overflow
+      %div.title_heading.left.auto_width.right_padding_10 upcoming events
 
+      %ul.menu_with_dropdowns.no_top_margin
+        %li.height_15px
+          %a{:href => "#",:onclick => "return false"}
+            filters
+            = image_tag 'arrowDN.png'
+          %div.drop_arrow_left
+          %div#filter_rainbow_dropdown.dropdown_1column.align_right1
+            - @item_preset_tags.each do |tag|
+              %div.col_1
+                = link_to tag.name, calendar_filter_path(tag.name)
+                %div.divline
+
+      %span
+        %input.datepicker#calendar_select_date_hidden{:type => :hidden}
+        %a.left#calendar_select_date{:href => '#'} select date
+        %div.ui-icon.ui-icon-triangle-1-s
     = render :partial => 'items/item', :collection => ItemDecorator.decorate(@events)
 
 - else
   %div.left{:style => 'width: 100%'}
     %div.contentRow
       %div.title_heading.left upcoming events
-      %span.right select date
+      %input.datepicker#calendar_select_date_hidden{:type => :hidden}
+      %a.left#calendar_select_date{:href => '#'} select date
       %span.right filters
 
     = render :partial => 'items/item', :collection => ItemDecorator.decorate(@events)

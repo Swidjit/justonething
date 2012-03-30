@@ -1362,3 +1362,9 @@ body.ie8 .dropdown_5columns {
   padding:4px 6px 4px 6px;
   margin:0px 0px 4px 0px;
 }
+.auto_width { width: auto; }
+.right_padding_10 { padding-right: 10px; }
+.visible_overflow { overflow: visible; }
+.no_top_margin { margin-top: 0px; }
+.height_15px { height: 15px; }
+.gray_text { color: #564B47; }
