@@ -83,6 +83,31 @@ fieldset {
   width: 80px;
 }
 
+.toggle-user-edit img {
+  margin: 3px;
+}
+
+ul.tokenized {
+  padding: 8px;
+  margin: 0px;
+}
+
+ul.tokenized li {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid #AAAAAA;
+  margin: 0px 3px;
+}
+
+ul.tokenized li.add_token {
+  background-color: white;
+}
+
+ul.tokenized li.add_token input {
+  border: none;
+  background-color: transparent;
+}
+
 /* styles for auto.js */
 ul.auto-list{
   display: none;

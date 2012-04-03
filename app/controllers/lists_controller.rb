@@ -31,15 +31,21 @@ class ListsController < ApplicationController
   end
 
   def add_user
-    user = User.find(params[:user_id])
+    if params[:user_id].present?
+      user = User.find(params[:user_id])
+    else
+      user = User.find_by_display_name(params[:user_display_name])
+    end
     if @list.users.include?(user)
       notice = "User already in list #{@list.name}"
+      success_val = false
     else
       @list.users << user
       notice = "Successfully added user to #{@list.name}"
+      success_val = true
     end
     respond_to do |f|
-      f.json { render :json => {:notice => notice, :success => true }}
+      f.json { render :json => {:notice => notice, :success => success_val, :user_id => user.id }}
     end
   end
 

@@ -1,12 +1,17 @@
 %h2= @list.name
 =link_to 'Delete list', list_path(@list), :confirm => 'Are you sure?', :method => 'delete'
 
-%h3 Users
-%ul
-  - @list.users.each do |usr|
-    %li
-      = usr.display_name
-      = link_to 'X', delete_user_list_path(:id => @list.id, :user_id => usr.id), :class => 'remove_user_from_list'
+%h3
+  %a{:href => "#", :class => 'toggle-user-edit'}= image_tag 'right_arrow.png', :class => 'left'
+  Users
+.user_edit.hidden.contentRow
+  %ul.tokenized
+    %li.add_token
+      %input.add-to-list.autocomplete-user{:type=>'text',:placeholder=>'add user'}
+    - @list.users.each do |usr|
+      %li
+        = usr.display_name
+        = link_to 'X', delete_user_list_path(:id => @list.id, :user_id => usr.id), :class => 'remove_user_from_list'
 
 
 %div
@@ -19,6 +24,7 @@
     = render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items)
 
 :javascript
+  var list_id = #{@list.id};
   $('.remove_user_from_list').live('click',function(){
     var $this_li = $(this).parent('li');
     var url = $(this).attr("href");
@@ -33,4 +39,27 @@
       }
     });
     return false;
+  });
+  $(".add-to-list").live("autocompleteselect",function(){
+    user_display_name = $(this).val();
+    var url = base_list_url.replace('/0','/'+list_id) + '/add_user';
+    var $self = $(this);
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: { user_display_name: user_display_name },
+      success: function(data){
+        $("span.notice").text(data.notice);
+        if(data.success){
+          var $new_li = $("<li>").text(user_display_name +' ');
+          var remove_url = base_list_url.replace('/0','/'+list_id) + '/delete_user?user_id=' +data.user_id;
+          var $remove_link = $("<a>").text('X').addClass('remove_user_from_list').attr('href',remove_url);
+          $new_li.append($remove_link);
+          $self.closest('li').after($new_li);
+          $self.val('');
+        }
+      },
+      error: function(xhr,status,data){
+      }
+    });
   });
