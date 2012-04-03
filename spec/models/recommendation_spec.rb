@@ -31,4 +31,6 @@ describe Recommendation do
     rec = Factory(:recommendation)
     rec.item.user.notifications.count.should > 0
   end
+
+  it_behaves_like "a referencing object", { :factory => :recommendation, :fields => %w( description ) }
 end

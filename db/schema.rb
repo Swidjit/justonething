@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120329154639) do
+ActiveRecord::Schema.define(:version => 20120403122437) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -133,8 +133,9 @@ ActiveRecord::Schema.define(:version => 20120329154639) do
     t.integer  "receiver_id"
     t.integer  "notifier_id"
     t.string   "notifier_type"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "is_mention",    :default => false, :null => false
   end
 
   create_table "offer_messages", :force => true do |t|

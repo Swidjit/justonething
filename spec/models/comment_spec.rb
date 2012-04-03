@@ -24,4 +24,6 @@ describe Comment do
     reply = Factory(:comment, :parent_id => comment.id)
     comment.user.notifications.count.should == 1
   end
+
+  it_behaves_like "a referencing object", { :factory => :comment, :fields => %w( text ) }
 end

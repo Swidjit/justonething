@@ -6,27 +6,36 @@ class NotificationDecorator < ApplicationDecorator
   end
 
   def middle_text
-    case notification.notifier_type
-      when 'Comment'
-        if notification.notifier.is_root?
-          'has commented on your item'
+    if notification.is_mention?
+      case notification.notifier_type
+        when 'Comment','Recommendation'
+          "has mentioned you in their #{notification.notifier_type.humanize.downcase} on the item"
         else
-          'has replied to your comment on the item'
-        end
-      when 'Offer'
-        'has made an offer on your item'
-      when 'Recommendation'
-        'has recommended your item'
-      when 'CommunityInvitation'
-        'has invited you to join'
-      when 'OfferMessage'
-        if notification.notifier.offer.user_id == notification.receiver_id
-          'has replied to your offer on their item'
-        else
-          'has replied to their offer on your item'
-        end
-      when 'Delegate'
-        'has added you as a delegate, you can now post items as them'
+          "has mentioned you in their #{notification.notifier_type.humanize.downcase}"
+      end
+    else
+      case notification.notifier_type
+        when 'Comment'
+          if notification.notifier.is_root?
+            'has commented on your item'
+          else
+            'has replied to your comment on the item'
+          end
+        when 'Offer'
+          'has made an offer on your item'
+        when 'Recommendation'
+          'has recommended your item'
+        when 'CommunityInvitation'
+          'has invited you to join'
+        when 'OfferMessage'
+          if notification.notifier.offer.user_id == notification.receiver_id
+            'has replied to your offer on their item'
+          else
+            'has replied to their offer on your item'
+          end
+        when 'Delegate'
+          'has added you as a delegate, you can now post items as them'
+      end
     end
   end
 
@@ -41,19 +50,25 @@ class NotificationDecorator < ApplicationDecorator
         h.link_to(target.community.name,h.community_path(target.community))
       when 'Delegate'
         '' # No link for this
+      when 'Item','HaveIt','WantIt','Event','Thought','Link'
+        h.link_to(target.title,h.send("#{target.class.to_s.underscore}_path",target))
     end
   end
 
   def user_friendly_type
-    case notification.notifier_type
-      when 'Comment','Offer','Recommendation'
-        notification.notifier_type.downcase
-      when 'CommunityInvitation'
-        'invitation'
-      when 'OfferMessage'
-        'offer reply'
-      when 'Delegate'
-        'delegation'
+    if notification.is_mention?
+      'mention'
+    else
+      case notification.notifier_type
+        when 'Comment','Offer','Recommendation'
+          notification.notifier_type.downcase
+        when 'CommunityInvitation'
+          'invitation'
+        when 'OfferMessage'
+          'offer reply'
+        when 'Delegate'
+          'delegation'
+      end
     end
   end
 end
