@@ -75,6 +75,14 @@ fieldset {
   background-position:0px -27px;
 }
 
+#new_list input {
+  display: inline;
+}
+
+#new_list input[type='text']{
+  width: 80px;
+}
+
 /* styles for auto.js */
 ul.auto-list{
   display: none;

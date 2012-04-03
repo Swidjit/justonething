@@ -28,7 +28,8 @@ $(document).ready(function(){
     success: function(data){
       $("#new_list_errors").text("");
       var new_link = $("<a>").attr("href",base_list_url.replace('/0','/'+data.id)).text(data.name);
-      $("#new_list").before(new_link);
+      var new_li = $("<li></li>").html(new_link);
+      $("#new_list").closest('li').before(new_li);
     }, error: function(xhr,status,data){
       $("#new_list_errors").text("List name already in use");
     }
