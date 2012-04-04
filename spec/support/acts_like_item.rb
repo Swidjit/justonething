@@ -80,5 +80,17 @@ shared_examples "an item" do
     offer.item.has_offer_from?(Factory(:user)).should be_false
   end
 
+  describe "#having_tag_with_tag" do
+    before(:each) { @item = Factory(:item, :tag_list => 'test1') }
+
+    it "item should appear with test1" do
+      Item.having_tag_with_name('test1').should include @item
+    end
+
+    it "item should not appear with test2" do
+      Item.having_tag_with_name('test2').should_not include @item
+    end
+  end
+
   it_behaves_like "a referencing object", { :factory => :item, :fields => %w( description title ) }
 end
