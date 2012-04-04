@@ -1,6 +1,15 @@
 .contentRow
   %h1.title_heading edit your profile
 
+%h3
+  %a{:href => "#", :class => 'toggle-user-edit'}= image_tag 'right_arrow.png', :class => 'left'
+  Delegates
+.user_edit.hidden.contentRow
+  %ul.tokenized.delegates
+    %li.add_token
+      %input.add-to-delegates.autocomplete-user{:type=>'text',:placeholder=>'add delegate'}
+    = render :partial => 'delegates/delegate', :collection => DelegateDecorator.decorate(@user.delegates_as_delegator)
+
 = form_for @user do |f|
   %div.contentRow.account-basics
     .title_heading account basics
@@ -51,3 +60,47 @@
                 %td= oh.text_field :close_time
   %div.pad
     = f.submit "Update Profile"
+
+:javascript
+  var user_id = #{@user.id};
+  $('.remove_user_from_delegates').live('click',function(){
+    var $this_li = $(this).closest('li');
+    var url = $(this).attr("href");
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: { _method: 'delete', format: 'json' },
+      success: function(data){
+        $("span.notice").text(data.notice);
+        if(data.success){
+          $this_li.remove();
+        }
+      }
+    });
+    return false;
+  });
+  $(".add-to-delegates").live("autocompleteselect",function(){
+    add_to_delegates($(this));
+  });
+  $(".ui-menu-item").live('click',function(){
+    add_to_delegates($(".add-to-delegates"));
+  });
+  function add_to_delegates($self){
+    user_display_name = $self.val();
+    var url = '#{delegates_path}';
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: { user_display_name: user_display_name, format: 'json' },
+      success: function(data){
+        $("span.notice").text(data.notice);
+        if(data.success){
+          $new_li = $(data.token_html);
+          $self.closest('li').after($new_li);
+          $self.val('');
+        }
+      },
+      error: function(xhr,status,data){
+      }
+    });
+  }

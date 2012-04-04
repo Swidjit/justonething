@@ -87,6 +87,11 @@ fieldset {
   margin: 3px;
 }
 
+.contentRow.user_edit {
+  margin-bottom: 10px;
+  padding-top: 0px;
+}
+
 ul.tokenized {
   padding: 8px;
   margin: 0px;

@@ -38,13 +38,7 @@
     = image_tag('arrowDN.png')
 
 .contentRow
-  - if @user.delegatees.size > 0 && can?(:manage, @user)
-    %div
-      %h2 delegates
-      %h3 users can post on behalf of this account
-      %ul.delegates
-        = render :partial => 'delegates/delegate', :collection => DelegateDecorator.decorate(@user.delegates_as_delegator)
   - if @feed_items.count == 0
-    .contentRow No items found.
+    No items found.
   - else
     = render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items)

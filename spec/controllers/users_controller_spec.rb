@@ -22,16 +22,6 @@ describe UsersController do
         it "should not display add delegat link" do
           response.body.should_not =~ /add as delegate/
         end
-
-        it "should not display delegates if none are present" do
-          response.body.should_not =~ /delegates/
-        end
-
-        it "should display delegates if one is present" do
-          delegation = Factory(:delegate, :delegator => @user, :delegatee => @target_user)
-          get :show, :display_name => @user.display_name # update response to reflect new object
-          response.body.should =~ /delegates/
-        end
       end
 
       context "logged in user viewing other's profile" do
