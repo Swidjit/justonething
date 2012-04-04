@@ -63,11 +63,13 @@ class ItemDecorator < ApplicationDecorator
   def manage_links
     links = []
 
-    if h.current_user.bookmarks.map(&:item).include?(item)
-      bookmark = h.current_user.bookmarks.detect { |bookmark| bookmark.item == item }
-      links << link_to('', bookmark_path(bookmark), :method => :delete, :title => 'Remove Bookmark', :class => 'iconLink1 iconFirst')
-    else
-      links << link_to('', bookmarks_path(:item_id => item.id), :method => :post, :title => 'Bookmark', :class => 'iconLink1 iconFirst')
+    if h.current_user.present?
+      if h.current_user.bookmarks.map(&:item).include?(item)
+        bookmark = h.current_user.bookmarks.detect { |bookmark| bookmark.item == item }
+        links << link_to('', bookmark_path(bookmark), :method => :delete, :title => 'Remove Bookmark', :class => 'iconLink1 iconFirst')
+      else
+        links << link_to('', bookmarks_path(:item_id => item.id), :method => :post, :title => 'Bookmark', :class => 'iconLink1 iconFirst')
+      end
     end
 
     if h.can? :create, Comment
@@ -84,8 +86,10 @@ class ItemDecorator < ApplicationDecorator
       toggle_active_text = item.active ? 'Deactivate' : 'Activate'
       links << link_to( toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
     end
-    links << link_to('', send("duplicate_#{item.class.to_s.underscore}_path",item), :title=> 'Duplicate', :class => 'iconLink5')
-    if !item.recommendation_users.include?(h.current_user) && item.user_id != h.current_user.id
+    if h.can? :create, Item
+      links << link_to('', send("duplicate_#{item.class.to_s.underscore}_path",item), :title=> 'Duplicate', :class => 'iconLink5')
+    end
+    if h.current_user.present? && !item.recommendation_users.include?(h.current_user) && item.user_id != h.current_user.id
       links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
     end
 
