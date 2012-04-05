@@ -35,10 +35,6 @@ $(document).ready(function(){
     }
   });
 
-  var user_suggestion_url = function(text){
-    return '/users/' + text + '/suggestions.json'
-  }
-
   var autocompete_user = { 'cache': {}, 'lastXhr': '' };
   $(".autocomplete-user").autocomplete({
     minLength: 1,
@@ -48,8 +44,7 @@ $(document).ready(function(){
         response( autocompete_user['cache'][ term ] );
         return;
       }
-      console.log(request);
-      autocompete_user['lastXhr'] = $.getJSON( user_suggestion_url(term), function( data, status, xhr ) {
+      autocompete_user['lastXhr'] = $.getJSON( swidjit.user_suggestion_url(term), function( data, status, xhr ) {
         autocompete_user['cache'][ term ] = data.users;
         if ( xhr === autocompete_user['lastXhr'] ) {
           response( data.users );
@@ -58,21 +53,7 @@ $(document).ready(function(){
     }
   });
 
-  $(".user-suggestion").at_autocomplete({ mode: "outer", on: { query: function(text, cb) {
-    $(".user-suggestion").autocomplete({ mode: "outer", on: { query: function(text, cb) {
-      if (text.length === 0) return;
-
-      $.getJSON(user_suggestion_url(text), function(json) {
-        cb(json.users);
-      });
-    } } });
-
-    if (text.length === 0) return;
-
-    $.getJSON(user_suggestion_url(text), function(json) {
-      cb(json.users);
-    });
-  } } });
+  swidjit.userSuggestify($(".user-suggestion"));
 
   $("#moreLink").toggle(function(){
       $(".profileBio").animate({height:$("#btxt").height()}, {queue:false, duration: 500});
@@ -116,6 +97,7 @@ $(".add_item_txt").live("click",function(){
   $("#add_item_form").load($(this).attr('href'),function(){
     $('#add_item_form .datepicker').datepicker();
     $('#add_item_form .timepicker').timepicker({showPeriod: true});
+    swidjit.userSuggestify($("#add_item_form .user-suggestion"));
     var target_height = $("#add_item_form").height() + parseInt($("#add_item_form").css('padding-top')) + parseInt($("#add_item_form").css('padding-bottom'));
     $("#add_item_form_wrapper").animate(
       {height:target_height},
@@ -192,6 +174,18 @@ var swidjit = function() {
       }
 
       area.slideToggle();
+    },
+    userSuggestify : function($selector){
+      $selector.at_autocomplete({ mode: "outer", on: { query: function(text, cb) {
+        if (text.length === 0) return;
+
+        $.getJSON(swidjit.user_suggestion_url(text), function(json) {
+          cb(json.users);
+        });
+      } } });
+    },
+    user_suggestion_url : function(text){
+      return '/users/' + text + '/suggestions.json'
     }
   };
 }();
