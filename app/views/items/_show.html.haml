@@ -57,16 +57,22 @@
   .comment_block
     Comment
     %a#comment{:name => 'comment'}
-    %ul
-      = form_for item.comments.build do |f|
-        = f.text_area :text, :class => 'user-suggestion'
-        = f.submit 'Comment'
+    = form_for item.comments.build do |f|
+      = f.text_area :text, :class => 'user-suggestion'
+      = f.submit 'Comment'
 
-- if item.recommendations.any?
-  .contentRow.pad
-    Recommendations:
-    %ul
+.contentRow
+  %p.header
+    %label Recommendations
+.contentRow.pad
+  %ul
+    - if item.recommendations.any?
       = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(item.recommendations)
+    - if can? :recommend, item
+      %li
+        = form_for Recommendation.new, :url => recommendations_path(item.id) do |f|
+          = f.text_field :description, { :class => 'user-suggestion', :autocomplete => :off }
+          = f.submit 'Recommend'
 
 - content_for :head do
   %meta{:property => "og:title", :content => "Swidjit - #{item.title}"}

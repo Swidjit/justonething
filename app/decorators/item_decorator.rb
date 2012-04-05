@@ -89,7 +89,7 @@ class ItemDecorator < ApplicationDecorator
     if h.can? :create, Item
       links << link_to('', send("duplicate_#{item.class.to_s.underscore}_path",item), :title=> 'Duplicate', :class => 'iconLink5')
     end
-    if h.current_user.present? && !item.recommendation_users.include?(h.current_user) && item.user_id != h.current_user.id
+    if h.can? :recommend, item
       links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
     end
 

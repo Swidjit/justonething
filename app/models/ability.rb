@@ -30,8 +30,12 @@ class Ability
       can [:read, :update], Offer, :user_id => user.id
       can [:read, :update, :destroy], Offer, :item => { :user_id => user.id }
       cannot :create, Offer, :item => { :user_id => user.id }
+      can :recommend, Item do |item|
+        item.user != user && !item.recommendations.collect(&:user_id).include?(user.id)
+      end
     else
       cannot :create, :all
+      cannot :recommend, Item
       cannot :join, Community
       cannot :read, Notification
       can :read, ITEMS, :public => true, :active => true
