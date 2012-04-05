@@ -4,10 +4,6 @@ class CalendarController < ApplicationController
   def index
   end
 
-  def show
-    render :index
-  end
-
 private
 
   def load_events_and_preset_tags
