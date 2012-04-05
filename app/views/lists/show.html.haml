@@ -41,9 +41,14 @@
     return false;
   });
   $(".add-to-list").live("autocompleteselect",function(){
-    user_display_name = $(this).val();
+    add_to_list($(this));
+  });
+  $(".ui-menu-item").live('click',function(){
+    add_to_list($(".add-to-list"));
+  });
+  function add_to_list($self) {
+    user_display_name = $self.val();
     var url = base_list_url.replace('/0','/'+list_id) + '/add_user';
-    var $self = $(this);
     $.ajax({
       type: 'POST',
       url: url,
@@ -62,4 +67,4 @@
       error: function(xhr,status,data){
       }
     });
-  });
+  }
