@@ -15,12 +15,12 @@
                   = link_to ipt.tag, params.merge({:filter => ipt.tag})
                   %div.divline
 
-    %div
+    %div.left.right-margin
       %input.datepicker#calendar_select_date_hidden{:type => :hidden}
       %a.left#calendar_select_date{:href => '#'} select date
-      %div.ui-icon.ui-icon-triangle-1-s
+      %div.ui-icon.ui-icon-triangle-1-s.right
 
-    %div.left
+    %div.left.right-margin
       = (@week == 0) ? "< prev week" : link_to("< prev week", week_calendar_index_path(@week - 1))
       = link_to "next week >", week_calendar_index_path(@week + 1)
 

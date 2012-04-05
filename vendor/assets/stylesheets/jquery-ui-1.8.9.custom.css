@@ -576,7 +576,7 @@ background-image: url(selectedIcon.png) !important;
 width: 16px;
 height: 16px;
 }
-.ui-icon { margin-left:180px !important; }
+#menu .ui-icon { margin-left:180px !important; }
 .secHdr1 { background: url('secIcon1.png') no-repeat; background-position:10px; }
 .secHdr2 { background: url('secIcon2.png') no-repeat; background-position:10px; }
 .secHdr3 { background: url('secIcon3.png') no-repeat; background-position:10px; }

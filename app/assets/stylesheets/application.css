@@ -178,3 +178,5 @@ mark{
 
 .right { float: right; }
 .clear { clear: both; }
+
+.right-margin { margin-right: 8px; }
