@@ -1,0 +1,10 @@
+- if @user_events.present?
+  %div.left{:style => 'width: 50%'}
+    = render :partial => 'column', :locals => { :title => 'your events', :show_nav => false, :events => @user_events }
+
+  %div.left{:style => 'width: 50%'}
+    = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
+
+- else
+  %div.left{:style => 'width: 100%'}
+    = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }

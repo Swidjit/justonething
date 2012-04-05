@@ -140,6 +140,14 @@ $(".item_description").live("change",function(){
   $(this).closest('fieldset').find('.item_title').val(comm);
 });
 
+$("#calendar_select_date").live("click", function() {
+  $("#calendar_select_date_hidden").focus();
+  return false;
+});
+$("#calendar_select_date_hidden").live("change", function() {
+  window.location.href = '/calendar/date/' + $(this).val();
+});
+
 var swidjit = function() {
   return {
     updateVisibilityForm : function(sel) {

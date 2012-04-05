@@ -65,6 +65,13 @@ Swidjit::Application.routes.draw do
     resources :notifications, :only => :index
   end
 
+  resources :calendar, :only => [:index] do
+    collection do
+      get :week, :path => "week/:week_no", :controller => :calendar, :action => :index
+      get :date, :path => "date/:month/:day/:year", :controller => :calendar, :action => :index
+    end
+  end
+
   resources :delegates, :only => [:create,:destroy]
 
   resources :bookmarks, :only => [:create,:destroy,:index]

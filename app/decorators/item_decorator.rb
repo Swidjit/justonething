@@ -18,6 +18,12 @@ class ItemDecorator < ApplicationDecorator
     content_tag :div, link_to(item.user.display_name, profile_path(item.user.display_name)), :class => 'smIcon3 smIcon'
   end
 
+  def timing
+    if item.start_datetime.present?
+      content_tag :div, DateTimeDecorator.new(item.start_datetime).event_start_time, :class => 'cal_icon smIcon'
+    end
+  end
+
   def description
     linkified_description
   end
@@ -49,6 +55,7 @@ class ItemDecorator < ApplicationDecorator
     icon_tags = []
     icon_tags << tagged_as
     icon_tags << creator
+    icon_tags << timing
     icon_tags << price_tag
     if with_type
       icon_tags << content_tag(:span, "#{image_tag('have_icon.jpg')} #{item.class.to_s.humanize}".html_safe)

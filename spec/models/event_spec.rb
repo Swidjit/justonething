@@ -28,6 +28,46 @@ describe Event do
     end
   end
 
+  describe "#for_week" do
+    it "should return an event from today with week 0" do
+      event = Factory(:event, :start_datetime => Time.now)
+      Event.for_week(0).all.should include event
+    end
+
+    it "should return an event from 7 days from now with week 0" do
+      event = Factory(:event, :start_datetime => 7.days.from_now)
+      Event.for_week(0).all.should include event
+    end
+
+    it "should not return an event from 8 days from now with week 0" do
+      event = Factory(:event, :start_datetime => 8.days.from_now)
+      Event.for_week(0).all.should_not include event
+    end
+
+    it "should return an event from 8 days from now with week 1" do
+      event = Factory(:event, :start_datetime => 8.days.from_now)
+      Event.for_week(1).all.should include event
+    end
+  end
+
+  describe "#owned_or_bookmarked_by" do
+    before(:each) { @item = Factory(:event) }
+
+    it "should return items owned by a user" do
+      Event.owned_or_bookmarked_by(@item.user).count.should == 1
+    end
+
+    it "should return items bookmarked by a user" do
+      bookmark = Factory(:bookmark, :item => @item)
+      Event.owned_or_bookmarked_by(bookmark.user).count.should == 1
+    end
+
+    it "should only return one instance for an item bookmarked by its owner" do
+      bookmark = Factory(:bookmark, :item => @item, :user => @item.user)
+      Event.owned_or_bookmarked_by(bookmark.user).count.should == 1
+    end
+  end
+
   before(:all) { @item_class = Event }
   it_should_behave_like 'an item'
 end

@@ -576,7 +576,7 @@ background-image: url(selectedIcon.png) !important;
 width: 16px;
 height: 16px;
 }
-.ui-icon { margin-left:180px !important; }
+#menu .ui-icon { margin-left:180px !important; }
 .secHdr1 { background: url('secIcon1.png') no-repeat; background-position:10px; }
 .secHdr2 { background: url('secIcon2.png') no-repeat; background-position:10px; }
 .secHdr3 { background: url('secIcon3.png') no-repeat; background-position:10px; }
@@ -670,6 +670,7 @@ height: 16px;
   margin-right:35px;
 }
 .smIcon1 { background-image: url('smIcon1.jpg'); }
+.cal_icon { background-image: url('item_icon_cal.png'); }
 .smIcon2 { background-image: url('price_icon.jpg'); }
 .smIcon3 { background-image: url('usr_icon.jpg'); }
 
@@ -1361,3 +1362,10 @@ body.ie8 .dropdown_5columns {
   padding:4px 6px 4px 6px;
   margin:0px 0px 4px 0px;
 }
+.auto_width { width: auto; }
+.right_padding_10 { padding-right: 10px; }
+.visible_overflow { overflow: visible; }
+.no_top_margin { margin-top: 0px; }
+.height_15px { height: 15px; }
+.gray_text { color: #564B47; }
+.height_25px { height: 25px; }
