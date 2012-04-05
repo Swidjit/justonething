@@ -3,6 +3,7 @@ class CommunityInvitation < ActiveRecord::Base
   belongs_to :invitee, :class_name => User
   belongs_to :inviter, :class_name => User
   belongs_to :community
+  has_many :notifications, :as => :notifier, :dependent => :delete_all
 
   attr_accessible :community_id, :invitee_display_name
 

@@ -17,6 +17,7 @@ class Item < ActiveRecord::Base
   has_many :recommendation_users, :through => :recommendations, :source => :user
   has_many :comments, :dependent => :destroy
   has_many :offers, :dependent => :destroy
+  has_many :notifications, :as => :notifier, :dependent => :delete_all
 
   delegate :display_name, :to => :user, :prefix => true
 

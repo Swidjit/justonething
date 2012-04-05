@@ -12,6 +12,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :item
   belongs_to :user
+  has_many :notifications, :as => :notifier, :dependent => :delete_all
 
   after_save :update_user_familiarity
   after_destroy :update_user_familiarity

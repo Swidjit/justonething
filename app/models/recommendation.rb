@@ -6,6 +6,7 @@ class Recommendation < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :item, :counter_cache => true
+  has_many :notifications, :as => :notifier, :dependent => :delete_all
 
   validates_presence_of :user, :item, :description
   validates_uniqueness_of :user_id, :scope => :item_id

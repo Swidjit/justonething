@@ -2,6 +2,7 @@ class Offer < ActiveRecord::Base
   belongs_to :user
   belongs_to :item
   has_many :messages, :class_name => "OfferMessage", :order => "#{OfferMessage.table_name}.created_at ASC", :dependent => :delete_all
+  has_many :notifications, :as => :notifier, :dependent => :delete_all
 
   attr_accessible :user, :item_id
 

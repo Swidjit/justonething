@@ -1,6 +1,7 @@
 class OfferMessage < ActiveRecord::Base
   belongs_to :user
   belongs_to :offer
+  has_many :notifications, :as => :notifier, :dependent => :delete_all
 
   validates_presence_of :offer_id, :offer, :user, :text
 

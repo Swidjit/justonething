@@ -1,6 +1,7 @@
 class Delegate < ActiveRecord::Base
   belongs_to :delegator, :class_name => "User"
   belongs_to :delegatee, :class_name => "User"
+  has_many :notifications, :as => :notifier, :dependent => :delete_all
 
   validates_uniqueness_of :delegatee_id, :scope => :delegator_id
   validate :delegator_is_not_delegatee
