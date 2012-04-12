@@ -20,7 +20,7 @@ body {
   background-color: #075a8e;
   font-size: 13px;
   font-family: Arial, SunSans-Regular, Sans-Serif;
-  color:#564b47;  
+  color:#564b47;
   padding:0 0px;
   margin:0;
 }
@@ -81,6 +81,15 @@ fieldset {
 
 #new_list input[type='text']{
   width: 80px;
+}
+#search {
+  float: left;
+  margin: 7px 10px;
+}
+#search input {
+  padding: 2px 5px;
+  font-size: 1em;
+  color: #999;
 }
 
 .toggle-user-edit img {

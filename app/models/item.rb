@@ -83,6 +83,18 @@ class Item < ActiveRecord::Base
     return Offer.find(:first, :conditions => { :user_id => user.id, :item_id => self.id })
   end
 
+  def self.search(query)
+    sql = query.split.map do |word|
+      %w[title description].map do |column|
+        sanitize_sql ["LOWER(#{self.table_name}.#{column}) LIKE ?", "%#{word.downcase}%"]
+      end.join(" or ")
+    end.join(") and (")
+    Rails.logger.debug sql
+    joins("LEFT JOIN items_tags ON items_tags.item_id = #{self.table_name}.id "+
+      "LEFT JOIN #{Tag.table_name} ON #{Tag.table_name}.id = items_tags.tag_id"
+      ).where(["(#{sql}) OR #{Tag.table_name}.name IN (?)", query.split])
+  end
+
   private
   def handle_has_expiration
     if has_expiration.to_i == 0

@@ -41,6 +41,18 @@ class FeedsController < ApplicationController
     @feed_items  = current_user.items.deactivated
   end
 
+  def search
+    if params[:q].present?
+      @terms = params[:q]
+      @title = "Search for #{@terms}"
+      @feed_items = Item.search(@terms).access_controlled_for(current_user,current_ability)
+    else
+      @feed_items = Item.access_controlled_for(current_user,current_ability)
+      @feed_title = "All Items"
+    end
+    render :generic_index
+  end
+
   def recommendations
     item_type = params[:type] || 'all'
     if %w( events have_its want_its links thoughts ).include? item_type

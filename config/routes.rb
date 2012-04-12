@@ -28,6 +28,7 @@ Swidjit::Application.routes.draw do
       get :drafts
       get 'recommendations(/:type)', :action => :recommendations, :as => 'recommendations'
       get 'familiar_users(/:type)', :action => :familiar_users, :as => 'familiar_users'
+      get :search, :action => :search
     end
   end
 
