@@ -95,7 +95,7 @@ shared_examples "an item" do
   describe "flagging" do
     before(:each) do
       @user = Factory(:user)
-      @item = Factory.build(@item_class.to_s.underscore.to_sym, :posted_by_user => Factory(:user))
+      @item = Factory(@item_class.to_s.underscore.to_sym)
       @item.flag!(@user)
     end
 
@@ -110,6 +110,14 @@ shared_examples "an item" do
 
     it "can determine if a user has flagged it" do
       @item.flagged_by_user?(@user).should be_true
+    end
+
+    it "can be gathered with a named scope" do
+      not_flagged = Factory(:item)
+      flagged_items = Item.flagged.all
+
+      flagged_items.should include @item
+      flagged_items.should_not include not_flagged
     end
   end
 

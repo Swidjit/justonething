@@ -46,6 +46,8 @@ class Item < ActiveRecord::Base
 
   scope :having_tag_with_name, lambda { |tag_name| { :joins => :tags, :conditions => ["#{Tag.table_name}.name = ?", tag_name] } }
 
+  scope :flagged, :conditions => "EXISTS (SELECT * FROM #{ItemFlag.table_name} WHERE #{ItemFlag.table_name}.item_id = #{table_name}.id)"
+
   def self.access_controlled_for(user,ability)
     user ||= User.new
     controlled_scope = joins("LEFT JOIN #{ItemVisibilityRule.table_name} ivr ON #{self.table_name}.id = ivr.item_id")
