@@ -2,6 +2,10 @@ Swidjit::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations",
       :omniauth_callbacks => "omniauth_callbacks" }
 
+  scope :module => 'admin' do
+    resources :item_preset_tags, :only => [:index, :new, :create, :destroy]
+  end
+
   resources :want_its, :have_its, :thoughts, :links, :events, :except => :index do
     member do
       put :flag
@@ -37,8 +41,6 @@ Swidjit::Application.routes.draw do
       get :autocomplete_search
     end
   end
-
-  resources :item_preset_tags, :only => [:index, :new, :create, :destroy]
 
   resources :communities, :only => [:new,:create,:show,:index] do
     member do

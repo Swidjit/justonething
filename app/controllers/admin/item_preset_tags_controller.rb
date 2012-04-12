@@ -1,4 +1,4 @@
-class ItemPresetTagsController < ApplicationController
+class Admin::ItemPresetTagsController < Admin::ApplicationController
 
   authorize_resource
 
