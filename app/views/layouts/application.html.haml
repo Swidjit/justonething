@@ -70,6 +70,9 @@
 
       #content
         .column_content_nav
+          %form#search{method: "get", action: "/feeds/search/"}
+            %input{name: "q"}
+            %input{type: "submit", value: "search"}
           %span.notice= notice
           %span.alert= alert
           - if signed_in?
