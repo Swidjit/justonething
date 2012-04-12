@@ -88,4 +88,15 @@ shared_examples "an item controller" do
       item.list_ids.count.should == 1
     end
   end
+
+  describe "flagging" do
+    it "can be performed by a logged in user" do
+      request.env["HTTP_REFERER"] = "/"
+      item = Factory(@object_sym)
+      user = Factory(:user)
+      sign_in user
+      put :flag, :id => item.id
+      item.flagged_by_user?(user).should be_true
+    end
+  end
 end

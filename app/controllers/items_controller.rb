@@ -101,6 +101,11 @@ class ItemsController < ApplicationController
     end
   end
 
+  def flag
+    @item.flag!(current_user)
+    redirect_to :back
+  end
+
 private
   def arrayify_ids_fields_in_params
     ic_sym = item_class.to_s.underscore.to_sym

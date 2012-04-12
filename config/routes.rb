@@ -4,6 +4,7 @@ Swidjit::Application.routes.draw do
 
   resources :want_its, :have_its, :thoughts, :links, :events, :except => :index do
     member do
+      put :flag
       get :toggle_active
       get :duplicate
       post :add_visibility_rule

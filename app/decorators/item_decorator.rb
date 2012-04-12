@@ -83,9 +83,9 @@ class ItemDecorator < ApplicationDecorator
       links << link_to('', send("#{item.class.to_s.underscore}_path",item,:anchor => 'comment'), :title => 'Comment', :class=> 'iconLink2')
     end
 
-    #if h.can? :create, ItemFlag
-      links << link_to('', '#flagging', :class => 'iconLink3', :title => 'Flag')
-    #end
+    if h.current_user.present? && !item.flagged_by_user?(current_user)
+      links << link_to('', send("flag_#{item.class.to_s.underscore}_path", item), :class => 'iconLink3', :title => 'Flag', :method => :put)
+    end
 
     if h.can? :manage, item
       links << link_to('', send("edit_#{item.class.to_s.underscore}_path",item), :title => 'Edit', :class => 'iconLink4')
