@@ -1,0 +1,4 @@
+%li.contentRow
+  = link_to item.title, item
+  = "by #{item.user.display_name}"
+  = link_to 'disable', item_disable_path(item), :method => :put

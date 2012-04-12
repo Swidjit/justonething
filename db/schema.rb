@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120412182557) do
+ActiveRecord::Schema.define(:version => 20120412201911) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -91,12 +91,12 @@ ActiveRecord::Schema.define(:version => 20120412182557) do
   add_index "item_visibility_rules", ["visibility_id", "visibility_type", "item_id"], :name => "uniq_item_visibility_index", :unique => true
 
   create_table "items", :force => true do |t|
-    t.string   "title",                                   :null => false
+    t.string   "title",                                    :null => false
     t.text     "description"
     t.date     "expires_on"
     t.integer  "user_id"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "type"
     t.string   "cost"
     t.string   "condition"
@@ -104,10 +104,11 @@ ActiveRecord::Schema.define(:version => 20120412182557) do
     t.string   "location"
     t.datetime "start_datetime"
     t.datetime "end_datetime"
-    t.boolean  "active",                :default => true, :null => false
-    t.boolean  "public",                :default => true, :null => false
+    t.boolean  "active",                :default => true,  :null => false
+    t.boolean  "public",                :default => true,  :null => false
     t.integer  "posted_by_user_id"
-    t.integer  "recommendations_count", :default => 0,    :null => false
+    t.integer  "recommendations_count", :default => 0,     :null => false
+    t.boolean  "disabled",              :default => false
   end
 
   create_table "items_tags", :id => false, :force => true do |t|

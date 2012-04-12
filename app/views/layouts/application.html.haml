@@ -62,8 +62,9 @@
           %ul.navMenus
             - if signed_in?
               %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
-              - if can? :manage, ItemPresetTag
+              - if current_user.is_admin?
                 %li= link_to 'Manage Preset Tags', item_preset_tags_path
+                %li= link_to 'Manage Flagged Items', flagged_items_path
             - else
               %li= link_to 'Sign in/Register', new_user_session_path
 

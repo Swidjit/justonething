@@ -37,7 +37,7 @@ class Item < ActiveRecord::Base
 
   before_validation :handle_has_expiration, :convert_tag_list_to_tags
 
-  default_scope :order => "#{self.table_name}.created_at DESC"
+  default_scope :order => "#{self.table_name}.created_at DESC", :conditions => "#{table_name}.disabled = false"
 
   scope :active, :conditions => "#{self.table_name}.active = true"
   scope :deactivated, :conditions => "#{self.table_name}.active = false"
@@ -91,6 +91,11 @@ class Item < ActiveRecord::Base
 
   def flagged_by_user?(user)
     return ItemFlag.find_by_item_id_and_user_id(id, user.id).present?
+  end
+
+  def disable!
+    self.disabled = true
+    self.save
   end
 
   private

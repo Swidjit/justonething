@@ -4,6 +4,12 @@ Swidjit::Application.routes.draw do
 
   scope :module => 'admin' do
     resources :item_preset_tags, :only => [:index, :new, :create, :destroy]
+    resources :items, :only => [] do
+      collection do
+        get :flagged
+      end
+      put :disable
+    end
   end
 
   resources :want_its, :have_its, :thoughts, :links, :events, :except => :index do

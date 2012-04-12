@@ -121,5 +121,20 @@ shared_examples "an item" do
     end
   end
 
+  describe "disabling" do
+    before(:each) { @item = Factory(@item_class.to_s.underscore.to_sym) }
+
+    it "can be disabled" do
+      @item.disable!
+      @item.should be_disabled
+    end
+
+    it "will not appear in listings of items" do
+      Item.all.should include @item
+      @item.disable!
+      Item.all.should_not include @item
+    end
+  end
+
   it_behaves_like "a referencing object", { :factory => :item, :fields => %w( description title ) }
 end

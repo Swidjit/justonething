@@ -1,0 +1,10 @@
+%h3
+  Flagged Items
+
+%div
+
+- if @items.count == 0
+  %p No items found.
+- else
+  %ul
+    = render :partial => 'admin/items/item', :collection => @items
