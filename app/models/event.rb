@@ -5,6 +5,8 @@ class Event < Item
     :end_date, :end_time
   attr_accessor :start_time, :start_date, :end_time, :end_date
 
+  scope :order_by_start_datetime, :order => "start_datetime ASC"
+
   # week is zero-indexed starting with the current day as the first day of the first week
   scope :for_week, lambda { |week| {
     :conditions => ["#{Event.table_name}.start_datetime >= ? AND #{Event.table_name}.start_datetime <= ?",
