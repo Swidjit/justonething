@@ -89,7 +89,6 @@ class Item < ActiveRecord::Base
         sanitize_sql ["LOWER(#{self.table_name}.#{column}) LIKE ?", "%#{word.downcase}%"]
       end.join(" or ")
     end.join(") and (")
-    Rails.logger.debug sql
     joins("LEFT JOIN items_tags ON items_tags.item_id = #{self.table_name}.id "+
       "LEFT JOIN #{Tag.table_name} ON #{Tag.table_name}.id = items_tags.tag_id"
       ).where(["(#{sql}) OR #{Tag.table_name}.name IN (?)", query.split])
