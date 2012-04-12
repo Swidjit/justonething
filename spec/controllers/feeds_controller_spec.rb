@@ -36,10 +36,4 @@ describe FeedsController do
       assigns(:feed_items).should == [rec2.item, rec.item]
     end
   end
-
-  describe "GET search" do
-    it "should load items with relevant search terms" do
-      get :search
-    end
-  end
 end
