@@ -1,5 +1,1 @@
-rvm install 1.9.2
-rvm use --create 1.9.2@swidjit
-if ! command -v bundle ; then
-  gem install bundler --no-ri --no-rdoc
-fi
+rvm use --create 1.9.2-p290@swidjit
