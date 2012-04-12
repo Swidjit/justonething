@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 describe FeedsController do
+
+  before(:each) do
+    @user = Factory(:user)
+  end
+
   describe "GET all" do
     it 'should only load tagged item' do
-      user = Factory(:user)
-      item = Factory(:thought, :user => user, :tag_list => 'icecream')
-      sign_in user
+      item = Factory(:thought, :user => @user, :tag_list => 'icecream')
       get :all, :tag_name => 'icecream'
       assigns(:feed_items).should == [item]
       get :all, :tag_name => 'elephant'
@@ -15,10 +18,8 @@ describe FeedsController do
 
   describe 'GET specific item type' do
     it 'should only load items of the correct type' do
-      user = Factory(:user)
-      thought = Factory(:thought, :user => user)
-      want_it = Factory(:want_it, :user => user)
-      sign_in user
+      thought = Factory(:thought, :user => @user)
+      want_it = Factory(:want_it, :user => @user)
       get :thoughts
       assigns(:feed_items).should == [thought]
       get :want_its
@@ -28,13 +29,51 @@ describe FeedsController do
 
   describe 'GET recommendations' do
     it 'should load only items with recommendations' do
-      user = Factory(:user)
       rec = Factory(:recommendation)
       rec2 = Factory(:recommendation)
       rec3 = Factory(:recommendation, :item => rec2.item)
-      sign_in user
       get :recommendations
       assigns(:feed_items).should == [rec2.item, rec.item]
     end
+  end
+
+  describe "GET search" do
+
+    before(:each) do
+      other_item = Factory(:thought, :user => @user, :tag_list => 'icecream')
+    end
+
+    it "should load items with search term in title" do
+      find_me = Factory(:want_it, :user => @user, :title => "Searchable item")
+      get :search, {:q => 'Searchable'}
+      assigns(:feed_items).should == [find_me]
+    end
+
+    it "should load items with search term in description" do
+      find_me = Factory(:want_it, :user => @user, :description => "Searchable item")
+      get :search, {:q => 'searchable'}
+      assigns(:feed_items).should == [find_me]
+    end
+
+    it "should load items with search term as tag" do
+      find_me = Factory(:thought, :user => @user, :tag_list => 'searchable')
+      get :search, {:q => 'searchable'}
+      assigns(:feed_items).should == [find_me]
+    end
+
+    it "should load items with search term as tag and in title or description" do
+      find_me = Factory(:thought, :user => @user, :tag_list => 'searchable')
+      find_me_too = Factory(:want_it, :user => @user, :description => "Searchable item")
+      get :search, {:q => 'searchable'}
+      assigns(:feed_items).should == [find_me_too, find_me]
+    end
+
+    it "should still search with logged in users" do
+      find_me = Factory(:thought, :user => @user, :tag_list => 'searchable')
+      sign_in @user
+      get :search, {:q => 'searchable'}
+      assigns(:feed_items).should == [find_me]
+    end
+
   end
 end

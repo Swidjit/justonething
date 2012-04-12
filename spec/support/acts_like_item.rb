@@ -59,6 +59,27 @@ shared_examples "an item" do
     subject.tags.collect(&:name).sort.should == %w( dear you )
   end
 
+  it 'should be searchable by tags' do
+    subject = Factory.build(:want_it)
+    subject.tag_list = "italian-stallion"
+    subject.save
+    Item.search('italian-stallion').should == [subject]
+  end
+
+  it 'should be searchable by title' do
+    subject = Factory.build(:want_it)
+    subject.title = "Rocky"
+    subject.save
+    Item.search('rocky').should == [subject]
+  end
+
+  it 'should be searchable by description' do
+    subject = Factory.build(:want_it)
+    subject.description = "heavyweight champion of the world"
+    subject.save
+    Item.search('champion').should == [subject]
+  end
+
   it 'should not be valid if posted_by_user is not a delegatee of user' do
     item = Factory.build(@item_class.to_s.underscore.to_sym, :posted_by_user => Factory(:user))
     item.should be_invalid
