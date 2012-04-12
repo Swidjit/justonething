@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120403122437) do
+ActiveRecord::Schema.define(:version => 20120412182557) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -68,6 +68,13 @@ ActiveRecord::Schema.define(:version => 20120403122437) do
 
   add_index "delegates", ["delegatee_id"], :name => "index_delegates_on_delegatee_id"
   add_index "delegates", ["delegator_id", "delegatee_id"], :name => "index_delegates_on_delegator_id_and_delegatee_id", :unique => true
+
+  create_table "item_flags", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "item_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "item_preset_tags", :force => true do |t|
     t.string "tag"
@@ -228,6 +235,9 @@ ActiveRecord::Schema.define(:version => 20120403122437) do
 
   add_foreign_key "delegates", "users", :name => "delegates_delegatee_id_fk", :column => "delegatee_id"
   add_foreign_key "delegates", "users", :name => "delegates_delegator_id_fk", :column => "delegator_id"
+
+  add_foreign_key "item_flags", "items", :name => "item_flags_item_id_fk"
+  add_foreign_key "item_flags", "users", :name => "item_flags_user_id_fk"
 
   add_foreign_key "items", "users", :name => "items_posted_by_user_id_fk", :column => "posted_by_user_id"
 

@@ -92,5 +92,26 @@ shared_examples "an item" do
     end
   end
 
+  describe "flagging" do
+    before(:each) do
+      @user = Factory(:user)
+      @item = Factory.build(@item_class.to_s.underscore.to_sym, :posted_by_user => Factory(:user))
+      @item.flag!(@user)
+    end
+
+    it "can be flagged" do
+      ItemFlag.count.should == 1
+    end
+
+    it "can be flagged only once" do
+      @item.flag!(@user)
+      ItemFlag.count.should == 1
+    end
+
+    it "can determine if a user has flagged it" do
+      @item.flagged_by_user?(@user).should be_true
+    end
+  end
+
   it_behaves_like "a referencing object", { :factory => :item, :fields => %w( description title ) }
 end

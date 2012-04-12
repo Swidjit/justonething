@@ -83,6 +83,14 @@ class Item < ActiveRecord::Base
     return Offer.find(:first, :conditions => { :user_id => user.id, :item_id => self.id })
   end
 
+  def flag!(user)
+    ItemFlag.create(:item => self, :user => user)
+  end
+
+  def flagged_by_user?(user)
+    return ItemFlag.find_by_item_id_and_user_id(id, user.id).present?
+  end
+
   private
   def handle_has_expiration
     if has_expiration.to_i == 0
