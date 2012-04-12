@@ -11,12 +11,6 @@ class Event < Item
                     (week * 7).days.from_now.beginning_of_day, ((week + 1) * 7).days.from_now.end_of_day]
   } }
 
-  # week is zero-indexed starting with the current day as the first day of the first week
-  scope :for_week, lambda { |week| {
-    :conditions => ["#{Event.table_name}.start_datetime >= ? AND #{Event.table_name}.start_datetime <= ?",
-                    (week * 7).days.from_now.beginning_of_day, ((week + 1) * 7).days.from_now.end_of_day]
-  } }
-
   scope :for_date, lambda { |date| {
     :conditions => ["#{Event.table_name}.start_datetime >= ? AND #{Event.table_name}.start_datetime <= ?", date.beginning_of_day, date.end_of_day]
   } }
