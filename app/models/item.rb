@@ -105,7 +105,7 @@ class Item < ActiveRecord::Base
   def self.search(query)
     sql = query.split.map do |word|
       %w[title description].map do |column|
-        sanitize_sql ["LOWER(#{self.table_name}.#{column}) LIKE ?", "%#{word.downcase}%"]
+        sanitize_sql ["LOWER(#{self.table_name}.#{column}) ~* ?", "\\y#{word.downcase}"]
       end.join(" or ")
     end.join(") and (")
     joins("LEFT JOIN items_tags ON items_tags.item_id = #{self.table_name}.id "+

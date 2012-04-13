@@ -44,11 +44,16 @@ class FeedsController < ApplicationController
   def search
     if params[:q].present?
       @terms = params[:q]
+      @type = (params[:type] || 'all').singularize.camelize
       @title = "Search for #{@terms}"
-      @feed_items = Item.search(@terms).access_controlled_for(current_user,current_ability)
+      @feed_items = Item.search(@terms)
+      if @type && %w( HaveIt WantIt Event Thought Link ).include?(@type)
+        @feed_items = @feed_items.where({:type => @type})
+      end
+      @feed_items = @feed_items.access_controlled_for(current_user,current_ability)
     else
-      @feed_items = Item.access_controlled_for(current_user,current_ability)
-      @feed_title = "All Items"
+      @title = "Search for"
+      @feed_items = []
     end
     render :generic_index
   end
