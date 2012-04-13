@@ -4,12 +4,13 @@ class FeedsController < ApplicationController
   def all
     if params[:tag_name].present?
       @tag = Tag.find_by_name(params[:tag_name])
+      @feed_title = "All Items with Tag: #{params[:tag_name]}"
       if @tag.present?
         @feed_items = @tag.items.access_controlled_for(current_user,current_ability)
       else
         @feed_items = []
+        render :index and return
       end
-      @feed_title = "All Items with Tag: #{params[:tag_name]}"
     else
       @feed_items = Item.access_controlled_for(current_user,current_ability)
       @feed_title = "All Items"
@@ -21,12 +22,13 @@ class FeedsController < ApplicationController
     define_method item_type.underscore.pluralize do
       if params[:tag_name].present?
         @tag = Tag.find_by_name(params[:tag_name])
+        @feed_title = "#{item_type.titleize.pluralize} with Tag: #{params[:tag_name]}"
         if @tag.present?
           @feed_items = @tag.items.where({:type => item_type}).access_controlled_for(current_user,current_ability)
         else
           @feed_items = []
+          render :index and return
         end
-        @feed_title = "#{item_type.titleize.pluralize} with Tag: #{params[:tag_name]}"
       else
         @feed_items = item_type.constantize.access_controlled_for(current_user,current_ability)
         @feed_title = item_type.titleize.pluralize
