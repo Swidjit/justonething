@@ -4,25 +4,3 @@
   %li.label
     %label Title
   = f.input :title, :input_html => {:class => 'user-suggestion item_title', :autocomplete => :off}
-
-:javascript
-  $(document).ready(function(){
-    var tag_list_selector = "##{@item.model.class.to_s.underscore}_tag_list";
-    $(tag_list_selector).tokenInput(
-      "#{autocomplete_search_tags_path}", {
-        theme: "facebook",
-        preventDuplicates:"true",
-        minChars: 2
-      }
-    );
-    $("li.preset_tag").click(function(){
-      var tag_name = $.trim($(this).text());
-      $(tag_list_selector).tokenInput(
-        "add",
-        {
-          id: tag_name,
-          name: tag_name
-        }
-      );
-    });
-  });

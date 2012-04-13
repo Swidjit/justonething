@@ -21,7 +21,7 @@ class Item < ActiveRecord::Base
   delegate :display_name, :to => :user, :prefix => true
 
   attr_protected :user, :posted_by_user
-  attr_accessible :title, :description, :has_expiration, :tag_list, :active, :public,
+  attr_accessible :title, :description, :has_expiration, :tag_list, :geo_tag_list, :active, :public,
     :expires_on, :community_ids, :list_ids
 
   has_and_belongs_to_many :tags, :uniq => true, :conditions => "tags.type IS NULL"
