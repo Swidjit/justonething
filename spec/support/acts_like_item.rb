@@ -52,6 +52,14 @@ shared_examples "an item" do
     subject.tags.count.should == 3
   end
 
+  it 'should convert geo_tag_list to geo_tags' do
+    subject = Factory.build(:want_it)
+    subject.geo_tag_list = 'big, hairy, orange'
+    subject.save
+    subject.geo_tags.count.should == 3
+    GeoTag.all.count.should == 3
+  end
+
   it 'should find hashtags in description and add them to tags' do
     subject = Factory.build(:want_it)
     subject.description = "This is for #you my #dear"

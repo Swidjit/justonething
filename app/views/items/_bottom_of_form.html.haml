@@ -13,6 +13,14 @@
           %li.preset_tag= tag.tag
   = f.semantic_errors :tags
 
+= f.inputs :class => 'tag_box' do
+  %li.text
+    = image_tag('blue_tag.png')
+    geo tag your item
+    %span optional
+    = f.input :geo_tag_list, :label => 'Geo Tags', :input_html => {:class => 'item_geo_tags', "data-pre" => @item.geo_tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
+    = f.semantic_errors :geo_tags
+
 - if current_user.delegators.present? && !@item.persisted?
   = f.inputs :class => 'posting_box' do
     %li
@@ -27,3 +35,34 @@
   = f.input :active
   = @item.expires_on_fields(f)
 = f.submit (@item.persisted? ? 'Update' : 'Post')
+
+:javascript
+  $(document).ready(function(){
+    var tag_list_selector = "##{@item.model.class.to_s.underscore}_tag_list";
+    $(tag_list_selector).tokenInput(
+      "#{autocomplete_search_tags_path}", {
+        theme: "facebook",
+        preventDuplicates:"true",
+        minChars: 2
+      }
+    );
+    $("li.preset_tag").click(function(){
+      var tag_name = $.trim($(this).text());
+      $(tag_list_selector).tokenInput(
+        "add",
+        {
+          id: tag_name,
+          name: tag_name
+        }
+      );
+    });
+
+    var geo_tag_list_selector = "##{@item.model.class.to_s.underscore}_geo_tag_list";
+    $(geo_tag_list_selector).tokenInput(
+      "#{autocomplete_search_geo_tags_path}", {
+        theme: "facebook",
+        preventDuplicates:"true",
+        minChars: 2
+      }
+    );
+  });

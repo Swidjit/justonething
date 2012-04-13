@@ -46,6 +46,7 @@ Swidjit::Application.routes.draw do
   resources :tags, :only => [] do
     collection do
       get :autocomplete_search
+      get :autocomplete_search_geo
     end
   end
 
