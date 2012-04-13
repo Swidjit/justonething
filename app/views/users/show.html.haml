@@ -38,7 +38,4 @@
     = image_tag('arrowDN.png')
 
 .contentRow
-  - if @feed_items.count == 0
-    No items found.
-  - else
-    = render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items)
+  = render :partial => 'feeds/endless_scroll'

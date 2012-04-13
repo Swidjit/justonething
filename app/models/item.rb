@@ -1,5 +1,7 @@
 class Item < ActiveRecord::Base
 
+  self.per_page = 25
+
   include ModelReference
 
   references_users_in :description, :title
@@ -68,6 +70,13 @@ class Item < ActiveRecord::Base
     end
 
     controlled_scope.group(self.column_names.map{ |attr| "#{self.table_name}.#{attr}"}.join(",")).accessible_by(ability)
+  end
+
+  def self.count_by_subquery(subquery_arel)
+    # Is there a way to say :distinct => false rather than subbing it out?
+    subquery = subquery_arel.select('1 as bar').reorder('').to_sql.sub('DISTINCT','')
+    result = ActiveRecord::Base.connection.execute("SELECT COUNT(sub.*) as total_count FROM (#{subquery}) sub")
+    result.first["total_count"].to_i
   end
 
   def set_defaults

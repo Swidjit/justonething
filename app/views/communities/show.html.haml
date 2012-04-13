@@ -15,8 +15,4 @@
   %div
     = tabbed_item_types('type')
 
-  - if @feed_items.count == 0
-    %p No items found.
-  - else
-    %ul.feed
-      = render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items)
+  = render :partial => 'feeds/endless_scroll'

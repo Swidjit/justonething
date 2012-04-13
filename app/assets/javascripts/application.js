@@ -15,6 +15,7 @@
 //= require jquery.caret
 //= require jquery.multi-accordion-1.5.3
 //= require auto
+//= require jquery.pageless
 //= require_tree .
 
 $(document).ready(function(){

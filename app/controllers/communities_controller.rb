@@ -15,6 +15,7 @@ class CommunitiesController < ApplicationController
       params[:type] = 'all'
       @feed_items = @community.items.access_controlled_for(current_user,current_ability)
     end
+    render_paginated_feed :show
   end
 
   def new

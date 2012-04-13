@@ -14,6 +14,7 @@ gem 'bourbon', '1.4.0'
 gem 'ancestry', '1.2.5'
 gem 'omniauth-facebook', '1.2.0'
 gem 'formtastic', '2.0.2'
+gem 'will_paginate', '3.0.3'
 
 # Gems used only for assets and not required
 # in production environments by default.

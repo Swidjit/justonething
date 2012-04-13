@@ -30,7 +30,6 @@ class User < ActiveRecord::Base
   has_many :lists
   has_and_belongs_to_many :communities, :uniq => true
   has_many :recommendations, :dependent => :destroy
-  has_many :bookmarks, :dependent => :destroy
   has_many :user_familiarities
   has_many :familiar_users, :through => :user_familiarities, :source => :familiar,
     :conditions => "#{UserFamiliarity.table_name}.familiarness > 0",
@@ -38,6 +37,9 @@ class User < ActiveRecord::Base
   has_many :vouches, :foreign_key => :vouchee_id
   has_many :comments
   has_many :notifications, :foreign_key => :receiver_id
+
+  has_many :bookmarks, :dependent => :destroy
+  has_many :bookmarked_items, :through => :bookmarks, :source => :item
 
   # Open Hours
   has_many :open_hours, :dependent => :destroy

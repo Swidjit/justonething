@@ -26,4 +26,13 @@ class ApplicationController < ActionController::Base
       send("#{item.class.underscore}_url",item)
     end
   end
+
+  def render_paginated_feed( html_layout )
+    total_entries = Item.count_by_subquery(@feed_items)
+    @feed_items = @feed_items.paginate(:page => params[:page], :total_entries => total_entries)
+    respond_to do |f|
+      f.html { render html_layout }
+      f.js { render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items) }
+    end
+  end
 end
