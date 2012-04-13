@@ -1,0 +1,6 @@
+- if @feed_items.count == 0
+  %p No items found.
+- else
+  .feed.endless_scrolling
+    = render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items)
+    = render :partial => 'feeds/pageless', :locals => { :total_pages => @feed_items.total_pages, :path_to_page => url_for(params.merge({:format => :js }))}

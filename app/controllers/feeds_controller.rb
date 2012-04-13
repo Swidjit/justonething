@@ -14,8 +14,7 @@ class FeedsController < ApplicationController
       @feed_items = Item.access_controlled_for(current_user,current_ability)
       @feed_title = "All Items"
     end
-    @feed_items = @feed_items
-    render :index
+    render_paginated_feed :index
   end
 
   %w( HaveIt WantIt Event Thought Link ).each do |item_type|
@@ -32,13 +31,13 @@ class FeedsController < ApplicationController
         @feed_items = item_type.constantize.access_controlled_for(current_user,current_ability)
         @feed_title = item_type.titleize.pluralize
       end
-      @feed_items = @feed_items
-      render :index
+      render_paginated_feed :index
     end
   end
 
   def drafts
     @feed_items  = current_user.items.deactivated
+    render_paginated_feed :drafts
   end
 
   def search
@@ -66,7 +65,7 @@ class FeedsController < ApplicationController
       params[:type] = 'all'
       @feed_items = Item.recommended.access_controlled_for(current_user,current_ability)
     end
-    render :generic_index
+    render_paginated_feed :generic_index
   end
 
   def familiar_users
@@ -80,7 +79,7 @@ class FeedsController < ApplicationController
       @feed_items = base_feed_items.access_controlled_for(current_user,current_ability)
     end
     @test_output = current_user.familiar_users.limit(25)
-    render :generic_index
+    render_paginated_feed :generic_index
   end
 
   # Per discussion between Isaiah and Sonny: single action for each item type
