@@ -30,7 +30,7 @@ describe BookmarksController do
       end
 
       it "should set an instance variable" do
-        assigns(:bookmarks).count.should == 1
+        assigns(:feed_items).total_entries.should == 1
       end
     end
   end
