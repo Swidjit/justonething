@@ -75,5 +75,11 @@ describe FeedsController do
       assigns(:feed_items).should == [find_me]
     end
 
+    it "should only find elements in the correct category when chosen" do
+      find_me = Factory(:thought, :user => @user, :tag_list => 'searchable')
+      dont_find_me = Factory(:want_it, :user => @user, :description => "Searchable item")
+      get :search, {:q => 'searchable',type: 'thoughts'}
+      assigns(:feed_items).should == [find_me]
+    end
   end
 end
