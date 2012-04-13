@@ -87,6 +87,8 @@ Swidjit::Application.routes.draw do
 
   resources :bookmarks, :only => [:create,:destroy,:index]
 
+  resources :rsvps, :only => [:create,:destroy,:index]
+
   resources :offers, :only => [:destroy] do
     resources :offer_messages, :only => [:create]
   end
