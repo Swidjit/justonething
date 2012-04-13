@@ -54,6 +54,7 @@ class ItemDecorator < ApplicationDecorator
   def iconic_information(with_type=true)
     icon_tags = []
     icon_tags << tagged_as
+    icon_tags << geo_tagged_as
     icon_tags << creator
     icon_tags << timing
     icon_tags << price_tag
@@ -113,6 +114,12 @@ class ItemDecorator < ApplicationDecorator
   def tagged_as
     if item.tags.any?
       content_tag :div, linkified_tags.html_safe, :class => 'smIcon1 smIcon'
+    end
+  end
+
+  def geo_tagged_as
+    if item.geo_tags.any?
+      content_tag :div, item.geo_tags.map(&:name).join(', '), :class => 'smIcon1 smIcon'
     end
   end
 
