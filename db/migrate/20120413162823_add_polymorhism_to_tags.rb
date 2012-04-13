@@ -1,6 +1,8 @@
 class AddPolymorhismToTags < ActiveRecord::Migration
   def change
-    add_column :tags, :taggable_id, :integer
-    add_column :tags, :taggable_type, :string
+    add_column :tags, :type, :string
+
+    remove_index :tags, :name
+    add_index :tags, [:name, :type]
   end
 end

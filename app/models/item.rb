@@ -7,7 +7,6 @@ class Item < ActiveRecord::Base
   belongs_to :user
   belongs_to :posted_by_user, :class_name => "User"
 
-  has_and_belongs_to_many :tags, :uniq => true
   has_many :item_visibility_rules, :dependent => :destroy
   has_many :communities, :through => :item_visibility_rules, :source => :visibility,
       :source_type => 'Community', :uniq => true
@@ -25,15 +24,21 @@ class Item < ActiveRecord::Base
   attr_accessible :title, :description, :has_expiration, :tag_list, :active, :public,
     :expires_on, :community_ids, :list_ids
 
-  attr_accessor :has_expiration, :tag_list
+  has_and_belongs_to_many :tags, :uniq => true, :conditions => "tags.type IS NULL"
+  has_and_belongs_to_many :geo_tags, :join_table => :items_tags, :association_foreign_key => :tag_id, :uniq => true, :conditions => "tags.type = 'GeoTag'"
+
+  attr_accessor :has_expiration, :tag_list, :geo_tag_list
 
   after_initialize :set_defaults
 
   validates_presence_of :title, :description, :user
   validates_inclusion_of :active, :public, :in => [true,false]
   validates_inclusion_of :has_expiration, :in => ['0','1']
-  validates_associated :tags, :message => 'can only contain letters, numbers, and hyphens'
   validate :user_belongs_to_communities, :user_owns_lists, :posted_by_user_is_delegatee_of_user
+
+  [:tags, :geo_tags].each do |tag_type|
+    validates_associated tag_type, :message => 'can only contain letters, numbers, and hyphens'
+  end
 
   before_validation :handle_has_expiration, :convert_tag_list_to_tags
 
@@ -116,13 +121,26 @@ class Item < ActiveRecord::Base
   end
 
   def convert_tag_list_to_tags
+    convert_tags
+    convert_geo_tags
+  end
+
+  def convert_tags
     self.tags = []
     temp_tags = []
     tag_list.split(',').map{|t| temp_tags << Tag.find_or_initialize_by_name(t.strip.downcase)} if tag_list.present?
     self.description.scan(/#([a-zA-Z0-9-]+)/) do |tag|
       temp_tags << Tag.find_or_initialize_by_name(tag[0].strip.downcase)
     end
+
     self.tags = temp_tags.uniq
+  end
+
+  def convert_geo_tags
+    self.geo_tags = []
+    temp_geo_tags = []
+    geo_tag_list.split(',').map{|t| temp_geo_tags << GeoTag.find_or_initialize_by_name(t.strip.downcase)} if geo_tag_list.present?
+    self.geo_tags = temp_geo_tags.uniq
   end
 
   def user_belongs_to_communities
