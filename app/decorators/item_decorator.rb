@@ -58,6 +58,7 @@ class ItemDecorator < ApplicationDecorator
     icon_tags << creator
     icon_tags << timing
     icon_tags << price_tag
+    icon_tags << facebook_like_button
     if with_type
       icon_tags << content_tag(:span, "#{image_tag('have_icon.jpg')} #{item.class.to_s.humanize}".html_safe)
     end
@@ -79,14 +80,6 @@ class ItemDecorator < ApplicationDecorator
       else
         links << link_to('', bookmarks_path(:item_id => item.id), :method => :post, :title => 'Bookmark', :class => 'iconLink1')
       end
-
-      #check for rsvps
-      if h.current_user.rsvps.map(&:item).include?(item)
-        rsvp = Rsvp.find_by_user_id_and_item_id(h.current_user.id, item.id)
-        links << link_to('Cancel RSVP', rsvp_path(rsvp), :method => :delete, :title => 'Remove RSVP', :class => '')
-      elsif item.type == 'Event'
-        links << link_to('RSVP', rsvps_path(:item_id => item.id), :method => :post, :title => 'RSVP', :class => '')
-      end
     end
 
     if h.can? :create, Comment
@@ -106,13 +99,22 @@ class ItemDecorator < ApplicationDecorator
     if h.can? :create, Item
       links << link_to('', send("duplicate_#{item.class.to_s.underscore}_path",item), :title=> 'Duplicate', :class => 'iconLink6')
     end
-    if h.can? :recommend, item
-      links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
-    end
+    #if h.can? :recommend, item
+    #  links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
+    #end
 
     # links << link_to('', , :title => 'Collect', :class => 'iconLink5')
 
-    links << facebook_like_button
+    if h.current_user
+      #check for rsvps
+      if h.current_user.rsvps.map(&:item).include?(item)
+        rsvp = Rsvp.find_by_user_id_and_item_id(h.current_user.id, item.id)
+        links << link_to('', rsvp_path(rsvp), :method => :delete, :title => 'Cancel RSVP', :class => 'iconLink9')
+      elsif item.type == 'Event'
+        links << link_to('', rsvps_path(:item_id => item.id), :method => :post, :title => 'RSVP', :class => 'iconLink9')
+      end
+    end
+
     links.join(' ').html_safe
   end
 

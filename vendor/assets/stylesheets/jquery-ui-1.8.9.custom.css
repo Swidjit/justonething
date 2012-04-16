@@ -698,7 +698,7 @@ height: 16px;
 #item { padding-top:7px; }
 
 a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5,
-a.iconLink6, a.iconLink7, a.iconLink8 {
+a.iconLink6, a.iconLink7, a.iconLink8, a.iconLink9 {
   width:25px;
   height:24px;
   display:block;
@@ -714,6 +714,7 @@ a.iconLink6, a.iconLink7, a.iconLink8 {
 .iconLink6 {background: url('itemIcon6.png') no-repeat;}
 .iconLink7 {background: url('itemIcon7.png') no-repeat;}
 .iconLink8 {background: url('itemIcon8.png') no-repeat;}
+.iconLink9 {background: url('itemIcon9.png') no-repeat;}
 
 .iconLink1:hover {background: url('itemIcon1on.png') no-repeat;}
 .iconLink2:hover {background: url('itemIcon2on.png') no-repeat;}
@@ -723,6 +724,7 @@ a.iconLink6, a.iconLink7, a.iconLink8 {
 .iconLink6:hover {background: url('itemIcon6on.png') no-repeat;}
 .iconLink7:hover {background: url('itemIcon7on.png') no-repeat;}
 .iconLink8:hover {background: url('itemIcon8on.png') no-repeat;}
+.iconLink9:hover {background: url('itemIcon9on.png') no-repeat;}
 
 .addTo { float:right;margin:13px 0 0 0;padding:0 30px 0 0; }
 
