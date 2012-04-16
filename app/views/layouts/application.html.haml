@@ -21,7 +21,7 @@
 
     #container
       #menu
-        .logo= image_tag('logo.jpg')
+        .logo= link_to(image_tag('logo.jpg'), root_path)
         #multiAccordion
           %h3
             %a.secHdr1{:href => "#"} System Feeds
