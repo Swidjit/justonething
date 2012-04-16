@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   has_many :lists
   has_and_belongs_to_many :communities, :uniq => true
   has_many :recommendations, :dependent => :destroy
+  has_many :rsvps, :dependent => :destroy
   has_many :user_familiarities
   has_many :familiar_users, :through => :user_familiarities, :source => :familiar,
     :conditions => "#{UserFamiliarity.table_name}.familiarness > 0",

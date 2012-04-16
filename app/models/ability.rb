@@ -17,6 +17,7 @@ class Ability
       can :read, ITEMS, :active => true
       can :manage, List, :user_id => user.id
       can :manage, Bookmark, :user_id => user.id
+      can :manage, Rsvp, :user_id => user.id
       can :manage, Vouch, :voucher_id => user.id
       can :read, Notification, :receiver_id => user.id
 
