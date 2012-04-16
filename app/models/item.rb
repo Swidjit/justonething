@@ -14,11 +14,13 @@ class Item < ActiveRecord::Base
       :source_type => 'Community', :uniq => true
   has_many :lists, :through => :item_visibility_rules, :source => :visibility,
       :source_type => 'List', :uniq => true
-  has_many :recommendations, :dependent => :destroy
-  has_many :recommendation_users, :through => :recommendations, :source => :user
+  has_many :bookmarks, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :offers, :dependent => :destroy
   has_many :notifications, :as => :notifier, :dependent => :delete_all
+
+  has_many :recommendations, :dependent => :destroy
+  has_many :recommendation_users, :through => :recommendations, :source => :user
 
   delegate :display_name, :to => :user, :prefix => true
 
