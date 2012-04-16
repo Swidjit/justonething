@@ -48,6 +48,8 @@
       = render :partial => 'offers', :locals => { :item => item }
     %div{:style => "clear:both;"}
 
+= yield :middle
+
 .contentRow
   %p.header
     %label Comments

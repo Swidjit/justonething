@@ -39,6 +39,14 @@
                 %li= link_to "mentions", references_user_path(current_user)
                 %li= link_to 'my drafts', drafts_feeds_path
           %h3
+            %a.secHdr6{:href=>'#'} Collections
+          %div
+            %ul.navMenus
+              - if signed_in? && current_user.collections.any?
+                -current_user.collections.each do |col|
+                  %li= link_to col.title, col
+              %li= link_to 'browse collections', '#'
+          %h3
             %a.secHdr2{:href => "#"} Communities
           %div
             %ul.navMenus

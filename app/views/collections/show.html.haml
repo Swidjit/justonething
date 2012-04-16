@@ -1,1 +1,8 @@
+- content_for :middle do
+  .contentRow
+    %p.header
+      %label Collection's Items
+  .contentRow.pad.without_border
+    = render :partial => 'feeds/endless_scroll'
+
 = render :partial => 'items/show', :locals => { :item => @item }

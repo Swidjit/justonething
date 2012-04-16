@@ -583,6 +583,7 @@ height: 16px;
 .secHdr3 { background: url('secIcon3.png') no-repeat; background-position:10px; }
 .secHdr4 { background: url('secIcon4.png') no-repeat; background-position:10px; }
 .secHdr5 { background: url('secIcon5.png') no-repeat; background-position:10px; }
+.secHdr6 { background: url('secIcon6.png') no-repeat; background-position:16px; }
 
 .navMenus {
   list-style-type: none;
