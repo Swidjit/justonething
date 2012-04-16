@@ -109,9 +109,14 @@ $(".add_item_txt").live("click",function(){
   });
   return false;
 });
-
+$("#link_link").live('input paste', function(e) {
+  populateTitleAndDescription($(this).val());
+});
 $("#link_link").live("change",function(e){
-  var targetUrl = $(this).val();
+  populateTitleAndDescription($(this).val())
+});
+
+function populateTitleAndDescription(targetUrl) {
   if(targetUrl.indexOf("http") === 0) {
     $.ajax({
       url: targetUrl,
@@ -123,7 +128,7 @@ $("#link_link").live("change",function(e){
       }
     });
   }
-});
+}
 
 function getTitleAndDescription(obj) {
   var retObject = {title:"", description:""}
