@@ -13,8 +13,8 @@ describe Rsvp do
       r1 = Factory(:rsvp)
       r2 = Factory(:rsvp)
 
-      Rsvp.for_user(r1.user).should == [r1]
-      Rsvp.for_user(r2.user).should == [r2]
+      r1.user.rsvps.should == [r1]
+      r2.user.rsvps.should == [r2]
     end
   end
 end

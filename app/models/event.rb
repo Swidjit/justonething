@@ -5,7 +5,7 @@ class Event < Item
     :end_date, :end_time
   attr_accessor :start_time, :start_date, :end_time, :end_date
 
-  has_many :rsvps, :dependent => :destroy
+  has_many :rsvps, :dependent => :destroy, :foreign_key => :item_id
 
   scope :order_by_start_datetime, :order => "start_datetime ASC"
 
