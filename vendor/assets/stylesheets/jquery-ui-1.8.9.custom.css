@@ -329,8 +329,9 @@
 .ui-accordion .ui-accordion-header a { display: block; font-size: 1em; padding: .5em .5em .5em .7em; }
 .ui-accordion-icons .ui-accordion-header a { padding-left: 4.4em; }
 .ui-accordion .ui-accordion-header .ui-icon { position: absolute; left: .5em; top: 50%; margin-top: -8px; }
-.ui-accordion .ui-accordion-content { padding: 1em 2.2em; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
+.ui-accordion .ui-accordion-content { padding: 0em 2.2em; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
 .ui-accordion .ui-accordion-content-active { display: block; }
+#multiAccordion h3 {font-weight: bold;}
 /*
  * jQuery UI Autocomplete 1.8.9
  *
@@ -340,7 +341,7 @@
  *
  * http://docs.jquery.com/UI/Autocomplete#theming
  */
-.ui-autocomplete { position: absolute; cursor: default; }  
+.ui-autocomplete { position: absolute; cursor: default; }
 
 /* workarounds */
 * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
@@ -584,22 +585,21 @@ height: 16px;
 .secHdr5 { background: url('secIcon5.png') no-repeat; background-position:10px; }
 
 .navMenus {
-  width:105px;
   list-style-type: none;
   color: #eeeeee;
   padding:0;
-  margin-left:25px;
+  margin-left:5px;
 }
-.navMenus li { border-bottom: 1px solid #054c79;padding:3px; }
+.navMenus li { border-bottom: 1px solid #30749F;padding:3px; }
 .navMenus a { color:#eeeeee;text-decoration:none; }
 .navMenus a:hover { color:#ffffff; }
 
 .topLinks {
   display: block;
-    float: right;
-    height: 37px;
-    text-indent: -99999px;
-    width: 47px;
+  float: right;
+  height: 37px;
+  text-indent: -99999px;
+  width: 47px;
 }
 .topLinks:hover {
   background-position:bottom;
@@ -612,13 +612,33 @@ height: 16px;
 .icon_offer { background: url('icon_offer.png') no-repeat center; }
 .icon_offer:hover { background-position: center; }
 
+.addBtn {
+  background: url('addBtn.png') no-repeat scroll 0 0 transparent;
+  color: #5F8095;
+  display: block;
+  float: left;
+  font-size: 14px;
+  height: 17px;
+  margin: 5px 0 0 10px;
+  padding: 5px 10px;
+  text-decoration: none;
+  text-indent: 30px;
+}
+.addBtn:hover {
+  background-position:0px -27px;
+}
+
 .column_content_nav { background:#30749f;height:40px;text-align:right;overflow:hidden;padding-right:20px;}
 .mainContent { background:#dae0e4;text-align:left;border-left:2px solid #eeeeee;border-bottom:2px solid #eeeeee;}
 
 .add_item_row { background:#adc3d1;height:38px;text-align:left;border:2px solid #eeeeee;}
 .add_item_row .label { float:left;color:#5f8095; font-size:14px;padding:10px 0;margin-left: -6px; }
-.addLink { padding:0 35px 0 0; }
-.add_item_txt { float:left;width:auto;padding: 11px 15px 0 0; }
+.addLink { padding:0 35px 0 0; color: #000;}
+.addLink a { padding: -3px 0 0 20px; color: #000; font-size: 17px;}
+
+.add_item_txt { float:left;width:auto;padding: 9px 15px 0 0; }
+.add_item_txt a { color: #075A8E; font-size: 16px; text-decoration:none;}
+.add_item_txt a:hover { text-decoration:underline;}
 .item_first { margin-left:35px; }
 
 
@@ -634,30 +654,30 @@ height: 16px;
 .without_border {
   border: none;
 }
-.nameRow { width:98%;margin:0 auto;padding-top:20px;text-align:left;border-bottom:2px solid #eeeeee;position:relative;height:60px;z-index:999999;}
+.nameRow { width:98%;margin:0 auto;padding-top:10px;text-align:left;border-bottom:2px solid #eeeeee;position:relative;height:40px;z-index:999999;}
 #visiEXP { height:0;overflow:hidden;position:relative;z-index:2;padding-bottom:20px; }
 .visiRow { width:98%;margin:5px auto;padding-top:20px;text-align:left;border-bottom:2px solid #eeeeee;position:relative;height:120px;z-index:2;}
 .xtraLine { clear:both;height:2px;padding:0;margin:0;width:100%;}
 
 .bottomRow { padding-bottom:75px;border:0; }
-.usrName{ padding: 10px;color:#30749f;font-size:34px;float:left; }
-.voucher { margin:15px 0 0 10px;padding:0;float:left;width:100px; }
-.voucher .label { color:#91989c;font-size:12px;margin:15px 0 0 0;float:right; }
+.usrName{ padding: 10px;color:#87068D;font-size:24px;float:left; }
+.voucher { margin:6px 0 0 10px;padding:0;float:left;width:100px; }
+.voucher .label { color:#91989c;font-size:12px;margin:9px 0 0 0;float:right; }
 .pad {padding: 20px 1% 0 1%;width:96%;}
 
 
-.profilePic { background-repeat: no-repeat;margin:0 0 20px 8px;width:127px;height:127px;overflow:hidden;float:left; }
-.profileBio { float:left;width:550px;padding:0 0 20px 35px;height:100px;overflow:hidden; }
-.more { clear:both;margin:7px 0 0 590px;padding:0 30px 20px 0;text-align:right;float:left;width:120px; }
+.profilePic { background-repeat: no-repeat;margin:0 0 20px 8px;width:127px;height:127px;overflow:hidden;float:left;padding-right:25px; }
+.profileBio { float:left;width:55%;padding:0 0 20px 15px;height:100px;overflow:hidden; }
+.more { clear:both;margin:7px 0 0 58%;padding:0 30px 20px 0;text-align:right;float:left;width:120px; }
 #moreLink { text-decoration:none;color:#30749f; }
 #moreLink:hover {color:#4faae4;}
 
 .recent{ padding: 10px;color:#30749f;font-size:16px;float:left; }
 .filter { margin:1px 0 0 0; }
 
-.itemPic { width:90px;margin-left:10px;text-align:left;float:left; }
+.itemPic { width:90px;margin-left:10px;text-align:left;float:left; color:#87068D}
 .itemInfo { float:left; }
-.itemTitle { font-size:18px;font-weight:bold; }
+.itemTitle, .itemTitle a, .itemTitle a:visited, .itemTitle a:hover { font-size:18px;font-weight:bold; color: #06598D}
 .itemDesc { padding:7px 0 0 0; }
 .multiLinks { padding:12px 0px 0 0;overflow:hidden; }
 .multiLinks a { text-decoration:none;color:#30749f; }
@@ -769,12 +789,11 @@ a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5 {
   height: 0px;
   overflow: hidden;
   background-color:#adc3d1;
-  padding:0px 9px;
   border:3px solid #eaeaea;
   border-width: 0px 3px;
 }
 #add_item_form {
-  padding: 0px 0px 9px 0px;
+  padding:9px;
 }
 .comnt {
   height:150px;
@@ -865,8 +884,8 @@ a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5 {
   text-align:center;
   line-height:22px;
   padding:0 5px;
-  color:#ffffff;
 }
+.tag_list ul li a { text-decoration:none;color:#ffffff; }
 .title_box2 {
   padding-top:10px;
 }
@@ -978,7 +997,8 @@ a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5 {
 }
 .img_info {
   float:left;
-  width:650px;
+  width:65%;
+  padding-left:7px;
 }
 .img_info p {
   margin-bottom:10px;
@@ -1112,22 +1132,19 @@ a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5 {
 .dropdown_3columns, 
 .dropdown_4columns,
 .dropdown_5columns {
-  margin:0px auto;
-  float:left;
+
+  margin:0px 10px 0 0;
+  float:right;
   position:absolute;
   left:-999em; /* Hides the drop down */
-  text-align:left;
-  padding:20px 5px 15px 8px;
-  border:1px solid #788994;
+  text-align:right;
+  padding:4px;
   border-top:none;
   
   /* background */
-  background:#adc3d1;
+  background:#444;
 
   /* Rounded Corners */
-  -moz-border-radius: 7px 7px 7px 7px;
-  -webkit-border-radius: 7px 7px 7px 7px;
-  border-radius: 7px 7px 7px 7px;
   
   
   /* Drop Shadow 
@@ -1192,11 +1209,14 @@ body.ie8 .dropdown_5columns {
 .col_4,
 .col_5 {
   display:inline;
-  float: left;
+  float: right;
   position: relative;
   margin-left: 5px;
   margin-right: 5px;
   height:auto;
+  font-weight: normal;
+  font-size: 13px;
+  color: #eee;
 }
 .col_right { margin-left:30px; }
 .col_1 {width:130px;}
@@ -1234,7 +1254,8 @@ body.ie8 .dropdown_5columns {
   top:auto;
 }
 
-.menu_with_dropdowns p, .menu_with_dropdowns h2, .menu_with_dropdowns h3, .menu_with_dropdowns ul li {
+.menu_with_dropdowns p, .menu_with_dropdowns h2, .menu_with_dropdowns h3,
+.menu_with_dropdowns ul li, .menu_with_dropdowns ul li:hover {
   font-family:"Garamond",Times,sans-serif;
   color:#434343;
   line-height:21px;
@@ -1270,10 +1291,9 @@ body.ie8 .dropdown_5columns {
 
 .menu_with_dropdowns li:hover div a {
   font-family:arial;
-  font-size:14px;
-  font-weight:bold;
+  font-size:13px;
   letter-spacing:-1px;
-  margin:0 0 0 3px;
+  margin:2px 0 0 4px;
   color:#ffffff;
 }
 .menu_with_dropdowns li:hover div a:hover {
