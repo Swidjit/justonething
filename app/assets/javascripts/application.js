@@ -16,6 +16,7 @@
 //= require jquery.multi-accordion-1.5.3
 //= require auto
 //= require jquery.pageless
+//= require jquery.xdomainajax
 //= require_tree .
 
 $(document).ready(function(){
@@ -109,6 +110,33 @@ $(".add_item_txt").live("click",function(){
   return false;
 });
 
+$("#link_link").live("change",function(e){
+  var targetUrl = $(this).val();
+  if(targetUrl.indexOf("http") === 0) {
+    $.ajax({
+      url: targetUrl,
+      type: 'GET',
+      success: function(res) {
+        var scrapedValues = getTitleAndDescription($(res.responseText));
+        $('#link_description').html(scrapedValues.description);
+        $('#link_title').attr('value',scrapedValues.title);
+      }
+    });
+  }
+});
+
+function getTitleAndDescription(obj) {
+  var retObject = {title:"", description:""}
+  $.each( obj, function(i, n){
+    if ($(n).prop('tagName') && $(n).prop('tagName').toLowerCase() == 'title') {
+      retObject.title = $(n).text();
+    } else if ($(n).attr('name') == "description") {
+      retObject.description = $(n).attr('content');
+    }
+  });
+  return retObject;
+}
+
 $(".comment_block a.reply").live("click",function(){
   $(this).parent().siblings('.comment-reply').slideToggle();
   return false;
@@ -195,6 +223,9 @@ var swidjit = function() {
     },
     user_suggestion_url : function(text){
       return '/users/' + text + '/suggestions.json'
+    },
+    scrape_link : function(){
+      alert($('#link_link').val());
     }
   };
 }();
