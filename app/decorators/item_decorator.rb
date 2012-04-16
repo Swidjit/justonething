@@ -75,9 +75,9 @@ class ItemDecorator < ApplicationDecorator
       #check for bookmarks
       if h.current_user.bookmarks.map(&:item).include?(item)
         bookmark = h.current_user.bookmarks.detect { |bookmark| bookmark.item == item }
-        links << link_to('', bookmark_path(bookmark), :method => :delete, :title => 'Remove Bookmark', :class => 'iconLink1 iconFirst')
+        links << link_to('', bookmark_path(bookmark), :method => :delete, :title => 'Remove Bookmark', :class => 'iconLink1')
       else
-        links << link_to('', bookmarks_path(:item_id => item.id), :method => :post, :title => 'Bookmark', :class => 'iconLink1 iconFirst')
+        links << link_to('', bookmarks_path(:item_id => item.id), :method => :post, :title => 'Bookmark', :class => 'iconLink1')
       end
 
       #check for rsvps
@@ -99,16 +99,18 @@ class ItemDecorator < ApplicationDecorator
 
     if h.can? :manage, item
       links << link_to('', send("edit_#{item.class.to_s.underscore}_path",item), :title => 'Edit', :class => 'iconLink4')
-      links << link_to('Delete', item, :confirm => 'Are you sure?', :method => :delete)
+      links << link_to('', item, :confirm => 'Are you sure?', :title => 'Delete', :class => 'iconLink7', :method => :delete)
       toggle_active_text = item.active ? 'Deactivate' : 'Activate'
-      links << link_to( toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
+      links << link_to('', send("toggle_active_#{item.class.to_s.underscore}_path",item), :title => toggle_active_text, :class => 'iconLink8')
     end
     if h.can? :create, Item
-      links << link_to('', send("duplicate_#{item.class.to_s.underscore}_path",item), :title=> 'Duplicate', :class => 'iconLink5')
+      links << link_to('', send("duplicate_#{item.class.to_s.underscore}_path",item), :title=> 'Duplicate', :class => 'iconLink6')
     end
     if h.can? :recommend, item
       links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
     end
+
+    # links << link_to('', , :title => 'Collect', :class => 'iconLink5')
 
     links << facebook_like_button
     links.join(' ').html_safe
