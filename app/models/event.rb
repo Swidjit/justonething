@@ -26,7 +26,7 @@ class Event < Item
   } }
 
   def self.datetimepicker_to_datetime(datetime_value)
-    if datetime_value.is_a?(String)
+    if datetime_value.is_a?(String) && datetime_value.present?
       Time.strptime(datetime_value.strip,'%m/%d/%Y %l:%M %P')
     else
       datetime_value
