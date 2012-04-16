@@ -81,6 +81,10 @@ class Item < ActiveRecord::Base
     result.first["total_count"].to_i
   end
 
+  def self.classes
+    %w( HaveIt WantIt Event Thought Link Collection )
+  end
+
   def set_defaults
     if !self.persisted?
       self.expires_on = 10.days.from_now

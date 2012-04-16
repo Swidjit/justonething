@@ -30,4 +30,7 @@ FactoryGirl.define do
 
   factory :thought, :parent => :item, :class => 'thought' do
   end
+
+  factory :collection, :parent => :item, :class => 'collection' do
+  end
 end

@@ -12,7 +12,7 @@ Swidjit::Application.routes.draw do
     end
   end
 
-  resources :want_its, :have_its, :thoughts, :links, :events, :except => :index do
+  resources :want_its, :have_its, :thoughts, :links, :events, :collections, :except => :index do
     member do
       put :flag
       get :toggle_active

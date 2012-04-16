@@ -1,6 +1,6 @@
 class ItemPresetTag < ActiveRecord::Base
 
-  ITEM_TYPES = %w( Event HaveIt Link Thought WantIt )
+  ITEM_TYPES = Item.classes
 
   validates :tag, :presence => true, :format => { :with => /^[0-9a-z-]+$/ }
   validates_uniqueness_of :tag, :scope => :item_type

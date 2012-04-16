@@ -97,6 +97,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def collections
+    self.items.where(:type => 'Collection')
+  end
+
   def delegation_for_user(user)
     @delegation = Delegate.first(:conditions => {:delegator_id => self.id, :delegatee_id => user.id})
   end
