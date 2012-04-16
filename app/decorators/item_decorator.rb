@@ -72,11 +72,20 @@ class ItemDecorator < ApplicationDecorator
     links = []
 
     if h.current_user.present?
+      #check for bookmarks
       if h.current_user.bookmarks.map(&:item).include?(item)
         bookmark = h.current_user.bookmarks.detect { |bookmark| bookmark.item == item }
         links << link_to('', bookmark_path(bookmark), :method => :delete, :title => 'Remove Bookmark', :class => 'iconLink1 iconFirst')
       else
         links << link_to('', bookmarks_path(:item_id => item.id), :method => :post, :title => 'Bookmark', :class => 'iconLink1 iconFirst')
+      end
+
+      #check for rsvps
+      if h.current_user.rsvps.map(&:item).include?(item)
+        rsvp = Rsvp.find_by_user_id_and_item_id(h.current_user.id, item.id)
+        links << link_to('Cancel RSVP', rsvp_path(rsvp), :method => :delete, :title => 'Remove RSVP', :class => '')
+      elsif item.type == 'Event'
+        links << link_to('RSVP', rsvps_path(:item_id => item.id), :method => :post, :title => 'RSVP', :class => '')
       end
     end
 

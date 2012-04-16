@@ -5,6 +5,8 @@ class Event < Item
     :end_date, :end_time
   attr_accessor :start_time, :start_date, :end_time, :end_date
 
+  has_many :rsvps, :dependent => :destroy
+
   scope :order_by_start_datetime, :order => "start_datetime ASC"
 
   # week is zero-indexed starting with the current day as the first day of the first week
