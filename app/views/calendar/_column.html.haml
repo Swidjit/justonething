@@ -8,12 +8,10 @@
           %a{:href => "#",:onclick => "return false"}
             filters
             = image_tag 'arrowDN.png'
-          %div.drop_arrow_left
-            %div#filter_rainbow_dropdown.dropdown_1column.align_right1
-              - @item_preset_tags.each do |ipt|
-                %div.col_1
-                  = link_to ipt.tag, params.merge({:filter => ipt.tag})
-                  %div.divline
+          %div#filter_rainbow_dropdown.dropdown_1column.align_right1
+            - @item_preset_tags.each do |ipt|
+              %div.col_1
+                = link_to ipt.tag, params.merge({:filter => ipt.tag})
 
     %div.left.right-margin
       %input.datepicker#calendar_select_date_hidden{:type => :hidden}

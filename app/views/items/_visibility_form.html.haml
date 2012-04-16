@@ -6,16 +6,13 @@
       %a{:href => "", :onclick => 'return false;'}
         Add Viewers
         = image_tag('arrowDN.png')
-      .drop_arrow_left
       #add_visibility_rule.dropdown_1column.align_right1
         - item.add_visibility_rule_options.each do |group,rules|
           .col_1
             = group.titleize
-            .divline
           - rules.each do |rule|
             .col_1
               %a{:href => "#", 'data-rule-type' => rule[:type], 'data-visibility-id' => rule[:vis_id] }= rule[:name]
-              .divline
 
 - if !ajax
   :javascript
