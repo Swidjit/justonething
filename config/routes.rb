@@ -12,7 +12,7 @@ Swidjit::Application.routes.draw do
     end
   end
 
-  resources :want_its, :have_its, :thoughts, :links, :events, :except => :index do
+  resources :want_its, :have_its, :thoughts, :links, :events, :collections, :except => :index do
     member do
       put :flag
       get :toggle_active
@@ -21,6 +21,12 @@ Swidjit::Application.routes.draw do
       delete :remove_visibility_rule
       resources :recommendations, :only => :create
       resources :comments, :only => :create
+    end
+  end
+
+  resources :collections, :only => [] do
+    member do
+      post :add_item
     end
   end
 

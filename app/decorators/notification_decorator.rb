@@ -50,7 +50,7 @@ class NotificationDecorator < ApplicationDecorator
         h.link_to(target.community.name,h.community_path(target.community))
       when 'Delegate'
         '' # No link for this
-      when 'Item','HaveIt','WantIt','Event','Thought','Link'
+      when 'Item','HaveIt','WantIt','Event','Thought','Link','Collection'
         h.link_to(target.title,h.send("#{target.class.to_s.underscore}_path",target))
     end
   end

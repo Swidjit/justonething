@@ -75,3 +75,17 @@ Feature: Manage Items
     Then the Event should be updated
     And I click delete
     Then the Event should be deleted
+
+  Scenario: User can manage a Collection
+    Given I am logged in
+    When I visit the Home Page
+    And I click the link to Post a Collection
+    And I fill out all required fields of the form
+    And I submit the form
+    Then the Collection should be posted
+    And I click edit
+    And I change the description
+    And I click Update
+    Then the Collection should be updated
+    And I click delete
+    Then the Collection should be deleted

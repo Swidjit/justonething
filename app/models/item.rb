@@ -14,6 +14,9 @@ class Item < ActiveRecord::Base
       :source_type => 'Community', :uniq => true
   has_many :lists, :through => :item_visibility_rules, :source => :visibility,
       :source_type => 'List', :uniq => true
+  has_many :collections, :through => :item_visibility_rules, :source => :visibility,
+      :source_type => 'Item', :uniq => true
+
   has_many :bookmarks, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :offers, :dependent => :destroy
@@ -79,6 +82,10 @@ class Item < ActiveRecord::Base
     subquery = subquery_arel.select('1 as bar').reorder('').to_sql.sub('DISTINCT','')
     result = ActiveRecord::Base.connection.execute("SELECT COUNT(sub.*) as total_count FROM (#{subquery}) sub")
     result.first["total_count"].to_i
+  end
+
+  def self.classes
+    %w( HaveIt WantIt Event Thought Link Collection )
   end
 
   def set_defaults
