@@ -185,10 +185,7 @@ mark{
   padding-bottom: 15px;
 }
 
-.right { float: right; }
-.clear { clear: both; }
 
-.right-margin { margin-right: 8px; }
 
 .notice, .success, .alert {
   clear: both;
@@ -214,4 +211,14 @@ mark{
   background-color: #f2dede;
   border-color: #eed3d7;
   color: #b94a48;
+}
+
+
+.right { float: right; }
+.clear { clear: both; }
+
+.right-margin { margin-right: 8px; }
+
+div.overflow-visible, .overflow-visible {
+  overflow: visible;
 }

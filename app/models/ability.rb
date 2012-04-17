@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  ITEMS = [Event,HaveIt,Link,Thought,WantIt,Item]
+  ITEMS = [Event,HaveIt,Link,Thought,WantIt,Item,Collection]
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)

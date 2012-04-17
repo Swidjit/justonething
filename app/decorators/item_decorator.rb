@@ -107,7 +107,9 @@ class ItemDecorator < ApplicationDecorator
     #  links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
     #end
 
-    # links << link_to('', , :title => 'Collect', :class => 'iconLink5')
+    if h.current_user && h.current_user.can_collect?(item)
+      links << render(:partial => 'items/add_to_collection', :locals => {:item => item})
+    end
 
     if h.current_user
       #check for rsvps
@@ -150,7 +152,7 @@ class ItemDecorator < ApplicationDecorator
 
   def tokenized_visibility_rules
     tokenized_rules = []
-    item.item_visibility_rules.each do |rule|
+    item.item_visibility_rules.where({:visibility_type => ['Community','List']}).each do |rule|
       this_obj = rule.visibility
       token_class = "#{rule.visibility_type.downcase}_token"
       tokenized_rules << h.content_tag(:div, (''.html_safe + this_obj.name + ' ' +

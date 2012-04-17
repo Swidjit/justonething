@@ -24,6 +24,12 @@ Swidjit::Application.routes.draw do
     end
   end
 
+  resources :collections, :only => [] do
+    member do
+      post :add_item
+    end
+  end
+
   resources :items, :only => [] do
     resources :offers, :only => [:create, :index]
     resources :users, :only => [] do

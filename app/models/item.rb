@@ -14,6 +14,9 @@ class Item < ActiveRecord::Base
       :source_type => 'Community', :uniq => true
   has_many :lists, :through => :item_visibility_rules, :source => :visibility,
       :source_type => 'List', :uniq => true
+  has_many :collections, :through => :item_visibility_rules, :source => :visibility,
+      :source_type => 'Item', :uniq => true
+
   has_many :bookmarks, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :offers, :dependent => :destroy
