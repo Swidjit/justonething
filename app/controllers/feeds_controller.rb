@@ -56,7 +56,7 @@ class FeedsController < ApplicationController
       @title = "Search for"
       @feed_items = []
     end
-    render :generic_index
+    render_paginated_feed :generic_index
   end
 
   def recommendations
