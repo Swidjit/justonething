@@ -40,6 +40,7 @@ group :development, :test do
   gem 'shoulda', '2.11.3'
   gem 'shoulda-matchers', '1.0.0'
   gem 'railroad', :git => 'git://github.com/sonnym/RailRoad.git'
+  gem 'pry'
 
   # Jenkins CI needs a JS runtime
   gem 'therubyracer', '0.9.10'
