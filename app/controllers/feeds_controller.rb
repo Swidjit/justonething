@@ -61,6 +61,19 @@ class FeedsController < ApplicationController
     render_paginated_feed :index
   end
 
+  def nearby
+    @type = (params[:type] || 'all').singularize.camelize
+    @title = "Nearby #{@type} Items"
+
+    if %w( events have_its want_its links thoughts ).include? @type
+      @feed_items = Item.where({:type => @type}).having_geo_tags(current_user.geo_tags).access_controlled_for(current_user,current_ability)
+    else
+      @feed_items = Item.having_geo_tags(current_user.geo_tags).access_controlled_for(current_user,current_ability)
+    end
+
+    render_paginated_feed :generic_index
+  end
+
   # Per discussion between Isaiah and Sonny: single action for each item type
   # Eventually List action
   # Index action with query string that combines all types of filtering

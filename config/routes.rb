@@ -40,6 +40,7 @@ Swidjit::Application.routes.draw do
   resource :feeds, :only => [] do
     member do
       get 'geo/:tag_name', :action => :geo, :as => 'geo'
+      get :nearby
       get :drafts
       get 'recommendations(/:type)', :action => :recommendations, :as => 'recommendations'
       get 'familiar_users(/:type)', :action => :familiar_users, :as => 'familiar_users'

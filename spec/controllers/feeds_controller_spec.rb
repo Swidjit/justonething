@@ -37,6 +37,16 @@ describe FeedsController do
     end
   end
 
+  describe "GET nearby" do
+    before(:each) do
+      sign_in @user
+    end
+    it 'should be success' do
+      get :nearby
+      response.should_be success
+    end
+  end
+
   describe "GET search" do
 
     before(:each) do

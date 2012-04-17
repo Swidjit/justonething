@@ -64,6 +64,7 @@ class Item < ActiveRecord::Base
     ).reorder("#{self.table_name}.recommendations_count DESC, #{self.table_name}.created_at DESC")
 
   scope :having_tag_with_name, lambda { |tag_name| { :joins => :tags, :conditions => ["#{Tag.table_name}.name = ?", tag_name] } }
+  scope :having_geo_tags, lambda { |tags| { :joins => :geo_tags, :conditions => ["#{GeoTag.table_name}.name IN ?", tags.map(&:name)] } }
 
   scope :flagged, :conditions => "EXISTS (SELECT * FROM #{ItemFlag.table_name} WHERE #{ItemFlag.table_name}.item_id = #{table_name}.id)"
 
