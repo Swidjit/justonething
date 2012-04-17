@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
       :display_name, :as => [:default,:devise]
 
   attr_accessible :about, :websites, :address, :phone, :as => :default
+  attr_accessible :about, :websites, :address, :phone, :geo_tag_list, :as => :default
 
   attr_readonly :display_name
 
@@ -23,7 +24,7 @@ class User < ActiveRecord::Base
 
   before_validation :update_open_hours_if_present
 
-  attr_accessor :is_thirteen, :new_open_hours
+  attr_accessor :is_thirteen, :new_open_hours, :geo_tag_list
 
   has_many :items
   has_many :lists
@@ -40,6 +41,8 @@ class User < ActiveRecord::Base
 
   has_many :bookmarks, :dependent => :destroy
   has_many :bookmarked_items, :through => :bookmarks, :source => :item
+
+  has_and_belongs_to_many :geo_tags, :join_table => :users_tags, :association_foreign_key => :tag_id, :uniq => true, :conditions => "tags.type = 'GeoTag'"
 
   # Open Hours
   has_many :open_hours, :dependent => :destroy

@@ -1,77 +1,19 @@
-#add_item_form {
-  ul.token-input-list-facebook {
-    overflow: hidden; 
-    height: auto !important; 
-    height: 1%;
-    width: 400px;
-    border: 1px solid #536068;
-    cursor: text;
-    font-size: 12px;
-    min-height: 1px;
-    z-index: 999;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    list-style-type: none;
-    clear: left;
-    margin-top: 15px;
-  
-    &.preset_tags {
-      border: none;
-      background-color: transparent;
-      margin-top: 5px;
-    }
-  
-    li input {
-      border: 0;
-      width: 100px;
-      padding: 3px 8px;
-      background-color: white;
-      margin: 2px 0;
-      -webkit-appearance: caret;
-    }
-  }
-  
-  li.token-input-token-facebook {
-    overflow: hidden; 
-    height: auto !important; 
-    height: 18px;
-    margin: 3px;
-    padding: 1px 3px;
-    cursor: default;
-    font-size: 14px;
-    float: left;
-    white-space: nowrap;
-    background-color:#788994;
-    border:1px solid #536068;
-    text-align:center;
-    color:#ffffff;
-  
-    p {
-      display: inline;
-      padding: 0;
-      margin: 0;
-    }
-  
-    span {
-      color: #a6b3cf;
-      margin-left: 5px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  }
-  
-  li.token-input-selected-token-facebook {
-      background-color: #075A8E;
-      color: #fff;
-  }
-  
-  li.token-input-input-token-facebook {
-      float: left;
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-  }
+ul.token-input-list-facebook {
+  overflow: hidden; 
+  height: auto !important; 
+  height: 1%;
+  width: 400px;
+  border: 1px solid #536068;
+  cursor: text;
+  font-size: 12px;
+  min-height: 1px;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  list-style-type: none;
+  clear: left;
+  margin-top: 15px;
 
   label.label, legend.label {
     display: none;
@@ -91,39 +33,109 @@
     padding: 0px;
   }
 
-  li.label {
-    padding-top: 10px;
+  &.preset_tags {
+    border: none;
+    background-color: transparent;
+    margin-top: 5px;
   }
 
-  .title_box {
-    padding-top: 0px;
+  li input {
+    border: 0;
+    width: 100px;
+    padding: 3px 8px;
+    background-color: white;
+    margin: 2px 0;
+    -webkit-appearance: caret;
+  }
+}
+
+li.token-input-token-facebook {
+  overflow: hidden; 
+  height: auto !important; 
+  height: 18px;
+  margin: 3px;
+  padding: 1px 3px;
+  cursor: default;
+  font-size: 14px;
+  float: left;
+  white-space: nowrap;
+  background-color:#788994;
+  border:1px solid #536068;
+  text-align:center;
+  color:#ffffff;
+
+  p {
+    display: inline;
+    padding: 0;
+    margin: 0;
   }
 
-  .extra_inform_box {
-    select {
-      margin-top: 10px;
-    }
+  span {
+    color: #a6b3cf;
+    margin-left: 5px;
+    font-weight: bold;
+    cursor: pointer;
   }
+}
 
-  .posting_box {
-    ol {
-      li {
-        display: inline;
-      }
-    }
-  }
+li.token-input-selected-token-facebook {
+    background-color: #075A8E;
+    color: #fff;
+}
 
-  .vis_label {
-    margin: 0px;
-    margin-right: 15px;
-    padding: 0px;
+li.token-input-input-token-facebook {
     float: left;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+label.label {
+  display: none;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+li.label {
+  padding-top: 10px;
+}
+
+.title_box {
+  padding-top: 0px;
+}
+
+.extra_inform_box {
+  select {
+    margin-top: 10px;
   }
+}
 
   .preset_tag {
     cursor: pointer;
     color: #eee;
   }
+
+.posting_box {
+  ol {
+    li {
+      display: inline;
+    }
+  }
+}
+
+.vis_label {
+  margin: 0px;
+  margin-right: 15px;
+  padding: 0px;
+  float: left;
+}
+
+.preset_tag {
+  cursor: pointer;
 }
 
 div.token-input-dropdown-facebook {

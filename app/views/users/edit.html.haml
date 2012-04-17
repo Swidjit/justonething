@@ -51,6 +51,13 @@
                 %td= oh.text_field :open_time
                 %td to
                 %td= oh.text_field :close_time
+
+  %fieldset{:class => 'tag_box'}
+    = image_tag('blue_tag.png')
+    account geo tags
+    %span optional
+    = f.text_field :geo_tag_list, :input_html => {:class => 'item_geo_tags', "data-pre" => @user.geo_tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
+
   %div.pad
     = f.submit "Update Profile"
 
@@ -97,3 +104,13 @@
       }
     });
   }
+  $(document).ready(function(){
+    var geo_tag_list_selector = "#user_geo_tag_list";
+    $(geo_tag_list_selector).tokenInput(
+      "#{autocomplete_search_geo_tags_path}", {
+        theme: "facebook",
+        preventDuplicates:"true",
+        minChars: 2
+      }
+    );
+  });
