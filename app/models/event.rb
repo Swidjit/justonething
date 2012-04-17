@@ -19,10 +19,13 @@ class Event < Item
     :conditions => ["#{Event.table_name}.start_datetime >= ? AND #{Event.table_name}.start_datetime <= ?", date.beginning_of_day, date.end_of_day]
   } }
 
-  scope :owned_or_bookmarked_by, lambda { |user| {
+  scope :owned_or_bookmarked_by_or_rsvp_to, lambda { |user| {
     :select => "DISTINCT #{Item.table_name}.*",
-    :joins => "LEFT JOIN #{Bookmark.table_name} ON #{Bookmark.table_name}.item_id = #{Item.table_name}.id",
-    :conditions => ["#{Item.table_name}.user_id = ? OR (#{Bookmark.table_name}.user_id = ? AND #{Bookmark.table_name}.id IS NOT NULL)", user.id, user.id]
+    :joins => "LEFT JOIN #{Bookmark.table_name} ON #{Bookmark.table_name}.item_id = #{Item.table_name}.id " +
+        "LEFT JOIN #{Rsvp.table_name} ON #{Rsvp.table_name}.item_id = #{Item.table_name}.id",
+    :conditions => ["#{Item.table_name}.user_id = ? OR
+      (#{Rsvp.table_name}.user_id = ? AND #{Rsvp.table_name}.id IS NOT NULL) OR
+      (#{Bookmark.table_name}.user_id = ? AND #{Bookmark.table_name}.id IS NOT NULL)", user.id, user.id, user.id]
   } }
 
   def self.datetimepicker_to_datetime(datetime_value)
