@@ -87,6 +87,9 @@ Swidjit::Application.routes.draw do
 
   resources :bookmarks, :only => [:create,:destroy,:index]
 
+  match 'contact' => 'contact#new', :as => 'contact', :via => :get
+  match 'contact' => 'contact#create', :as => 'contact', :via => :post
+
   resources :rsvps, :only => [:create,:destroy,:index]
 
   resources :offers, :only => [:destroy] do
