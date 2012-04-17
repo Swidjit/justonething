@@ -6,6 +6,8 @@ class GeoTag < ActiveRecord::Base
 
   before_validation :set_type
 
+  has_and_belongs_to_many :items, :uniq => true, :join_table => :items_tags, :foreign_key => :tag_id
+
 private
 
   def set_type

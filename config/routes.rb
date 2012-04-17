@@ -33,7 +33,7 @@ Swidjit::Application.routes.draw do
 
   resource :feeds, :only => [] do
     member do
-      %w( all have_its want_its events thoughts links ).each do |act|
+      %w( all have_its want_its events thoughts links geo ).each do |act|
         get "#{act.to_sym}(/:tag_name)", :action => act.to_sym, :as => "#{act}"
       end
       get :drafts

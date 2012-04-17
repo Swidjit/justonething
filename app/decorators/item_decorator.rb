@@ -69,6 +69,10 @@ class ItemDecorator < ApplicationDecorator
     item.tags.collect{|tag| link_to( tag.name, {:controller => 'feeds', :action => :all, :tag_name => tag.name }) }.join(', ')
   end
 
+  def linkified_geo_tags
+    item.geo_tags.collect{|tag| link_to( tag.name, {:controller => 'feeds', :action => :geo, :tag_name => tag.name }) }.join(', ')
+  end
+
   def manage_links
     links = []
 
@@ -132,7 +136,7 @@ class ItemDecorator < ApplicationDecorator
 
   def geo_tagged_as
     if item.geo_tags.any?
-      content_tag :div, item.geo_tags.map(&:name).join(', '), :class => 'smIcon1 smIcon'
+      content_tag :div, linkified_geo_tags.html_safe, :class => 'smIcon1 smIcon'
     end
   end
 

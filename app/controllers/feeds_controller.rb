@@ -84,6 +84,18 @@ class FeedsController < ApplicationController
     render_paginated_feed :generic_index
   end
 
+  def geo
+    @tag = GeoTag.find_by_name(params[:tag_name])
+    @type = (params[:type] || 'all').singularize.camelize
+    @title = "#{@type} Items with Geo Tag: #{params[:tag_name]}"
+    if %w( events have_its want_its links thoughts ).include? @type
+      @feed_items = @tag.items.where({:type => @type}).access_controlled_for(current_user,current_ability)
+    else
+      @feed_items = @tag.items.access_controlled_for(current_user,current_ability)
+    end
+    render_paginated_feed :generic_index
+  end
+
   # Per discussion between Isaiah and Sonny: single action for each item type
   # Eventually List action
   # Index action with query string that combines all types of filtering
