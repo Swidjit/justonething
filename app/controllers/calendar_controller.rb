@@ -20,7 +20,7 @@ private
     events = events.having_tag_with_name(params[:filter]) if params[:filter].present?
 
     @events = events.all
-    @user_events = current_user.present? ? events.owned_or_bookmarked_by(current_user).all : nil
+    @user_events = current_user.present? ? events.owned_or_bookmarked_by_or_rsvp_to(current_user).all : nil
     @item_preset_tags = ItemPresetTag.where(:item_type => Event.to_s)
   end
 end
