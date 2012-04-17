@@ -82,6 +82,9 @@ fieldset {
 #new_list input[type='text']{
   width: 80px;
 }
+input.item_title {
+  width: 496px;
+}
 #search {
   float: left;
   margin: 7px 10px;

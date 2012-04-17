@@ -170,7 +170,7 @@ $(".toggle-user-edit").live("click",function(){
 
 $(".item_description").live("change",function(){
   comm = $(this).val();
-  comm = comm.substring(0,15);
+  comm = comm.substring(0,40);
   $(this).closest('fieldset').find('.item_title').val(comm);
 });
 
