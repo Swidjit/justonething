@@ -73,8 +73,6 @@
           %form#search{method: "get", action: "/feeds/search/"}
             %input{type: "text", name: "q"}
             %input{type: "submit", value: "search"}
-          %span.notice= notice
-          %span.alert= alert
           - if signed_in?
             = link_to "", edit_user_path(current_user), :class => 'topLinks top5'
             = link_to "", user_offers_path(current_user.display_name), :class => 'topLinks icon_offer'
@@ -91,4 +89,8 @@
           #add_item_form_wrapper
             #add_item_form
         .mainContent
+          -if notice.present?
+            %span.notice= notice
+          -if alert.present?
+            %span.alert= alert
           = yield
