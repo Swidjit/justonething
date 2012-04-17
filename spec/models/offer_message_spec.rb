@@ -28,4 +28,14 @@ describe OfferMessage do
     # 1 from original message and 1 from reply
     original.offer.item.user.notifications.count.should == 2
   end
+
+  it "should delete notifications when offer is deleted" do
+    original = Factory(:offer_message)
+    reply = Factory(:offer_message_without_user, :offer => original.offer, :user_id => original.offer.item.user.id)
+    Notification.count.should == 2
+
+    original.offer.destroy
+    Notification.count.should == 0
+
+  end
 end

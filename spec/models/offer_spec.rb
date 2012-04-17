@@ -11,9 +11,11 @@ describe Offer do
 
     Factory(:offer_message, :offer => offer)
     OfferMessage.all.count.should == 1
+    Notification.count.should == 1
 
     offer.destroy
     OfferMessage.all.count.should == 0
+    Notification.count.should == 0
   end
 
   it "should prevent a user from creating more than one offer per item" do

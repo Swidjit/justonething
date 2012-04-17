@@ -1,8 +1,12 @@
 class Offer < ActiveRecord::Base
+  before_destroy :delete_all_message_notifications
+  after_create :send_notification_email, :notify_item_owner
+
   belongs_to :user
   belongs_to :item
   has_many :messages, :class_name => "OfferMessage", :order => "#{OfferMessage.table_name}.created_at ASC", :dependent => :delete_all
   has_many :notifications, :as => :notifier, :dependent => :delete_all
+  has_many :message_notifications, :through => :messages, :source => :notifications
 
   attr_accessible :user, :item_id
 
@@ -14,11 +18,13 @@ class Offer < ActiveRecord::Base
 
   validate :item_type_is_allowed
 
-  after_create :send_notification_email, :notify_item_owner
-
   scope :for_user, lambda { |user| { :joins => :item, :conditions => ["#{Item.table_name}.user_id = ?", user.id] } }
 
-private
+  private
+  def delete_all_message_notifications
+    Notification.delete_all(:id => self.message_notifications.collect(&:id))
+  end
+
   def item_type_is_allowed
     errors.add(:item, "type not allowed") unless item.allows_offers?
   end
