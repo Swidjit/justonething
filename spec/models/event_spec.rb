@@ -50,21 +50,26 @@ describe Event do
     end
   end
 
-  describe "#owned_or_bookmarked_by" do
+  describe "#owned_or_bookmarked_by_or_rsvp_to" do
     before(:each) { @item = Factory(:event) }
 
     it "should return items owned by a user" do
-      Event.owned_or_bookmarked_by(@item.user).count.should == 1
+      Event.owned_or_bookmarked_by_or_rsvp_to(@item.user).count.should == 1
     end
 
     it "should return items bookmarked by a user" do
       bookmark = Factory(:bookmark, :item => @item)
-      Event.owned_or_bookmarked_by(bookmark.user).count.should == 1
+      Event.owned_or_bookmarked_by_or_rsvp_to(bookmark.user).count.should == 1
     end
 
     it "should only return one instance for an item bookmarked by its owner" do
       bookmark = Factory(:bookmark, :item => @item, :user => @item.user)
-      Event.owned_or_bookmarked_by(bookmark.user).count.should == 1
+      Event.owned_or_bookmarked_by_or_rsvp_to(bookmark.user).count.should == 1
+    end
+
+    it "should return items rsvp'd to by a user" do
+      rsvp = Factory(:rsvp, :item => @item)
+      Event.owned_or_bookmarked_by_or_rsvp_to(rsvp.user).count.should == 1
     end
   end
 
