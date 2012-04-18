@@ -239,6 +239,13 @@ ActiveRecord::Schema.define(:version => 20120418132916) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  create_table "users_tags", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "tag_id",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "vouches", :force => true do |t|
     t.integer  "voucher_id"
     t.integer  "vouchee_id"
@@ -268,5 +275,8 @@ ActiveRecord::Schema.define(:version => 20120418132916) do
 
   add_foreign_key "rsvps", "items", :name => "rsvps_item_id_fk"
   add_foreign_key "rsvps", "users", :name => "rsvps_user_id_fk"
+
+  add_foreign_key "users_tags", "tags", :name => "users_tags_tag_id_fk"
+  add_foreign_key "users_tags", "users", :name => "users_tags_user_id_fk"
 
 end

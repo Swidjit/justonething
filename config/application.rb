@@ -71,18 +71,20 @@ module Swidjit
     # Load API keys from .gitignored secrets file and transform
     # them into environment variables.
     config.before_initialize do
-      dev_secrets = File.open("#{Rails.root}/config/secrets.yml")
+      if File.exists?(File.join(__FILE__, '..', 'secrets.yml'))
+        dev_secrets = File.open("#{Rails.root}/config/secrets.yml")
 
-      begin
-        dev_yaml = YAML.load(dev_secrets)
-        dev_yaml.fetch(Rails.env).each do |key, value|
-          ENV[key.to_s] = value
-        end
-      rescue KeyError
-        msg  = "No settings were found in your secrets.yml file for the \"#{Rails.env}\" environment. "
-        msg << "Please set your keys using the secrets.yml.example file as a template."
-        raise KeyError, msg
-      end if File.exists?(dev_secrets)
+        begin
+          dev_yaml = YAML.load(dev_secrets)
+          dev_yaml.fetch(Rails.env).each do |key, value|
+            ENV[key.to_s] = value
+          end
+        rescue KeyError
+          msg  = "No settings were found in your secrets.yml file for the \"#{Rails.env}\" environment. "
+          msg << "Please set your keys using the secrets.yml.example file as a template."
+          raise KeyError, msg
+        end if File.exists?(dev_secrets)
+      end
     end unless Rails.env.production?
   end
 end
