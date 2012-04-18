@@ -216,6 +216,10 @@ mark{
   color: #b94a48;
 }
 
+.multiLinks .fb-like {
+  float: left;
+}
+
 
 .right { float: right; }
 .clear { clear: both; }
