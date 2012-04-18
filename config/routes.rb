@@ -97,6 +97,8 @@ Swidjit::Application.routes.draw do
 
   resources :rsvps, :only => [:create,:destroy,:index]
 
+  post '/images/generate' => 'images#generate'
+
   resources :offers, :only => [:destroy] do
     resources :offer_messages, :only => [:create]
   end

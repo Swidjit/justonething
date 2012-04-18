@@ -18,4 +18,11 @@
 /log/*.log
 /tmp
 
+# Ignore API key and settings file.
+# Keep it secret. Keep it safe.
+/config/secrets.yml
+
+# Dragonfly images get generated here.
+/public/system
+
 *.DS_Store

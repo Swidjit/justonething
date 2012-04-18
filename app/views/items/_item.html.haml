@@ -3,7 +3,7 @@
   .itemPic
     = item.model.class.to_s.titleize
     %br
-    -#item.image
+    = item.thumb
   .itemInfo
     .itemTitle= link_to item.short_title, item
     .itemDesc= item.short_description

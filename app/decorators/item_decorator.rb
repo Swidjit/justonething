@@ -150,6 +150,12 @@ class ItemDecorator < ApplicationDecorator
     item.tags.collect(&:name).sort.join(', ')
   end
 
+  def thumb
+    if item.thumbnail.present?
+      ImageDecorator.new(item.thumbnail).thumb
+    end
+  end
+
   def title
     linkified_title
   end

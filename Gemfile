@@ -16,6 +16,11 @@ gem 'omniauth-facebook', '1.2.0'
 gem 'formtastic', '2.0.2'
 gem 'will_paginate', '3.0.3'
 
+# Image uploading and processing.
+gem 'dragonfly',  '~> 0.9.10'
+gem 'fog',        '~> 1.3.1'
+gem 'rack-cache', '~> 1.2', require: 'rack/cache'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

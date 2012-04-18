@@ -229,3 +229,6 @@ mark{
 div.overflow-visible, .overflow-visible {
   overflow: visible;
 }
+
+.thumbnail.loading { height:25px; width:25px; background: url('load.gif') no-repeat center center; }
+.thumbnail.loading img { display: none; }
