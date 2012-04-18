@@ -38,7 +38,7 @@ class FeedsController < ApplicationController
   end
 
   def drafts
-    @feed_items  = current_user.items.deactivated
+    @feed_items  = current_user.items.unscoped.ordered_by_created_at
     render_paginated_feed :drafts
   end
 
