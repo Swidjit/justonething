@@ -8,7 +8,9 @@ class Ability
     if user.persisted?
       if user.is_admin
         can :manage, ItemPresetTag
+        can :manage, ITEMS
       end
+
       can :manage, Comment, :user_id => user.id
       can :manage, User, :id => user.id
       can :manage, ITEMS, :user_id => user.id
