@@ -103,8 +103,10 @@ $(".add_item_txt").live("click",function(){
     var target_height = $("#add_item_form").height() + parseInt($("#add_item_form").css('padding-top')) + parseInt($("#add_item_form").css('padding-bottom'));
     $("#add_item_form_wrapper").animate(
       {height:target_height},
-      {queue:false, duration: 1000},
-      $("#add_item_form_wrapper").css('overflow','visible')
+      {queue:false, duration: 1000, complete: function(){
+          $("#add_item_form_wrapper").css({'overflow':'visible','height':'auto'})
+        }
+      }
     );
   });
   return false;

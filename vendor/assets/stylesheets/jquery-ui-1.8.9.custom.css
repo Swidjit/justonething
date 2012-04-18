@@ -585,6 +585,10 @@ height: 16px;
 .secHdr5 { background: url('secIcon5.png') no-repeat; background-position:10px; }
 .secHdr6 { background: url('secIcon6.png') no-repeat; background-position:16px; }
 
+ul.navMenus.extra_links {
+  margin: 10px 25px 0px 35px;
+}
+
 .navMenus {
   list-style-type: none;
   color: #eeeeee;
@@ -655,28 +659,31 @@ height: 16px;
   border: none;
 }
 .nameRow { width:98%;margin:0 auto;padding-top:10px;text-align:left;border-bottom:2px solid #eeeeee;position:relative;height:40px;z-index:999999;}
+.nameRow .title_heading {
+  float: left;
+}
 #visiEXP { height:0;overflow:hidden;position:relative;z-index:2;padding-bottom:20px; }
 .visiRow { width:98%;margin:5px auto;padding-top:20px;text-align:left;border-bottom:2px solid #eeeeee;position:relative;height:120px;z-index:2;}
 .xtraLine { clear:both;height:2px;padding:0;margin:0;width:100%;}
 
 .bottomRow { padding-bottom:75px;border:0; }
 .usrName{ padding: 10px;color:#87068D;font-size:24px;float:left; }
-.voucher { margin:6px 0 0 10px;padding:0;float:left;width:100px; }
-.voucher .label { color:#91989c;font-size:12px;margin:9px 0 0 0;float:right; }
+.voucher { margin-left: 10px;padding:0;float:left; }
+.voucher .label { color:#91989c;font-size:12px;margin:9px 0 0 0;float:right; line-height: 10px; }
 .pad {padding: 20px 1% 0 1%;width:96%;}
 
 
 .profilePic { background-repeat: no-repeat;margin:0 0 20px 8px;width:127px;height:127px;overflow:hidden;float:left;padding-right:25px; }
-.profileBio { float:left;width:55%;padding:0 0 20px 15px;height:100px;overflow:hidden; }
-.more { clear:both;margin:7px 0 0 58%;padding:0 30px 20px 0;text-align:right;float:left;width:120px; }
+.profileBio { padding:0 0 20px 15px;height:100px;overflow:hidden; }
+.more { clear:both;padding:0 30px 20px 0;text-align:right;float:right;width:120px; }
 #moreLink { text-decoration:none;color:#30749f; }
 #moreLink:hover {color:#4faae4;}
 
 .recent{ padding: 10px;color:#30749f;font-size:16px;float:left; }
 .filter { margin:1px 0 0 0; }
 
-.itemPic { width:90px;margin-left:10px;text-align:left;float:left; color:#87068D}
-.itemInfo { float:left; }
+.itemPic { width:90px;margin-left:10px;text-align:left;float:left; color:#87068D; min-height: 100px;}
+.itemInfo { }
 .itemTitle, .itemTitle a, .itemTitle a:visited, .itemTitle a:hover { font-size:18px;font-weight:bold; color: #06598D}
 .itemDesc { padding:7px 0 0 0; }
 .multiLinks { padding:12px 0px 0 0;overflow:hidden; }
@@ -693,9 +700,10 @@ height: 16px;
 .cal_icon { background-image: url('item_icon_cal.png'); }
 .smIcon2 { background-image: url('price_icon.jpg'); }
 .smIcon3 { background-image: url('usr_icon.jpg'); }
+.smIcon4 { background-image: url('have_icon.jpg'); }
 
 .smFirst { margin-left:0; }
-.itemIcons { position:absolute;top:10px;right:32px;text-align:right; }
+.itemIcons { position:absolute;top:10px;right:16px;text-align:right; }
 #item { padding-top:7px; }
 
 a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5,
@@ -986,7 +994,7 @@ a.iconLink5 {background: url('itemIcon5.png') no-repeat; width: 30px;}
   font-size:16px;
   color:#88068e;
   padding-left:10px;
-  width:200px;
+  padding-top: 15px;
 }
 .inner_title_top {
   margin-top:1px;
@@ -1016,7 +1024,6 @@ a.iconLink5 {background: url('itemIcon5.png') no-repeat; width: 30px;}
 }
 .img_info {
   float:left;
-  width:65%;
   padding-left:7px;
 }
 .img_info p {
@@ -1136,9 +1143,10 @@ a.iconLink5 {background: url('itemIcon5.png') no-repeat; width: 30px;}
   color:#564B47;
 }
 
-.menu_with_dropdowns li:hover a {
-  color:#30749F;
+.menu_with_dropdowns li > a:link {
+  color: #30749F;
 }
+
 .menu_with_dropdowns li .drop {
   padding-right:0px;
   

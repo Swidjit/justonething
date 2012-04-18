@@ -41,8 +41,8 @@
               %li= link_to 'Recommendations', recommendations_feeds_path
               - if signed_in?
                 %li= link_to 'Familiar Users', familiar_users_feeds_path
-                %li= link_to "mentions", references_user_path(current_user)
-                %li= link_to 'my drafts', drafts_feeds_path
+                %li= link_to 'Mentions', references_user_path(current_user)
+                %li= link_to 'Inactive Items', drafts_feeds_path
           %h3
             %a.secHdr6{:href=>'#'} Collections
           %div
@@ -72,7 +72,7 @@
                     = f.submit '+'
                     = f.text_field :name, :placeholder => 'list name'
                   #new_list_errors
-          %ul.navMenus
+          %ul.navMenus.extra_links
             %li= link_to "Contact Us", contact_path
             - if signed_in?
               %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
@@ -88,12 +88,12 @@
             %input{type: "text", name: "q"}
             %input{type: "submit", value: "search"}
           - if signed_in?
-            = link_to "", edit_user_path(current_user), :class => 'topLinks top5'
-            = link_to "", user_offers_path(current_user.display_name), :class => 'topLinks icon_offer'
-            = link_to '', user_notifications_path(:user_id => current_user.id), :class => 'topLinks top4'
-            = link_to "", bookmarks_path, :class => 'topLinks top3'
-            = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2'
-            = link_to "", calendar_index_path, :class => 'topLinks top1'
+            = link_to "", edit_user_path(current_user), :class => 'topLinks top5', :title => 'Edit Profile'
+            = link_to "", user_offers_path(current_user.display_name), :class => 'topLinks icon_offer', :title => 'Offers'
+            = link_to "", user_notifications_path(:user_id => current_user.id), :class => 'topLinks top4', :title => 'Notifications'
+            = link_to "", bookmarks_path, :class => 'topLinks top3', :title => 'Bookmarks'
+            = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2', :title => 'Profile'
+            = link_to "", calendar_index_path, :class => 'topLinks top1', :title => 'Events Calendar'
         - if signed_in?
           .add_item_row
             .addLink

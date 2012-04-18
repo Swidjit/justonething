@@ -73,8 +73,16 @@
       list-style-type: none;
   }
 
-  label.label {
+  label.label, legend.label {
     display: none;
+  }
+
+  fieldset.inputs {
+    padding: 15px 0px;
+  }
+
+  input[type='submit'] {
+    margin-top: 10px;
   }
 
   ul, ol {
@@ -114,6 +122,7 @@
 
   .preset_tag {
     cursor: pointer;
+    color: #eee;
   }
 }
 

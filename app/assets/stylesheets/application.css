@@ -25,6 +25,10 @@ body {
   margin:0;
 }
 
+a, a:hover, a:visited {
+  color: #30749F;
+}
+
 fieldset {
   border: none;
   padding: 0px;
@@ -54,22 +58,22 @@ fieldset {
   padding:10px 0 0 10px;
 }
 
-
 .hidden {
   display: none;
 }
 
 #add_item_button {
   background: url("addBtn.png") no-repeat scroll 0 0 transparent;
-    color: #5F8095;
-    display: block;
-    float: left;
-    font-size: 14px;
-    height: 17px;
-    margin: 5px 0 0 10px;
-    padding: 5px 10px;
-    text-decoration: none;
-    text-indent: 30px;
+  color: #333;
+  display: block;
+  float: left;
+  font-size: 14px;
+  height: 17px;
+  margin: 5px 0 0 10px;
+  padding: 5px 10px;
+  text-decoration: none;
+  text-indent: 30px;
+  font-weight: bold;
 }
 #add_item_button:hover {
   background-position:0px -27px;
@@ -216,12 +220,13 @@ mark{
   color: #b94a48;
 }
 
-.multiLinks .fb-like {
+.img_info .fb-like, .multiLinks .fb-like {
   float: left;
 }
 
 
 .right { float: right; }
+.left { float: left; }
 .clear { clear: both; }
 
 .right-margin { margin-right: 8px; }

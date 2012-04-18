@@ -14,6 +14,12 @@ class ItemDecorator < ApplicationDecorator
     option_hash
   end
 
+  def condition_tag
+    if item.condition.present?
+      content_tag :div, item.condition, :class => 'smIcon6 smIcon'
+    end
+  end
+
   def creator
     content_tag :div, link_to(item.user.display_name, profile_path(item.user.display_name)), :class => 'smIcon3 smIcon'
   end
@@ -62,10 +68,12 @@ class ItemDecorator < ApplicationDecorator
     icon_tags << creator
     icon_tags << timing
     icon_tags << price_tag
-    icon_tags << facebook_like_button
+    icon_tags << location_tag
+    icon_tags << condition_tag
     if with_type
-      icon_tags << content_tag(:span, "#{image_tag('have_icon.jpg')} #{item.class.to_s.humanize}".html_safe)
+      icon_tags << content_tag(:div, item.class.to_s.humanize, :class => 'smIcon smIcon4')
     end
+    icon_tags << facebook_like_button
     icon_tags.join("").html_safe
   end
 
@@ -75,6 +83,12 @@ class ItemDecorator < ApplicationDecorator
 
   def linkified_geo_tags
     item.geo_tags.collect{|tag| link_to( tag.name, {:controller => 'feeds', :action => :geo, :tag_name => tag.name }) }.join(', ')
+  end
+
+  def location_tag
+    if item.location.present?
+      content_tag :div, item.location, :class => 'smIcon5 smIcon'
+    end
   end
 
   def manage_links

@@ -22,10 +22,10 @@ shared_examples "an item with offers controller" do
       end
 
       it "should display the offers if it has any" do
-        Factory(:offer, :item => @item)
+        offer = Factory(:offer, :item => @item)
         get :show, :id => @item.id
         response.should be_success
-        response.body.should =~ /offer_top/
+        response.body.should =~ /toggle-offer-reply/
       end
     end
 

@@ -40,6 +40,7 @@
   %li
     = render :partial => 'items/visibility_form', :locals => { :ajax => false, :item => @item }
 = f.inputs do
+  %li.text Item Expiration
   = f.input :active
   = @item.expires_on_fields(f)
 = f.submit (@item.persisted? ? 'Update' : 'Post')

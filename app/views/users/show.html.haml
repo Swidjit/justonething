@@ -1,5 +1,5 @@
 .nameRow
-  .usrName= "@#{@user.display_name}"
+  .title_heading= "@#{@user.display_name}"
   = @user.vouches_display
   %ul.menu_with_dropdowns
     = @user.manage_links(:li)
@@ -30,12 +30,12 @@
       View Full Bio
       %img{:alt => "", :border => "0", :src => "img/arrowDN.png"}/
 .contentRow
-  .recent Recent Posts
   %div
     = tabbed_item_types('type')
-  .addTo.filter
-    Filters
-    = image_tag('arrowDN.png')
+  - if false # This will be for importance/familiarty ordering
+    .addTo.filter
+      Filters
+      = image_tag('arrowDN.png')
 
 .contentRow
   = render :partial => 'feeds/endless_scroll'

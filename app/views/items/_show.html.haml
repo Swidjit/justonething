@@ -21,12 +21,8 @@
       = item.manage_links
       - if can? :mamange, item
         %span#addTo2.addTo2
-          %ul
-            %li
-              %a{:href => "#"}
-                = image_tag('visible_icon.jpg')
-                item visibility
-                = image_tag('arrowDN.png')
+          %a{:href => "#"}
+            = image_tag('visible_icon.jpg')
 - if can? :manage, item
   #visiEXP
     .visiRow.pad
@@ -44,7 +40,8 @@
     %p.header
       %label Offers
   .contentRow.pad.without_border
-    .offer_top
+    .comment_block
+      Offer
       = render :partial => 'offers', :locals => { :item => item }
     %div{:style => "clear:both;"}
 
@@ -66,15 +63,17 @@
 .contentRow
   %p.header
     %label Recommendations
-.contentRow.pad
-  %ul
-    - if item.recommendations.any?
+.contentRow.pad.without_border
+  - if item.recommendations.any?
+    %ul
       = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(item.recommendations)
-    - if can? :recommend, item
-      %li
-        = form_for Recommendation.new, :url => recommendations_path(item.id) do |f|
-          = f.text_field :description, { :class => 'user-suggestion', :autocomplete => :off }
-          = f.submit 'Recommend'
+  - if can? :recommend, item
+    .comment_block
+      Recommend
+      %a#recommend{:name => 'recommend'}
+      = form_for Recommendation.new, :url => recommendations_path(item.id) do |f|
+        = f.text_area :description, { :class => 'user-suggestion' }
+        = f.submit 'Recommend'
 
 - content_for :head do
   %meta{:property => "og:title", :content => "Swidjit - #{item.title}"}
