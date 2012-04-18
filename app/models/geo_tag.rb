@@ -1,7 +1,7 @@
 class GeoTag < ActiveRecord::Base
   extend TagClassMethods
 
-  set_table_name :tags
+  self.table_name = :tags
   default_scope :conditions => "#{table_name}.type = 'GeoTag'"
 
   before_validation :set_type
