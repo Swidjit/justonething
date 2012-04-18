@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120413191405) do
+ActiveRecord::Schema.define(:version => 20120418132916) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -69,6 +69,13 @@ ActiveRecord::Schema.define(:version => 20120413191405) do
   add_index "delegates", ["delegatee_id"], :name => "index_delegates_on_delegatee_id"
   add_index "delegates", ["delegator_id", "delegatee_id"], :name => "index_delegates_on_delegator_id_and_delegatee_id", :unique => true
 
+  create_table "images", :force => true do |t|
+    t.string   "file_uid"
+    t.string   "file_name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "item_flags", :force => true do |t|
     t.integer  "user_id"
     t.integer  "item_id"
@@ -109,7 +116,10 @@ ActiveRecord::Schema.define(:version => 20120413191405) do
     t.integer  "posted_by_user_id"
     t.integer  "recommendations_count", :default => 0,     :null => false
     t.boolean  "disabled",              :default => false
+    t.integer  "thumbnail_id"
   end
+
+  add_index "items", ["thumbnail_id"], :name => "index_items_on_thumbnail_id"
 
   create_table "items_tags", :id => false, :force => true do |t|
     t.integer "item_id", :null => false

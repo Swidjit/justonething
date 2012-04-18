@@ -35,15 +35,27 @@ Spork.prefork do
     # automatically. This will be the default behavior in future versions of
     # rspec-rails.
     config.infer_base_class_for_anonymous_controllers = false
+
+    # Clean up generated Dragonfly images after each run.
+    config.after(:suite) do
+      test_dragonfly_images = "#{Rails.root}/public/system/dragonfly/test"
+      FileUtils.rm_r(test_dragonfly_images) if File.exists?(test_dragonfly_images)
+    end
   end
 end
 
 Spork.each_run do
+  # This code will be run each time you run your specs.
+
   # Requires supporting files with custom matchers and macros, etc,
   # in ./support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-  # This code will be run each time you run your specs.
+  # Require test helper modules.
+  RSpec.configure do |config|
+    config.include Swidjit::TestHelpers::ImagePaths
+  end
+
   require "#{Rails.root}/config/routes"
 end
 

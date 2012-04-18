@@ -57,5 +57,32 @@ module Swidjit
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Insert Dragonfly middleware with Rack::Cache.
+    # http://markevans.github.com/dragonfly/file.Rails3.html
+    config.middleware.insert 0, 'Rack::Cache', {
+      :verbose     => Rails.env.test? ? false : true,
+      :metastore   => URI.encode("file:#{Rails.root}/tmp/dragonfly/cache/meta"),
+      :entitystore => URI.encode("file:#{Rails.root}/tmp/dragonfly/cache/body")
+    } unless Rails.env.production? # Rails 3.1+ already inserts Rack::Cache in production.
+
+    config.middleware.insert_after 'Rack::Cache', 'Dragonfly::Middleware', :images
+
+    # Load API keys from .gitignored secrets file and transform
+    # them into environment variables.
+    config.before_initialize do
+      dev_secrets = File.open("#{Rails.root}/config/secrets.yml")
+
+      begin
+        dev_yaml = YAML.load(dev_secrets)
+        dev_yaml.fetch(Rails.env).each do |key, value|
+          ENV[key.to_s] = value
+        end
+      rescue KeyError
+        msg  = "No settings were found in your secrets.yml file for the \"#{Rails.env}\" environment. "
+        msg << "Please set your keys using the secrets.yml.example file as a template."
+        raise KeyError, msg
+      end if File.exists?(dev_secrets)
+    end unless Rails.env.production?
   end
 end

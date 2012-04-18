@@ -1,6 +1,14 @@
 = f.inputs :class => 'tag_box' do
   %li.text
     = image_tag('blue_tag.png')
+    Thumbnail image
+  .thumbnail
+    =@item.thumb
+  = f.input :thumbnail,    :as => :file, :input_html => {:id => 'thumbnail', :name => 'thumbnail'}
+  = f.input :thumbnail_id, :as => :hidden, :input_html => {:id => 'thumbnail_id'}
+= f.inputs :class => 'tag_box' do
+  %li.text
+    = image_tag('blue_tag.png')
     tag your item
     %span optional
   = f.input :tag_list, :label => 'Tags', :input_html => {:class => 'item_tags', "data-pre" => @item.tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
@@ -35,6 +43,8 @@
   = f.input :active
   = @item.expires_on_fields(f)
 = f.submit (@item.persisted? ? 'Update' : 'Post')
+
+= javascript_include_tag 'images/dynamic_image_upload'
 
 :javascript
   $(document).ready(function(){
