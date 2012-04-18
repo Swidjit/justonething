@@ -28,6 +28,10 @@ class ItemDecorator < ApplicationDecorator
     linkified_description
   end
 
+  def short_description
+    linkify_tags(linkify_profiles(h.truncate_on_word(description, 250)))
+  end
+
   def expires_on_string
     if item.expires_on.present?
       content_tag :div, "Currently Expires on: #{item.expires_on.strftime('%m/%d/%Y')}"
@@ -66,7 +70,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def linkified_tags
-    item.tags.collect{|tag| link_to( tag.name, {:controller => 'feeds', :action => :all, :tag_name => tag.name }) }.join(', ')
+    item.tags.collect{|tag| link_to( tag.name, h.main_feeds_path({:type => 'all', :tag_name => tag.name })) }.join(', ')
   end
 
   def linkified_geo_tags
@@ -107,7 +111,9 @@ class ItemDecorator < ApplicationDecorator
     #  links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
     #end
 
-    # links << link_to('', , :title => 'Collect', :class => 'iconLink5')
+    if h.current_user && h.current_user.can_collect?(item)
+      links << render(:partial => 'items/add_to_collection', :locals => {:item => item})
+    end
 
     if h.current_user
       #check for rsvps
@@ -148,9 +154,13 @@ class ItemDecorator < ApplicationDecorator
     linkified_title
   end
 
+  def short_title
+    linkify_tags(linkify_profiles(h.truncate_on_word(item.title, 40)))
+  end
+
   def tokenized_visibility_rules
     tokenized_rules = []
-    item.item_visibility_rules.each do |rule|
+    item.item_visibility_rules.where({:visibility_type => ['Community','List']}).each do |rule|
       this_obj = rule.visibility
       token_class = "#{rule.visibility_type.downcase}_token"
       tokenized_rules << h.content_tag(:div, (''.html_safe + this_obj.name + ' ' +

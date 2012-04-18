@@ -49,7 +49,7 @@ module SharedDecorations
   def linkify_tags(text_chunk)
     new_text = text_chunk.gsub(/#([a-zA-Z0-9-]+)/) do |hash_tag|
       tag_name = hash_tag[1..-1]
-      h.link_to( "##{tag_name}", h.all_feeds_path(:tag_name => tag_name.downcase) )
+      h.link_to( "##{tag_name}", h.main_feeds_path(:type => 'all', :tag_name => tag_name.downcase) )
     end
     h.sanitize new_text, :tags => 'a'
   end

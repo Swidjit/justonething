@@ -97,6 +97,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def can_collect?(item)
+    self.collections.any? && self.collections.map(&:id) & (item.collections.where({:user_id => self.id}).map(&:id) << item.id) != self.collections.map(&:id)
+  end
+
+  def collections
+    self.items.where(:type => 'Collection')
+  end
+
   def delegation_for_user(user)
     @delegation = Delegate.first(:conditions => {:delegator_id => self.id, :delegatee_id => user.id})
   end

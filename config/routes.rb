@@ -12,7 +12,7 @@ Swidjit::Application.routes.draw do
     end
   end
 
-  resources :want_its, :have_its, :thoughts, :links, :events, :except => :index do
+  resources :want_its, :have_its, :thoughts, :links, :events, :collections, :except => :index do
     member do
       put :flag
       get :toggle_active
@@ -21,6 +21,12 @@ Swidjit::Application.routes.draw do
       delete :remove_visibility_rule
       resources :recommendations, :only => :create
       resources :comments, :only => :create
+    end
+  end
+
+  resources :collections, :only => [] do
+    member do
+      post :add_item
     end
   end
 
@@ -33,9 +39,8 @@ Swidjit::Application.routes.draw do
 
   resource :feeds, :only => [] do
     member do
-      %w( all have_its want_its events thoughts links geo ).each do |act|
-        get "#{act.to_sym}(/:tag_name)", :action => act.to_sym, :as => "#{act}"
-      end
+      get 'geo/:tag_name', :action => :geo, :as => 'geo'
+      get ':type(/:tag_name)', :action => :index, :as => 'main', :defaults => { :type => :all }
       get :drafts
       get 'recommendations(/:type)', :action => :recommendations, :as => 'recommendations'
       get 'familiar_users(/:type)', :action => :familiar_users, :as => 'familiar_users'
@@ -101,6 +106,6 @@ Swidjit::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'feeds#all'
+  root :to => 'feeds#index'
 
 end

@@ -1,7 +1,11 @@
 !!! 5
 %html>
   %head
-    %title Swidjit
+    %title
+      Swidjit
+      - if @title.present?
+        \-
+        = @title
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'
     = stylesheet_link_tag    'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/ui-lightness/jquery-ui.css'
@@ -27,17 +31,26 @@
             %a.secHdr1{:href => "#"} System Feeds
           %div
             %ul.navMenus
-              %li= link_to 'All Items', all_feeds_path
-              %li= link_to "Have Its", have_its_feeds_path
-              %li= link_to "Want Its", want_its_feeds_path
-              %li= link_to "Thoughts", thoughts_feeds_path
-              %li= link_to "Links", links_feeds_path
-              %li= link_to 'Events', events_feeds_path
+              %li= link_to 'All Items', main_feeds_path
+              %li= link_to "Have Its", main_feeds_path(type: 'have_its')
+              %li= link_to "Want Its", main_feeds_path(type: 'want_its')
+              %li= link_to "Thoughts", main_feeds_path(type: 'thoughts')
+              %li= link_to "Links", main_feeds_path(type: 'links')
+              %li= link_to 'Events', main_feeds_path(type: 'events')
+              %li= link_to 'Collections', main_feeds_path(type: 'collections')
               %li= link_to 'Recommendations', recommendations_feeds_path
               - if signed_in?
                 %li= link_to 'Familiar Users', familiar_users_feeds_path
                 %li= link_to "mentions", references_user_path(current_user)
                 %li= link_to 'my drafts', drafts_feeds_path
+          %h3
+            %a.secHdr6{:href=>'#'} Collections
+          %div
+            %ul.navMenus
+              - if signed_in? && current_user.collections.any?
+                -current_user.collections.each do |col|
+                  %li= link_to col.title, col
+              %li= link_to 'browse collections', '#'
           %h3
             %a.secHdr2{:href => "#"} Communities
           %div

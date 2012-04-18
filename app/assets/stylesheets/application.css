@@ -82,6 +82,9 @@ fieldset {
 #new_list input[type='text']{
   width: 80px;
 }
+input.item_title {
+  width: 496px;
+}
 #search {
   float: left;
   margin: 7px 10px;
@@ -185,10 +188,7 @@ mark{
   padding-bottom: 15px;
 }
 
-.right { float: right; }
-.clear { clear: both; }
 
-.right-margin { margin-right: 8px; }
 
 .notice, .success, .alert {
   clear: both;
@@ -214,4 +214,18 @@ mark{
   background-color: #f2dede;
   border-color: #eed3d7;
   color: #b94a48;
+}
+
+.multiLinks .fb-like {
+  float: left;
+}
+
+
+.right { float: right; }
+.clear { clear: both; }
+
+.right-margin { margin-right: 8px; }
+
+div.overflow-visible, .overflow-visible {
+  overflow: visible;
 }

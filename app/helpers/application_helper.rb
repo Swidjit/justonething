@@ -22,9 +22,24 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def truncate_on_word(text,char_len)
+    return text if text.length <= char_len
+
+    # Get text with two extra chars so we can ensure to break on word boundary
+    text = text[0..(char_len+1)]
+    words = text.split(/\s/)
+    if words.count == 1
+      text = words[0]
+    else
+      text = words[0..(words.count-2)].join(' ')
+    end
+
+    text + '...'
+  end
+
   def tabbed_item_types(param_to_overwrite)
     tabs = []
-    %w( All WantIts HaveIts Events Thoughts Links ).each do |item_type|
+    Item.classes.map{|kls| kls.pluralize }.unshift('All').each do |item_type|
       if params[param_to_overwrite.to_sym] == item_type.underscore
         tabs << item_type.titleize
       else

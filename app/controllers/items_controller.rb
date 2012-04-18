@@ -6,9 +6,9 @@ class ItemsController < ApplicationController
   before_filter :load_preset_tags, :only => [:new, :edit, :duplicate, :create]
   before_filter :authorize_create_item, :only => [:create,:new]
   before_filter :arrayify_ids_fields_in_params, :only => [:create,:update]
+  before_filter :load_comments, :only => :show
 
   def show
-    @comments = @item.comments.roots
   end
 
   def new
@@ -122,6 +122,10 @@ private
 
   def item_decorator
     (item_class.to_s + "Decorator").constantize
+  end
+
+  def load_comments
+    @comments = @item.comments.roots
   end
 
   def load_decorated_resource

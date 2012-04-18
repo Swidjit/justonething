@@ -14,7 +14,7 @@
       }
     );
   });
-.contentRow
+.contentRow.overflow-visible
   .inner_title_top
     .title_heading= item.title
     .itemIcons
@@ -47,6 +47,8 @@
     .offer_top
       = render :partial => 'offers', :locals => { :item => item }
     %div{:style => "clear:both;"}
+
+= yield :middle
 
 .contentRow
   %p.header

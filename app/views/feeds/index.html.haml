@@ -1,9 +1,8 @@
 %h3
-  Feed for
-  = @feed_title
+  = @title
 
-- if params[:tag_name].present?
+- if @hide_tabbed_types.blank?
   %div
-    = tabbed_item_types('action')
+    = tabbed_item_types('type')
 
 = render :partial => 'endless_scroll'

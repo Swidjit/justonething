@@ -5,6 +5,6 @@ class ItemVisibilityRule < ActiveRecord::Base
   belongs_to :visibility, :polymorphic => true
   belongs_to :item
 
-  attr_accessible :visibility_id, :visibility_type
+  attr_accessible :visibility_id, :visibility_type, :item_id
 
 end

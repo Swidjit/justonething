@@ -9,9 +9,9 @@ describe FeedsController do
   describe "GET all" do
     it 'should only load tagged item' do
       item = Factory(:thought, :user => @user, :tag_list => 'icecream')
-      get :all, :tag_name => 'icecream'
+      get :index, :type => 'all', :tag_name => 'icecream'
       assigns(:feed_items).should == [item]
-      get :all, :tag_name => 'elephant'
+      get :index, :type => 'all', :tag_name => 'elephant'
       assigns(:feed_items).should == []
     end
   end
@@ -20,9 +20,9 @@ describe FeedsController do
     it 'should only load items of the correct type' do
       thought = Factory(:thought, :user => @user)
       want_it = Factory(:want_it, :user => @user)
-      get :thoughts
+      get :index, :type => 'thoughts'
       assigns(:feed_items).should == [thought]
-      get :want_its
+      get :index, :type => 'want_its'
       assigns(:feed_items).should == [want_it]
     end
   end
@@ -78,7 +78,7 @@ describe FeedsController do
     it "should only find elements in the correct category when chosen" do
       find_me = Factory(:thought, :user => @user, :tag_list => 'searchable')
       dont_find_me = Factory(:want_it, :user => @user, :description => "Searchable item")
-      get :search, {:q => 'searchable',type: 'thoughts'}
+      get :search, {:q => 'searchable', type: 'thoughts'}
       assigns(:feed_items).should == [find_me]
     end
   end

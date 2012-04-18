@@ -1,40 +1,24 @@
 class FeedsController < ApplicationController
   before_filter :authenticate_user!, :only => :familiar_users
 
-  def all
+  def index
     if params[:tag_name].present?
       @tag = Tag.find_by_name(params[:tag_name])
-      @feed_title = "All Items with Tag: #{params[:tag_name]}"
+      @title = " with Tag: #{params[:tag_name]}"
       if @tag.present?
-        @feed_items = @tag.items.access_controlled_for(current_user,current_ability)
+        @feed_items = filter_by_type_and_access(@tag.items)
       else
         @feed_items = []
-        render :index and return
       end
     else
-      @feed_items = Item.access_controlled_for(current_user,current_ability)
-      @feed_title = "All Items"
+      @hide_tabbed_types = true
+      @feed_items = filter_by_type_and_access(Item)
     end
-    render_paginated_feed :index
-  end
 
-  %w( HaveIt WantIt Event Thought Link ).each do |item_type|
-    define_method item_type.underscore.pluralize do
-      if params[:tag_name].present?
-        @tag = Tag.find_by_name(params[:tag_name])
-        @feed_title = "#{item_type.titleize.pluralize} with Tag: #{params[:tag_name]}"
-        if @tag.present?
-          @feed_items = @tag.items.where({:type => item_type}).access_controlled_for(current_user,current_ability)
-        else
-          @feed_items = []
-          render :index and return
-        end
-      else
-        @feed_items = item_type.constantize.access_controlled_for(current_user,current_ability)
-        @feed_title = item_type.titleize.pluralize
-      end
-      render_paginated_feed :index
-    end
+    item_type_string = @type == 'All' ? 'All Items' : @type
+    @title = "Feed for #{item_type_string}" + (@title || '')
+
+    render_paginated_feed :index
   end
 
   def drafts
@@ -45,59 +29,50 @@ class FeedsController < ApplicationController
   def search
     if params[:q].present?
       @terms = params[:q]
-      @type = (params[:type] || 'all').singularize.camelize
       @title = "Search for #{@terms}"
-      @feed_items = Item.search(@terms)
-      if @type && %w( HaveIt WantIt Event Thought Link ).include?(@type)
-        @feed_items = @feed_items.where({:type => @type})
-      end
-      @feed_items = @feed_items.access_controlled_for(current_user,current_ability)
+      @feed_items = filter_by_type_and_access(Item.search(@terms))
     else
       @title = "Search for"
       @feed_items = []
     end
-    render_paginated_feed :generic_index
+    render_paginated_feed :index
   end
 
   def recommendations
-    item_type = params[:type] || 'all'
-    if %w( events have_its want_its links thoughts ).include? item_type
-      @feed_items = Item.recommended.where(:type => item_type.camelize.singularize).access_controlled_for(current_user,current_ability)
-    else
-      params[:type] = 'all'
-      @feed_items = Item.recommended.access_controlled_for(current_user,current_ability)
-    end
-    render_paginated_feed :generic_index
+    @feed_items = filter_by_type_and_access(Item.recommended)
+    @title = "#{@type}"
+
+    render_paginated_feed :index
   end
 
   def familiar_users
     @title = 'Feed of Your Most Familiar Users'
-    item_type = params[:type] || 'all'
     base_feed_items = Item.where("#{Item.table_name}.user_id IN (?)",current_user.familiar_users.limit(25).collect(&:id))
-    if %w( events have_its want_its links thoughts ).include? item_type
-      @feed_items = base_feed_items.where(:type => item_type.camelize.singularize).access_controlled_for(current_user,current_ability)
-    else
-      params[:type] = 'all'
-      @feed_items = base_feed_items.access_controlled_for(current_user,current_ability)
-    end
-    @test_output = current_user.familiar_users.limit(25)
-    render_paginated_feed :generic_index
+    @feed_items = filter_by_type_and_access(base_feed_items)
+
+    render_paginated_feed :index
   end
 
   def geo
     @tag = GeoTag.find_by_name(params[:tag_name])
-    @type = (params[:type] || 'all').singularize.camelize
+    @feed_items = filter_by_type_and_access(@tag.items)
     @title = "#{@type} Items with Geo Tag: #{params[:tag_name]}"
-    if %w( events have_its want_its links thoughts ).include? @type
-      @feed_items = @tag.items.where({:type => @type}).access_controlled_for(current_user,current_ability)
-    else
-      @feed_items = @tag.items.access_controlled_for(current_user,current_ability)
-    end
-    render_paginated_feed :generic_index
+
+    render_paginated_feed :index
   end
 
   # Per discussion between Isaiah and Sonny: single action for each item type
   # Eventually List action
   # Index action with query string that combines all types of filtering
+
+  private
+  def filter_by_type_and_access(feed_items)
+    @type = (params[:type] ||= 'all')
+    if Item.classes.map{|kls| kls.underscore.pluralize }.include? @type
+      feed_items = feed_items.where({:type => @type.singularize.camelize})
+    end
+    @type = @type.titleize
+    feed_items.access_controlled_for(current_user,current_ability)
+  end
 
 end

@@ -4,6 +4,6 @@ class NotificationsMailer < ActionMailer::Base
 
   def new_message(message)
     @message = message
-    mail(:subject => message.subject, :from => message.email)
+    mail(:subject => message.subject, :from => message.email, :reply_to => message.email)
   end
 end
