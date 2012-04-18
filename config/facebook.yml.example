@@ -1,6 +1,0 @@
-development:
-  app_id: id
-  secret_key: secret
-test:
-  app_id: id
-  secret_key: secret

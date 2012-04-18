@@ -8,14 +8,14 @@ class User < ActiveRecord::Base
          :recoverable, :confirmable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :is_thirteen, :last_name, :first_name,
+  attr_accessible :email, :password, :password_confirmation, :is_thirteen, :last_name, :first_name, :zipcode,
       :display_name, :as => [:default,:devise]
 
   attr_accessible :about, :websites, :address, :phone, :as => :default
   attr_accessible :user_set_display_name, :as => :devise
 
   validate :is_thirteen?, :on => :create
-  validates_presence_of :first_name, :last_name
+  validates_presence_of :first_name, :last_name, :zipcode
   validates :display_name, :presence => true, :format => { :with => /[a-zA-Z0-9]+/ },
       :exclusion => { :in => BLACK_LISTED_USER_URLS }
   validates_uniqueness_of :display_name, :case_sensitive => false

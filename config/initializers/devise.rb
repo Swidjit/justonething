@@ -1,14 +1,6 @@
 module Facebook
-
-  if File.exists? Rails.root.join("config/facebook.yml")
-    CONFIG = YAML.load_file(Rails.root.join("config/facebook.yml"))[Rails.env]
-  else
-    # ENV is set manually on Heroku
-    CONFIG = {'app_id' => ENV['FB_APP_ID'], 'secret_key' => ENV['FB_SECRET_KEY']}
-  end
-
-  APP_ID  = CONFIG['app_id']
-  SECRET  = CONFIG['secret_key']
+  APP_ID  = ENV['FB_APP_ID']
+  SECRET  = ENV['FB_SECRET_KEY']
 end
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
