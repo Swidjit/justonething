@@ -24,7 +24,7 @@ module ApplicationHelper
 
   def tabbed_item_types(param_to_overwrite)
     tabs = []
-    %w( All WantIts HaveIts Events Thoughts Links ).each do |item_type|
+    Item.classes.map{|kls| kls.pluralize }.unshift('All').each do |item_type|
       if params[param_to_overwrite.to_sym] == item_type.underscore
         tabs << item_type.titleize
       else

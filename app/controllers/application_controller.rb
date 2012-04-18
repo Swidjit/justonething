@@ -28,11 +28,17 @@ class ApplicationController < ActionController::Base
   end
 
   def render_paginated_feed( html_layout )
-    total_entries = Item.count_by_subquery(@feed_items)
-    @feed_items = @feed_items.paginate(:page => params[:page], :total_entries => total_entries)
-    respond_to do |f|
-      f.html { render html_layout }
-      f.js { render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items) }
+    if @feed_items.any?
+      @feed_items = @feed_items
+
+      total_entries = Item.count_by_subquery(@feed_items)
+      @feed_items = @feed_items.paginate(:page => params[:page], :total_entries => total_entries)
+      respond_to do |f|
+        f.html { render html_layout }
+        f.js { render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items) }
+      end
+    else
+      render html_layout
     end
   end
 end

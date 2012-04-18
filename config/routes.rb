@@ -39,9 +39,8 @@ Swidjit::Application.routes.draw do
 
   resource :feeds, :only => [] do
     member do
-      %w( all have_its want_its events thoughts links geo ).each do |act|
-        get "#{act.to_sym}(/:tag_name)", :action => act.to_sym, :as => "#{act}"
-      end
+      get 'geo/:tag_name', :action => :geo, :as => 'geo'
+      get ':type(/:tag_name)', :action => :index, :as => 'main', :defaults => { :type => :all }
       get :drafts
       get 'recommendations(/:type)', :action => :recommendations, :as => 'recommendations'
       get 'familiar_users(/:type)', :action => :familiar_users, :as => 'familiar_users'
@@ -107,6 +106,6 @@ Swidjit::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'feeds#all'
+  root :to => 'feeds#index'
 
 end

@@ -66,7 +66,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def linkified_tags
-    item.tags.collect{|tag| link_to( tag.name, {:controller => 'feeds', :action => :all, :tag_name => tag.name }) }.join(', ')
+    item.tags.collect{|tag| link_to( tag.name, h.main_feeds_path({:type => 'all', :tag_name => tag.name })) }.join(', ')
   end
 
   def linkified_geo_tags
