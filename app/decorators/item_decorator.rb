@@ -28,6 +28,10 @@ class ItemDecorator < ApplicationDecorator
     linkified_description
   end
 
+  def short_description
+    linkify_tags(linkify_profiles(h.truncate_on_word(description, 250)))
+  end
+
   def expires_on_string
     if item.expires_on.present?
       content_tag :div, "Currently Expires on: #{item.expires_on.strftime('%m/%d/%Y')}"
@@ -148,6 +152,10 @@ class ItemDecorator < ApplicationDecorator
 
   def title
     linkified_title
+  end
+
+  def short_title
+    linkify_tags(linkify_profiles(h.truncate_on_word(item.title, 40)))
   end
 
   def tokenized_visibility_rules
