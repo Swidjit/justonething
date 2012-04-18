@@ -27,7 +27,7 @@ In production:
 
 ### Deploying Secrets ###
 
-Use `bundle exec rake wcid:share_secrets[heroku_app]`, where `heroku_app` is the name of the app you want to deploy your secrets to.
+Use `bundle exec rake swidjit:share_secrets[heroku_app]`, where `heroku_app` is the name of the app you want to deploy your secrets to.
 
 This will deploy all the keys/values defined in the `production` group of your `config/secrets.yml` file as environment variables on Heroku.
 
