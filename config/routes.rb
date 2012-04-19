@@ -77,6 +77,7 @@ Swidjit::Application.routes.draw do
       get :references
       get :suggestions
     end
+    resources :geo_tags, :only => [:create, :destroy]
     resources :offers, :only => :index
     resources :vouches, :only => :create
     resources :notifications, :only => :index

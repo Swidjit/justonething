@@ -56,7 +56,7 @@
     = image_tag('blue_tag.png')
     account geo tags
     %span optional
-    = f.text_field :geo_tag_list, :input_html => {:class => 'item_geo_tags', "data-pre" => @user.geo_tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
+    = f.text_field :geo_tag_list, {:class => 'item_geo_tags', "data-pre" => @user.geo_tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
 
   %div.pad
     = f.submit "Update Profile"
@@ -110,7 +110,17 @@
       "#{autocomplete_search_geo_tags_path}", {
         theme: "facebook",
         preventDuplicates:"true",
-        minChars: 2
+        minChars: 2,
+        onAdd: function(obj) {
+          var current_url = window.location.href.split('/');
+          current_url.pop();
+          $.post(current_url.join('/') + '/geo_tags', { name: obj.name });
+        },
+        onDelete: function(obj) {
+          var current_url = window.location.href.split('/');
+          current_url.pop();
+          $.post(current_url.join('/') + '/geo_tags/' + obj.name, { '_method': 'delete' });
+        }
       }
     );
   });

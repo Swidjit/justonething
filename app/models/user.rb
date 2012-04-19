@@ -107,6 +107,25 @@ class User < ActiveRecord::Base
     @delegation = Delegate.first(:conditions => {:delegator_id => self.id, :delegatee_id => user.id})
   end
 
+  def add_geo_tag(tag_name)
+    geo_tag = GeoTag.find_or_initialize_by_name(tag_name)
+    unless geo_tags.include?(geo_tag)
+      geo_tags << geo_tag
+      save
+    end
+  end
+
+  def rm_geo_tag(tag_name)
+    original_geo_tags = geo_tags.dup
+    self.geo_tags = []
+
+    geo_tag = GeoTag.find_or_create_by_name(tag_name)
+    if original_geo_tags.include?(geo_tag)
+      geo_tags = original_geo_tags.reject { |gt| gt == geo_tag }
+      save
+    end
+  end
+
   private
   def is_thirteen?
     errors.add(:base,'You must be at least 13 years of age to register') if is_thirteen.blank? || is_thirteen.to_i != 1
