@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120419134420) do
+ActiveRecord::Schema.define(:version => 20120419161025) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -19,6 +19,20 @@ ActiveRecord::Schema.define(:version => 20120419134420) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "cities", :force => true do |t|
+    t.string "url_name"
+    t.string "display_name"
+  end
+
+  create_table "cities_users", :force => true do |t|
+    t.integer  "city_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cities_users", ["city_id", "user_id"], :name => "index_cities_users_on_city_id_and_user_id", :unique => true
 
   create_table "comments", :force => true do |t|
     t.integer  "item_id",    :null => false
@@ -256,6 +270,9 @@ ActiveRecord::Schema.define(:version => 20120419134420) do
 
   add_foreign_key "bookmarks", "items", :name => "bookmarks_item_id_fk"
   add_foreign_key "bookmarks", "users", :name => "bookmarks_user_id_fk"
+
+  add_foreign_key "cities_users", "cities", :name => "cities_users_city_id_fk", :dependent => :delete
+  add_foreign_key "cities_users", "users", :name => "cities_users_user_id_fk", :dependent => :delete
 
   add_foreign_key "delegates", "users", :name => "delegates_delegatee_id_fk", :column => "delegatee_id"
   add_foreign_key "delegates", "users", :name => "delegates_delegator_id_fk", :column => "delegator_id"

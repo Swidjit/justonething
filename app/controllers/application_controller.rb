@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     redirect_to new_user_session_path, :alert => exception.message
   end
 
+  def current_city
+    @current_city ||= City.find_by_url_name(params[:city_url_name]) || current_user.cities.first || City.first
+  end
+
   def set_time_zone
     Time.zone = 'Eastern Time (US & Canada)'
   end
@@ -41,4 +45,9 @@ class ApplicationController < ActionController::Base
       render html_layout
     end
   end
+
+  def url_options
+    { :city_url_name => current_city.url_name }.merge(super)
+  end
+
 end

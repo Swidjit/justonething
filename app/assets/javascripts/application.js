@@ -181,11 +181,14 @@ $("#calendar_select_date").live("click", function() {
   return false;
 });
 $("#calendar_select_date_hidden").live("change", function() {
-  window.location.href = '/calendar/date/' + $(this).val();
+  window.location.href = '/' + currentCity + '/calendar/date/' + $(this).val();
 });
 
 var swidjit = function() {
   return {
+    currentCity : function(){
+      return window.location.pathname.split('/')[1];
+    },
     updateVisibilityForm : function(sel) {
       var val = $(sel).val();
       if (val === '') { val = 0 }
@@ -205,7 +208,7 @@ var swidjit = function() {
     updateOfferDisplay : function(sel, item_id) {
       var selected = $(sel).val();
       if (selected) {
-        $("#offer_display").load('/items/' + item_id + '/users/' + selected + '/offers')
+        $("#offer_display").load('/' + currentCity + '/items/' + item_id + '/users/' + selected + '/offers')
       } else {
         $("#offer_display").empty();
       }

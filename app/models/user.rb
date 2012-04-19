@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :geo_tags, :join_table => :users_tags, :association_foreign_key => :tag_id, :uniq => true, :conditions => "tags.type = 'GeoTag'"
 
+  has_and_belongs_to_many :cities
+
   # Open Hours
   has_many :open_hours, :dependent => :destroy
   accepts_nested_attributes_for :open_hours
