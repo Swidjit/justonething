@@ -1,5 +1,5 @@
-%div.contentRow.visible_overflow.height_25px
-  %div.title_heading.left.auto_width.right_padding_10= title
+%div.contentRow.visible_overflow
+  %div.title_heading.left.no-padding-top.right_padding_10= title
 
   - if show_nav
     - if @item_preset_tags.present?
@@ -21,5 +21,7 @@
     %div.left.right-margin
       = (@week == 0) ? "< prev week" : link_to("< prev week", week_calendar_index_path(@week - 1))
       = link_to "next week >", week_calendar_index_path(@week + 1)
+
+  %div.clearAll
 
 = render :partial => 'items/item', :collection => ItemDecorator.decorate(events)

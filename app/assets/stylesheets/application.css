@@ -224,6 +224,13 @@ mark{
   float: left;
 }
 
+.thumbnail.loading { height:25px; width:25px; background: url('load.gif') no-repeat center center; }
+.thumbnail.loading img { display: none; }
+
+.mainContent div .title_heading {
+  padding-top: 0px;
+}
+
 
 .right { float: right; }
 .left { float: left; }
@@ -235,5 +242,6 @@ div.overflow-visible, .overflow-visible {
   overflow: visible;
 }
 
-.thumbnail.loading { height:25px; width:25px; background: url('load.gif') no-repeat center center; }
-.thumbnail.loading img { display: none; }
+div.clearAll {
+  clear: both;
+}
