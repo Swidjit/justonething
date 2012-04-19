@@ -1,0 +1,16 @@
+ul.two_col_mid {
+  padding: 0px;
+  padding-bottom: 10px;
+
+  li {
+    float:left;
+    display:block;
+  }
+
+  li:nth-child(odd) {
+    clear: left;
+    text-align: right;
+    width: 100px;
+    margin-right: 10px;
+  }
+}

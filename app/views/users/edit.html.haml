@@ -12,18 +12,15 @@
 = form_for @user do |f|
   %div.contentRow.account-basics
     .title_heading account basics
-    .left.text-right
-      account name
-      %br
-      profile URL
-      %br
-      name
-    .left
-      = @user.display_name
-      %br
-      = profile_url(@user.display_name)
-      %br
-      = "#{@user.first_name} #{@user.last_name}"
+    %ul.two_col_mid
+      %li account name
+      %li= @user.display_name
+      %li profile URL
+      %li= profile_url(@user.display_name)
+      %li name
+      %li= "#{@user.first_name} #{@user.last_name}"
+      %li= f.label :zipcode
+      %li= f.text_field :zipcode
   %div.contentRow.profile-info
     .title_heading.left profile info
     %span anything you add here is visible publicly on your profile page
