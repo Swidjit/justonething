@@ -40,11 +40,11 @@ Swidjit::Application.routes.draw do
   resource :feeds, :only => [] do
     member do
       get 'geo/:tag_name', :action => :geo, :as => 'geo'
-      get ':type(/:tag_name)', :action => :index, :as => 'main', :defaults => { :type => :all }
       get :drafts
       get 'recommendations(/:type)', :action => :recommendations, :as => 'recommendations'
       get 'familiar_users(/:type)', :action => :familiar_users, :as => 'familiar_users'
       get :search, :action => :search
+      get ':type(/:tag_name)', :action => :index, :as => 'main', :defaults => { :type => :all }
     end
   end
 
