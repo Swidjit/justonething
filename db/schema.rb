@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418132916) do
+ActiveRecord::Schema.define(:version => 20120419134420) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -226,25 +226,18 @@ ActiveRecord::Schema.define(:version => 20120418132916) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "display_name"
-    t.boolean  "user_set_display_name",  :default => false, :null => false
     t.boolean  "is_admin",               :default => false
     t.text     "about"
     t.string   "websites"
     t.string   "address"
     t.string   "phone"
+    t.string   "zipcode"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["display_name"], :name => "index_users_on_display_name"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "users_tags", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.integer  "tag_id",     :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "vouches", :force => true do |t|
     t.integer  "voucher_id"
@@ -275,8 +268,4 @@ ActiveRecord::Schema.define(:version => 20120418132916) do
 
   add_foreign_key "rsvps", "items", :name => "rsvps_item_id_fk"
   add_foreign_key "rsvps", "users", :name => "rsvps_user_id_fk"
-
-  add_foreign_key "users_tags", "tags", :name => "users_tags_tag_id_fk"
-  add_foreign_key "users_tags", "users", :name => "users_tags_user_id_fk"
-
 end

@@ -71,7 +71,7 @@ module Swidjit
     # Load API keys from .gitignored secrets file and transform
     # them into environment variables.
     config.before_initialize do
-      if File.exists?(File.join(__FILE__, '..', 'secrets.yml'))
+      if File.exists?("#{Rails.root}/config/secrets.yml")
         dev_secrets = File.open("#{Rails.root}/config/secrets.yml")
 
         begin

@@ -1,4 +1,4 @@
-%h2 Sign up
+%h2= @title || 'Sign up'
 
 = form_for(@user, :url => registration_path(User)) do |f|
 
@@ -18,6 +18,11 @@
     = f.label :last_name
     %br
     = f.text_field :last_name
+
+  %div
+    = f.label :zipcode
+    %br
+    = f.text_field :zipcode
 
   %div
     = f.label :email

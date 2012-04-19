@@ -18,20 +18,20 @@ describe User do
       subject.phone = "555-481-7985"
       subject.phone.should == "555-481-7985"
     end
+    it 'a zipcode' do
+      subject.zipcode = '12345'
+      subject.zipcode.should == '12345'
+    end
   end
 
   describe "Display Name" do
     it "can be changed once" do
-      u1 = Factory(:user, :display_name => 'JohnDoe', :user_set_display_name => false)
-      u1.display_name = "itsamemario"
-      u1.save
-      u1.reload
-      u1.user_set_display_name.should == true
-      u1.display_name.should == "itsamemario"
+      u1 = Factory(:user, :display_name => 'JohnDoe')
+      u1.display_name.should == "JohnDoe"
       u1.display_name = "lolsasaur"
       u1.save
       u1.reload
-      u1.display_name.should == "itsamemario"
+      u1.display_name.should == "JohnDoe"
     end
 
     it "can be searched on" do
