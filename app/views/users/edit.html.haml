@@ -19,10 +19,7 @@
       %br
       name
     .left
-      - if @user.user_set_display_name
-        = @user.display_name
-      - else
-        = f.text_field :display_name
+      = @user.display_name
       %br
       = profile_url(@user.display_name)
       %br

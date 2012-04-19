@@ -12,7 +12,8 @@ class User < ActiveRecord::Base
       :display_name, :as => [:default,:devise]
 
   attr_accessible :about, :websites, :address, :phone, :as => :default
-  attr_accessible :user_set_display_name, :as => :devise
+
+  attr_readonly :display_name
 
   validate :is_thirteen?, :on => :create
   validates_presence_of :first_name, :last_name, :zipcode
@@ -20,9 +21,7 @@ class User < ActiveRecord::Base
       :exclusion => { :in => BLACK_LISTED_USER_URLS }
   validates_uniqueness_of :display_name, :case_sensitive => false
 
-  before_validation :check_updated_display_name, :on => :update
   before_validation :update_open_hours_if_present
-  before_update :set_user_set_display_name
 
   attr_accessor :is_thirteen, :new_open_hours
 
@@ -79,12 +78,8 @@ class User < ActiveRecord::Base
           :first_name => data['first_name'],
           :last_name => data['last_name'],
           :display_name => username,
-          :user_set_display_name => false,
           :is_thirteen => 1}, :as => :devise ) # Facebook requires the user to be at least 13 as well
 
-      # Facebook requires a valid email before allowing the user to add Apps like Swidjit
-      user.skip_confirmation!
-      user.save
       user
     end
   end
@@ -110,12 +105,6 @@ class User < ActiveRecord::Base
   end
 
   private
-  def check_updated_display_name
-    if self.display_name_changed? && self.user_set_display_name
-      self.display_name = self.display_name_was
-    end
-  end
-
   def is_thirteen?
     errors.add(:base,'You must be at least 13 years of age to register') if is_thirteen.blank? || is_thirteen.to_i != 1
   end
@@ -133,12 +122,6 @@ class User < ActiveRecord::Base
     end
 
     new_display_name
-  end
-
-  def set_user_set_display_name
-    if self.display_name_changed?
-      self.user_set_display_name = true
-    end
   end
 
   def update_open_hours_if_present

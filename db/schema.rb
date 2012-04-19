@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418163552) do
+ActiveRecord::Schema.define(:version => 20120419134420) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -226,7 +226,6 @@ ActiveRecord::Schema.define(:version => 20120418163552) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "display_name"
-    t.boolean  "user_set_display_name",  :default => false, :null => false
     t.boolean  "is_admin",               :default => false
     t.text     "about"
     t.string   "websites"
@@ -269,5 +268,4 @@ ActiveRecord::Schema.define(:version => 20120418163552) do
 
   add_foreign_key "rsvps", "items", :name => "rsvps_item_id_fk"
   add_foreign_key "rsvps", "users", :name => "rsvps_user_id_fk"
-
 end

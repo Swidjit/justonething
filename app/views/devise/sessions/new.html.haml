@@ -2,7 +2,7 @@
 
   %h2 Sign in
 
-  .fb-login-button{'onlogin' => 'jfb_js_login_callback()', 'data-scope' => 'email'} Sign in with Facebook
+  .fb-login-button{'onlogin' => 'jfb_js_login_callback()', 'data-scope' => 'email,user_location'} Sign in with Facebook
 
   = form_for(@user, :url => session_path(User), :html => {:id => 'login_form'}) do |f|
 

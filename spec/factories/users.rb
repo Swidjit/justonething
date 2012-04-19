@@ -8,5 +8,6 @@ FactoryGirl.define do
     first_name 'Joe'
     last_name 'Smith'
     is_thirteen 1
+    zipcode '12345'
   end
 end
