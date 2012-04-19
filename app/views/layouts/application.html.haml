@@ -43,7 +43,7 @@
                 %li= link_to 'Familiar Users', familiar_users_feeds_path
                 %li= link_to 'Mentions', references_user_path(current_user)
                 %li= link_to 'Inactive Items', drafts_feeds_path
-                %li= link_to 'nearby', nearby_feeds_path if current_user.geo_tags.present?
+                %li= link_to 'Nearby', nearby_feeds_path if current_user.geo_tags.present?
           %h3
             %a.secHdr6{:href=>'#'} Collections
           %div

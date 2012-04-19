@@ -43,7 +43,7 @@ describe FeedsController do
     end
     it 'should be success' do
       get :nearby
-      response.should_be success
+      response.should be_success
     end
   end
 

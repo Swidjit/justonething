@@ -63,7 +63,11 @@ class FeedsController < ApplicationController
 
   def nearby
     @type = (params[:type] || 'all').singularize.camelize
-    @title = "Nearby #{@type} Items"
+    if @type == 'all'
+      @title = "All Nearby Items"
+    else
+      @title = "Nearby #{@type} Items"
+    end
 
     if %w( events have_its want_its links thoughts ).include? @type
       @feed_items = Item.where({:type => @type}).having_geo_tags(current_user.geo_tags).access_controlled_for(current_user,current_ability)
@@ -71,7 +75,7 @@ class FeedsController < ApplicationController
       @feed_items = Item.having_geo_tags(current_user.geo_tags).access_controlled_for(current_user,current_ability)
     end
 
-    render_paginated_feed :generic_index
+    render_paginated_feed :index
   end
 
   # Per discussion between Isaiah and Sonny: single action for each item type
