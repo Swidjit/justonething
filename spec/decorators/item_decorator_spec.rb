@@ -9,7 +9,7 @@ describe ItemDecorator do
 
   it "should linkify hashtags" do
     item = ItemDecorator.decorate Factory.build(:item, :description => "test #tags in descriptions")
-    item.stub :main_feeds_path => '/feeds/all/tags'
+    item.h.stub :main_feeds_path => '/feeds/all/tags'
     item.description.should == "test <a href=\"/feeds/all/tags\">#tags</a> in descriptions"
   end
 end

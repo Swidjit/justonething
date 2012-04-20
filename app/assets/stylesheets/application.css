@@ -233,6 +233,13 @@ mark{
   padding-top: 0px;
 }
 
+.current_city {
+  float: left;
+  color: white;
+  display: inline-block;
+  margin: 15px 5px;
+}
+
 
 .right { float: right; }
 .left { float: left; }

@@ -2,9 +2,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_time_zone
+  before_filter :set_most_recent_city
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to new_user_session_path, :alert => exception.message
+  end
+
+  def current_city
+    @current_city ||= City.find_by_url_name(params[:city_url_name] || session[:most_recent_city]) || (current_user && current_user.cities.first) || City.first
+  end
+
+  def set_most_recent_city
+    session[:most_recent_city] = current_city.url_name
   end
 
   def set_time_zone
@@ -41,4 +50,9 @@ class ApplicationController < ActionController::Base
       render html_layout
     end
   end
+
+  def default_url_options
+    { :city_url_name => current_city.url_name }
+  end
+
 end

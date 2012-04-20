@@ -26,7 +26,7 @@
 - if can? :manage, item
   #visiEXP
     .visiRow.pad
-      = item.visibility_form
+      = item.visibility_form('#visiEXP')
       .xtraLine
 .contentRow.pad.without_border
   .img_left
@@ -56,7 +56,7 @@
   .comment_block
     Comment
     %a#comment{:name => 'comment'}
-    = form_for item.comments.build do |f|
+    = form_for item.comments.build, {:url => comments_path(item)} do |f|
       = f.text_area :text, :class => 'user-suggestion'
       = f.submit 'Comment'
 

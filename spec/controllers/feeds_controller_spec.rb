@@ -92,4 +92,15 @@ describe FeedsController do
       assigns(:feed_items).should == [find_me]
     end
   end
+
+  describe 'scoped to city' do
+    it 'should only find items for the city' do
+      new_city = Factory(:city)
+      in_first_city = Factory(:want_it)
+      in_new_city = Factory(:have_it)
+      in_new_city.item_visibility_rules.create({:visibility_id => new_city.id, :visibility_type => 'City'})
+      get :index, :type => 'all', :city_url_name => new_city.url_name
+      assigns(:feed_items).should == [in_new_city]
+    end
+  end
 end

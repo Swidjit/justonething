@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     else
       params[:type] = 'all'
     end
-    @feed_items = @feed_items.access_controlled_for(current_user,current_ability)
+    @feed_items = @feed_items.access_controlled_for(current_user, current_city, current_ability)
     render_paginated_feed :show
   end
 
@@ -32,10 +32,10 @@ class UsersController < ApplicationController
   def references
     item_type = params[:type] || 'all'
     if %w( events have_its want_its links thoughts ).include? item_type
-      @feed_items = Item.referencing(@user).where(:type => item_type.camelize.singularize).access_controlled_for(current_user,current_ability)
+      @feed_items = Item.referencing(@user).where(:type => item_type.camelize.singularize).access_controlled_for(current_user, current_city, current_ability)
     else
       params[:type] = 'all'
-      @feed_items = Item.referencing(@user).access_controlled_for(current_user,current_ability)
+      @feed_items = Item.referencing(@user).access_controlled_for(current_user, current_city, current_ability)
     end
   end
 
@@ -43,12 +43,18 @@ class UsersController < ApplicationController
     item = Item.new
 
     # 0 is used as a placeholder for current user
-    if params[:id].present? && params[:id].to_i > 0
-      user = User.find(params[:id])
+    if params[:id].present?
+      if params[:id].to_i > 0
+        user = User.find(params[:id])
+      else
+        user = current_user
+      end
       item.user = user
     end
 
     @item = ItemDecorator.new(item)
+
+    @item.item_visibility_rules.build(:visibility_id => user.cities.first.id, :visibility_type => 'City') if user.cities.any?
 
     render :partial => 'items/visibility_form', :locals => { :ajax => false, :item => @item }
   end

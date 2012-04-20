@@ -36,3 +36,14 @@ Swidjit::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end
+
+# We need a default city for all paths called in the steps
+module ActionDispatch
+  module Integration
+    class Session
+      def default_url_options
+        { :host => host, :protocol => https? ? "https" : "http", :city_url_name => City.first.url_name }
+      end
+    end
+  end
+end

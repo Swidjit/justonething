@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+ithaca = City.create({ url_name: 'ithaca', display_name: 'Ithaca'})
+Item.all.each do |itm|
+  itm.item_visibility_rules.create({:visibility_type => 'City', :visibility_id => ithaca.id})
+end
+User.all.each do |usr|
+  usr.cities << ithaca
+end

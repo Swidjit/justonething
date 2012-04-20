@@ -16,6 +16,8 @@ class Item < ActiveRecord::Base
       :source_type => 'List', :uniq => true
   has_many :collections, :through => :item_visibility_rules, :source => :visibility,
       :source_type => 'Item', :uniq => true
+  has_many :cities, :through => :item_visibility_rules, :source => :visibility,
+      :source_type => 'City', :uniq => true
 
   belongs_to :thumbnail, :class_name => 'Image'
   validates_associated :thumbnail
@@ -33,7 +35,7 @@ class Item < ActiveRecord::Base
 
   attr_protected :user, :posted_by_user
   attr_accessible :title, :description, :has_expiration, :tag_list, :geo_tag_list, :active, :public,
-    :expires_on, :community_ids, :list_ids, :thumbnail, :thumbnail_id
+    :expires_on, :community_ids, :list_ids, :thumbnail, :thumbnail_id, :city_ids
 
   has_and_belongs_to_many :tags, :uniq => true, :conditions => "tags.type IS NULL"
   has_and_belongs_to_many :geo_tags, :join_table => :items_tags, :association_foreign_key => :tag_id, :uniq => true, :conditions => "tags.type = 'GeoTag'"
@@ -68,18 +70,19 @@ class Item < ActiveRecord::Base
 
   scope :flagged, :conditions => "EXISTS (SELECT * FROM #{ItemFlag.table_name} WHERE #{ItemFlag.table_name}.item_id = #{table_name}.id)"
 
-  def self.access_controlled_for(user,ability)
+  def self.access_controlled_for(user, city, ability)
     user ||= User.new
-    controlled_scope = joins("LEFT JOIN #{ItemVisibilityRule.table_name} ivr ON #{self.table_name}.id = ivr.item_id")
+    controlled_scope = joins("LEFT JOIN #{ItemVisibilityRule.table_name} ivr ON #{self.table_name}.id = ivr.item_id " +
+        "LEFT JOIN #{City.table_name} ivri ON ivr.visibility_id = #{city.id} AND ivr.visibility_type = 'City' ")
     if user.persisted?
       controlled_scope = controlled_scope.joins("LEFT JOIN #{List.table_name} ivrl ON ivr.visibility_id = ivrl.id AND ivr.visibility_type = 'List' " +
         "LEFT JOIN lists_users lus ON lus.list_id = ivrl.id AND lus.user_id = #{user.id} " +
         "LEFT JOIN #{Community.table_name} ivrc ON ivr.visibility_id = ivrc.id AND ivr.visibility_type = 'Community' " +
         "LEFT JOIN communities_users cus ON cus.community_id = ivrc.id AND cus.user_id = #{user.id} "
-      ).having("( COUNT(ivr.*) = 0 OR COUNT(lus.*) > 0 OR COUNT(cus.*) > 0 ) OR #{self.table_name}.user_id = #{user.id}"
+      ).having("( COUNT(ivri.*) > 0 OR COUNT(lus.*) > 0 OR COUNT(cus.*) > 0 ) OR #{self.table_name}.user_id = #{user.id}"
       )
     else
-      controlled_scope = controlled_scope.having("COUNT(ivr.*) = 0")
+      controlled_scope = controlled_scope.having("COUNT(ivri.*) > 0")
     end
 
     controlled_scope.group(self.column_names.map{ |attr| "#{self.table_name}.#{attr}"}.join(",")).accessible_by(ability)
