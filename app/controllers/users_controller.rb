@@ -43,12 +43,18 @@ class UsersController < ApplicationController
     item = Item.new
 
     # 0 is used as a placeholder for current user
-    if params[:id].present? && params[:id].to_i > 0
-      user = User.find(params[:id])
+    if params[:id].present?
+      if params[:id].to_i > 0
+        user = User.find(params[:id])
+      else
+        user = current_user
+      end
       item.user = user
     end
 
     @item = ItemDecorator.new(item)
+
+    @item.item_visibility_rules.build(:visibility_id => user.cities.first.id, :visibility_type => 'City') if user.cities.any?
 
     render :partial => 'items/visibility_form', :locals => { :ajax => false, :item => @item }
   end

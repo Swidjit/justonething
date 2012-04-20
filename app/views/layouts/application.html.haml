@@ -88,6 +88,9 @@
 
       #content
         .column_content_nav
+          .current_city
+            browsing
+            = @current_city.name
           %form#search{method: "get", action: search_feeds_path }
             %input{type: "text", name: "q"}
             %input{type: "submit", value: "search"}

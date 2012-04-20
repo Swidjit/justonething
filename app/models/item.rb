@@ -16,6 +16,8 @@ class Item < ActiveRecord::Base
       :source_type => 'List', :uniq => true
   has_many :collections, :through => :item_visibility_rules, :source => :visibility,
       :source_type => 'Item', :uniq => true
+  has_many :cities, :through => :item_visibility_rules, :source => :visibility,
+      :source_type => 'City', :uniq => true
 
   belongs_to :thumbnail, :class_name => 'Image'
   validates_associated :thumbnail
@@ -33,7 +35,7 @@ class Item < ActiveRecord::Base
 
   attr_protected :user, :posted_by_user
   attr_accessible :title, :description, :has_expiration, :tag_list, :geo_tag_list, :active, :public,
-    :expires_on, :community_ids, :list_ids, :thumbnail, :thumbnail_id
+    :expires_on, :community_ids, :list_ids, :thumbnail, :thumbnail_id, :city_ids
 
   has_and_belongs_to_many :tags, :uniq => true, :conditions => "tags.type IS NULL"
   has_and_belongs_to_many :geo_tags, :join_table => :items_tags, :association_foreign_key => :tag_id, :uniq => true, :conditions => "tags.type = 'GeoTag'"

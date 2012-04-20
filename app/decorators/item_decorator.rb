@@ -181,20 +181,25 @@ class ItemDecorator < ApplicationDecorator
 
   def tokenized_visibility_rules
     tokenized_rules = []
-    item.item_visibility_rules.where({:visibility_type => ['Community','List','City']}).each do |rule|
-      this_obj = rule.visibility
-      token_class = "#{rule.visibility_type.downcase}_token"
-      tokenized_rules << h.content_tag(:div, (''.html_safe + this_obj.name + ' ' +
-        link_to('x','#',:class => 'visibility_rule_remove',
-          'data-rule-type' => rule.visibility_type.downcase,
-          'data-visibility-id' => rule.visibility_id)),
-        :class => token_class)
+    item.item_visibility_rules.each do |rule|
+      # if we do this as a Where in the line above, then it shoots off a new query
+      # for unpersisted items and doesn't find the default rule added for the city
+      if %w( Community List City ).include?(rule.visibility_type)
+        this_obj = rule.visibility
+        token_class = "#{rule.visibility_type.downcase}_token"
+        tokenized_rules << h.content_tag(:div, (''.html_safe + this_obj.name + ' ' +
+          link_to('x','#',:class => 'visibility_rule_remove',
+            'data-rule-type' => rule.visibility_type.downcase,
+            'data-visibility-id' => rule.visibility_id)),
+          :class => token_class)
+      end
     end
     tokenized_rules.join(' ').html_safe
   end
 
-  def visibility_form
+  def visibility_form(wrapper)
     if h.can? :manage, item
+      @wrapper = wrapper
       render(:partial => 'visibility_form', :locals => { :ajax => true, :item => self })
     end
   end

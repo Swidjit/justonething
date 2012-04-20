@@ -184,6 +184,43 @@ $("#calendar_select_date_hidden").live("change", function() {
   window.location.href = '/' + currentCity + '/calendar/date/' + $(this).val();
 });
 
+$("#add_item_form #visibility_rule_remove").live('click',function(){
+  var ruleType = $(this).attr('data-rule-type');
+  var visibilityID = $(this).attr('data-visibility-id');
+  var $idInput = $(this).closest('li').siblings('li[id*="'+ruleType+'"]').children('input');
+  var $thisRule = $(this).closest('div');
+  var arIds = $.unique($idInput.val().split(','));
+  var i =0, arLen = arIds.length;
+  while(i < arLen){
+    if(arIds[i] == visibilityID){
+      arIds.splice(i,1);
+      break;
+    }
+    i++;
+  }
+  $idInput.val(arIds.join(','));
+  $thisRule.remove();
+  return false;
+});
+
+$("#add_item_form #add_visibility_rule a").live('click',function(){
+  var ruleType = $(this).attr('data-rule-type');
+  var visibilityID = $(this).attr('data-visibility-id');
+  var existingRule = $(this).closest('ul').parent().find('.visibility_rule_remove[data-visibility-id="'+visibilityID+'"][data-rule-type="'+ruleType+'"]').length;
+  if( existingRule == 0 ){
+    var $idInput = $(this).closest('ul').closest('li').siblings('li[id*="'+ruleType+'"]').children('input');
+    console.log($idInput);
+    var arIds = $idInput.val().length > 0 ? $idInput.val().split(',') : new Array();
+    arIds.push(visibilityID);
+    var ruleName = $(this).text();
+    $newRule = $("<div class='"+ruleType+"_token'>"+ruleName+" <a href='#' class='visibility_rule_remove'"+
+      " data-visibility-id='"+visibilityID+"' data-rule-type='"+ruleType+"'>x</a></div>");
+    $idInput.val($.unique(arIds).join(','));
+    $(this).closest('ul').before($newRule);
+  }
+  return false;
+});
+
 var swidjit = function() {
   return {
     currentCity : function(){
