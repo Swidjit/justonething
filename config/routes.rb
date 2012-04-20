@@ -101,6 +101,8 @@ Swidjit::Application.routes.draw do
 
   post '/images/generate' => 'images#generate'
 
+  match 'pages/:page_name' => 'pages#index'
+
   resources :offers, :only => [:destroy] do
     resources :offer_messages, :only => [:create]
   end
