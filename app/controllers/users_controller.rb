@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     else
       params[:type] = 'all'
     end
-    @feed_items = @feed_items.access_controlled_for(current_user,current_ability)
+    @feed_items = @feed_items.access_controlled_for(current_user, current_city, current_ability)
     render_paginated_feed :show
   end
 
@@ -32,10 +32,10 @@ class UsersController < ApplicationController
   def references
     item_type = params[:type] || 'all'
     if %w( events have_its want_its links thoughts ).include? item_type
-      @feed_items = Item.referencing(@user).where(:type => item_type.camelize.singularize).access_controlled_for(current_user,current_ability)
+      @feed_items = Item.referencing(@user).where(:type => item_type.camelize.singularize).access_controlled_for(current_user, current_city, current_ability)
     else
       params[:type] = 'all'
-      @feed_items = Item.referencing(@user).access_controlled_for(current_user,current_ability)
+      @feed_items = Item.referencing(@user).access_controlled_for(current_user, current_city, current_ability)
     end
   end
 

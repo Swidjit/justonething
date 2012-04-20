@@ -68,18 +68,19 @@ class Item < ActiveRecord::Base
 
   scope :flagged, :conditions => "EXISTS (SELECT * FROM #{ItemFlag.table_name} WHERE #{ItemFlag.table_name}.item_id = #{table_name}.id)"
 
-  def self.access_controlled_for(user,ability)
+  def self.access_controlled_for(user, city, ability)
     user ||= User.new
-    controlled_scope = joins("LEFT JOIN #{ItemVisibilityRule.table_name} ivr ON #{self.table_name}.id = ivr.item_id")
+    controlled_scope = joins("LEFT JOIN #{ItemVisibilityRule.table_name} ivr ON #{self.table_name}.id = ivr.item_id " +
+        "LEFT JOIN #{City.table_name} ivri ON ivr.visibility_id = #{city.id} AND ivr.visibility_type = 'City' ")
     if user.persisted?
       controlled_scope = controlled_scope.joins("LEFT JOIN #{List.table_name} ivrl ON ivr.visibility_id = ivrl.id AND ivr.visibility_type = 'List' " +
         "LEFT JOIN lists_users lus ON lus.list_id = ivrl.id AND lus.user_id = #{user.id} " +
         "LEFT JOIN #{Community.table_name} ivrc ON ivr.visibility_id = ivrc.id AND ivr.visibility_type = 'Community' " +
         "LEFT JOIN communities_users cus ON cus.community_id = ivrc.id AND cus.user_id = #{user.id} "
-      ).having("( COUNT(ivr.*) = 0 OR COUNT(lus.*) > 0 OR COUNT(cus.*) > 0 ) OR #{self.table_name}.user_id = #{user.id}"
+      ).having("( COUNT(ivri.*) > 0 OR COUNT(lus.*) > 0 OR COUNT(cus.*) > 0 ) OR #{self.table_name}.user_id = #{user.id}"
       )
     else
-      controlled_scope = controlled_scope.having("COUNT(ivr.*) = 0")
+      controlled_scope = controlled_scope.having("COUNT(ivri.*) > 0")
     end
 
     controlled_scope.group(self.column_names.map{ |attr| "#{self.table_name}.#{attr}"}.join(",")).accessible_by(ability)

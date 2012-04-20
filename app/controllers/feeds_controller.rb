@@ -89,7 +89,7 @@ class FeedsController < ApplicationController
       feed_items = feed_items.where({:type => @type.singularize.camelize})
     end
     @type = @type.titleize
-    feed_items.access_controlled_for(current_user,current_ability)
+    feed_items.access_controlled_for(current_user, current_city, current_ability)
   end
 
 end

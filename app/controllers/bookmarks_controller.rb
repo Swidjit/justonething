@@ -3,7 +3,7 @@ class BookmarksController < ApplicationController
   before_filter :load_resource, :only => :destroy
 
   def index
-    @feed_items = current_user.bookmarked_items.access_controlled_for(current_user,current_ability)
+    @feed_items = current_user.bookmarked_items.access_controlled_for(current_user, current_city, current_ability)
     render_paginated_feed :index
   end
 

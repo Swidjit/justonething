@@ -14,7 +14,8 @@ module ActionDispatch::Routing::UrlFor
       options = options.symbolize_keys.reverse_merge!(url_options)
       if options[:controller] =~ /^admin\// || (options[:controller] == 'users' &&
           %w( references ).exclude?(options[:action])) ||
-          options[:controller] == 'notifications'
+          options[:controller] == 'notifications' || options[:controller] =~ /^devise\// ||
+          options[:use_route] == 'root'
         options.delete(:city_url_name)
       end
       _routes.url_for(options)

@@ -92,4 +92,8 @@ describe FeedsController do
       assigns(:feed_items).should == [find_me]
     end
   end
+
+  describe 'scoped to city' do
+    
+  end
 end

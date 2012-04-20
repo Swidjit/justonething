@@ -11,8 +11,6 @@ Swidjit::Application.routes.draw do
   end
 
   scope ':city_url_name' do
-    devise_for :users, :controllers => { :registrations => "registrations",
-      :omniauth_callbacks => "omniauth_callbacks" }
 
     resources :want_its, :have_its, :thoughts, :links, :events, :collections, :except => :index do
       member do
@@ -99,8 +97,10 @@ Swidjit::Application.routes.draw do
     resources :offers, :only => [:destroy] do
       resources :offer_messages, :only => [:create]
     end
-
   end
+
+  devise_for :users, :controllers => { :registrations => "registrations",
+      :omniauth_callbacks => "omniauth_callbacks" }
 
   post '/images/generate' => 'images#generate'
 
@@ -119,8 +119,6 @@ Swidjit::Application.routes.draw do
   # This needs to stay at the bottom such that a user can't override a preset URL
   match '/:display_name', :controller => :users, :action => :show, :as => :profile
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
   root :to => 'feeds#index'
 
 end

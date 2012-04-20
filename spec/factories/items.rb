@@ -3,6 +3,9 @@ FactoryGirl.define do
     title 'Important Item'
     description 'This item is very important'
     user { |a| a.association(:user) }
+    after_create do |itm|
+      itm.item_visibility_rules.create({:visibility_type => 'City', :visibility_id => City.first.id})
+    end
   end
 
   factory :want_it, :parent => :item, :class => 'want_it' do

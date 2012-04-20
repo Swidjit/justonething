@@ -42,6 +42,8 @@ Spork.prefork do
       FileUtils.rm_r(test_dragonfly_images) if File.exists?(test_dragonfly_images)
     end
   end
+
+  require "#{Rails.root}/db/seeds.rb"
 end
 
 Spork.each_run do

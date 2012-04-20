@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_city
-    @current_city ||= City.find_by_url_name(params[:city_url_name] || session[:most_recent_city]) || current_user.cities.first || City.first
+    @current_city ||= City.find_by_url_name(params[:city_url_name] || session[:most_recent_city]) || (current_user && current_user.cities.first) || City.first
   end
 
   def set_most_recent_city
@@ -51,8 +51,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def url_options
-    { :city_url_name => current_city.url_name }.merge(super)
+  def default_url_options
+    { :city_url_name => current_city.url_name }
   end
 
 end
