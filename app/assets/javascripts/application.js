@@ -20,7 +20,7 @@
 //= require_directory .
 
 $(document).ready(function(){
-  $('#multiAccordion').multiAccordion();
+  $('#multiAccordion').accordion();
   swidjit.mainmenu();
   $('.datepicker').datepicker();
   $('.timepicker').timepicker({showPeriod: true});

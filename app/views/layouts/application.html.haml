@@ -73,18 +73,18 @@
                     = f.submit '+'
                     = f.text_field :name, :placeholder => 'list name'
                   #new_list_errors
-          %ul.navMenus.extra_links
-            %li= link_to "FAQ", pages_path(:page_name => :faq)
-            %li= link_to "About", pages_path(:page_name => :about)
-            %li= link_to "Privacy Policy", pages_path(:page_name => 'privacy-policy')
-            %li= link_to "Contact Us", contact_path
-            - if signed_in?
-              %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
-              - if current_user.is_admin?
-                %li= link_to 'Manage Preset Tags', item_preset_tags_path
-                %li= link_to 'Manage Flagged Items', flagged_items_path
-            - else
-              %li= link_to 'Sign in/Register', new_user_session_path
+        %ul.navMenus.extra_links
+          %li= link_to "FAQ", pages_path(:page_name => :faq)
+          %li= link_to "About", pages_path(:page_name => :about)
+          %li= link_to "Privacy Policy", pages_path(:page_name => 'privacy-policy')
+          %li= link_to "Contact Us", contact_path
+          - if signed_in?
+            %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
+            - if current_user.is_admin?
+              %li= link_to 'Manage Preset Tags', item_preset_tags_path
+              %li= link_to 'Manage Flagged Items', flagged_items_path
+          - else
+            %li= link_to 'Sign in/Register', new_user_session_path
 
       #content
         .column_content_nav
