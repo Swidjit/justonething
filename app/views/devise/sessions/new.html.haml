@@ -2,6 +2,8 @@
 
   %h2 Sign in
 
+  %p To take full advantage of Swidjit, you will need to login/register for the site.  unfortunately, those of you that had an account on the demo Swidjit platform will need to create a new one as the information will not be transferred over.
+
   .fb-login-button{'onlogin' => 'jfb_js_login_callback()', 'data-scope' => 'email,user_location'} Sign in with Facebook
 
   = form_for(@user, :url => session_path(User), :html => {:id => 'login_form'}) do |f|
