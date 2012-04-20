@@ -70,9 +70,9 @@ class FeedsController < ApplicationController
     end
 
     if %w( events have_its want_its links thoughts ).include? @type
-      @feed_items = Item.where({:type => @type}).having_geo_tags(current_user.geo_tags).access_controlled_for(current_user,current_ability)
+      @feed_items = Item.where({:type => @type}).having_geo_tags(current_user.geo_tags).access_controlled_for(current_user,current_city,current_ability)
     else
-      @feed_items = Item.having_geo_tags(current_user.geo_tags).access_controlled_for(current_user,current_ability)
+      @feed_items = Item.having_geo_tags(current_user.geo_tags).access_controlled_for(current_user,current_city,current_ability)
     end
 
     render_paginated_feed :index
