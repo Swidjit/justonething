@@ -28,8 +28,6 @@ ActiveRecord::Schema.define(:version => 20120419161025) do
   create_table "cities_users", :force => true do |t|
     t.integer  "city_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   add_index "cities_users", ["city_id", "user_id"], :name => "index_cities_users_on_city_id_and_user_id", :unique => true

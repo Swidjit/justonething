@@ -9,6 +9,7 @@ class ItemDecorator < ApplicationDecorator
     user = item.user || h.current_user
 
     option_hash = {}
+    option_hash['cities'] = user.cities.collect{|c| {:name => c.display_name, :type => 'city', :vis_id => c.id} }
     option_hash['communities'] = user.communities.collect{|c| {:name => c.name, :type => "community", :vis_id => c.id} }
     option_hash['lists'] = user.lists.collect{|c| {:name => c.name, :type => "list", :vis_id => c.id} }
     option_hash
@@ -180,7 +181,7 @@ class ItemDecorator < ApplicationDecorator
 
   def tokenized_visibility_rules
     tokenized_rules = []
-    item.item_visibility_rules.where({:visibility_type => ['Community','List']}).each do |rule|
+    item.item_visibility_rules.where({:visibility_type => ['Community','List','City']}).each do |rule|
       this_obj = rule.visibility
       token_class = "#{rule.visibility_type.downcase}_token"
       tokenized_rules << h.content_tag(:div, (''.html_safe + this_obj.name + ' ' +
