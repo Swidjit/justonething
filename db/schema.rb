@@ -215,7 +215,6 @@ ActiveRecord::Schema.define(:version => 20120421125346) do
   end
 
   add_index "tags", ["name", "type"], :name => "index_tags_on_name_and_type"
-  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
   create_table "user_familiarities", :force => true do |t|
     t.integer "user_id",                     :null => false
