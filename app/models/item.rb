@@ -56,10 +56,11 @@ class Item < ActiveRecord::Base
   before_validation :handle_has_expiration, :convert_tag_list_to_tags
 
   default_scope { order_by_created_at }
-  scope :active, lambda{ where(["#{table_name}.disabled = false AND (#{table_name}.expires_on >= ? OR #{table_name}.expires_on IS NULL)", DateTime.now.end_of_day.to_s(:db)]) }
+  default_scope { where(["#{table_name}.disabled = false"]) }
 
   scope :order_by_created_at, :order => "#{self.table_name}.created_at DESC"
 
+  scope :active, lambda{ where(["#{table_name}.active = true AND (#{table_name}.expires_on >= ? OR #{table_name}.expires_on IS NULL)", DateTime.now.end_of_day.to_s(:db)]) }
   scope :deactivated, :conditions => "#{self.table_name}.active = false"
   scope :recommended, where("#{self.table_name}.recommendations_count > 0"
     ).reorder("#{self.table_name}.recommendations_count DESC, #{self.table_name}.created_at DESC")
