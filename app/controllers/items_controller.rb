@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
     end
     @item.item_visibility_rules.build(:visibility_id => current_user.cities.first.id, :visibility_type => 'City') if current_user.cities.any?
     respond_to do |f|
-      f.html { @wrapper = '.mainContent'; render :new }
+      f.html { render :new }
       f.js { render 'new', :format => :html, :layout => false}
     end
   end
@@ -33,8 +33,6 @@ class ItemsController < ApplicationController
     item_params.delete(:user_id)
 
     @item.assign_attributes(item_params)
-
-    @wrapper = '.mainContent'
 
     format_expires_on
     @item.save
@@ -133,7 +131,12 @@ private
 
   def load_decorated_resource
     if params[:id].present?
-      @item = item_decorator.find params[:id]
+      # Ensure only active items can be seen in show
+      if params[:action] == 'show'
+        @item = item_decorator.decorate item_class.active.find params[:id]
+      else
+        @item = item_decorator.find params[:id]
+      end
     else
       @item = item_decorator.new item_class.new
     end

@@ -197,9 +197,8 @@ class ItemDecorator < ApplicationDecorator
     tokenized_rules.join(' ').html_safe
   end
 
-  def visibility_form(wrapper)
+  def visibility_form
     if h.can? :manage, item
-      @wrapper = wrapper
       render(:partial => 'visibility_form', :locals => { :ajax => true, :item => self })
     end
   end

@@ -184,7 +184,7 @@ $("#calendar_select_date_hidden").live("change", function() {
   window.location.href = '/' + currentCity + '/calendar/date/' + $(this).val();
 });
 
-$("#add_item_form #visibility_rule_remove").live('click',function(){
+$("#add_item_form .visibility_rule_remove").live('click',function(){
   var ruleType = $(this).attr('data-rule-type');
   var visibilityID = $(this).attr('data-visibility-id');
   var $idInput = $(this).closest('li').siblings('li[id*="'+ruleType+'"]').children('input');
