@@ -63,6 +63,8 @@ class User < ActiveRecord::Base
   validates_associated :profile_pic
   accepts_nested_attributes_for :profile_pic
 
+  after_create :add_to_city
+
   def self.all_by_lower_display_name(display_names)
     self.where('lower(display_name) IN (?)',display_names.map{|name| name.downcase})
   end
@@ -94,11 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"]
-      end
-    end
+    super
   end
 
   def can_collect?(item)
@@ -133,6 +131,11 @@ class User < ActiveRecord::Base
   end
 
   private
+  def add_to_city
+    # TODO: base this off of zipcode?
+    self.cities << City.first
+  end
+
   def is_thirteen?
     errors.add(:base,'You must be at least 13 years of age to register') if is_thirteen.blank? || is_thirteen.to_i != 1
   end
