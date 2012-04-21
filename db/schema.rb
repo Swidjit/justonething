@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120419161025) do
+ActiveRecord::Schema.define(:version => 20120421125346) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(:version => 20120419161025) do
   end
 
   create_table "cities_users", :force => true do |t|
-    t.integer  "city_id"
-    t.integer  "user_id"
+    t.integer "city_id"
+    t.integer "user_id"
   end
 
   add_index "cities_users", ["city_id", "user_id"], :name => "index_cities_users_on_city_id_and_user_id", :unique => true
@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(:version => 20120419161025) do
   end
 
   add_index "tags", ["name", "type"], :name => "index_tags_on_name_and_type"
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
   create_table "user_familiarities", :force => true do |t|
     t.integer "user_id",                     :null => false
@@ -244,6 +245,7 @@ ActiveRecord::Schema.define(:version => 20120419161025) do
     t.string   "address"
     t.string   "phone"
     t.string   "zipcode"
+    t.integer  "profile_pic_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

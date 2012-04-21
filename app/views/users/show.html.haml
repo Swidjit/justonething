@@ -5,8 +5,8 @@
     = @user.manage_links(:li)
     = @user.add_to_list
 .contentRow
-  .profilePic{:style => "background-image: url('img/profilepic.jpg');"}
-    = image_tag 'picBorder.png'
+  .profilePic
+    = @user.profile_pic
   .profileBio
     #btxt
       %ul
@@ -28,7 +28,7 @@
   .more
     %a#moreLink{:href => ""}
       View Full Bio
-      %img{:alt => "", :border => "0", :src => "img/arrowDN.png"}/
+      = image_tag('arrowDN.png')
 .contentRow
   %div
     = tabbed_item_types('type')

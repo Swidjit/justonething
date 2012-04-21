@@ -50,6 +50,12 @@ class UserDecorator < ApplicationDecorator
     links.join(' ').html_safe
   end
 
+  def profile_pic
+    if user.profile_pic.present?
+      ImageDecorator.new(user.profile_pic).thumb
+    end
+  end
+
   def vouches_display
     vouch_count = user.vouches.count
     vouch_label = h.content_tag :div, h.pluralize(vouch_count, 'Vouch'), :class => 'label'

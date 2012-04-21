@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :is_thirteen, :last_name, :first_name, :zipcode,
       :display_name, :as => [:default,:devise]
 
-  attr_accessible :about, :websites, :address, :phone, :as => :default
-  attr_accessible :about, :websites, :address, :phone, :geo_tag_list, :as => :default
+  attr_accessible :about, :websites, :address, :phone, :geo_tag_list, :profile_pic,
+    :profile_pic_id, :as => :default
 
   attr_readonly :display_name
 
@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
   has_many :delegates_as_delegatee, :foreign_key => :delegatee_id, :class_name => "Delegate"
   has_many :delegators, :through => :delegates_as_delegatee
   has_many :delegatees, :through => :delegates_as_delegator
+
+  belongs_to :profile_pic, :class_name => 'Image'
+  validates_associated :profile_pic
+  accepts_nested_attributes_for :profile_pic
 
   def self.all_by_lower_display_name(display_names)
     self.where('lower(display_name) IN (?)',display_names.map{|name| name.downcase})

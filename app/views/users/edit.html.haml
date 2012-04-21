@@ -21,10 +21,18 @@
       %li= "#{@user.first_name} #{@user.last_name}"
       %li= f.label :zipcode
       %li= f.text_field :zipcode
+  .contentRow.profile-info
+    .title_heading profile pic
+    %ul
+      %li.thumbnail
+        = @user.profile_pic
+      %li
+        = f.file_field :profile_pic, {:id => 'thumbnail', :name => 'thumbnail'}
+        = f.hidden_field :profile_pic_id, {:id => 'thumbnail_id'}
   %div.contentRow.profile-info
     .title_heading.left profile info
     %span anything you add here is visible publicly on your profile page
-    %ul.profile-fields
+    %ul.profile-fields.clear
       %li= f.label :about, 'about me'
       %li= f.text_area :about
       %li= f.label :websites, 'websites'
@@ -60,6 +68,8 @@
 
   %div.pad
     = f.submit "Update Profile"
+
+= javascript_include_tag 'images/dynamic_image_upload'
 
 :javascript
   var user_id = #{@user.id};
