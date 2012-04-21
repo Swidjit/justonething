@@ -83,7 +83,7 @@ class ItemsController < ApplicationController
   end
 
   def add_visibility_rule
-    if %( community list ).include? params[:visibility_type]
+    if %( community list city ).include? params[:visibility_type]
       rule_obj = params[:visibility_type].camelize.constantize.find(params[:visibility_id])
       @item.send(params[:visibility_type].pluralize) << rule_obj
     end
@@ -93,7 +93,7 @@ class ItemsController < ApplicationController
   end
 
   def remove_visibility_rule
-    if %( community list ).include? params[:visibility_type]
+    if %( community list city ).include? params[:visibility_type]
       rule_obj = params[:visibility_type].camelize.constantize.find(params[:visibility_id])
       @item.send(params[:visibility_type].pluralize).destroy rule_obj
     end
