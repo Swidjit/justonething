@@ -51,9 +51,8 @@ fieldset {
   overflow: auto;
 }
 #content {
-  height:100%;
   margin-left:225px;
-  background-color:#e1e6e9;
+  background-color:#DAE0E4;
 }
 
 .logo {
