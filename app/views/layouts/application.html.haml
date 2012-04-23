@@ -27,71 +27,72 @@
     #container
       #menu
         .logo= link_to(image_tag('logo.jpg'), root_path)
-        #multiAccordion
-          %h3
-            %a.secHdr1{:href => "#"} System Feeds
-          %div
-            %ul.navMenus
-              %li= link_to 'All Items', main_feeds_path
-              %li= link_to "Have Its", main_feeds_path(type: 'have_its')
-              %li= link_to "Want Its", main_feeds_path(type: 'want_its')
-              %li= link_to "Thoughts", main_feeds_path(type: 'thoughts')
-              %li= link_to "Links", main_feeds_path(type: 'links')
-              %li= link_to 'Events', main_feeds_path(type: 'events')
-              %li= link_to 'Collections', main_feeds_path(type: 'collections')
-              %li= link_to 'Recommendations', recommendations_feeds_path
-              - if signed_in?
-                %li= link_to 'Familiar Users', familiar_users_feeds_path
-                %li= link_to 'Mentions', references_user_path(current_user)
-                %li= link_to 'Inactive Items', drafts_feeds_path
-                - if current_user.geo_tags.present?
-                  %li= link_to 'Nearby', nearby_feeds_path
-          %h3
-            %a.secHdr6{:href=>'#'} Collections
-          %div
-            %ul.navMenus
-              - if signed_in? && current_user.collections.any?
-                -current_user.collections.each do |col|
-                  %li= link_to col.title, col
-              %li= link_to 'browse collections', '#'
-          %h3
-            %a.secHdr2{:href => "#"} Communities
-          %div
-            %ul.navMenus
-              %li= link_to 'List of Communities', communities_path
-              - if signed_in?
-                %li= link_to 'Create a Community', new_community_path
-                - current_user.communities.each do |comm|
-                  %li= link_to comm.name, comm
-          - if signed_in?
+        #menuInnerWrapper
+          #multiAccordion
             %h3
-              %a.secHdr3{:href => "#"} Lists
+              %a.secHdr1{:href => "#"} System Feeds
             %div
               %ul.navMenus
-                - current_user.lists.each do |list|
-                  %li= link_to list.name, list
-                %li
-                  = form_for List.new do |f|
-                    = f.submit '+'
-                    = f.text_field :name, :placeholder => 'list name'
-                  #new_list_errors
-        %ul.navMenus.extra_links
-          %li= link_to "FAQ", pages_path(:page_name => :faq)
-          %li= link_to "About", pages_path(:page_name => :about)
-          %li= link_to "Privacy Policy", pages_path(:page_name => 'privacy-policy')
-          %li= link_to "Contact Us", contact_path
-          - if signed_in?
-            %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
-            - if current_user.is_admin?
-              %li= link_to 'Manage Preset Tags', item_preset_tags_path
-              %li= link_to 'Manage Flagged Items', flagged_items_path
-          - else
-            %li= link_to 'Sign in/Register', new_user_session_path
-        #socialmedia_icons
-          = link_to image_tag('icons/twitter.png'), 'https://twitter.com/#!/Swidjit'
-          = link_to image_tag('icons/facebook.png'), 'http://www.facebook.com/pages/Swidjit/194313903947215'
-          = link_to image_tag('icons/googleplus.png', :alt => 'GooglePlus'), 'https://plus.google.com/u/0/b/116234830703382726755/'
-          = link_to image_tag('icons/youtube.png'), 'http://www.youtube.com/user/Swidjit'
+                %li= link_to 'All Items', main_feeds_path
+                %li= link_to "Have Its", main_feeds_path(type: 'have_its')
+                %li= link_to "Want Its", main_feeds_path(type: 'want_its')
+                %li= link_to "Thoughts", main_feeds_path(type: 'thoughts')
+                %li= link_to "Links", main_feeds_path(type: 'links')
+                %li= link_to 'Events', main_feeds_path(type: 'events')
+                %li= link_to 'Collections', main_feeds_path(type: 'collections')
+                %li= link_to 'Recommendations', recommendations_feeds_path
+                - if signed_in?
+                  %li= link_to 'Familiar Users', familiar_users_feeds_path
+                  %li= link_to 'Mentions', references_user_path(current_user)
+                  %li= link_to 'Inactive Items', drafts_feeds_path
+                  - if current_user.geo_tags.present?
+                    %li= link_to 'Nearby', nearby_feeds_path
+            %h3
+              %a.secHdr6{:href=>'#'} Collections
+            %div
+              %ul.navMenus
+                - if signed_in? && current_user.collections.any?
+                  -current_user.collections.each do |col|
+                    %li= link_to col.title, col
+                %li= link_to 'browse collections', '#'
+            %h3
+              %a.secHdr2{:href => "#"} Communities
+            %div
+              %ul.navMenus
+                %li= link_to 'List of Communities', communities_path
+                - if signed_in?
+                  %li= link_to 'Create a Community', new_community_path
+                  - current_user.communities.each do |comm|
+                    %li= link_to comm.name, comm
+            - if signed_in?
+              %h3
+                %a.secHdr3{:href => "#"} Lists
+              %div
+                %ul.navMenus
+                  - current_user.lists.each do |list|
+                    %li= link_to list.name, list
+                  %li
+                    = form_for List.new do |f|
+                      = f.submit '+'
+                      = f.text_field :name, :placeholder => 'list name'
+                    #new_list_errors
+          %ul.navMenus.extra_links
+            %li= link_to "FAQ", pages_path(:page_name => :faq)
+            %li= link_to "About", pages_path(:page_name => :about)
+            %li= link_to "Privacy Policy", pages_path(:page_name => 'privacy-policy')
+            %li= link_to "Contact Us", contact_path
+            - if signed_in?
+              %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
+              - if current_user.is_admin?
+                %li= link_to 'Manage Preset Tags', item_preset_tags_path
+                %li= link_to 'Manage Flagged Items', flagged_items_path
+            - else
+              %li= link_to 'Sign in/Register', new_user_session_path
+          #socialmedia_icons
+            = link_to image_tag('icons/twitter.png'), 'https://twitter.com/#!/Swidjit'
+            = link_to image_tag('icons/facebook.png'), 'http://www.facebook.com/pages/Swidjit/194313903947215'
+            = link_to image_tag('icons/googleplus.png', :alt => 'GooglePlus'), 'https://plus.google.com/u/0/b/116234830703382726755/'
+            = link_to image_tag('icons/youtube.png'), 'http://www.youtube.com/user/Swidjit'
 
       #content
         .column_content_nav
@@ -114,8 +115,6 @@
               %a#add_item_button{:href => "#"}
             = current_decorated_user.item_creation_links
             %div{:style => "clear:both;"}
-          #add_item_form_wrapper
-            #add_item_form.item_form
         - else
           .add_item_row.logged_out
             you are browsing
@@ -123,9 +122,12 @@
             as a guest. please
             = link_to('login/register',new_user_session_path)
             to add content and participate in social tools
-        .mainContent
-          -if notice.present?
-            %span.notice= notice
-          -if alert.present?
-            %span.alert= alert
-          = yield
+        .mainContentWrap
+          #add_item_form_wrapper
+            #add_item_form.item_form
+          .mainContent
+            -if notice.present?
+              %span.notice= notice
+            -if alert.present?
+              %span.alert= alert
+            = yield

@@ -47,8 +47,6 @@ fieldset {
   background-color: #075a8e;
   padding:0;
   margin:0;
-  position: fixed;
-  overflow: auto;
 }
 #content {
   margin-left:225px;

@@ -130,3 +130,23 @@ ul.two_col_mid {
   margin: 5px auto;
   text-align: center;
 }
+
+.mainContentWrap {
+  position: absolute;
+  left: 225px;
+  top: 82px;
+  bottom: 0px;
+  right: 0px;
+  overflow: auto;
+}
+
+#menu {
+  #menuInnerWrapper {
+    overflow: auto;
+    position: absolute;
+    top: 61px;
+    bottom: 0px;
+    left: 0px;
+    width: 225px;
+  }
+}
