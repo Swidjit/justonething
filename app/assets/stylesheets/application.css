@@ -65,20 +65,14 @@ fieldset {
 }
 
 #add_item_button {
-  background: url("addBtn.png") no-repeat scroll 0 0 transparent;
+  background: url("add-item-btn.png") no-repeat scroll 0 0 transparent;
   color: #333;
   display: block;
   float: left;
-  font-size: 14px;
   height: 17px;
-  margin: 5px 0 0 10px;
+  margin: 8px 0 0 10px;
   padding: 5px 10px;
-  text-decoration: none;
-  text-indent: 30px;
-  font-weight: bold;
-}
-#add_item_button:hover {
-  background-position:0px -27px;
+  width: 165px;
 }
 
 #new_list input {

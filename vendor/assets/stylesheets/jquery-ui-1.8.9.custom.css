@@ -643,7 +643,7 @@ ul.navMenus.extra_links {
 .add_item_txt { float:left;width:auto;padding: 9px 15px 0 0; }
 .add_item_txt { color: #075A8E; font-size: 16px; text-decoration:none;}
 .add_item_txt:hover { text-decoration:underline;}
-.item_first { margin-left:35px; }
+.item_first { margin-left:15px; }
 
 
 .contentRow {
