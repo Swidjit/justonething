@@ -4,12 +4,16 @@
     = f.inputs :class => 'extra_inform_box' do
       %li.text
         = image_tag('blue_tag.png')
-        Extra Information
-        %span optional
-      = f.input :cost, :input_html => {:placeholder => 'Cost'}
+        Information
       = f.input :location, :input_html => {:placeholder => 'Event Location'}
       = f.input :start_date, :input_html => {:placeholder => 'Start Date', :value => @item.start_datetime('date'), :class => 'datepicker event_start_date'}
       = f.input :start_time, :input_html => {:placeholder => 'Start Time', :value => @item.start_datetime('time'), :class => 'timepicker'}
       = f.input :end_date, :input_html => {:placeholder => 'End Date', :value => @item.end_datetime('date'), :class => 'datepicker event_end_date'}
       = f.input :end_time, :input_html => {:placeholder => 'End Time', :value => @item.end_datetime('time'), :class => 'timepicker'}
+    = f.inputs :class => 'extra_inform_box' do
+      %li.text
+        = image_tag('blue_tag.png')
+        Extra Information
+        %span optional
+      = f.input :cost, :input_html => {:placeholder => 'Cost'}
     = render :partial => 'items/bottom_of_form', :locals => { :f => f, :item => @item }
