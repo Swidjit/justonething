@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421125346) do
+ActiveRecord::Schema.define(:version => 20120423172528) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -124,7 +124,6 @@ ActiveRecord::Schema.define(:version => 20120421125346) do
     t.datetime "start_datetime"
     t.datetime "end_datetime"
     t.boolean  "active",                :default => true,  :null => false
-    t.boolean  "public",                :default => true,  :null => false
     t.integer  "posted_by_user_id"
     t.integer  "recommendations_count", :default => 0,     :null => false
     t.boolean  "disabled",              :default => false

@@ -41,7 +41,7 @@ class Ability
       cannot :recommend, Item
       cannot :join, Community
       cannot :read, Notification
-      can :read, ITEMS, :public => true, :active => true
+      can :read, ITEMS, :active => true
       can :read_items, Community, :is_public => true
     end
     can :read, User

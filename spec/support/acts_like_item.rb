@@ -32,11 +32,6 @@ shared_examples "an item" do
       subject.active = false
       subject.active.should == false
     end
-
-    it 'a public flag' do
-      subject.public = false
-      subject.public.should == false
-    end
   end
 
   it { should belong_to :user }

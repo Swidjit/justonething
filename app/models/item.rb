@@ -34,7 +34,7 @@ class Item < ActiveRecord::Base
   delegate :display_name, :to => :user, :prefix => true
 
   attr_protected :user, :posted_by_user
-  attr_accessible :title, :description, :has_expiration, :tag_list, :geo_tag_list, :active, :public,
+  attr_accessible :title, :description, :has_expiration, :tag_list, :geo_tag_list, :active,
     :expires_on, :community_ids, :list_ids, :thumbnail, :thumbnail_id, :city_ids
 
   has_and_belongs_to_many :tags, :uniq => true, :conditions => "tags.type IS NULL"
@@ -45,7 +45,7 @@ class Item < ActiveRecord::Base
   after_initialize :set_defaults
 
   validates_presence_of :title, :description, :user
-  validates_inclusion_of :active, :public, :in => [true,false]
+  validates_inclusion_of :active, :in => [true,false]
   validates_inclusion_of :has_expiration, :in => ['0','1']
   validate :user_belongs_to_communities, :user_owns_lists, :posted_by_user_is_delegatee_of_user
 
@@ -73,7 +73,7 @@ class Item < ActiveRecord::Base
   def self.access_controlled_for(user, city, ability)
     user ||= User.new
     controlled_scope = joins("LEFT JOIN #{ItemVisibilityRule.table_name} ivr ON #{self.table_name}.id = ivr.item_id " +
-        "LEFT JOIN #{City.table_name} ivri ON ivr.visibility_id = #{city.id} AND ivr.visibility_type = 'City' ")
+        "LEFT JOIN #{City.table_name} ivri ON ivr.visibility_id = ivri.id AND ivr.visibility_type = 'City' AND ivri.id = #{city.id} ")
     if user.persisted?
       controlled_scope = controlled_scope.joins("LEFT JOIN #{List.table_name} ivrl ON ivr.visibility_id = ivrl.id AND ivr.visibility_type = 'List' " +
         "LEFT JOIN lists_users lus ON lus.list_id = ivrl.id AND lus.user_id = #{user.id} " +

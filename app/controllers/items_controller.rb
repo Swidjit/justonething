@@ -15,7 +15,10 @@ class ItemsController < ApplicationController
     if params[:community_id].present?
       @item.communities << Community.find(params[:community_id])
     end
-    @item.item_visibility_rules.build(:visibility_id => current_user.cities.first.id, :visibility_type => 'City') if current_user.cities.any?
+    if current_user.cities.any?
+      @item.item_visibility_rules.build(:visibility_id => current_user.cities.first.id, :visibility_type => 'City')
+      @item.cities << current_user.cities.first
+    end
     respond_to do |f|
       f.html { render :new }
       f.js { render 'new', :format => :html, :layout => false}

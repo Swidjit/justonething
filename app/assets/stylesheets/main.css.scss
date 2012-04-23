@@ -46,6 +46,14 @@ ul.two_col_mid {
 
   .visiRow {
     border: none;
+
+    .item_visibility {
+      border: 1px solid #eee;
+      border-width: 2px 0px;
+      padding-top: 4px;
+      min-height: 34px;
+      margin-left: 160px;
+    }
   }
 }
 
