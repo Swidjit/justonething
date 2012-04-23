@@ -652,7 +652,6 @@ ul.navMenus.extra_links {
   padding-top:20px;
   text-align:left;
   border-bottom:2px solid #eeeeee;
-  overflow:hidden;
   position:relative;
 }
 .without_border {
@@ -706,34 +705,18 @@ ul.navMenus.extra_links {
 .itemIcons { position:absolute;top:10px;right:16px;text-align:right; }
 #item { padding-top:7px; }
 
-a.iconLink1, a.iconLink2, a.iconLink3, a.iconLink4, a.iconLink5,
-a.iconLink6, a.iconLink7, a.iconLink8, a.iconLink9 {
-  width:25px;
+a.iconLink5, a.iconLink6 {
+  width:30px;
   height:24px;
   display:block;
   float:right;
   padding:10px 0 0 5px;
 }
 
-.iconLink1 {background: url('itemIcon1.png') no-repeat;}
-.iconLink2 {background: url('itemIcon2.png') no-repeat;}
-.iconLink3 {background: url('itemIcon3.png') no-repeat; width: 20px;}
-.iconLink4 {background: url('itemIcon4.png') no-repeat;}
-a.iconLink5 {background: url('itemIcon5.png') no-repeat; width: 30px;}
-.iconLink6 {background: url('itemIcon6.png') no-repeat;}
-.iconLink7 {background: url('itemIcon7.png') no-repeat;}
-.iconLink8 {background: url('itemIcon8.png') no-repeat;}
-.iconLink9 {background: url('itemIcon9.png') no-repeat;}
+a.iconLink5 {background: url('itemIcon5.png') no-repeat;}
+a.iconLink6 {background: url('feed-menu-icon.png') no-repeat;}
 
-.iconLink1:hover {background: url('itemIcon1on.png') no-repeat;}
-.iconLink2:hover {background: url('itemIcon2on.png') no-repeat;}
-.iconLink3:hover {background: url('itemIcon3on.png') no-repeat;}
-.iconLink4:hover {background: url('itemIcon4on.png') no-repeat;}
 .iconLink5:hover {background: url('itemIcon5on.png') no-repeat;}
-.iconLink6:hover {background: url('itemIcon6on.png') no-repeat;}
-.iconLink7:hover {background: url('itemIcon7on.png') no-repeat;}
-.iconLink8:hover {background: url('itemIcon8on.png') no-repeat;}
-.iconLink9:hover {background: url('itemIcon9on.png') no-repeat;}
 
 .itemIcons div.dropdown_1column {
   margin-top: 25px;

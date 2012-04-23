@@ -32,7 +32,7 @@
   .img_left
     = item.thumb
   .img_info
-    %p= item.description
+    %p.itemDesc= item.description
     %p= item.iconic_information
   %div{:style => "clear:both;"}
 - if item.allows_offers?

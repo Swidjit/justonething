@@ -95,52 +95,60 @@ class ItemDecorator < ApplicationDecorator
   def manage_links
     links = []
 
+    if h.can? :manage, item
+      links << link_to('Edit', edit_polymorphic_path(item))
+      links << link_to('Delete', item, :confirm => 'Are you sure?', :method => :delete)
+      toggle_active_text = item.active ? 'Deactivate' : 'Activate'
+      links << link_to(toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
+    end
+
     if h.current_user.present?
       #check for bookmarks
       if h.current_user.bookmarks.map(&:item).include?(item)
         bookmark = h.current_user.bookmarks.detect { |bookmark| bookmark.item == item }
-        links << link_to('', bookmark_path(bookmark), :method => :delete, :title => 'Remove Bookmark', :class => 'iconLink1')
+        links << link_to('Remove Bookmark', bookmark_path(bookmark), :method => :delete)
       else
-        links << link_to('', bookmarks_path(:item_id => item.id), :method => :post, :title => 'Bookmark', :class => 'iconLink1')
+        links << link_to('Bookmark', bookmarks_path(:item_id => item.id), :method => :post)
       end
-    end
-
-    if h.can? :create, Comment
-      links << link_to('', send("#{item.class.to_s.underscore}_path",item,:anchor => 'comment'), :title => 'Comment', :class=> 'iconLink2')
-    end
-
-    if h.current_user.present? && !item.flagged_by_user?(current_user)
-      links << link_to('', send("flag_#{item.class.to_s.underscore}_path", item), :class => 'iconLink3', :title => 'Flag', :method => :put)
-    end
-
-    if h.can? :manage, item
-      links << link_to('', send("edit_#{item.class.to_s.underscore}_path",item), :title => 'Edit', :class => 'iconLink4')
-      links << link_to('', item, :confirm => 'Are you sure?', :title => 'Delete', :class => 'iconLink7', :method => :delete)
-      toggle_active_text = item.active ? 'Deactivate' : 'Activate'
-      links << link_to('', send("toggle_active_#{item.class.to_s.underscore}_path",item), :title => toggle_active_text, :class => 'iconLink8')
-    end
-    if h.can? :create, Item
-      links << link_to('', send("duplicate_#{item.class.to_s.underscore}_path",item), :title=> 'Duplicate', :class => 'iconLink6')
-    end
-    #if h.can? :recommend, item
-    #  links << h.render(:partial => 'recommendations/form', :locals => { :item => self })
-    #end
-
-    if h.current_user && h.current_user.can_collect?(item)
-      links << render(:partial => 'items/add_to_collection', :locals => {:item => item})
     end
 
     if h.current_user
       #check for rsvps
       if h.current_user.rsvps.map(&:item).include?(item)
         rsvp = Rsvp.find_by_user_id_and_item_id(h.current_user.id, item.id)
-        links << link_to('', rsvp_path(rsvp), :method => :delete, :title => 'Cancel RSVP', :class => 'iconLink9')
+        links << link_to('Cancel RSVP', rsvp_path(rsvp), :method => :delete)
       elsif item.type == 'Event'
-        links << link_to('', rsvps_path(:item_id => item.id), :method => :post, :title => 'RSVP', :class => 'iconLink9')
+        links << link_to('RSVP', rsvps_path(:item_id => item.id), :method => :post)
       end
     end
 
-    links.join(' ').html_safe
+    if h.can? :create, Comment
+      links << link_to('Comment', send("#{item.class.to_s.underscore}_path",item,:anchor => 'comment'))
+    end
+
+    if h.can? :create, Item
+      links << link_to('Duplicate', send("duplicate_#{item.class.to_s.underscore}_path",item))
+    end
+
+    if h.current_user.present? && !item.flagged_by_user?(current_user)
+      links << link_to('Flag', send("flag_#{item.class.to_s.underscore}_path", item), :method => :put)
+    end
+
+    icons = []
+
+    if h.current_user && h.current_user.can_collect?(item)
+      icons << h.render(:partial => 'items/add_to_collection', :locals => {:item => item})
+    end
+
+    if links.any?
+      icons << h.render(:partial => 'items/manage_menu', :locals => {:links => links})
+    end
+
+    if icons.any?
+      h.content_tag(:ul, icons.join(' ').html_safe, :class => 'menu_with_dropdowns')
+    else
+     ''
+    end
   end
 
   def price_tag
