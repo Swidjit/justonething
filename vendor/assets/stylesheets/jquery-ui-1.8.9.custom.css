@@ -633,7 +633,13 @@ ul.navMenus.extra_links {
 }
 
 .column_content_nav { background:#30749f;height:40px;text-align:right;overflow:hidden;padding-right:20px;}
-.mainContent { background:#dae0e4;text-align:left;border-left:2px solid #eeeeee;border-bottom:2px solid #eeeeee;}
+.mainContent {
+  background:#dae0e4;
+  text-align:left;
+  border-left:2px solid #eee;
+  border-bottom:2px solid #eee;
+  padding: 0px 10px;
+}
 
 .add_item_row { background:#adc3d1;height:38px;text-align:left;border:2px solid #eeeeee;}
 .add_item_row .label { float:left;color:#5f8095; font-size:14px;padding:10px 0;margin-left: -6px; }
@@ -647,7 +653,7 @@ ul.navMenus.extra_links {
 
 
 .contentRow {
-  width:98%;
+  width:100%;
   margin:0 auto;
   padding-top:20px;
   text-align:left;
