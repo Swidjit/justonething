@@ -44,7 +44,8 @@
                 %li= link_to 'Familiar Users', familiar_users_feeds_path
                 %li= link_to 'Mentions', references_user_path(current_user)
                 %li= link_to 'Inactive Items', drafts_feeds_path
-                %li= link_to 'Nearby', nearby_feeds_path if current_user.geo_tags.present?
+                - if current_user.geo_tags.present?
+                  %li= link_to 'Nearby', nearby_feeds_path
           %h3
             %a.secHdr6{:href=>'#'} Collections
           %div
@@ -86,6 +87,11 @@
               %li= link_to 'Manage Flagged Items', flagged_items_path
           - else
             %li= link_to 'Sign in/Register', new_user_session_path
+        #socialmedia_icons
+          = link_to image_tag('icons/twitter.png'), 'https://twitter.com/#!/Swidjit'
+          = link_to image_tag('icons/facebook.png'), 'http://www.facebook.com/pages/Swidjit/194313903947215'
+          = link_to image_tag('icons/googleplus.png', :alt => 'GooglePlus'), 'https://plus.google.com/u/0/b/116234830703382726755/'
+          = link_to image_tag('icons/youtube.png'), 'http://www.youtube.com/user/Swidjit'
 
       #content
         .column_content_nav
