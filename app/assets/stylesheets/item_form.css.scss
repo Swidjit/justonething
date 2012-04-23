@@ -15,30 +15,6 @@ ul.token-input-list-facebook {
   clear: left;
   margin-top: 15px;
 
-  label.label, legend.label {
-    display: none;
-  }
-
-  fieldset.inputs {
-    padding: 15px 0px;
-  }
-
-  input[type='submit'] {
-    margin-top: 10px;
-  }
-
-  ul, ol {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-  }
-
-  &.preset_tags {
-    border: none;
-    background-color: transparent;
-    margin-top: 5px;
-  }
-
   li input {
     border: 0;
     width: 100px;
@@ -90,52 +66,64 @@ li.token-input-input-token-facebook {
     list-style-type: none;
 }
 
-label.label {
-  display: none;
-}
+.item_form {
 
-ul, ol {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
+  input, textarea {
+    color: #000;
+  }
 
-li.label {
-  padding-top: 10px;
-}
+  label.label, legend.label {
+    display: none;
+  }
 
-.title_box {
-  padding-top: 0px;
-}
+  fieldset.inputs {
+    padding: 15px 0px;
+  }
 
-.extra_inform_box {
-  select {
+  input[type='submit'] {
     margin-top: 10px;
   }
-}
+
+  ul, ol {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  li.label {
+    padding-top: 10px;
+  }
+
+  .title_box {
+    padding-top: 0px;
+  }
+
+  .extra_inform_box {
+    select {
+      margin-top: 10px;
+    }
+  }
 
   .preset_tag {
     cursor: pointer;
     color: #eee;
   }
 
-.posting_box {
-  ol {
-    li {
-      display: inline;
+  .posting_box {
+    ol {
+      li {
+        display: inline;
+      }
     }
   }
-}
 
-.vis_label {
-  margin: 0px;
-  margin-right: 15px;
-  padding: 0px;
-  float: left;
-}
+ .vis_label {
+    margin: 0px;
+    margin-right: 15px;
+    padding: 0px;
+    float: left;
+  }
 
-.preset_tag {
-  cursor: pointer;
 }
 
 div.token-input-dropdown-facebook {

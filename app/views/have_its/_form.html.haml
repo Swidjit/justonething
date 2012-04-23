@@ -1,10 +1,11 @@
-= semantic_form_for @item do |f|
-  = render :partial => 'items/top_of_form', :locals => { :f => f }
-  = f.inputs :class => 'extra_inform_box' do
-    %li.text
-      = image_tag('blue_tag.png')
-      Extra Information
-      %span optional
-    = f.input :cost, :input_html => {:placeholder => 'Cost'}
-    = f.input :condition, :as => :select, :collection => HaveIt::CONDITIONS, :prompt => 'Condition'
-  = render :partial => 'items/bottom_of_form', :locals => { :f => f }
+.item_form
+  = semantic_form_for @item do |f|
+    = render :partial => 'items/top_of_form', :locals => { :f => f }
+    = f.inputs :class => 'extra_inform_box' do
+      %li.text
+        = image_tag('blue_tag.png')
+        Extra Information
+        %span optional
+      = f.input :cost, :input_html => {:placeholder => 'Cost'}
+      = f.input :condition, :as => :select, :collection => HaveIt::CONDITIONS, :prompt => 'Condition'
+    = render :partial => 'items/bottom_of_form', :locals => { :f => f }
