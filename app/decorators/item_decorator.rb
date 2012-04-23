@@ -224,7 +224,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def distinct_url
-    send("#{item.class.to_s.underscore}_url",item)
+    polymorphic_url(item)
   end
 
   def remove_visibility_rule_path

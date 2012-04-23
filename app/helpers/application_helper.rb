@@ -41,12 +41,12 @@ module ApplicationHelper
     tabs = []
     Item.classes.map{|kls| kls.pluralize }.unshift('All').each do |item_type|
       if params[param_to_overwrite.to_sym] == item_type.underscore
-        tabs << item_type.titleize
+        tabs << content_tag(:li, link_to(item_type.titleize, '#'))
       else
-        tabs << link_to(item_type.titleize, params.merge({param_to_overwrite.to_sym => item_type.underscore}))
+        tabs << content_tag(:li, link_to(item_type.titleize, params.merge({param_to_overwrite.to_sym => item_type.underscore})))
       end
     end
 
-    tabs.join(' ').html_safe
+    content_tag(:ul, tabs.join(' ').html_safe, :class=> 'tabbed_types') + content_tag(:div, '', :class => 'clear')
   end
 end
