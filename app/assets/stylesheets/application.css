@@ -230,6 +230,10 @@ mark{
 
 .right-margin { margin-right: 8px; }
 
+.no-text-dec {
+  text-decoration: none;
+}
+
 div.overflow-visible, .overflow-visible {
   overflow: visible;
 }
