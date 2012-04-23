@@ -173,7 +173,10 @@ $(".toggle-user-edit").live("click",function(){
 $(".item_description").live("change",function(){
   comm = $(this).val();
   comm = comm.substring(0,40);
-  $(this).closest('fieldset').find('.item_title').val(comm);
+  $title = $(this).closest('fieldset').find('.item_title')
+  if($title.val() == ""){
+    $title.val(comm);
+  }
 });
 
 $("#calendar_select_date").live("click", function() {
