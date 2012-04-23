@@ -3,6 +3,13 @@ class HaveIt < Item
 
   attr_accessible :cost, :condition
 
-  validates_inclusion_of :condition, :in => CONDITIONS
+  validate :proper_condition
+
+  private
+  def proper_condition
+    if self.condition.present?
+      self.errors.add(:condition, 'not included in the list') if CONDITIONS.exclude?(self.condition)
+    end
+  end
 
 end

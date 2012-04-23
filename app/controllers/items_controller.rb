@@ -150,7 +150,7 @@ private
   end
 
   def format_expires_on
-    if @item.has_expiration == '1' && @item.expires_on.present?
+    if item_params[:has_expiration].to_i == 1 && item_params[:expires_on].present?
       @item.expires_on = Date.strptime(item_params[:expires_on],'%m/%d/%Y')
     end
   end
