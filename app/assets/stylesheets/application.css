@@ -85,15 +85,6 @@ fieldset {
 input.item_title {
   width: 496px;
 }
-#search {
-  float: left;
-  margin: 7px 10px;
-}
-#search input {
-  padding: 2px 5px;
-  font-size: 1em;
-  color: #999;
-}
 
 .toggle-user-edit img {
   margin: 3px;

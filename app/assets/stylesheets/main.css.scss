@@ -24,3 +24,19 @@ ul.two_col_mid {
 .itemDesc {
   font-size: 15px;
 }
+
+
+#search {
+  float: left;
+  margin: 7px 10px;
+
+  input {
+    padding: 2px 5px;
+    font-size: 1em;
+    color: #000;
+  }
+  
+  input[type='text'] {
+    width: 220px;
+  }
+}
