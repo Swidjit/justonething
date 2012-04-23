@@ -110,6 +110,13 @@
             %div{:style => "clear:both;"}
           #add_item_form_wrapper
             #add_item_form.item_form
+        - else
+          .add_item_row.logged_out
+            you are browsing
+            = @current_city.name
+            as a guest. please
+            = link_to('login/register',new_user_session_path)
+            to add content and participate in social tools
         .mainContent
           -if notice.present?
             %span.notice= notice
