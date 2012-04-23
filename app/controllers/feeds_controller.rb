@@ -87,6 +87,8 @@ class FeedsController < ApplicationController
     @type = (params[:type] ||= 'all')
     if Item.classes.map{|kls| kls.underscore.pluralize }.include? @type
       feed_items = feed_items.where({:type => @type.singularize.camelize})
+    else
+      @type = 'all'
     end
     @type = @type.titleize
     feed_items.access_controlled_for(current_user, current_city, current_ability)

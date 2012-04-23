@@ -14,27 +14,30 @@
       }
     );
   });
-.contentRow.overflow-visible
-  .inner_title_top
-    .title_heading= item.title
+.contentRow.without_border.overflow-visible
+  .itemPic.wide
+    = item.class_feed
+    %br
+    = item.thumb
+  .itemInfo
+    .itemTitle= item.title
+    - if can? :manage, item
+      #visiEXP
+        .visiRow
+          = item.visibility_form
+          .xtraLine
+      .clear-right
+    .itemDesc= item.description
+    .multiLinks= item.iconic_information(false)
     .itemIcons
       = item.manage_links
       - if can? :mamange, item
         %span#addTo2.addTo2
           %a{:href => "#"}
             = image_tag('visible_icon.jpg')
-- if can? :manage, item
-  #visiEXP
-    .visiRow.pad
-      = item.visibility_form
-      .xtraLine
-.contentRow.pad.without_border
-  .img_left
-    = item.thumb
-  .img_info
-    %p.itemDesc= item.description
-    %p= item.iconic_information
-  %div{:style => "clear:both;"}
+            = image_tag 'arrowDN.png'
+  .clear
+
 - if item.allows_offers?
   .contentRow
     %p.header

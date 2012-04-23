@@ -53,6 +53,7 @@ fieldset {
 #content {
   margin-left:225px;
   background-color:#DAE0E4;
+  height: 100%;
 }
 
 .logo {

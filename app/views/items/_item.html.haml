@@ -1,13 +1,16 @@
 .contentRow
   %input{:type=>'hidden',:value=>item.user.id, :name => 'item_user_id'}
   .itemPic
-    = item.model.class.to_s.titleize
+    = item.class_feed
     %br
     = item.thumb
   .itemInfo
-    .itemTitle= link_to item.short_title, item
+    .itemTitle
+      .no_break_hide= link_to item.short_title, item
     .itemDesc= item.short_description
     .multiLinks
-      = item.iconic_information(false)
+      .no_break_hide
+        = item.iconic_information(false)
     .itemIcons
       = item.manage_links
+  .clear

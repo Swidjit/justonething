@@ -15,6 +15,10 @@ class ItemDecorator < ApplicationDecorator
     option_hash
   end
 
+  def class_feed
+    content_tag(:span, link_to("#{item.class.to_s.titleize}:", main_feeds_path(:type => item.class.to_s.pluralize.underscore)), :class => 'title_heading')
+  end
+
   def condition_tag
     if item.condition.present?
       content_tag :div, item.condition, :class => 'smIcon6 smIcon'
@@ -36,7 +40,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def short_description
-    linkify_tags(linkify_profiles(h.truncate_on_word(description, 250)))
+    linkify_tags(linkify_profiles(h.truncate_on_word(item.description, 400)))
   end
 
   def expires_on_string

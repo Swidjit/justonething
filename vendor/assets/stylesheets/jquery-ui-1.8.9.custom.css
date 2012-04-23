@@ -667,8 +667,8 @@ ul.navMenus.extra_links {
 .nameRow .title_heading {
   float: left;
 }
-#visiEXP { height:0;overflow:hidden;position:relative;z-index:2;padding-bottom:20px; }
-.visiRow { width:98%;margin:5px auto;padding-top:20px;text-align:left;border-bottom:2px solid #eeeeee;position:relative;height:120px;z-index:2;}
+#visiEXP { height:0;overflow:hidden;position:relative;z-index:2; }
+.visiRow { margin:5px auto;text-align:left;border-bottom:2px solid #eeeeee;position:relative;z-index:2;}
 .xtraLine { clear:both;height:2px;padding:0;margin:0;width:100%;}
 
 .bottomRow { padding-bottom:75px;border:0; }
@@ -708,7 +708,14 @@ ul.navMenus.extra_links {
 .smIcon4 { background-image: url('have_icon.jpg'); }
 .smIcon5 { background-image: url('location-icon.png'); padding-left: 19px;}
 
-.itemIcons { position:absolute;top:10px;right:16px;text-align:right; }
+.itemIcons {
+  position:absolute;
+  top:10px;
+  right:0px;
+  padding-right:16px;
+  text-align:right;
+  background: #DAE0E4;
+}
 #item { padding-top:7px; }
 
 a.iconLink5, a.iconLink6 {
@@ -979,17 +986,11 @@ a.iconLink6 {background: url('feed-menu-icon.png') no-repeat;}
   font-weight:bold;
   margin-right:10px;
 }
-.title_heading {
-  font-size:16px;
-  color:#88068e;
-  padding-left:10px;
-  padding-top: 15px;
-}
 .inner_title_top {
   margin-top:1px;
   padding-bottom:10px;
 }
-.addTo2 { float:right;margin:0px;padding:0 30px 0 0; }
+.addTo2 { float:right;margin:0px;padding:0 5px 0 0; }
 
 .addTo2 ul {
   padding:0px;
@@ -1007,30 +1008,8 @@ a.iconLink6 {background: url('feed-menu-icon.png') no-repeat;}
   z-index:99999;
   position:relative;
 }
-.img_left {
-  float:left;
-  padding-right:20px;
-}
-.img_info {
-  float:left;
-  padding-left:7px;
-}
-.img_info p {
-  margin-bottom:10px;
-  margin-top:0px;
-  color:#000000!important;
-}
-.img_info a {
-  color:#075a8e;
-  text-decoration:none;
-}
-.img_info img {
-  vertical-align:middle;
-  padding-right:8px;
-}
-.img_info span {
-  color:#88068e;
-  font-size:12px!important;
+.addTo2 a {
+  text-decoration: none;
 }
 .inner_big_image_box span {
   font-size:16px;

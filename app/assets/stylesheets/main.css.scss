@@ -16,8 +16,36 @@ ul.two_col_mid {
 }
 
 .itemPic {
+
   img {
+    margin-top: 7px;
     max-width: 80px;
+  }
+
+  &.wide {
+    width: 160px;
+
+    img {
+      max-width: 150px;
+    }
+  }
+
+  .title_heading {
+    padding: 0px;
+  }
+}
+
+.itemInfo {
+  .vis_label {
+    display: none;
+  }
+
+  .menu_with_dropdowns {
+    margin: 0px;
+  }
+
+  .visiRow {
+    border: none;
   }
 }
 
@@ -25,6 +53,17 @@ ul.two_col_mid {
   font-size: 15px;
 }
 
+.title_heading {
+  font-size:16px;
+  color:#88068e;
+  padding-left:10px;
+  padding-top: 15px;
+
+  a, a:hover {
+    color:#88068e;
+    text-decoration: none;
+  }
+}
 
 #search {
   float: left;
@@ -38,6 +77,14 @@ ul.two_col_mid {
   
   input[type='text'] {
     width: 220px;
+  }
+}
+
+.itemTitle, .multiLinks {
+  overflow: hidden;
+
+  .no_break_hide {
+    width: 5000px;
   }
 }
 
