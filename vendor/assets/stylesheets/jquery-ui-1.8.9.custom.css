@@ -693,15 +693,15 @@ ul.navMenus.extra_links {
   height:30px;
   padding:3px 0 0 26px;
   float:left;
-  margin-right:35px;
+  margin-right:20px;
 }
 .smIcon1 { background-image: url('smIcon1.jpg'); }
 .cal_icon { background-image: url('item_icon_cal.png'); }
 .smIcon2 { background-image: url('price_icon.jpg'); }
 .smIcon3 { background-image: url('usr_icon.jpg'); }
 .smIcon4 { background-image: url('have_icon.jpg'); }
+.smIcon5 { background-image: url('location-icon.png'); padding-left: 19px;}
 
-.smFirst { margin-left:0; }
 .itemIcons { position:absolute;top:10px;right:16px;text-align:right; }
 #item { padding-top:7px; }
 
