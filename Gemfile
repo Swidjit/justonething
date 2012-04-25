@@ -17,6 +17,7 @@ gem 'omniauth-facebook', '1.2.0'
 gem 'formtastic', '2.0.2'
 gem 'will_paginate', '3.0.3'
 gem 'newrelic_rpm'
+gem 'hirefireapp'
 
 # Image uploading and processing.
 gem 'dragonfly',  '~> 0.9.10'
