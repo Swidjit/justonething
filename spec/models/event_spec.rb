@@ -36,7 +36,7 @@ describe Event do
 
   describe "#for_week" do
     it "should return an event from today with week 0" do
-      event = Factory(:event, :start_datetime => Time.now)
+      event = Factory(:event, :start_datetime => 1.days.from_now)
       Event.for_week(0).all.should include event
     end
 

@@ -24,8 +24,8 @@ end
 
 step 'I fill out all required fields of the form for an Event' do
   fill_in 'Location', :with => 'The moon'
-  fill_in 'Start date', :with => '01/01/1999'
+  fill_in 'Start date', :with => 1.day.from_now.strftime('%m/%d/%Y')
   fill_in 'Start time', :with => '12:30 pm'
-  fill_in 'End date', :with => '01/01/2050'
+  fill_in 'End date', :with => 2.days.from_now.strftime('%m/%d/%Y')
   fill_in 'End time', :with => '12:30 pm'
 end
