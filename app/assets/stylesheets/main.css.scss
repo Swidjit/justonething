@@ -36,6 +36,9 @@ ul.two_col_mid {
 }
 
 .itemInfo {
+
+  padding-left: 170px;
+
   .vis_label {
     display: none;
   }
@@ -82,7 +85,7 @@ ul.two_col_mid {
     font-size: 1em;
     color: #000;
   }
-  
+
   input[type='text'] {
     width: 220px;
   }

@@ -5,6 +5,6 @@ class RecommendationDecorator < ApplicationDecorator
   linkifies_all_in :description
 
   def description
-    linkified_description
+    h.simple_format(linkified_description)
   end
 end

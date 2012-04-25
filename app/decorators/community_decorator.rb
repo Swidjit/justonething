@@ -1,6 +1,10 @@
 class CommunityDecorator < ApplicationDecorator
   decorates :community
 
+  def description
+    h.simple_format(community.description)
+  end
+
   def invitation_form
     if h.current_user.present?
       if (community.users.include?(h.current_user) && community.is_public) || community.user_id == h.current_user.id

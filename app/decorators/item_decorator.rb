@@ -36,7 +36,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def description
-    linkified_description
+    h.simple_format(linkified_description)
   end
 
   def short_description

@@ -5,6 +5,6 @@ class CommentDecorator < ApplicationDecorator
   linkifies_all_in :text
 
   def text
-    linkified_text
+    h.simple_format(linkified_text)
   end
 end
