@@ -9,6 +9,8 @@ class Event < Item
 
   scope :order_by_start_datetime, :order => "start_datetime ASC"
 
+  validate :start_datetime_in_future
+
   # week is zero-indexed starting with the current day as the first day of the first week
   scope :for_week, lambda { |week| {
     :conditions => ["#{Event.table_name}.start_datetime >= ? AND #{Event.table_name}.start_datetime <= ?",
@@ -36,4 +38,9 @@ class Event < Item
     end
   end
 
+private
+
+  def start_datetime_in_future
+    errors.add(:start_date, "must be not have already passed") if start_datetime < DateTime.now
+  end
 end

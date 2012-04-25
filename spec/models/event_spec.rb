@@ -28,6 +28,12 @@ describe Event do
     end
   end
 
+  it "cannot create an event in the past" do
+    event = Factory.build(:event, :start_datetime => (Time.now - 1))
+    event.should_not be_valid
+    event.should have(1).error_on(:start_date)
+  end
+
   describe "#for_week" do
     it "should return an event from today with week 0" do
       event = Factory(:event, :start_datetime => Time.now)
