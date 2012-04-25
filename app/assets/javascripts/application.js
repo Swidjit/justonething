@@ -108,6 +108,7 @@ $(".add_item_txt").live("click",function(){
         }
       }
     );
+    $(".mainContentWrap").scrollTop(0);
   });
   return false;
 });
