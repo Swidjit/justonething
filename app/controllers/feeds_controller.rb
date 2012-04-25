@@ -22,7 +22,7 @@ class FeedsController < ApplicationController
   end
 
   def drafts
-    @feed_items  = Item.unscoped.order_by_created_at.where(:user_id => current_user.id)
+    @feed_items  = Item.inactive.where(:user_id => current_user.id)
     render_paginated_feed :drafts
   end
 

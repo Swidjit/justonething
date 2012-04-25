@@ -61,6 +61,7 @@ class Item < ActiveRecord::Base
   scope :order_by_created_at, :order => "#{self.table_name}.created_at DESC"
 
   scope :active, lambda{ where(["#{table_name}.active = true AND (#{table_name}.expires_on >= ? OR #{table_name}.expires_on IS NULL)", DateTime.now.end_of_day.to_s(:db)]) }
+  scope :inactive, lambda{ where(["#{table_name}.active = false OR (#{table_name}.expires_on < ?)", DateTime.now.beginning_of_day.to_s(:db)]) }
   scope :deactivated, :conditions => "#{self.table_name}.active = false"
   scope :recommended, where("#{self.table_name}.recommendations_count > 0"
     ).reorder("#{self.table_name}.recommendations_count DESC, #{self.table_name}.created_at DESC")
@@ -85,7 +86,7 @@ class Item < ActiveRecord::Base
       controlled_scope = controlled_scope.having("COUNT(ivri.*) > 0")
     end
 
-    controlled_scope.group(self.column_names.map{ |attr| "#{self.table_name}.#{attr}"}.join(",")).accessible_by(ability)
+    controlled_scope.active.group(self.column_names.map{ |attr| "#{self.table_name}.#{attr}"}.join(",")).accessible_by(ability)
   end
 
   def self.count_by_subquery(subquery_arel)
