@@ -39,17 +39,19 @@ module SharedDecorations
   end
 
   def linkify_profiles(text_chunk)
-    new_text = text_chunk.gsub(/@([a-zA-Z0-9]+)/) do |profile_link|
-      display_name = profile_link[1..-1]
-      h.link_to( "@#{display_name}", h.profile_path(:display_name => display_name), :class => 'no-text-dec' )
+    regex = /(?<start_of_string>\s|^)@(?<display_name>[a-zA-Z0-9-]+)/
+    new_text = text_chunk.gsub(regex) do |profile_link|
+      display_name = profile_link[regex, :display_name]
+      "#{$~[:start_of_string]}#{h.link_to( "@#{display_name}", h.profile_path(:display_name => display_name), :class => 'no-text-dec' )}"
     end
     h.sanitize new_text, :tags => 'a'
   end
 
   def linkify_tags(text_chunk)
-    new_text = text_chunk.gsub(/#([a-zA-Z0-9-]+)/) do |hash_tag|
-      tag_name = hash_tag[1..-1]
-      h.link_to( "##{tag_name}", h.main_feeds_path(:type => 'all', :tag_name => tag_name.downcase), :class => 'no-text-dec' )
+    regex = /(?<start_of_string>\s|^)#(?<tag_name>[a-zA-Z0-9-]+)/
+    new_text = text_chunk.gsub(regex)do |hash_tag|
+      tag_name = hash_tag[regex, :tag_name]
+      "#{$~[:start_of_string]}#{h.link_to( "##{tag_name}", h.main_feeds_path(:type => 'all', :tag_name => tag_name.downcase), :class => 'no-text-dec' )}"
     end
     h.sanitize new_text, :tags => 'a'
   end

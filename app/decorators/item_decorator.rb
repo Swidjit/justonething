@@ -36,7 +36,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def description
-    h.simple_format(linkified_description)
+    h.auto_link(h.simple_format(linkified_description), :link => :urls)
   end
 
   def short_description
