@@ -20,7 +20,7 @@ class TagsController < ApplicationController
 private
 
   def load_tags
-    new_tag = params[:q].downcase.gsub(' ','-')
+    new_tag = params[:q].downcase.strip.gsub(' ','-')
     @tags = @tag_class.where("name like ?", "%#{new_tag}%")
 
     @tags << @tag_class.new(:name => new_tag) unless @tags.map(&:name).include?(new_tag)
