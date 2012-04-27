@@ -41,6 +41,6 @@ class Event < Item
 private
 
   def start_datetime_in_future
-    errors.add(:start_date, "must be not have already passed") if start_datetime < DateTime.now
+    errors.add(:start_date, "must be not have already passed") if start_datetime.present? && start_datetime < DateTime.now
   end
 end
