@@ -108,7 +108,7 @@
             = link_to "", user_notifications_path(:user_id => current_user.id), :class => 'topLinks top4', :title => 'Notifications'
             = link_to "", bookmarks_path, :class => 'topLinks top3', :title => 'Bookmarks'
             = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2', :title => 'Profile'
-            = link_to "", calendar_index_path, :class => 'topLinks top1', :title => 'Events Calendar'
+          = link_to "", calendar_index_path, :class => 'topLinks top1', :title => 'Events Calendar'
         - if signed_in?
           .add_item_row
             .addLink
