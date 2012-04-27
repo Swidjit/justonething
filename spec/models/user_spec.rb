@@ -44,5 +44,9 @@ describe User do
       User.lower_display_name_like('sam').all.count.should == 1
       User.lower_display_name_like('nil').all.count.should == 0
     end
+
+    it "cannot contain spaces" do
+      Factory.build(:user, :display_name => 'SP ACE').should_not be_valid
+    end
   end
 end

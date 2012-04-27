@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   validate :is_thirteen?, :on => :create
   validates_presence_of :first_name, :last_name, :zipcode
-  validates :display_name, :presence => true, :format => { :with => /[a-zA-Z0-9]+/ },
+  validates :display_name, :presence => true, :format => { :with => /^[a-zA-Z0-9]+$/ },
       :exclusion => { :in => BLACK_LISTED_USER_URLS }
   validates_uniqueness_of :display_name, :case_sensitive => false
 
