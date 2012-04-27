@@ -10,6 +10,10 @@
     = render :partial => 'delegates/delegate', :collection => DelegateDecorator.decorate(@user.delegates_as_delegator)
 
 = form_for @user do |f|
+  - if @user.errors.full_messages.any?
+    %div.error
+      - @user.errors.full_messages.each do |msg|
+        %p= msg
   %div.contentRow.account-basics
     .title_heading account basics
     %ul.two_col_mid

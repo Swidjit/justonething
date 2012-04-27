@@ -49,6 +49,26 @@ describe UsersController do
     end
   end
 
+  describe 'PUT update' do
+    render_views
+
+    before(:each) do
+      @user = Factory(:user)
+      sign_in @user
+    end
+
+    it "should display errors when data is invalid" do
+      post :update, :id => @user.id, :user => {:zipcode => nil}
+      response.body.should =~ /<div class='error'>/
+    end
+
+    it "should change the user profile" do
+      about = SecureRandom.base64(12)
+      post :update, :id => @user.id, :user => {:about => about}
+      @user.reload.about.should == about
+    end
+  end
+
   describe 'GET references' do
     before(:each) { @target_user = Factory(:user) }
 
