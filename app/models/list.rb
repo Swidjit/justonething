@@ -3,6 +3,7 @@ class List < ActiveRecord::Base
   belongs_to :user
   has_many :lists_users, :dependent => :destroy
   has_many :users, :through => :lists_users, :uniq => true
+  has_many :item_visibility_rules, :as => :visibility, :dependent => :destroy
 
   attr_accessible :name
 
