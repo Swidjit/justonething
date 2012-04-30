@@ -1,6 +1,6 @@
 - @offer.messages.each do |message|
   .offer_rpt
-    = UserDecorator.new(message.user).linked_profile_pic
+    = UserDecorator.new(message.user).linked_profile_pic('40')
     = message.text
   .clear
 

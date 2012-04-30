@@ -54,14 +54,14 @@ class UserDecorator < ApplicationDecorator
     links.join(' ').html_safe
   end
 
-  def linked_profile_pic
-    h.link_to( profile_pic, h.profile_path(self.display_name))
+  def linked_profile_pic(size='150')
+    h.link_to( profile_pic(size), h.profile_path(self.display_name))
   end
 
-  def profile_pic
+  def profile_pic(size='150')
     pic_options = { :alt => self.display_name, :class => 'user_prof_pic' }
     if user.profile_pic.present?
-      ImageDecorator.new(user.profile_pic).thumb(pic_options)
+      ImageDecorator.new(user.profile_pic).thumb("#{size}x#{size}>",pic_options)
     else
       h.image_tag('default-profile-picture.png', pic_options)
     end

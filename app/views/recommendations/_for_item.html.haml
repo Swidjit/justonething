@@ -1,7 +1,7 @@
 - recommendation = for_item
 .comment_block
   %p
-    = UserDecorator.new(recommendation.user).linked_profile_pic
+    = UserDecorator.new(recommendation.user).linked_profile_pic('40')
     %span= link_to recommendation.user.display_name, profile_path(recommendation.user.display_name)
     says
   %p= recommendation.description

@@ -1,6 +1,6 @@
 .comment_block
   %p
-    = UserDecorator.new(comment.user).linked_profile_pic
+    = UserDecorator.new(comment.user).linked_profile_pic('40')
     %span= link_to comment.user.display_name, profile_path(comment.user.display_name)
     says
     %a.reply{:href => "#"} reply
