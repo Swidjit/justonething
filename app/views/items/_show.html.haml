@@ -28,6 +28,9 @@
           .xtraLine
       .clear-right
     .itemDesc= item.description
+    - if @item.link.present?
+      Link:
+      = @item.link_tag
     .multiLinks= item.iconic_information(false)
     .itemIcons
       = item.manage_links
