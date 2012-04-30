@@ -7,6 +7,10 @@ class UserDecorator < ApplicationDecorator
     end
   end
 
+  def name
+    "#{user.first_name} #{user.last_name}"
+  end
+
   def about
     h.simple_format(user.about)
   end

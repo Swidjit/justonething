@@ -10,7 +10,7 @@
   .profileBio
     #btxt
       %ul
-        - %w( about websites address phone ).each do |field|
+        - %w( name about websites address phone ).each do |field|
           - if @user.send(field).present?
             %li
               = "#{field}:"
