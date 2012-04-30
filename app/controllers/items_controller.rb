@@ -134,11 +134,12 @@ private
 
   def load_decorated_resource
     if params[:id].present?
+      item_id = params[:id].split('-').last
       # Ensure only active items can be seen in show
       if params[:action] == 'show'
-        @item = item_decorator.decorate item_class.active.find params[:id]
+        @item = item_decorator.decorate item_class.active.find item_id
       else
-        @item = item_decorator.find params[:id]
+        @item = item_decorator.find item_id
       end
     else
       @item = item_decorator.new item_class.new

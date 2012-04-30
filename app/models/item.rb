@@ -1,5 +1,4 @@
 class Item < ActiveRecord::Base
-
   self.per_page = 25
 
   include ModelReference
@@ -141,6 +140,11 @@ class Item < ActiveRecord::Base
     joins("LEFT JOIN items_tags ON items_tags.item_id = #{self.table_name}.id "+
       "LEFT JOIN #{Tag.table_name} ON #{Tag.table_name}.id = items_tags.tag_id"
       ).where(["(#{sql}) OR #{Tag.table_name}.name IN (?)", query.split])
+  end
+
+  # overridden to include slug
+  def to_param
+    "#{title.to_url}-#{id}"
   end
 
   private
