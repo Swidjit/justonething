@@ -26,8 +26,14 @@
     = image_tag('blue_tag.png')
     geo tag your item
     %span optional
-    = f.input :geo_tag_list, :label => 'Geo Tags', :input_html => {:class => 'item_geo_tags', "data-pre" => @item.geo_tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
-    = f.semantic_errors :geo_tags
+  = f.input :geo_tag_list, :label => 'Geo Tags', :input_html => {:class => 'item_geo_tags', "data-pre" => @item.geo_tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
+  - if current_user.geo_tags.present?
+    %li.geo_tag_list
+      .title_box2
+        %label Click any of these to add them
+      %ul.preset_geo_tags
+        - current_user.geo_tags.each do |tag|
+          %li.preset_geo_tag= tag.name
 
 - if current_user.delegators.present? && !@item.persisted?
   = f.inputs :class => 'posting_box' do
@@ -77,4 +83,14 @@
         minChars: 2
       }
     );
+    $("li.preset_geo_tag").click(function(){
+      var tag_name = $.trim($(this).text());
+      $(geo_tag_list_selector).tokenInput(
+        "add",
+        {
+          id: tag_name,
+          name: tag_name
+        }
+      );
+    });
   });

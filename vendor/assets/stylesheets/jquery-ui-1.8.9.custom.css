@@ -888,16 +888,16 @@ a.iconLink6 {background: url('feed-menu-icon.png') no-repeat;}
   padding-top:7px;
   float:left;
 }
-.tag_list {
+.geo_tag_list, .tag_list {
   padding-top:5px;
   overflow:hidden;
 }
-.tag_list ul {
+.geo_tag_list ul, .tag_list ul {
   padding:0px;
   margin:0px;
   list-style:none;
 }
-.tag_list ul li {
+.geo_tag_list ul li, .tag_list ul li {
   float:left;
   margin-right:20px;
   margin-top:10px;
@@ -908,7 +908,7 @@ a.iconLink6 {background: url('feed-menu-icon.png') no-repeat;}
   line-height:22px;
   padding:0 5px;
 }
-.tag_list ul li a { text-decoration:none;color:#ffffff; }
+.geo_tag_list ul li a, .tag_list ul li a { text-decoration:none;color:#ffffff; }
 .title_box2 {
   padding-top:10px;
 }
