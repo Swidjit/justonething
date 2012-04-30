@@ -1,6 +1,6 @@
-ul.token-input-list-facebook {
-  overflow: hidden; 
-  height: auto !important; 
+ul.token-input-list-facebook, ul.auto-list {
+  overflow: hidden;
+  height: auto !important;
   height: 1%;
   width: 400px;
   border: 1px solid #536068;
@@ -26,8 +26,8 @@ ul.token-input-list-facebook {
 }
 
 li.token-input-token-facebook {
-  overflow: hidden; 
-  height: auto !important; 
+  overflow: hidden;
+  height: auto !important;
   height: 18px;
   margin: 3px;
   padding: 1px 3px;
@@ -54,7 +54,9 @@ li.token-input-token-facebook {
   }
 }
 
-li.token-input-selected-token-facebook {
+li.token-input-selected-token-facebook,
+ul.auto-list > li:hover,
+ul.auto-list > li[data-selected=true] {
     background-color: #075A8E;
     color: #fff;
 }
