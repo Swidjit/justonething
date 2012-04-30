@@ -1,8 +1,6 @@
-ul.token-input-list-facebook, ul.auto-list {
+ul.token-input-list-facebook, ul.auto-list, ul.ui-autocomplete {
   overflow: hidden;
   height: auto !important;
-  height: 1%;
-  width: 400px;
   border: 1px solid #536068;
   cursor: text;
   font-size: 12px;
@@ -56,8 +54,10 @@ li.token-input-token-facebook {
 
 li.token-input-selected-token-facebook,
 ul.auto-list > li:hover,
-ul.auto-list > li[data-selected=true] {
+ul.auto-list > li[data-selected=true],
+ul.ui-autocomplete .ui-state-hover {
     background-color: #075A8E;
+    border-color: #536068;
     color: #fff;
 }
 
