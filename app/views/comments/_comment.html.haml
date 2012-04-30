@@ -1,7 +1,7 @@
 .comment_block
   %p
     %img{:alt => "user image"}/
-    %span= link_to comment.user.display_name, comment.user
+    %span= link_to comment.user.display_name, profile_path(comment.user.display_name)
     says
     %a.reply{:href => "#"} reply
   %p= comment.text
