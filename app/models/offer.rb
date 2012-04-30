@@ -1,6 +1,6 @@
 class Offer < ActiveRecord::Base
   before_destroy :delete_all_message_notifications
-  after_create :send_notification_email, :notify_item_owner
+  after_create :notify_item_owner
 
   belongs_to :user
   belongs_to :item
@@ -35,9 +35,5 @@ class Offer < ActiveRecord::Base
     notification.sender = self.user
     notification.receiver = self.item.user
     notification.save
-  end
-
-  def send_notification_email
-    OfferMailer.new_offer_email(self).deliver
   end
 end

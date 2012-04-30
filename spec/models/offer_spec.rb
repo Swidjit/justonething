@@ -42,7 +42,7 @@ describe Offer do
   it "should send an e-mail when an offer is created" do
     original_size = ActionMailer::Base.deliveries.size
 
-    offer = Factory(:offer)
+    offer = Factory(:offer_message).offer
     ActionMailer::Base.deliveries.size.should == original_size + 1
 
     Factory(:offer_message, :offer => offer, :user => offer.user)

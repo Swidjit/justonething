@@ -228,7 +228,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def distinct_url
-    polymorphic_url(item)
+    h.polymorphic_url(item)
   end
 
   def remove_visibility_rule_path
