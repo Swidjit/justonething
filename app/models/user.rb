@@ -65,38 +65,57 @@ class User < ActiveRecord::Base
 
   after_create :add_to_city
 
-  def self.all_by_lower_display_name(display_names)
-    self.where('lower(display_name) IN (?)',display_names.map{|name| name.downcase})
-  end
-
-  def self.lower_display_name_like(display_name)
-    self.where("lower(display_name) LIKE ?", ["%#{display_name.downcase}%"])
-  end
-
-  def self.by_lower_display_name(display_name)
-    self.where('lower(display_name) = ?',[display_name.downcase]).first
-  end
-
-  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
-    data = access_token.extra.raw_info
-    if user = User.where(:email => data.email).first
-      user
-    else # Create a user with a stub password.
-      desired_display_name = data['username'] || (data['first_name'] + data['last_name'])
-      username = User.available_display_name( desired_display_name )
-      user = User.new({:email => data.email,
-          :password => Devise.friendly_token[0,20],
-          :first_name => data['first_name'],
-          :last_name => data['last_name'],
-          :display_name => username,
-          :is_thirteen => 1}, :as => :devise ) # Facebook requires the user to be at least 13 as well
-
-      user
+  class << self
+    def all_by_lower_display_name(display_names)
+      self.where('lower(display_name) IN (?)',display_names.map{|name| name.downcase})
     end
-  end
 
-  def self.new_with_session(params, session)
-    super
+    def lower_display_name_like(display_name)
+      self.where("lower(display_name) LIKE ?", ["%#{display_name.downcase}%"])
+    end
+
+    def by_lower_display_name(display_name)
+      self.where('lower(display_name) = ?',[display_name.downcase]).first
+    end
+
+    def find_for_facebook_oauth(access_token, signed_in_resource=nil)
+      data = access_token.extra.raw_info
+      if user = User.where(:email => data.email).first
+        user
+      else # Create a user with a stub password.
+        desired_display_name = data['username'] || (data['first_name'] + data['last_name'])
+        username = User.available_display_name( desired_display_name )
+        user = User.new({:email => data.email,
+            :password => Devise.friendly_token[0,20],
+            :first_name => data['first_name'],
+            :last_name => data['last_name'],
+            :display_name => username,
+            :is_thirteen => 1}, :as => :devise ) # Facebook requires the user to be at least 13 as well
+
+        user
+      end
+    end
+
+    def new_with_session(params, session)
+      super
+    end
+
+  private
+
+    def available_display_name(desired_display_name)
+      similarly_named_users = User.where("display_name LIKE ?", "#{desired_display_name}%").order("display_name")
+      taken_names = similarly_named_users.collect(&:display_name) + BLACK_LISTED_USER_URLS
+
+      new_display_name = desired_display_name
+      added_number = 0
+
+      while taken_names.include? new_display_name do
+        added_number += 1
+        new_display_name = "#{desired_display_name}#{added_number}"
+      end
+
+      new_display_name
+    end
   end
 
   def can_collect?(item)
@@ -138,21 +157,6 @@ class User < ActiveRecord::Base
 
   def is_thirteen?
     errors.add(:base,'You must be at least 13 years of age to register') if is_thirteen.blank? || is_thirteen.to_i != 1
-  end
-
-  def self.available_display_name(desired_display_name)
-    similarly_named_users = User.where("display_name LIKE ?", "#{desired_display_name}%").order("display_name")
-    taken_names = similarly_named_users.collect(&:display_name) + BLACK_LISTED_USER_URLS
-
-    new_display_name = desired_display_name
-    added_number = 0
-
-    while taken_names.include? new_display_name do
-      added_number += 1
-      new_display_name = "#{desired_display_name}#{added_number}"
-    end
-
-    new_display_name
   end
 
   def update_open_hours_if_present
