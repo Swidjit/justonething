@@ -2,7 +2,7 @@ class UserDecorator < ApplicationDecorator
   decorates :user
 
   def add_to_list
-    if h.current_user.lists.any?
+    if h.current_user.present? && h.current_user.lists.any?
       h.render :partial => 'add_to_list', :locals => {:user => model}
     end
   end
@@ -14,7 +14,7 @@ class UserDecorator < ApplicationDecorator
   def manage_links(link_wrapper)
     html = []
 
-    if h.current_user != user && h.current_user.persisted?
+    if h.current_user.present? && h.current_user != user && h.current_user.persisted?
       delegation = h.current_user.delegation_for_user(user)
 
       if delegation.blank?

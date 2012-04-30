@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe UsersController do
   describe "GET show" do
+    render_views
+
     before(:each) { @target_user = Factory(:user) }
 
     it "should be visible by guest" do
@@ -10,8 +12,6 @@ describe UsersController do
     end
 
     context "with render views" do
-      render_views
-
       context "logged in user view own profile" do
         before(:each) do
           @user = Factory(:user)
