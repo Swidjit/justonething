@@ -99,23 +99,6 @@ class User < ActiveRecord::Base
     def new_with_session(params, session)
       super
     end
-
-  private
-
-    def available_display_name(desired_display_name)
-      similarly_named_users = User.where("display_name LIKE ?", "#{desired_display_name}%").order("display_name")
-      taken_names = similarly_named_users.collect(&:display_name) + BLACK_LISTED_USER_URLS
-
-      new_display_name = desired_display_name
-      added_number = 0
-
-      while taken_names.include? new_display_name do
-        added_number += 1
-        new_display_name = "#{desired_display_name}#{added_number}"
-      end
-
-      new_display_name
-    end
   end
 
   def can_collect?(item)
@@ -150,6 +133,21 @@ class User < ActiveRecord::Base
   end
 
   private
+  def self.available_display_name(desired_display_name)
+    similarly_named_users = User.where("display_name LIKE ?", "#{desired_display_name}%").order("display_name")
+    taken_names = similarly_named_users.collect(&:display_name) + BLACK_LISTED_USER_URLS
+
+    new_display_name = desired_display_name
+    added_number = 0
+
+    while taken_names.include? new_display_name do
+      added_number += 1
+      new_display_name = "#{desired_display_name}#{added_number}"
+    end
+
+    new_display_name
+  end
+
   def add_to_city
     # TODO: base this off of zipcode?
     self.cities << City.first
