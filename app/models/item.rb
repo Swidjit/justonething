@@ -164,7 +164,9 @@ class Item < ActiveRecord::Base
     temp_tags = []
     tag_list.split(',').map{|t| temp_tags << Tag.find_or_initialize_by_name(t.strip.downcase)} if tag_list.present?
     self.description.scan(/(\s|^)#([a-zA-Z0-9-]+)/) do |tag|
-      temp_tags << Tag.find_or_initialize_by_name(tag[1].strip.downcase)
+      unless tag[1].strip.match(/^\d+$/)
+        temp_tags << Tag.find_or_initialize_by_name(tag[1].strip.downcase)
+      end
     end
 
     self.tags = temp_tags.uniq

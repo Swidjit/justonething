@@ -49,9 +49,15 @@ module SharedDecorations
 
   def linkify_tags(text_chunk)
     regex = /(?<start_of_string>\s|^)#(?<tag_name>[a-zA-Z0-9-]+)/
-    new_text = text_chunk.gsub(regex)do |hash_tag|
+    new_text = text_chunk.gsub(regex) do |hash_tag|
       tag_name = hash_tag[regex, :tag_name]
-      "#{$~[:start_of_string]}#{h.link_to( "##{tag_name}", h.main_feeds_path(:type => 'all', :tag_name => tag_name.downcase), :class => 'no-text-dec' )}"
+      start_of_string = $~[:start_of_string]
+
+      if tag_name.strip.match(/^\d+$/)
+        "#{start_of_string}##{tag_name}"
+      else
+        "#{start_of_string}#{h.link_to( "##{tag_name}", h.main_feeds_path(:type => 'all', :tag_name => tag_name.downcase), :class => 'no-text-dec' )}"
+      end
     end
     h.sanitize new_text, :tags => 'a'
   end
