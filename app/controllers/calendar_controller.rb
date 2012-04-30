@@ -16,7 +16,7 @@ private
       events = Event.for_week(@week)
     end
 
-    events = events.order_by_start_datetime
+    events = events.reorder('').order_by_start_datetime
     events = events.having_tag_with_name(params[:filter]) if params[:filter].present?
 
     @events = events.all
