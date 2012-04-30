@@ -3,6 +3,18 @@ require 'spec_helper'
 describe Tag do
   describe "supports reading and writing:" do
 
+    it 'should not be all numbers' do
+      Factory.build(:tag, :name => '1').should_not be_valid
+    end
+
+    it 'can begin with a number' do
+      Factory.build(:tag, :name => '1n').should be_valid
+    end
+
+    it 'can contain only letters' do
+      Factory.build(:tag, :name => 'n').should be_valid
+    end
+
     it 'a name' do
       subject.name = 'tagged'
       subject.name.should == 'tagged'
