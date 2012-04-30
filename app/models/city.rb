@@ -7,4 +7,6 @@ class City < ActiveRecord::Base
 
   alias_attribute :name, :display_name
 
+  has_many :item_visibility_rules, :as => :visibility, :dependent => :destroy
+
 end
