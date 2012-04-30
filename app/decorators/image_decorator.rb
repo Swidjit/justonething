@@ -1,8 +1,8 @@
 class ImageDecorator < ApplicationDecorator
   decorates :image
 
-  def thumb(size='150x150>')
-    h.image_tag(thumb_url(size))
+  def thumb(size='150x150>',options={})
+    h.image_tag(thumb_url(size),options)
   end
 
   def to_json(size=nil)

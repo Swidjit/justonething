@@ -1,8 +1,8 @@
 - @offer.messages.each do |message|
   .offer_rpt
-    %img{:alt => "#{message.user.display_name} user image"}
+    = UserDecorator.new(message.user).linked_profile_pic
     = message.text
-  %div{:style => "clear:both;"}
+  .clear
 
 %a{:href => "#", :class => 'toggle-offer-reply'} reply
 
