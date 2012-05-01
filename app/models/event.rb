@@ -30,8 +30,9 @@ class Event < Item
       (#{Bookmark.table_name}.user_id = ? AND #{Bookmark.table_name}.id IS NOT NULL)", user.id, user.id, user.id]
   } }
 
-  def self.datetimepicker_to_datetime(datetime_value)
+  def self.datetimepicker_to_datetime(datetime_value, time_zone)
     if datetime_value.is_a?(String) && datetime_value.present?
+      Time.zone = time_zone
       Time.strptime(datetime_value.strip,'%m/%d/%Y %l:%M %P')
     else
       datetime_value
