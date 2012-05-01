@@ -183,6 +183,12 @@ class ItemDecorator < ApplicationDecorator
     end
   end
 
+  def thumb_with_lightbox
+    if item.thumbnail.present?
+      link_to(thumb,ImageDecorator.new(item.thumbnail).full_size_url,{:rel => 'lightbox'})
+    end
+  end
+
   def title
     linkified_title
   end

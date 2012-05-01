@@ -1,6 +1,10 @@
 class ImageDecorator < ApplicationDecorator
   decorates :image
 
+  def full_size_url
+    image.file.url
+  end
+
   def thumb(size='150x150>',options={})
     h.image_tag(thumb_url(size),options)
   end
@@ -22,9 +26,5 @@ class ImageDecorator < ApplicationDecorator
   #
   def thumb_url(size)
     image.file.thumb(size).url
-  end
-
-  def full_size_url
-    image.file.url
   end
 end

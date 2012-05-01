@@ -17,6 +17,7 @@
 //= require auto
 //= require jquery.pageless
 //= require jquery.xdomainajax
+//= require lightbox
 //= require_directory .
 
 $(document).ready(function(){
