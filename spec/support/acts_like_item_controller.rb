@@ -25,6 +25,20 @@ shared_examples "an item controller" do
     end
   end
 
+  describe "editing an item" do
+    it "should allow a delegate to edit an item they created for another user" do
+      delegatee = Factory(:user)
+      delegation = Factory(:delegate, :delegatee => delegatee)
+      @object_attributes[:user_id] = delegation.delegator_id
+      @object_attributes[:posted_by_user_id] = delegatee.id
+      item = Factory(@object_sym,@object_attributes)
+
+      sign_in delegatee
+      get :edit, :id => item.to_param
+      response.should be_success
+    end
+  end
+
   describe "adding a new item" do
     it "should not allow a user to set the user_id to not one of their delegates" do
       @object_attributes[:user_id] = Factory(:user).id
@@ -66,27 +80,27 @@ shared_examples "an item controller" do
   end
 
   describe "Visibility Rules" do
+    before(:each) do
+      @user = Factory(:user)
+      @item = Factory(@object_sym, :user => @user)
+      @list = Factory(:list, :user => @user)
+    end
+
     it 'should remove the visibility rule' do
-      user = Factory(:user)
-      item = Factory(@object_sym)
-      list = Factory(:list, :user => user)
-      item.lists << list
-      item.list_ids.count.should == 1
-      sign_in user
-      delete :remove_visibility_rule, :id => item.id, :visibility_type => 'list', :visibility_id => list.id, :format => :json
+      @item.lists << @list
+      @item.list_ids.count.should == 1
+      sign_in @user
+      delete :remove_visibility_rule, :id => @item.id, :visibility_type => 'list', :visibility_id => @list.id, :format => :json
       response.should be_success
-      item.list_ids.count.should == 0
+      @item.list_ids.count.should == 0
     end
 
     it 'should add the visibility rule' do
-      user = Factory(:user)
-      item = Factory(@object_sym)
-      list = Factory(:list, :user => user)
-      item.list_ids.count.should == 0
-      sign_in user
-      post :add_visibility_rule, :id => item.id, :visibility_type => 'list', :visibility_id => list.id, :format => :json
+      @item.list_ids.count.should == 0
+      sign_in @user
+      post :add_visibility_rule, :id => @item.id, :visibility_type => 'list', :visibility_id => @list.id, :format => :json
       response.should be_success
-      item.list_ids.count.should == 1
+      @item.list_ids.count.should == 1
     end
   end
 

@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   respond_to :html, :json
-  authorize_resource :only => [:destroy, :edit, :update, :add_visibility_rule,
-    :remove_visibility_rule]
   before_filter :load_decorated_resource, :except => [:duplicate]
+  before_filter :authorize_resource, :only => [:destroy, :edit, :update, :add_visibility_rule,
+    :remove_visibility_rule]
   before_filter :load_preset_tags, :only => [:new, :edit, :update, :duplicate, :create]
   before_filter :authorize_create_item, :only => [:create,:new]
   before_filter :arrayify_ids_fields_in_params, :only => [:create,:update]
@@ -122,6 +122,10 @@ private
 
   def authorize_create_item
     authorize! :create, Item
+  end
+
+  def authorize_resource
+    authorize! :manage, @item
   end
 
   def item_decorator

@@ -14,6 +14,7 @@ class Ability
       can :manage, Comment, :user_id => user.id
       can :manage, User, :id => user.id
       can :manage, ITEMS, :user_id => user.id
+      can :manage, ITEMS, :posted_by_user_id => user.id
       can :manage, Community, :user_id => user.id
       can :create, Community
       can :read, ITEMS, :active => true

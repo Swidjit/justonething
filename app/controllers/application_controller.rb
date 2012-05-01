@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
   before_filter :set_most_recent_city
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to new_user_session_path, :alert => exception.message
+    if current_user.present?
+      redirect_to root_path, :alert => exception.message
+    else
+      redirect_to new_user_session_path, :alert => exception.message
+    end
   end
 
   def current_city
