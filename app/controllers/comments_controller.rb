@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   def create
     comment = Comment.new params[:comment]
     comment.user = current_user
-    comment.item_id = params[:id]
+    comment.item_id = item_id_from_slug(params[:id])
     if comment.save
       flash[:notice] = 'Successfully commented on item'
     else

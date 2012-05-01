@@ -59,6 +59,7 @@ shared_examples "an item controller" do
       dup_item.title.should == item.title
       dup_item.description.should == item.description
       dup_item.tag_list.split(',').count.should == item.tags.count
+      Time.zone = 'UTC'
       dup_item.expires_on.should == 10.days.from_now.strftime('%m/%d/%Y')
       dup_item.id.should_not == item.id
     end

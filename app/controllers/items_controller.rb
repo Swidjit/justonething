@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   respond_to :html, :json
   authorize_resource :only => [:destroy, :edit, :update, :add_visibility_rule,
     :remove_visibility_rule]
-  before_filter :load_decorated_resource
+  before_filter :load_decorated_resource, :except => [:duplicate]
   before_filter :load_preset_tags, :only => [:new, :edit, :update, :duplicate, :create]
   before_filter :authorize_create_item, :only => [:create,:new]
   before_filter :arrayify_ids_fields_in_params, :only => [:create,:update]
@@ -78,7 +78,7 @@ class ItemsController < ApplicationController
   end
 
   def duplicate
-    item_to_duplicate = item_class.find(params[:id])
+    item_to_duplicate = item_class.find(item_id_from_slug(params[:id]))
     @item = item_decorator.decorate item_to_duplicate.dup
     @item.tags = item_to_duplicate.tags
     @item.set_defaults
@@ -134,7 +134,7 @@ private
 
   def load_decorated_resource
     if params[:id].present?
-      item_id = params[:id].split('-').last
+      item_id = item_id_from_slug(params[:id])
       # Ensure only active items can be seen in show
       if params[:action] == 'show'
         @item = item_decorator.decorate item_class.active.find item_id

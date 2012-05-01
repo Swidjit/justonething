@@ -4,7 +4,7 @@ class OffersController < ApplicationController
   authorize_resource :only => :destroy
 
   def create
-    offer = Offer.create(:item_id => params[:item_id], :user => current_user)
+    offer = Offer.create(:item_id => item_id_from_slug(params[:item_id]), :user => current_user)
     OfferMessage.create(:offer_id => offer.id, :user => current_user, :text => params[:text])
     redirect_to :back
   end
@@ -20,7 +20,7 @@ class OffersController < ApplicationController
       load_all_offers_for_current_user
     end
   end
-  
+
   def destroy
     @offer.destroy
     redirect_to :back
@@ -33,7 +33,7 @@ private
   end
 
   def load_and_authorize_offer
-    item_id = params[:item_id]
+    item_id = item_id_from_slug(params[:item_id])
     user_id = params[:user_id] || current_user.id
     @offer = Offer.find(:first, :conditions => { :user_id => user_id, :item_id => item_id })
 

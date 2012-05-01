@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     Time.zone = 'Eastern Time (US & Canada)'
   end
 
+  def item_id_from_slug(slug)
+    slug.split('-').last
+  end
+
   def item_path(item)
     if item.class == Item
       super.item_path

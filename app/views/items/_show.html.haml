@@ -76,7 +76,7 @@
     .comment_block
       Recommend
       %a#recommend{:name => 'recommend'}
-      = form_for Recommendation.new, :url => recommendations_path(item.id) do |f|
+      = form_for Recommendation.new, :url => recommendations_path(item) do |f|
         = f.text_area :description, { :class => 'user-suggestion' }
         = f.submit 'Recommend'
 
