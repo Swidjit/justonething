@@ -2,10 +2,11 @@
 %html>
   %head
     %title
-      Swidjit
-      - if @title.present?
-        \-
-        = @title
+      = "Swidjit - #{current_city.name}"
+      - if defined?(@item) && @item.try(:title).present?
+        = " - #{@item.title}"
+      - elsif @title.present?
+        = " - #{@title}"
     %link{:rel => 'shortcut icon', :href => '/favicon.ico' }
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'

@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_time_zone
   before_filter :set_most_recent_city
 
+  helper_method :current_city
+
   rescue_from CanCan::AccessDenied do |exception|
     if current_user.present?
       redirect_to root_path, :alert => exception.message
