@@ -33,7 +33,7 @@ class Event < Item
   def self.datetimepicker_to_datetime(datetime_value, time_zone)
     if datetime_value.is_a?(String) && datetime_value.present?
       Time.zone = time_zone
-      Time.strptime(datetime_value.strip,'%m/%d/%Y %l:%M %P')
+      Time.zone.strptime(datetime_value.strip,'%m/%d/%Y %l:%M %P')
     else
       datetime_value
     end
