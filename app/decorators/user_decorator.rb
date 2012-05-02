@@ -15,6 +15,14 @@ class UserDecorator < ApplicationDecorator
     h.simple_format(user.about)
   end
 
+  def websites
+    return if model.websites.blank?
+
+    sites_arr = model.websites.split(' ')
+    link_arr = sites_arr.reduce([]) { |memo, site| memo << h.link_to(site, site) }
+    link_arr.join(' ').html_safe
+  end
+
   def manage_links(link_wrapper)
     html = []
 
