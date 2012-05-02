@@ -16,7 +16,7 @@ class FeedsController < ApplicationController
     end
 
     item_type_string = @type == 'All' ? 'All Items' : @type
-    @title = "Feed for #{item_type_string}" + (@title || '')
+    @title = "#{current_city.name} - #{item_type_string}" + (@title || '')
 
     render_paginated_feed :index
   end
