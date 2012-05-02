@@ -3,7 +3,7 @@
   .itemPic
     = item.class_feed
     %br
-    = item.thumb_with_lightbox
+    = item.thumb_with_lightbox || item.thumb
   .itemInfo
     .itemTitle
       .no_break_hide= link_to item.short_title, item
