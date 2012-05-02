@@ -31,17 +31,21 @@
         #menuInnerWrapper
           #multiAccordion
             %h3
-              %a.secHdr1{:href => "#"} System Feeds
+              %a.secHdr1{:href => "#"} Categories
             %div
               %ul.navMenus
-                %li= link_to 'All Items', main_feeds_path
                 %li= link_to "Have Its", main_feeds_path(type: 'have_its')
                 %li= link_to "Want Its", main_feeds_path(type: 'want_its')
                 %li= link_to "Thoughts", main_feeds_path(type: 'thoughts')
                 %li= link_to "Links", main_feeds_path(type: 'links')
                 %li= link_to 'Events', main_feeds_path(type: 'events')
                 %li= link_to 'Collections', main_feeds_path(type: 'collections')
+            %h3
+              %a.secHdr1{:href => "#"} System Feeds
+            %div
+              %ul.navMenus
                 %li= link_to 'Recommendations', recommendations_feeds_path
+                %li= link_to 'All Items', main_feeds_path
                 - if signed_in?
                   %li= link_to 'Familiar Users', familiar_users_feeds_path
                   %li= link_to 'Mentions', references_user_path(current_user)
