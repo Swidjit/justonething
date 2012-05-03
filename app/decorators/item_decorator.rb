@@ -44,8 +44,10 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def collections
-    collection_arr = model.collections.reduce([]) { |memo, collection| memo << link_to(collection.title, collections_url(collection)) }
-    content_tag :div, collection_arr.join(', ').html_safe, :class => 'collection_icon smIcon'
+    if model.collections.any?
+      collection_arr = model.collections.reduce([]) { |memo, collection| memo << link_to(collection.title, collections_url(collection)) }
+      content_tag :div, collection_arr.join(', ').html_safe, :class => 'collection_icon smIcon'
+    end
   end
 
   def expires_on_string
