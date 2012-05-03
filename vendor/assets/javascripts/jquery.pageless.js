@@ -3,7 +3,7 @@
 //
 // Pageless is a jQuery plugin.
 // As you scroll down you see more results coming back at you automatically.
-// It provides an automatic pagination in an accessible way : if javascript 
+// It provides an automatic pagination in an accessible way : if javascript
 // is disabled your standard pagination is supposed to work.
 //
 // Licensed under the MIT:
@@ -16,7 +16,7 @@
 //    loaderHtml: html code of the div if loader not used
 //    loaderImage: image inside the loader
 //    loaderMsg: displayed ajax message
-//    pagination: selector of the paginator divs. 
+//    pagination: selector of the paginator divs.
 //                if javascript is disabled paginator is provided
 //    params: paramaters for the ajax query, you can pass auth_token here
 //    totalPages: total number of pages
@@ -46,15 +46,16 @@
 //  * www.unspace.ca/discover/pageless/
 //  * famspam.com/facebox
 // =======================================================================
- 
+
 (function($) {
-  
+
   var FALSE = !1
     , TRUE = !FALSE
     , element
     , isLoading = FALSE
     , loader
     , settings = { container: window
+                 , wrapper: window
                  , currentPage: 1
                  , distance: 100
                  , pagination: '.pagination'
@@ -62,12 +63,13 @@
                  , url: location.href
                  , loaderImage: "/images/load.gif"
                  }
-    , container = settings.container;
-    
+    , container = settings.container
+    , wrapper = settings.wrapper;
+
   $.pageless = function(opts) {
     $.isFunction(opts) ? settings.call() : init(opts);
   };
-  
+
   var loaderHtml = function () {
     return settings.loaderHtml || '\
 <div id="pageless-loader" style="display:none;text-align:center;width:100%;">\
@@ -75,29 +77,32 @@
   <img src="' + settings.loaderImage + '" alt="loading more results" style="margin:10px auto" />\
 </div>';
   };
- 
+
   // settings params: totalPages
   var init = function (opts) {
     if (settings.inited) return;
     settings.inited = TRUE;
-    
+
     if (opts) $.extend(settings, opts);
-    
+
     // for accessibility we can keep pagination links
-    // but since we have javascript enabled we remove pagination links 
+    // but since we have javascript enabled we remove pagination links
     if(settings.pagination) $(settings.pagination).remove();
-    
+
+    container = settings.container;
+    wrapper = settings.wrapper;
+
     // start the listener
     startListener();
   };
-  
+
   $.fn.pageless = function (opts) {
     var $el = $(this)
       , $loader = $(opts.loader, $el);
-      
+
     init(opts);
     element = $el;
-    
+
     // loader element
     if (opts.loader && $loader.length) {
       loader = $loader;
@@ -110,33 +115,37 @@
       }
     }
   };
-  
+
   //
   var loading = function (bool) {
     (isLoading = bool)
     ? (loader && loader.fadeIn('normal'))
     : (loader && loader.fadeOut('normal'));
   };
-  
+
   // distance to end of the container
   var distanceToBottom = function () {
+    console.log($(container)[0].scrollHeight);
+    console.log($(container).scrollTop());
+    console.log($(wrapper).height());
     return (container === window)
     ? $(document).height() - $(container).scrollTop() - $(container).height()
-    : $(container)[0].scrollHeight - $(container).scrollTop() - $(container).height();
+    : $(container)[0].scrollHeight - $(container).scrollTop() - $(wrapper).height();
   };
 
   var stopListener = function() {
     $(container).unbind('.pageless');
   };
-  
+
   // * bind a scroll event
   // * trigger is once in case of reload
   var startListener = function() {
     $(container).bind('scroll.pageless', scroll)
                 .trigger('scroll.pageless');
   };
-  
+
   var scroll = function() {
+    console.log('Scroll triggered');
     // listener was stopped or we've run out of pages
     if (settings.totalPages <= settings.currentPage) {
       stopListener();
@@ -144,7 +153,7 @@
       if (settings.end) settings.end.call();
       return;
     }
-    
+
     // if slider past our scroll offset, then fire a request for more data
     if(!isLoading && (distanceToBottom() < settings.distance)) {
       loading(TRUE);
