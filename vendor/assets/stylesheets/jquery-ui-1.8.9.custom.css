@@ -701,6 +701,7 @@ ul.navMenus.extra_links {
   float:left;
   margin-right:20px;
 }
+.collection_icon { background-image: url('itemIcon5.png'); }
 .smIcon1 { background-image: url('smIcon1.jpg'); }
 .cal_icon { background-image: url('item_icon_cal.png'); }
 .smIcon2 { background-image: url('price_icon.jpg'); }

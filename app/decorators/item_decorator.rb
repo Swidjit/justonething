@@ -43,6 +43,11 @@ class ItemDecorator < ApplicationDecorator
     h.auto_link(linkify_tags(linkify_profiles(h.truncate_on_word(item.description, 400))), :link => :urls)
   end
 
+  def collections
+    collection_arr = model.collections.reduce([]) { |memo, collection| memo << link_to(collection.title, collections_url(collection)) }
+    content_tag :div, collection_arr.join(', ').html_safe, :class => 'collection_icon smIcon'
+  end
+
   def expires_on_string
     if item.expires_on.present?
       content_tag :div, "Currently Expires on: #{item.expires_on.strftime('%m/%d/%Y')}"
@@ -75,6 +80,7 @@ class ItemDecorator < ApplicationDecorator
     icon_tags << price_tag
     icon_tags << location_tag
     icon_tags << condition_tag
+    icon_tags << collections
     if with_type
       icon_tags << content_tag(:div, item.class.to_s.humanize, :class => 'smIcon smIcon4')
     end
