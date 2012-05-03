@@ -45,7 +45,7 @@ class ItemDecorator < ApplicationDecorator
 
   def collections
     if model.collections.any?
-      collection_arr = model.collections.reduce([]) { |memo, collection| memo << link_to(collection.title, collections_url(collection)) }
+      collection_arr = model.collections.reduce([]) { |memo, collection| memo << link_to(collection.title, collection_url(collection)) }
       content_tag :div, collection_arr.join(', ').html_safe, :class => 'collection_icon smIcon'
     end
   end
