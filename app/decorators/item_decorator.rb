@@ -40,7 +40,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def short_description
-    linkify_tags(linkify_profiles(h.truncate_on_word(item.description, 400)))
+    h.auto_link(linkify_tags(linkify_profiles(h.truncate_on_word(item.description, 400))), :link => :urls)
   end
 
   def expires_on_string
