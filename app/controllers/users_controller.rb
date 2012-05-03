@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   respond_to :html, :json
-  authorize_resource :only => :show
   before_filter :load_resource_by_display_name, :only => :show
   before_filter :load_resource, :only => [:edit, :update, :references]
+  authorize_resource
 
   def show
     item_type = params[:type] || 'all'

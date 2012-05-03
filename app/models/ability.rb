@@ -7,8 +7,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.persisted?
       if user.is_admin
-        can :manage, ItemPresetTag
-        can :manage, ITEMS
+        can :manage, [ItemPresetTag, ITEMS, User].flatten
       end
 
       can :manage, Comment, :user_id => user.id
