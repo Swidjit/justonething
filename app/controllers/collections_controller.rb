@@ -9,7 +9,7 @@ class CollectionsController < ItemsController
 
   def add_item
     item = Item.find(params[:item_id])
-    collection = Collection.find(params[:id])
+    collection = Collection.find(item_id_from_slug(params[:id]))
     if can? :manage, collection
       collection.items << item
       flash[:notice] = 'Successfully added item to collection'
