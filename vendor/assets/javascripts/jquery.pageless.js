@@ -125,9 +125,6 @@
 
   // distance to end of the container
   var distanceToBottom = function () {
-    console.log($(container)[0].scrollHeight);
-    console.log($(container).scrollTop());
-    console.log($(wrapper).height());
     return (container === window)
     ? $(document).height() - $(container).scrollTop() - $(container).height()
     : $(container)[0].scrollHeight - $(container).scrollTop() - $(wrapper).height();
@@ -145,7 +142,6 @@
   };
 
   var scroll = function() {
-    console.log('Scroll triggered');
     // listener was stopped or we've run out of pages
     if (settings.totalPages <= settings.currentPage) {
       stopListener();
@@ -171,6 +167,7 @@
                loading(FALSE);
                // if there is a complete callback we call it
                if (settings.complete) settings.complete.call();
+               $(container).trigger('scroll.pageless');
            }, 'html');
     }
   };
