@@ -5,6 +5,6 @@ class CommentDecorator < ApplicationDecorator
   linkifies_all_in :text
 
   def text
-    h.simple_format(linkified_text)
+    h.auto_link(h.simple_format(linkified_text), :link => :urls)
   end
 end
