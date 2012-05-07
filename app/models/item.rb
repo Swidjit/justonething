@@ -9,6 +9,7 @@ class Item < ActiveRecord::Base
   belongs_to :posted_by_user, :class_name => "User"
 
   has_many :item_flags, :dependent => :destroy
+  has_many :item_flag_users, :through => :item_flags, :source => :user
 
   has_many :item_visibility_rules, :dependent => :destroy
   has_many :communities, :through => :item_visibility_rules, :source => :visibility,
@@ -25,6 +26,8 @@ class Item < ActiveRecord::Base
   accepts_nested_attributes_for :thumbnail
 
   has_many :bookmarks, :dependent => :destroy
+  has_many :bookmark_users, :through => :bookmarks, :source => :user
+
   has_many :comments, :dependent => :destroy
   has_many :offers, :dependent => :destroy
   has_many :notifications, :as => :notifier, :dependent => :delete_all
@@ -126,7 +129,7 @@ class Item < ActiveRecord::Base
   end
 
   def flagged_by_user?(user)
-    return ItemFlag.find_by_item_id_and_user_id(id, user.id).present?
+    return self.item_flag_users.include?(user)
   end
 
   def disable!

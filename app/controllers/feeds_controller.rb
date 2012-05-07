@@ -87,11 +87,15 @@ class FeedsController < ApplicationController
     @type = (params[:type] ||= 'all')
     if Item.classes.map{|kls| kls.underscore.pluralize }.include? @type
       feed_items = feed_items.where({:type => @type.singularize.camelize})
+      if @type == 'events'
+        feed_items = feed_items.includes(:rsvp_users)
+      end
     else
       @type = 'all'
     end
     @type = @type.titleize
-    feed_items.access_controlled_for(current_user, current_city, current_ability)
+    feed_items.includes(:tags, :geo_tags, :collections, :bookmark_users, :item_flag_users, :thumbnail, :user
+      ).access_controlled_for(current_user, current_city, current_ability)
   end
 
 end
