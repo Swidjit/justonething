@@ -47,10 +47,14 @@ class ApplicationController < ActionController::Base
   end
 
   def render_paginated_feed( html_layout )
-    if @feed_items.any?
-      @feed_items = @feed_items
-
+    # sometimes @feed_items is an array of objects, sometimes a relation
+    if @feed_items.respond_to?(:length)
+      total_entries = @feed_items.length
+    else
       total_entries = Item.count_by_subquery(@feed_items)
+    end
+
+    if total_entries > 0
       @feed_items = @feed_items.paginate(:page => params[:page], :total_entries => total_entries)
       respond_to do |f|
         f.html { render html_layout }
