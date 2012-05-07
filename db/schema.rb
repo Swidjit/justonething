@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423172528) do
+ActiveRecord::Schema.define(:version => 20120507130255) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(:version => 20120423172528) do
 
   create_table "offer_messages", :force => true do |t|
     t.integer  "offer_id"
-    t.string   "text"
+    t.text     "text"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id",    :null => false

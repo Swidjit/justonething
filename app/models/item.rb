@@ -46,6 +46,7 @@ class Item < ActiveRecord::Base
   after_initialize :set_defaults
 
   validates_presence_of :title, :description, :user
+  validates_length_of :title, :maximum => 255
   validates_inclusion_of :active, :in => [true,false]
   validates_inclusion_of :has_expiration, :in => ['0','1']
   validate :user_belongs_to_communities, :user_owns_lists, :posted_by_user_is_delegatee_of_user
