@@ -84,6 +84,7 @@ class User < ActiveRecord::Base
         user
       else # Create a user with a stub password.
         desired_display_name = data['username'] || (data['first_name'] + data['last_name'])
+        desired_display_name.gsub!(/[^a-zA-Z0-9]/, '') # Make it match our validation
         username = User.available_display_name( desired_display_name )
         user = User.new({:email => data.email,
             :password => Devise.friendly_token[0,20],
