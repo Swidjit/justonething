@@ -31,8 +31,10 @@ private
     notification.sender = self.user
     if self.is_root?
       notification.receiver = self.item.user
+      CommentMailer.new_comment_email(self.item, self.item.user, self.user, self.text).deliver
     else
       notification.receiver = self.parent.user
+      CommentMailer.new_comment_reply_email(self.item, self.parent.user, self.user, self.text).deliver
     end
     notification.save
   end

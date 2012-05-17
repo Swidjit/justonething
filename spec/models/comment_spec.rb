@@ -15,14 +15,21 @@ describe Comment do
     comment = Factory(:comment)
     comment.item.user.notifications.count.should == 1
 
+    start_size = ActionMailer::Base.deliveries.size
     reply = Factory(:comment, :parent_id => comment.id)
+
     comment.item.user.notifications.count.should == 1
+    ActionMailer::Base.deliveries.size.should == start_size + 1
   end
 
   it 'should notify comment poster after reply' do
     comment = Factory(:comment)
+
+    start_size = ActionMailer::Base.deliveries.size
     reply = Factory(:comment, :parent_id => comment.id)
+
     comment.user.notifications.count.should == 1
+    ActionMailer::Base.deliveries.size.should == start_size + 1
   end
 
   it_behaves_like "a referencing object", { :factory => :comment, :fields => %w( text ) }
