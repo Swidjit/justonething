@@ -17,4 +17,4 @@
         %td= link_to(usr.display_name, profile_path(usr.display_name))
         %td= usr.email
         %td= usr.zipcode
-        %td= link_to('Delete', user_path(usr), :confirm => 'Are you certain?', :method => :delete)
+        %td= link_to('Delete', admin_user_path(usr), :confirm => 'Are you certain?', :method => :delete)

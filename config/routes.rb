@@ -8,7 +8,7 @@ Swidjit::Application.routes.draw do
       end
       put :disable
     end
-    resources :users, :only => [:index, :destroy]
+    resources :users, :only => [:index, :destroy], :as => 'admin_users'
   end
 
   scope ':city_url_name' do
