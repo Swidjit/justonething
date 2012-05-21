@@ -59,6 +59,10 @@ ul.two_col_mid {
   }
 }
 
+.itemSlim {
+  padding: 0px 0px 5px 10px;
+}
+
 .itemDesc {
   font-size: 15px;
 }
@@ -159,4 +163,52 @@ ul.two_col_mid {
     left: 0px;
     width: 225px;
   }
+}
+
+.inline_menu_with_dropdowns {
+  position:relative;
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+
+  .dropdown_1column {
+    z-index: 50;
+  }
+
+  li {
+    display:inline-block;
+    position:relative;
+    border:none;
+    width:auto;
+
+    a {
+      display:block;
+      outline:0;
+      text-decoration:none;
+      color:#30749F;
+    }
+
+    div {
+      a, a:visited, a:link {
+        color: white;
+      }
+    }
+
+    .drop {
+      padding-right:0px;
+    }
+  }
+
+  li:hover {
+    .dropdown_1column,  .dropdown_2columns,  .dropdown_3columns,
+    .dropdown_4columns, .drop_arrow_left, .dropdown_5columns {
+      left:-1px;
+      top:auto;
+    }
+  }
+}
+
+.cal_lower_nav {
+  float: left;
+  margin-top: 20px;
 }

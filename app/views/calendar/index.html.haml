@@ -1,10 +1,45 @@
+.title_heading
+  = image_tag 'item_icon_cal.png', :class => 'left right-margin'
+  = @current_city.name
+  Events Calendar
+
+.contentRow.without_border.left-padding
+  = "you are currently viewing #{@filter}"
+  - if @item_preset_tags.present?
+    (
+    %ul.inline_menu_with_dropdowns
+      %li
+        %a{:href => "#",:onclick => "return false"}
+          filters
+          = image_tag 'arrowDN.png'
+        %div#filter_rainbow_dropdown.dropdown_1column.align_right1
+          - @item_preset_tags.each do |ipt|
+            %div.col_1
+              = link_to ipt.tag, params.merge({:filter => ipt.tag})
+    )
+
+  %div.inline
+    = "for #{@date_display}"
+    %input.datepicker#calendar_select_date_hidden{:type => :hidden}
+    %a#calendar_select_date{:href => '#'}
+      select a new date
+      = image_tag 'arrowDN.png'
+
+%div.clearAll
+
 - if @user_events.present?
   %div.left{:style => 'width: 50%'}
-    = render :partial => 'column', :locals => { :title => 'your events', :show_nav => false, :events => @user_events }
+    = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
 
   %div.left{:style => 'width: 50%'}
-    = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
+    = render :partial => 'column', :locals => { :title => 'your events', :show_nav => false, :events => @user_events }
 
 - else
   %div.left{:style => 'width: 100%'}
     = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
+
+.cal_lower_nav
+  = (@week == 0) ? "< prev week" : link_to("< prev week", week_calendar_index_path(@week - 1))
+  = link_to "next week >", week_calendar_index_path(@week + 1)
+
+%div.clearAll

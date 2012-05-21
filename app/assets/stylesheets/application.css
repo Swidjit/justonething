@@ -224,7 +224,10 @@ mark{
 .left { float: left; }
 .clear { clear: both; }
 
+.inline { display: inline; }
+
 .right-margin { margin-right: 8px; }
+.left-padding { padding-left: 8px; }
 
 .no-text-dec {
   text-decoration: none;
@@ -237,3 +240,5 @@ div.overflow-visible, .overflow-visible {
 div.clearAll {
   clear: both;
 }
+
+.relative { position: relative; }

@@ -186,7 +186,7 @@ $("#calendar_select_date").live("click", function() {
   return false;
 });
 $("#calendar_select_date_hidden").live("change", function() {
-  window.location.href = '/' + currentCity + '/calendar/date/' + $(this).val();
+  window.location.href = '/' + swidjit.currentCity() + '/calendar/date/' + $(this).val();
 });
 
 $("#add_item_form .visibility_rule_remove").live('click',function(){
@@ -240,8 +240,8 @@ var swidjit = function() {
       });
     },
     mainmenu : function(){
-      $(" .menu_with_dropdowns ul ").css({display: "none"}); // Opera Fix
-      $(" .menu_with_dropdowns li").hover(function(){
+      $(" .menu_with_dropdowns ul, .inline_menu_with_dropdowns ul ").css({display: "none"}); // Opera Fix
+      $(" .menu_with_dropdowns li, .inline_menu_with_dropdowns li ").hover(function(){
           $(this).children('div').fadeIn(400, queue=false);
         },function(){
           $(this).children('div').hide();

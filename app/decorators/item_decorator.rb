@@ -29,9 +29,10 @@ class ItemDecorator < ApplicationDecorator
     content_tag :div, link_to(item.user.display_name, profile_path(item.user.display_name)), :class => 'smIcon3 smIcon'
   end
 
-  def timing
+  def timing(include_icon = true)
     if item.start_datetime.present?
-      content_tag :div, DateTimeDecorator.new(item.start_datetime).event_start_time, :class => 'cal_icon smIcon'
+      icon_class = include_icon ? 'cal_icon smIcon' : ''
+      content_tag :div, DateTimeDecorator.new(item.start_datetime).event_start_time, :class => icon_class
     end
   end
 

@@ -1,27 +1,4 @@
-%div.contentRow.visible_overflow
+%div.contentRow.visible_overflow.without_border
   %div.title_heading.left.no-padding-top.right_padding_10= title
-
-  - if show_nav
-    - if @item_preset_tags.present?
-      %ul.menu_with_dropdowns.no_top_margin
-        %li
-          %a{:href => "#",:onclick => "return false"}
-            filters
-            = image_tag 'arrowDN.png'
-          %div#filter_rainbow_dropdown.dropdown_1column.align_right1
-            - @item_preset_tags.each do |ipt|
-              %div.col_1
-                = link_to ipt.tag, params.merge({:filter => ipt.tag})
-
-    %div.left.right-margin
-      %input.datepicker#calendar_select_date_hidden{:type => :hidden}
-      %a.left#calendar_select_date{:href => '#'} select date
-      %div.ui-icon.ui-icon-triangle-1-s.right
-
-    %div.left.right-margin
-      = (@week == 0) ? "< prev week" : link_to("< prev week", week_calendar_index_path(@week - 1))
-      = link_to "next week >", week_calendar_index_path(@week + 1)
-
-  %div.clearAll
-
-= render :partial => 'items/item', :collection => ItemDecorator.decorate(events)
+.clearAll
+= render :partial => 'items/slim_event', :collection => ItemDecorator.decorate(events), :as => :item

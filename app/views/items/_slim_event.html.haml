@@ -1,0 +1,10 @@
+.relative
+  %input{:type=>'hidden',:value=>item.user.id, :name => 'item_user_id'}
+  .itemSlim
+    .itemDesc
+      = item.timing(false)
+    .itemTitle.clearAll
+      .no_break_hide= link_to item.short_title, item
+    .itemIcons
+      = item.manage_links
+  .clear
