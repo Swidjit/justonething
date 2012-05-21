@@ -38,7 +38,7 @@
   %div.left{:style => 'width: 100%'}
     = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
 
-.cal_lower_nav
+.cal_lower_nav.clearAll
   = (@week == 0) ? "< prev week" : link_to("< prev week", week_calendar_index_path(@week - 1))
   = link_to "next week >", week_calendar_index_path(@week + 1)
 
