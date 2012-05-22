@@ -97,20 +97,7 @@ $("#add_item_button").live('click', function(){
 });
 
 $(".add_item_txt").live("click",function(){
-  $("#add_item_form").load($(this).attr('href'),function(){
-    $('#add_item_form .datepicker').datepicker();
-    $('#add_item_form .timepicker').timepicker({showPeriod: true});
-    swidjit.userSuggestify($("#add_item_form .user-suggestion"));
-    var target_height = $("#add_item_form").height() + parseInt($("#add_item_form").css('padding-top')) + parseInt($("#add_item_form").css('padding-bottom'));
-    $("#add_item_form_wrapper").animate(
-      {height:target_height},
-      {queue:false, duration: 1000, complete: function(){
-          $("#add_item_form_wrapper").css({'overflow':'visible','height':'auto'})
-        }
-      }
-    );
-    $(".mainContentWrap").scrollTop(0);
-  });
+  swidjit.loadAddItemForm($(this).attr('href'));
   return false;
 });
 $("#link_link").live('input paste', function(e) {
@@ -226,10 +213,35 @@ $("#add_item_form #add_visibility_rule a").live('click',function(){
   return false;
 });
 
+$("a.add_item, .add_item a").live('click',function(){
+  var itemType = $(this).data("itemType");
+  var setTags = $(this).data("tags").replace(/ /g,'');
+  var href = $("#post_"+itemType).attr('href').split('?')[0];
+  href = href+"?tag_list="+setTags;
+  swidjit.loadAddItemForm(href);
+  return false;
+});
+
 var swidjit = function() {
   return {
     currentCity : function(){
       return window.location.pathname.split('/')[1];
+    },
+    loadAddItemForm : function(href){
+      $("#add_item_form").load(href, function(){
+        $('#add_item_form .datepicker').datepicker();
+        $('#add_item_form .timepicker').timepicker({showPeriod: true});
+        swidjit.userSuggestify($("#add_item_form .user-suggestion"));
+        var target_height = $("#add_item_form").height() + parseInt($("#add_item_form").css('padding-top')) + parseInt($("#add_item_form").css('padding-bottom'));
+        $("#add_item_form_wrapper").animate(
+          {height:target_height},
+          {queue:false, duration: 1000, complete: function(){
+              $("#add_item_form_wrapper").css({'overflow':'visible','height':'auto'})
+            }
+          }
+        );
+        $(".mainContentWrap").scrollTop(0);
+      });
     },
     updateVisibilityForm : function(sel) {
       var val = $(sel).val();

@@ -19,6 +19,11 @@ class ItemsController < ApplicationController
       @item.item_visibility_rules.build(:visibility_id => current_user.cities.first.id, :visibility_type => 'City')
       @item.cities << current_user.cities.first
     end
+    if params[:tag_list].present?
+      tags = []
+      params[:tag_list].split(',').each{|tag| tags << Tag.find_or_initialize_by_name(tag) }
+      @item.tags = tags
+    end
     respond_to do |f|
       f.html { render :new }
       f.js { render 'new', :format => :html, :layout => false}
