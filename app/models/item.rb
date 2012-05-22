@@ -54,10 +54,6 @@ class Item < ActiveRecord::Base
   validates_inclusion_of :has_expiration, :in => ['0','1']
   validate :user_belongs_to_communities, :user_owns_lists, :posted_by_user_is_delegatee_of_user
 
-  [:tags, :geo_tags].each do |tag_type|
-    validates_associated tag_type, :message => 'must begin with a letter and can only contain letters, numbers, and hyphens'
-  end
-
   before_validation :handle_has_expiration, :convert_tag_list_to_tags
 
   default_scope { order_by_created_at }
@@ -110,6 +106,8 @@ class Item < ActiveRecord::Base
       self.expires_on = 10.days.from_now.to_s(:db)
     end
     self.has_expiration = self.expires_on.present? ? '1' : '0'
+    self.tag_list = self.tags.collect(&:name).join(',')
+    self.geo_tag_list = self.geo_tags.collect(&:name).join(',')
   end
 
   def allows_offers?
@@ -175,14 +173,24 @@ class Item < ActiveRecord::Base
       end
     end
 
-    self.tags = temp_tags.uniq
+    if temp_tags.reject{|tag| tag.valid? }.any?
+      self.tag_list = temp_tags.uniq.map(&:name).join(',') #ensure we carry over any from the desc
+      self.errors.add(:tags, 'must begin with a letter and can only contain letters, numbers, and hyphens')
+    else
+      self.tags = temp_tags.uniq
+    end
   end
 
   def convert_geo_tags
     self.geo_tags = []
     temp_geo_tags = []
     geo_tag_list.split(',').map{|t| temp_geo_tags << GeoTag.find_or_initialize_by_name(t.strip.downcase)} if geo_tag_list.present?
-    self.geo_tags = temp_geo_tags.uniq
+
+    if temp_geo_tags.reject{|tag| tag.valid? }.any?
+      self.errors.add(:geo_tags, 'must begin with a letter and can only contain letters, numbers, and hyphens')
+    else
+      self.geo_tags = temp_geo_tags.uniq
+    end
   end
 
   def user_belongs_to_communities

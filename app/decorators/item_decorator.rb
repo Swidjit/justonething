@@ -182,7 +182,7 @@ class ItemDecorator < ApplicationDecorator
     end
   end
 
-  def tag_list
+  def tag_list_display
     item.tags.collect(&:name).sort.join(', ')
   end
 
