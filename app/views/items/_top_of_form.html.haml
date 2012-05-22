@@ -1,4 +1,8 @@
-= f.semantic_errors
+- if f.object.errors.any?
+  .error.top_errors
+    %ul
+      - f.object.errors.full_messages.each do |err|
+        %li= err
 = f.inputs :class => 'title_box' do
   = f.input :description, :as => :text, :input_html => {:class => 'user-suggestion item_description comnt'}
   %li.label

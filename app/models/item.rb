@@ -55,7 +55,7 @@ class Item < ActiveRecord::Base
   validate :user_belongs_to_communities, :user_owns_lists, :posted_by_user_is_delegatee_of_user
 
   [:tags, :geo_tags].each do |tag_type|
-    validates_associated tag_type, :message => 'can only contain letters, numbers, and hyphens'
+    validates_associated tag_type, :message => 'must begin with a letter and can only contain letters, numbers, and hyphens'
   end
 
   before_validation :handle_has_expiration, :convert_tag_list_to_tags
