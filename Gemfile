@@ -19,6 +19,7 @@ gem 'will_paginate', '3.0.3'
 gem 'newrelic_rpm'
 gem 'hirefireapp'
 gem 'stringex'
+gem 'airbrake'
 
 # Image uploading and processing.
 gem 'dragonfly',  '~> 0.9.10'
