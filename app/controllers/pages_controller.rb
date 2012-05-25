@@ -3,4 +3,7 @@ class PagesController < ApplicationController
     @title = params[:page_name].titleize
     render params[:page_name]
   end
+
+  def home
+  end
 end

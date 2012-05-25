@@ -120,6 +120,6 @@ Swidjit::Application.routes.draw do
   # This needs to stay at the bottom such that a user can't override a preset URL
   match '/:display_name', :controller => :users, :action => :show, :as => :profile
 
-  root :to => 'feeds#index'
+  root :to => 'pages#home'
 
 end
