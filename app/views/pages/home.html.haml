@@ -12,14 +12,11 @@
           %h3 Have-Its
         .container_body
           %p Have-Its are goods, services, and experiences offered for sale, trade, rent, or for free.
-          %h4 Recent Have-Its
-          %ul
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
+          - if @recent_have_its.present?
+            %h4 Recent Have-Its
+            %ul
+              - @recent_have_its.each do |i|
+                %li= link_to i.title, have_its_path(i)
           %h4 Offer Something:
           .add_item
             %p
@@ -63,14 +60,11 @@
           %h3 Want-Its
         .container_body
           %p Want-Its are goods, services, and experiences others are looking to buy, share, or trade for.
-          %h4 Recent Want-Its
-          %ul
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
+          - if @recent_want_its.present?
+            %h4 Recent Want-Its
+            %ul
+              - @recent_want_its.each do |i|
+                %li= link_to i.title, have_its_path(i)
           %h4 Request Something:
           .add_item
             %p
@@ -114,16 +108,12 @@
           %h3 Events
         .container_body
           %p A few of the events and activities happening around town today...
-          %h4 Recent Events
-          %ul
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
-            %p
-              = link_to 'view whole event calendar', calendar_index_path
+          - if @recent_events.present?
+            %h4 Recent Events
+            %ul
+              - @recent_events.each do |i|
+                %li= link_to i.title, have_its_path(i)
+          = link_to 'view whole event calendar', calendar_index_path
           %h4 Add an Event:
           .add_item
             %p
@@ -155,14 +145,11 @@
           %h3 Thoughts
         .container_body
           %p Thoughts are a catch-all for any information or ideas or thoughts you might want to share.
-          %h4 Recent Thoughts
-          %ul
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
+          - if @recent_thoughts.present?
+            %h4 Recent Thoughts
+            %ul
+              - @recent_thoughts.each do |i|
+                %li= link_to i.title, have_its_path(i)
           %h4 Say Something:
           .add_item
             %p
@@ -186,14 +173,11 @@
           %h3 Collections
         .container_body
           %p Collections can be used to organize or curate related content.
-          %h4 Recent Collections
-          %ul
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
+          - if @recent_collections.present?
+            %h4 Recent Collections
+            %ul
+              - @recent_collections.each do |i|
+                %li= link_to i.title, have_its_path(i)
           %h4 Offer Something:
           .add_item
             %p this, is a test, words here
@@ -203,14 +187,11 @@
           %h3 Links
         .container_body
           %p Elsewhere on the 'net...
-          %h4 Recent Links
-          %ul
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
-            %li
-              %a{:href => ""} link name
+          - if @recent_links.present?
+            %h4 Recent Links
+            %ul
+              - @recent_links.each do |i|
+                %li= link_to i.title, have_its_path(i)
           %h4 Add a Link:
           .add_item
             %p
