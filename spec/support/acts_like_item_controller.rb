@@ -23,6 +23,16 @@ shared_examples "an item controller" do
       get :new
       response.body.should =~ /Posting as/
     end
+
+    it "should display tags if they are provided" do
+      sign_in Factory(:user)
+      get :new
+
+      sign_in Factory(:user)
+      get :new, {:tag_list => 'puppies'}
+
+      response.body.should =~ /puppies/
+    end
   end
 
   describe "editing an item" do
