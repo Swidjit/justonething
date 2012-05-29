@@ -18,5 +18,10 @@ describe Admin::UsersController do
       delete :destroy, :id => Factory(:user).id
       response.should be_redirect
     end
+
+    it "can activate a user" do
+      put :confirm, :id => Factory(:user).id
+      response.should be_redirect
+    end
   end
 end
