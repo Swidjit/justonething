@@ -78,3 +78,7 @@ margin: .5%;
 float:left;
 font-family: "Arial";
 }
+
+.add_item a {
+  cursor: pointer;
+}
