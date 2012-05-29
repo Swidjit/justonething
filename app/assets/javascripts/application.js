@@ -214,12 +214,17 @@ $("#add_item_form #add_visibility_rule a").live('click',function(){
 });
 
 $("a.add_item, .add_item a").live('click',function(){
-  var itemType = $(this).data("itemType");
-  var setTags = $(this).data("tags").replace(/ /g,'');
-  var href = $("#post_"+itemType).attr('href').split('?')[0];
-  href = href+"?tag_list="+setTags;
-  swidjit.loadAddItemForm(href);
-  return false;
+  if (USER_LOGGED_IN) {
+    var itemType = $(this).data("itemType");
+    var setTags = $(this).data("tags").replace(/ /g,'');
+    var href = $("#post_"+itemType).attr('href').split('?')[0];
+    href = href+"?tag_list="+setTags;
+    swidjit.loadAddItemForm(href);
+    return false;
+  } else {
+    window.location.href = "/users/sign_in";
+    return false;
+  }
 });
 
 var swidjit = function() {
