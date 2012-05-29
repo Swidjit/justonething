@@ -112,10 +112,10 @@
     %h3 Events
   .container_body
     %p A few of the events and activities happening around town today...
-    - if @recent_events.present?
-      %h4 Recent Events
+    - if @upcoming_events.present?
+      %h4 Upcoming Events
       %ul
-        - @recent_events.each do |i|
+        - @upcoming_events.each do |i|
           %li= link_to i.title, event_path(i)
     = link_to 'view whole event calendar', calendar_index_path
     %h4 Add an Event:
