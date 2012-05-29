@@ -1,210 +1,205 @@
-!!! Strict
-%html{:dir => "ltr", :lang => "en-US", :xmlns => "http://www.w3.org/1999/xhtml"}
-  %head
-    %meta{:content => "text/html;charset=utf-8", "http-equiv" => "Content-Type"}/
-    %title Swidjit - Profile
-    = stylesheet_link_tag "homepage", :media => "all"
-    = javascript_tag { "USER_LOGGED_IN = #{current_user.present?}" }
-  %body
-    #container
-      .wide_container
-        .container_heading
-          %img{:height => "40px", :src => "assets/item-thumbnails/have-it-thumbnail.png", :width => "40px"}/
-          %h3 Have-Its
-        .container_body
-          %p Have-Its are goods, services, and experiences offered for sale, trade, rent, or for free.
-          - if @recent_have_its.present?
-            %h4 Recent Have-Its
-            %ul
-              - @recent_have_its.each do |i|
-                %li= link_to i.title, have_its_path(i)
-          %h4 Offer Something:
-          .add_item
-            %p
-              %a{"data-item-type" => "have_it", "data-tags" => "bikes,bicycles"}> bikes
-              ,
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "cars,vehicles"} cars
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "tools"} tools
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "plants"} plants
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "lessons,instruction,classes"} lessons
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "furniture,home-furnishings"} furniture
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "food"} food
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "art"} art
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "massage,healing-arts,bodywork"} massage
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "toys,for-kids"} toys
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "tickets"} tickets
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "video-games,games,gaming"} video games
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "phones,electronics"} phones
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "cameras,electronics"} cameras
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "computers,electronics"} computers
-              = succeed "," do
-                %a{"data-item-type" => "have_it", "data-tags" => "video-games,games,gaming"} housing
-              or
-              %a{"data-item-type" => "have_it", "data-tags" => ""} anything else
-      .wide_container
-        .container_heading
-          %img{:height => "40px", :src => "assets/item-thumbnails/want-it-thumbnail.png", :width => "40px"}/
-          %h3 Want-Its
-        .container_body
-          %p Want-Its are goods, services, and experiences others are looking to buy, share, or trade for.
-          - if @recent_want_its.present?
-            %h4 Recent Want-Its
-            %ul
-              - @recent_want_its.each do |i|
-                %li= link_to i.title, have_its_path(i)
-          %h4 Request Something:
-          .add_item
-            %p
-              %a{"data-item-type" => "want_it", "data-tags" => "bikes,bicycles"}> bikes
-              ,
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "babysitting,childcare"} childcare
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "tools"} tools
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "appliances"} appliances
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "lessons,instruction,classes"} lessons
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "furniture,home-furnishings"} furniture
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "landscaping,gardening"} landscaping
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "videos,movies,DVDs"} videos
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "games"} games
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "toys,for-kids"} toys
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "tickets"} tickets
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "tools"} tools
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "phones,electronics"} phones
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "cameras,electronics"} cameras
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "computers,electronics"} computers
-              = succeed "," do
-                %a{"data-item-type" => "want_it", "data-tags" => "housing,housesitting"} housesitting
-              or
-              %a{"data-item-type" => "want_it", "data-tags" => ""} anything else
-      .wide_container
-        .container_heading
-          %img{:height => "40px", :src => "assets/item-thumbnails/event-thumbnail.png", :width => "40px"}/
-          %h3 Events
-        .container_body
-          %p A few of the events and activities happening around town today...
-          - if @recent_events.present?
-            %h4 Recent Events
-            %ul
-              - @recent_events.each do |i|
-                %li= link_to i.title, have_its_path(i)
-          = link_to 'view whole event calendar', calendar_index_path
-          %h4 Add an Event:
-          .add_item
-            %p
-              %a{"data-item-type" => "event", "data-tags" => "classes,lessons"}> classes
-              ,
-              = succeed "," do
-                %a{"data-item-type" => "event", "data-tags" => "music,live-music,peformance"} live music
-              = succeed "," do
-                %a{"data-item-type" => "event", "data-tags" => "presentations,lectures"} presentations
-              = succeed "," do
-                %a{"data-item-type" => "event", "data-tags" => "sports"} sports
-              = succeed "," do
-                %a{"data-item-type" => "event", "data-tags" => "films,movies"} films
-              = succeed "," do
-                %a{"data-item-type" => "event", "data-tags" => "theater,performance"} theater
-              = succeed "," do
-                %a{"data-item-type" => "event", "data-tags" => "art shows,art"} art shows
-              = succeed "," do
-                %a{"data-item-type" => "event", "data-tags" => "tag-sales,yard-sales,garage-sales"} tag sales
-              = succeed "," do
-                %a{"data-item-type" => "event", "data-tags" => "exercise,fitness"} fitness
-              = succeed "," do
-                %a{"data-item-type" => "event", "data-tags" => "swap-meets,bartering"} swap meets
-              or
-              %a{"data-item-type" => "event", "data-tags" => ""} anything else
-      .wide_container
-        .container_heading
-          %img{:height => "40px", :src => "assets/item-thumbnails/thought-thumbnail.png", :width => "40px"}/
-          %h3 Thoughts
-        .container_body
-          %p Thoughts are a catch-all for any information or ideas or thoughts you might want to share.
-          - if @recent_thoughts.present?
-            %h4 Recent Thoughts
-            %ul
-              - @recent_thoughts.each do |i|
-                %li= link_to i.title, have_its_path(i)
-          %h4 Say Something:
-          .add_item
-            %p
-              %a{"data-item-type" => "thought", "data-tags" => "questions"}> questions
-              ,
-              = succeed "," do
-                %a{"data-item-type" => "thought", "data-tags" => "topics"} topics
-              = succeed "," do
-                %a{"data-item-type" => "thought", "data-tags" => "notices"} notices
-              = succeed "," do
-                %a{"data-item-type" => "thought", "data-tags" => "press-releases"} press releases
-              = succeed "," do
-                %a{"data-item-type" => "thought", "data-tags" => "local news"} local-news
-              = succeed "," do
-                %a{"data-item-type" => "thought", "data-tags" => "missed-connections"} missed connections
-              or
-              %a{"data-item-type" => "thought", "data-tags" => ""} anything else
-      .wide_container
-        .container_heading
-          %img{:height => "40px", :src => "assets/item-thumbnails/collection-thumbnail.png", :width => "40px"}/
-          %h3 Collections
-        .container_body
-          %p Collections are groups of related items curated by users
-          - if @recent_collections.present?
-            %h4 Recent Collections
-            %ul
-              - @recent_collections.each do |i|
-                %li= link_to i.title, have_its_path(i)
-          %h4 Add a Collection:
-      .wide_container
-        .container_heading
-          %img{:height => "40px", :src => "assets/item-thumbnails/link-thumbnail.png", :width => "40px"}/
-          %h3 Links
-        .container_body
-          %p Elsewhere on the 'net...
-          - if @recent_links.present?
-            %h4 Recent Links
-            %ul
-              - @recent_links.each do |i|
-                %li= link_to i.title, have_its_path(i)
-          %h4 Add a Link:
-          .add_item
-            %p
-              %a{"data-item-type" => "link", "data-tags" => "useful"}> useful
-              ,
-              = succeed "," do
-                %a{"data-item-type" => "link", "data-tags" => "funny,amusing,humor"} funny
-              = succeed "," do
-                %a{"data-item-type" => "link", "data-tags" => "inspiring"} inspiring
-              = succeed "," do
-                %a{"data-item-type" => "link", "data-tags" => "local-organizations"} local organizations
-              = succeed "," do
-                %a{"data-item-type" => "link", "data-tags" => "local-websites"} local websites
-              = succeed "," do
-                %a{"data-item-type" => "link", "data-tags" => "local-information"} local information
-              or
-              %a{"data-item-type" => "link", "data-tags" => ""} anything else
+- content_for(:head) do
+  = stylesheet_link_tag "homepage", :media => "all"
+  = javascript_tag { "USER_LOGGED_IN = #{current_user.present?}" }
+
+.wide_container
+  .container_heading
+    %img{:height => "40px", :src => "assets/item-thumbnails/have-it-thumbnail.png", :width => "40px"}/
+    %h3 Have-Its
+  .container_body
+    %p Have-Its are goods, services, and experiences offered for sale, trade, rent, or for free.
+    - if @recent_have_its.present?
+      %h4 Recent Have-Its
+      %ul
+        - @recent_have_its.each do |i|
+          %li= link_to i.title, have_its_path(i)
+    %h4 Offer Something:
+    .add_item
+      %p
+        %a{"data-item-type" => "have_it", "data-tags" => "bikes,bicycles"}> bikes
+        ,
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "cars,vehicles"} cars
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "tools"} tools
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "plants"} plants
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "lessons,instruction,classes"} lessons
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "furniture,home-furnishings"} furniture
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "food"} food
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "art"} art
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "massage,healing-arts,bodywork"} massage
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "toys,for-kids"} toys
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "tickets"} tickets
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "video-games,games,gaming"} video games
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "phones,electronics"} phones
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "cameras,electronics"} cameras
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "computers,electronics"} computers
+        = succeed "," do
+          %a{"data-item-type" => "have_it", "data-tags" => "video-games,games,gaming"} housing
+        or
+        %a{"data-item-type" => "have_it", "data-tags" => ""} anything else
+.wide_container
+  .container_heading
+    %img{:height => "40px", :src => "assets/item-thumbnails/want-it-thumbnail.png", :width => "40px"}/
+    %h3 Want-Its
+  .container_body
+    %p Want-Its are goods, services, and experiences others are looking to buy, share, or trade for.
+    - if @recent_want_its.present?
+      %h4 Recent Want-Its
+      %ul
+        - @recent_want_its.each do |i|
+          %li= link_to i.title, have_its_path(i)
+    %h4 Request Something:
+    .add_item
+      %p
+        %a{"data-item-type" => "want_it", "data-tags" => "bikes,bicycles"}> bikes
+        ,
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "babysitting,childcare"} childcare
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "tools"} tools
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "appliances"} appliances
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "lessons,instruction,classes"} lessons
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "furniture,home-furnishings"} furniture
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "landscaping,gardening"} landscaping
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "videos,movies,DVDs"} videos
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "games"} games
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "toys,for-kids"} toys
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "tickets"} tickets
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "tools"} tools
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "phones,electronics"} phones
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "cameras,electronics"} cameras
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "computers,electronics"} computers
+        = succeed "," do
+          %a{"data-item-type" => "want_it", "data-tags" => "housing,housesitting"} housesitting
+        or
+        %a{"data-item-type" => "want_it", "data-tags" => ""} anything else
+.wide_container
+  .container_heading
+    %img{:height => "40px", :src => "assets/item-thumbnails/event-thumbnail.png", :width => "40px"}/
+    %h3 Events
+  .container_body
+    %p A few of the events and activities happening around town today...
+    - if @recent_events.present?
+      %h4 Recent Events
+      %ul
+        - @recent_events.each do |i|
+          %li= link_to i.title, have_its_path(i)
+    = link_to 'view whole event calendar', calendar_index_path
+    %h4 Add an Event:
+    .add_item
+      %p
+        %a{"data-item-type" => "event", "data-tags" => "classes,lessons"}> classes
+        ,
+        = succeed "," do
+          %a{"data-item-type" => "event", "data-tags" => "music,live-music,peformance"} live music
+        = succeed "," do
+          %a{"data-item-type" => "event", "data-tags" => "presentations,lectures"} presentations
+        = succeed "," do
+          %a{"data-item-type" => "event", "data-tags" => "sports"} sports
+        = succeed "," do
+          %a{"data-item-type" => "event", "data-tags" => "films,movies"} films
+        = succeed "," do
+          %a{"data-item-type" => "event", "data-tags" => "theater,performance"} theater
+        = succeed "," do
+          %a{"data-item-type" => "event", "data-tags" => "art shows,art"} art shows
+        = succeed "," do
+          %a{"data-item-type" => "event", "data-tags" => "tag-sales,yard-sales,garage-sales"} tag sales
+        = succeed "," do
+          %a{"data-item-type" => "event", "data-tags" => "exercise,fitness"} fitness
+        = succeed "," do
+          %a{"data-item-type" => "event", "data-tags" => "swap-meets,bartering"} swap meets
+        or
+        %a{"data-item-type" => "event", "data-tags" => ""} anything else
+.wide_container
+  .container_heading
+    %img{:height => "40px", :src => "assets/item-thumbnails/thought-thumbnail.png", :width => "40px"}/
+    %h3 Thoughts
+  .container_body
+    %p Thoughts are a catch-all for any information or ideas or thoughts you might want to share.
+    - if @recent_thoughts.present?
+      %h4 Recent Thoughts
+      %ul
+        - @recent_thoughts.each do |i|
+          %li= link_to i.title, have_its_path(i)
+    %h4 Say Something:
+    .add_item
+      %p
+        %a{"data-item-type" => "thought", "data-tags" => "questions"}> questions
+        ,
+        = succeed "," do
+          %a{"data-item-type" => "thought", "data-tags" => "topics"} topics
+        = succeed "," do
+          %a{"data-item-type" => "thought", "data-tags" => "notices"} notices
+        = succeed "," do
+          %a{"data-item-type" => "thought", "data-tags" => "press-releases"} press releases
+        = succeed "," do
+          %a{"data-item-type" => "thought", "data-tags" => "local news"} local-news
+        = succeed "," do
+          %a{"data-item-type" => "thought", "data-tags" => "missed-connections"} missed connections
+        or
+        %a{"data-item-type" => "thought", "data-tags" => ""} anything else
+.wide_container
+  .container_heading
+    %img{:height => "40px", :src => "assets/item-thumbnails/collection-thumbnail.png", :width => "40px"}/
+    %h3 Collections
+  .container_body
+    %p Collections are groups of related items curated by users
+    - if @recent_collections.present?
+      %h4 Recent Collections
+      %ul
+        - @recent_collections.each do |i|
+          %li= link_to i.title, have_its_path(i)
+    %h4 Add a Collection:
+.wide_container
+  .container_heading
+    %img{:height => "40px", :src => "assets/item-thumbnails/link-thumbnail.png", :width => "40px"}/
+    %h3 Links
+  .container_body
+    %p Elsewhere on the 'net...
+    - if @recent_links.present?
+      %h4 Recent Links
+      %ul
+        - @recent_links.each do |i|
+          %li= link_to i.title, have_its_path(i)
+    %h4 Add a Link:
+    .add_item
+      %p
+        %a{"data-item-type" => "link", "data-tags" => "useful"}> useful
+        ,
+        = succeed "," do
+          %a{"data-item-type" => "link", "data-tags" => "funny,amusing,humor"} funny
+        = succeed "," do
+          %a{"data-item-type" => "link", "data-tags" => "inspiring"} inspiring
+        = succeed "," do
+          %a{"data-item-type" => "link", "data-tags" => "local-organizations"} local organizations
+        = succeed "," do
+          %a{"data-item-type" => "link", "data-tags" => "local-websites"} local websites
+        = succeed "," do
+          %a{"data-item-type" => "link", "data-tags" => "local-information"} local information
+        or
+        %a{"data-item-type" => "link", "data-tags" => ""} anything else
