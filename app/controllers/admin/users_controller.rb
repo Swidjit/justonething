@@ -11,7 +11,7 @@ class Admin::UsersController < Admin::ApplicationController
     else
       flash[:notice] = 'Failed to delete user'
     end
-    redirect_to users_path
+    redirect_to admin_users_path
   end
 
 private
