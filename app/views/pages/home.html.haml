@@ -12,7 +12,7 @@
       %h4 Recent Have-Its
       %ul
         - @recent_have_its.each do |i|
-          %li= link_to i.title, have_its_path(i)
+          %li= link_to i.title, have_it_path(i)
     %h4 Offer Something:
     .add_item
       %p
@@ -60,7 +60,7 @@
       %h4 Recent Want-Its
       %ul
         - @recent_want_its.each do |i|
-          %li= link_to i.title, have_its_path(i)
+          %li= link_to i.title, want_it_path(i)
     %h4 Request Something:
     .add_item
       %p
@@ -108,7 +108,7 @@
       %h4 Recent Events
       %ul
         - @recent_events.each do |i|
-          %li= link_to i.title, have_its_path(i)
+          %li= link_to i.title, event_path(i)
     = link_to 'view whole event calendar', calendar_index_path
     %h4 Add an Event:
     .add_item
@@ -146,7 +146,7 @@
       %h4 Recent Thoughts
       %ul
         - @recent_thoughts.each do |i|
-          %li= link_to i.title, have_its_path(i)
+          %li= link_to i.title, thought_path(i)
     %h4 Say Something:
     .add_item
       %p
@@ -174,7 +174,7 @@
       %h4 Recent Collections
       %ul
         - @recent_collections.each do |i|
-          %li= link_to i.title, have_its_path(i)
+          %li= link_to i.title, collection_path(i)
     %h4 Add a Collection:
 .wide_container
   .container_heading
@@ -186,7 +186,7 @@
       %h4 Recent Links
       %ul
         - @recent_links.each do |i|
-          %li= link_to i.title, have_its_path(i)
+          %li= link_to i.title, link_path(i)
     %h4 Add a Link:
     .add_item
       %p
