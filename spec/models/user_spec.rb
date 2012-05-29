@@ -24,6 +24,14 @@ describe User do
     end
   end
 
+  describe 'a delegate' do
+    it 'can be destroyed' do
+      user = Factory(:delegate).delegatee
+      user.destroy
+      user.should_not be_persisted
+    end
+  end
+
   describe "Display Name" do
     it "can be changed once" do
       u1 = Factory(:user, :display_name => 'JohnDoe')
