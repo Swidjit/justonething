@@ -82,3 +82,7 @@ font-family: "Arial";
 .add_item a {
   cursor: pointer;
 }
+
+.li a {
+font-size:15px;
+}
