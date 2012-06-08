@@ -1,0 +1,2215 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://www.google.com/calendar/ical/ju6l13rier0b6t6cm8bn7r4fvo@group.calendar.google.com/public/basic.ics
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Content-Type: 
+      - text/calendar; charset=UTF-8
+      Cache-Control: 
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma: 
+      - no-cache
+      Expires: 
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Date: 
+      - Fri, 08 Jun 2012 16:31:18 GMT
+      X-Content-Type-Options: 
+      - nosniff
+      X-Frame-Options: 
+      - SAMEORIGIN
+      X-Xss-Protection: 
+      - 1; mode=block
+      Server: 
+      - GSE
+      Transfer-Encoding: 
+      - chunked
+    body: 
+      encoding: ASCII-8BIT
+      string: "BEGIN:VCALENDAR\r\n\
+        PRODID:-//Google Inc//Google Calendar 70.9054//EN\r\n\
+        VERSION:2.0\r\n\
+        CALSCALE:GREGORIAN\r\n\
+        METHOD:PUBLISH\r\n\
+        X-WR-CALNAME:Ithaca Children's Garden\r\n\
+        X-WR-TIMEZONE:America/New_York\r\n\
+        X-WR-CALDESC:\r\n\
+        BEGIN:VTIMEZONE\r\n\
+        TZID:America/New_York\r\n\
+        X-LIC-LOCATION:America/New_York\r\n\
+        BEGIN:DAYLIGHT\r\n\
+        TZOFFSETFROM:-0500\r\n\
+        TZOFFSETTO:-0400\r\n\
+        TZNAME:EDT\r\n\
+        DTSTART:19700308T020000\r\n\
+        RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU\r\n\
+        END:DAYLIGHT\r\n\
+        BEGIN:STANDARD\r\n\
+        TZOFFSETFROM:-0400\r\n\
+        TZOFFSETTO:-0500\r\n\
+        TZNAME:EST\r\n\
+        DTSTART:19701101T020000\r\n\
+        RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU\r\n\
+        END:STANDARD\r\n\
+        END:VTIMEZONE\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:<%= 5.days.from_now.strftime("%Y%m%d") %>T230000Z\r\n\
+        DTEND:<%= 5.days.from_now.strftime("%Y%m%d") %>T010000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:d1hu8i1r83a2k4r7shshi16mgg@google.com\r\n\
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
+        CREATED:20120601T215837Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120601T215918Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Playworker Orientation\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:<%= 2.days.from_now.strftime("%Y%m%d") %>T220000Z\r\n\
+        DTEND:<%= 2.days.from_now.strftime("%Y%m%d") %>T003000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:cnmqc6fktlqb2set4ejnvuchts@google.com\r\n\
+        CREATED:20120601T215908Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120601T215908Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Playworker Training at ICG\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120623T133000Z\r\n\
+        DTEND:20120623T150000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:tm762vsi0ttr8hkj7ag454fi8s@google.com\r\n\
+        CREATED:20120531T161242Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120531T161242Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Hasbrouk Program\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120602\r\n\
+        DTEND;VALUE=DATE:20120603\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:sumr5b9kjkvvrgr4nnjluccbj4@google.com\r\n\
+        CREATED:20120319T135825Z\r\n\
+        DESCRIPTION:9:30- 11:15\\, \\n11:30 -12:15 eat bagged lunch\\nFinal Count: 38 \r\n children (37 girls) break into 3 groups.\\n2 groups of 14 k-5th graders\\n10 \r\n 6th-10th graders\\n\\n\\n$200 to be there\\n\\nBonnie Baley\r\n\
+        LAST-MODIFIED:20120530T161254Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Girl Scouts FT from Millerton\\, PA\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120624T200000Z\r\n\
+        DTEND:20120624T210000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:5i1vuh2efpgm1s54082mafnar4@google.com\r\n\
+        CREATED:20120522T105643Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120522T105643Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Strawberries & Champaigne at ICG\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120607T133000Z\r\n\
+        DTEND:20120607T153000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:ibb3u68ch5ff8folgpddiimdro@google.com\r\n\
+        CREATED:20120516T131324Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120516T131324Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Field Trip: NE PreK & Caroline PreK\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120630T170000Z\r\n\
+        DTEND:20120630T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:plsg3thp7ea58dvhk2140i122c@google.com\r\n\
+        CREATED:20120509T171215Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120509T171215Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Int'l Mud Day\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120519\r\n\
+        DTEND;VALUE=DATE:20120520\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:km4c4secdm24hkf6k931cp721g@google.com\r\n\
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
+        CREATED:20120503T113606Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120503T134638Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Roller Derby highlights ICG\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120530T133000Z\r\n\
+        DTEND:20120530T150000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:8en0ocv0cam1e97ht3ajvm90qc@google.com\r\n\
+        CREATED:20120503T000510Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120503T000522Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Field Trip: Stepping Stones Preschool\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120501T220000Z\r\n\
+        DTEND:20120501T230000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:lalktomv63flth2s8kvofq03f8@google.com\r\n\
+        CREATED:20120425T213121Z\r\n\
+        DESCRIPTION:Erin\\,\\n\\nNext Tuesday\\, (May 1st from 6-7pm) we\xE2\x80\x99re visiting Be\r\n lle Sherman Elementary school for a Food Cycle themed Family Fun Night.  Th\r\n e nutrition department has some snacks and activities\\, Compost Education w\r\n ill be there to teach everyone what to do with the leftovers\\, and Josh was\r\n  going to have one of his volunteers set up a gardening education station w\r\n here kids can plant a seed to take home and learn about growing their own. \r\n  Here\xE2\x80\x99s the problem though\\, Josh is having a heck of a time finding a volu\r\n nteer to run the event.\\n\\nWould the Ithaca Children\xE2\x80\x99s Garden be willing to\r\n  come do the gardening education component?\\n\\nThanks\\,\\n \\nA low turnout i\r\n s about 20\\, a high turnout is about 80-100.  I\xE2\x80\x99m guessing this one will be\r\n  about 50 or so.\\nMila\\n\\n \\n\\n \\n\\n \\n\\nHere\xE2\x80\x99s the blurb wrote:\\n\\n \\n\\n\xE2\x80\x9CW\r\n hat came first\\, the seed or the veggie?  Join us for this yummy Food Cycle\r\n  Family Fun Night.  We\xE2\x80\x99ll have some delicious and nutritious snacks for you\r\n  to try.  Learn how to grow the ingredients at our growing station and then\r\n  learn how make compost from the leftovers.\xE2\x80\x9D\\n\\n \r\n\
+        LAST-MODIFIED:20120425T225312Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Belle Sherman Food Cycle Night\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120731\r\n\
+        DTEND;VALUE=DATE:20120801\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:vl3s02cdbn1fe6alqbvrskgthg@google.com\r\n\
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
+        CREATED:20120424T162632Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120424T162641Z\r\n\
+        LOCATION:GREENSTAR\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Hang ART show at GREENSTAR\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120512T203000Z\r\n\
+        DTEND:20120512T213000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:7gh8ocoqlapl9i4p404uap1fo0@google.com\r\n\
+        CREATED:20120424T115850Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120424T115850Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:PLSG labyrinth walk\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120429\r\n\
+        DTEND;VALUE=DATE:20120430\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:j9p8m39shp5i165uqb6op2qmac@google.com\r\n\
+        CREATED:20120321T171259Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120424T002006Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Duck Race at CCE\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120512T140000Z\r\n\
+        DTEND:20120512T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:9c3ne18842g83itebs5svf0fg8@google.com\r\n\
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
+        CREATED:20120419T214155Z\r\n\
+        DESCRIPTION:Beginning Gardener III\\nSaturday\\, May 12\\, 10:00am -4:00pm\\nat\r\n  the Ithaca Children's Garden at Cass Park Rt. 89\\nThis class will cover ba\r\n sic raised bed construction\\, building and using trellises\\, summer crops\\,\r\n  climate & microclimate.  Class will be open to the public and the suggeste\r\n d cost is $20. In case of heavy rain\\, class will be relocated to CCE-Tompk\r\n ins\\, 615 Willow Avenue\\, Ithaca. To sign up\\, call G4H at Cornell Cooperat\r\n ive Extension of Tompkins County\\, (607) 272-2292.\r\n\
+        LAST-MODIFIED:20120419T214234Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Beginning Gardener III\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120616T140000Z\r\n\
+        DTEND:20120616T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:lqq7eohb7jvvbal5uo3josqdrg@google.com\r\n\
+        CREATED:20120419T213659Z\r\n\
+        DESCRIPTION:Herbs\\, Perennials & Permaculture\\nSaturday\\, June 16\\, 10:00am\r\n -4:00pm\\nat the Ithaca Children's Garden at Cass Park Rt. 89\\nThis hands-on\r\n  Gardens4Humanity training class will cover perennials as an easier and mor\r\n e sustainable way of growing food\\; growing herbs and perennial vegetables\\\r\n , introduction to permaculture\\, Herb Spiral construction . Class is open t\r\n o the public and the suggested cost is $20/person.  To sign up\\, call G4H a\r\n t Cornell Cooperative Extension of Tompkins County\\, (607) 272-2292. In cas\r\n e of heavy rain\\, class will be relocated to CCE-Tompkins\\, 615 Willow Aven\r\n ue\\, Ithaca.\r\n\
+        LAST-MODIFIED:20120419T213659Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Herbs\\, Perennials & Permaculture\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120503T120000Z\r\n\
+        DTEND:20120503T160000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:lb9fkfdfegfd4831e5hi2ok49k@google.com\r\n\
+        CREATED:20120417T204031Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120417T204031Z\r\n\
+        LOCATION:Cayuga Heights Elem\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Go Green at Cayuga Heights Elem\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120428T170000Z\r\n\
+        DTEND:20120428T190000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:k2c43c6aurvjh0ombj7jq0gvh8@google.com\r\n\
+        CREATED:20120416T201647Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120416T201647Z\r\n\
+        LOCATION:Walmart\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG at Walmart\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120505T140000Z\r\n\
+        DTEND:20120505T170000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:vt4dnrrqo74s9m05ac8uvrovs0@google.com\r\n\
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
+        CREATED:20120321T171414Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120328T104707Z\r\n\
+        LOCATION:Triphammer Marketplace\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG at Triphammer Marketplace\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120613\r\n\
+        DTEND;VALUE=DATE:20120614\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120611\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161338Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120606\r\n\
+        DTEND;VALUE=DATE:20120607\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120604\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161337Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120404\r\n\
+        DTEND;VALUE=DATE:20120405\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120402\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161256Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120425\r\n\
+        DTEND;VALUE=DATE:20120426\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120423\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161255Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120418\r\n\
+        DTEND;VALUE=DATE:20120419\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120416\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161254Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120530\r\n\
+        DTEND;VALUE=DATE:20120531\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120528\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161251Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120523\r\n\
+        DTEND;VALUE=DATE:20120524\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120521\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161249Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120516\r\n\
+        DTEND;VALUE=DATE:20120517\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120514\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161248Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120509\r\n\
+        DTEND;VALUE=DATE:20120510\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120507\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161244Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120502\r\n\
+        DTEND;VALUE=DATE:20120503\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20120430\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120326T161241Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120414\r\n\
+        DTEND;VALUE=DATE:20120415\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:e7q6jkantg0vas9rosk6n4db9g@google.com\r\n\
+        CREATED:20120322T172542Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120322T172542Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:G4H Training: Beginning Gardener 1 at ICG\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VFREEBUSY\r\n\
+        DTSTART:20120712T133000Z\r\n\
+        DTEND:20120712T154500Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:53b04f45fa14c4901800c5cf895908b98bcf242b@google.com\r\n\
+        ATTENDEE;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.calendar.go\r\n ogle.com\r\n\
+        SUMMARY:Busy\r\n\
+        END:VFREEBUSY\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120829\r\n\
+        DTEND;VALUE=DATE:20120831\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:to0lksn0il70c2ss9h1h3aq374@google.com\r\n\
+        CREATED:20120313T164209Z\r\n\
+        DESCRIPTION:9-3:30\\, 8:30-4 is possible\r\n\
+        LAST-MODIFIED:20120313T164209Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Camp Garden Chefs\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120801\r\n\
+        DTEND;VALUE=DATE:20120803\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:nkl06utrqvm43mfr9pgvggoaqo@google.com\r\n\
+        CREATED:20120313T163756Z\r\n\
+        DESCRIPTION:9-3:30\\, 8:30-4pm possible\r\n\
+        LAST-MODIFIED:20120313T164124Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Artists' Studio 2-Day Camp\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120716\r\n\
+        DTEND;VALUE=DATE:20120720\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:2eqqoh8a4653u611gnnr6ugvsc@google.com\r\n\
+        CREATED:20120313T163606Z\r\n\
+        DESCRIPTION:9-3:30 with 8:30 dropoff and 4pm pickup possible\r\n\
+        LAST-MODIFIED:20120313T164054Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:HabitatMANIA Day Camp \r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120625\r\n\
+        DTEND;VALUE=DATE:20120629\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:e9u44iva14bp377rlf6p1sqj64@google.com\r\n\
+        CREATED:20120313T163402Z\r\n\
+        DESCRIPTION:9-3:30 with 8:30 drop off and 4pm pickup possible\r\n\
+        LAST-MODIFIED:20120313T164040Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Artists' Studio Day Camp \r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120813\r\n\
+        DTEND;VALUE=DATE:20120817\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:28fish5a6jqr8sied06rbb005g@google.com\r\n\
+        CREATED:20120313T163848Z\r\n\
+        DESCRIPTION:9-3:30 with 8:30 drop off and 4pm pickup possible.\r\n\
+        LAST-MODIFIED:20120313T163933Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Camp Garden Chefs\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20120709T100000\r\n\
+        DTEND;TZID=America/New_York:20120709T110000\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20120723T140000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:loqrmmoufhr7ffakpoj8lj5874@google.com\r\n\
+        CREATED:20120118T160231Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120313T163449Z\r\n\
+        LOCATION:the Garden\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Art in the Garden\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120807T153000Z\r\n\
+        DTEND:20120807T163000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:j9re2ft9m6g4c46r668j5ghbgo@google.com\r\n\
+        CREATED:20120313T163122Z\r\n\
+        DESCRIPTION:Kevin Dockstader\\, Mental Health of Tompkins County phoned 3/13\r\n  to book guided tour\\nNot able to pay\\, not interested in service learning.\r\n   Just want information about the plants and how things grow.\\n# kids:  15-\r\n 30\\nages: 5-15\\nSwim at Cass Park from 1-4.\\nKevin:  273-9250\\nk.dockstater\r\n @aol.com\\n301 S. Geneva St. Suite 109\\nPerfect for YHAP Tours on Tuesday)\\n\r\n \\n\r\n\
+        LAST-MODIFIED:20120313T163122Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Kids First - tour of ICG\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20121110\r\n\
+        DTEND;VALUE=DATE:20121111\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:8bi6k2aq3liuu93o6fvmqls3os@google.com\r\n\
+        CREATED:20110801T005812Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120218T183353Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG at Family Reading Partnership Book Fest\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20120411T090000\r\n\
+        DTEND;TZID=America/New_York:20120411T150000\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:0h297q1cn3uo1vo027jv97ob3k@google.com\r\n\
+        RECURRENCE-ID;TZID=America/New_York:20120411T090000\r\n\
+        CREATED:20120118T140552Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120213T145653Z\r\n\
+        LOCATION:CCE\r\n\
+        SEQUENCE:3\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG School's Out! Camp - Art in the Garden\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20120502T150000\r\n\
+        DTEND;TZID=America/New_York:20120502T160000\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20120613T190000Z;BYDAY=WE\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:t7m6ctd1j9d6sq8acvjr9iib24@google.com\r\n\
+        CREATED:20120118T154436Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120211T154848Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Salad Farmers\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120512\r\n\
+        DTEND;VALUE=DATE:20120513\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:7qj14b9uverleme0uhr9hrl3os@google.com\r\n\
+        CREATED:20110801T011308Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120206T193943Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG Spring Open House\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120422\r\n\
+        DTEND;VALUE=DATE:20120423\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:q4ug1bl5mhabm9shjs3apokjjs@google.com\r\n\
+        CREATED:20120203T152330Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120203T152331Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Wind Turbine Challenge Judging\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120318T190000Z\r\n\
+        DTEND:20120318T210000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:uid192j8lsfsb6afhs2rn5jcl8@google.com\r\n\
+        CREATED:20120118T134751Z\r\n\
+        DESCRIPTION:Kaori Blalock blalock@cal.berkeley.edu\\n15 guests\\ngirl turning\r\n  6\r\n\
+        LAST-MODIFIED:20120131T203849Z\r\n\
+        LOCATION:CCE\\, Room A & C (booked)\r\n\
+        SEQUENCE:3\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fairy birthday party\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120920T164000Z\r\n\
+        DTEND:20120920T174000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:t32qr93n5o946ce2raeuj30st8@google.com\r\n\
+        CREATED:20120130T162549Z\r\n\
+        DESCRIPTION:Candy Filios\\, 387-3428\r\n\
+        LAST-MODIFIED:20120130T163141Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Director's Tour of ICG with T'burg Garden Club\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120614T130000Z\r\n\
+        DTEND:20120614T150000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:kvg4b127v10bpftuqoouo9a40o@google.com\r\n\
+        CREATED:20120118T154336Z\r\n\
+        DESCRIPTION:John Fields\\, jfields1@icsd.k12.ny.us\\, 607.379.2206\\n5th grade\r\n  teacher\\, 2012 will be 3rd year he brings his class\r\n\
+        LAST-MODIFIED:20120128T141455Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Belle Sherman Field Trip to ICG\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120310\r\n\
+        DTEND;VALUE=DATE:20120311\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:cbs0lfqm9qgatpakbbn3gapt20@google.com\r\n\
+        CREATED:20120118T132957Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120127T025137Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:1-4 Wind Turbine Competition Kickoff\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120412T130000Z\r\n\
+        DTEND:20120412T190000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:6gmp2g2rti1m69i6jm853m5e60@google.com\r\n\
+        CREATED:20120118T140644Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120125T003325Z\r\n\
+        LOCATION:CCE\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG \"School's Out\" Day Camp\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120110\r\n\
+        DTEND;VALUE=DATE:20120111\r\n\
+        RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=TU\r\n\
+        EXDATE;VALUE=DATE:20120110\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:0lffc01v23suiiipa5po3spn4s@google.com\r\n\
+        CREATED:20111114T155230Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120120T015543Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Winter Sprouts at Hasbrouck\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20121023T153000\r\n\
+        DTEND;TZID=America/New_York:20121023T170000\r\n\
+        RRULE:FREQ=WEEKLY;COUNT=35;BYDAY=TU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:s4hjls9hs28of5cm1q9ahjuohg@google.com\r\n\
+        CREATED:20120118T161230Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T161230Z\r\n\
+        LOCATION:Hasbrouk Community Center\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Hasbrouk Fall Sprouts\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120710\r\n\
+        DTEND;VALUE=DATE:20120711\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=20120814\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:jr0ft2idcc9agsbhud84nib3j8@google.com\r\n\
+        CREATED:20120118T141759Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T161147Z\r\n\
+        LOCATION:ICG - Meet at Gaia the Turtle\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Tour on Tuesday\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20121022\r\n\
+        DTEND;VALUE=DATE:20121023\r\n\
+        RRULE:FREQ=WEEKLY;COUNT=4;BYDAY=MO\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:c1clm643ghhcs9145564qshfg4@google.com\r\n\
+        CREATED:20120118T161131Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T161131Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Jillian's Drawers - awaiting confirmation\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120921\r\n\
+        DTEND;VALUE=DATE:20120922\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:iq2q6tvvfhkivtd3lts6b226qs@google.com\r\n\
+        CREATED:20120118T161043Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T161043Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:GIAC - hold\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120914\r\n\
+        DTEND;VALUE=DATE:20120915\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:ou2kucqgmls9c28bvj0na9b9uk@google.com\r\n\
+        CREATED:20120118T161032Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T161032Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:GIAC - hold\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120920\r\n\
+        DTEND;VALUE=DATE:20120921\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:96p6qvhmmselib6g5l6von8q5k@google.com\r\n\
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
+        CREATED:20120118T161009Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T161019Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:SSCC - hold\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120913\r\n\
+        DTEND;VALUE=DATE:20120914\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:8ovhf9p4ndbna66hkd9hbsop5c@google.com\r\n\
+        CREATED:20120118T160956Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T160956Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:SSCC - hold\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20120802T100000\r\n\
+        DTEND;TZID=America/New_York:20120802T110000\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=TH;UNTIL=20120823T140000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:qkf2gv4md9i8815hqp70g57rqk@google.com\r\n\
+        CREATED:20120118T160341Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T160914Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Chefs\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120511\r\n\
+        DTEND;VALUE=DATE:20120512\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:chnt7t78lg9mtrjbk60bp2rujo@google.com\r\n\
+        CREATED:20120118T160554Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T160554Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:National Public Garden Day\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120818\r\n\
+        DTEND;VALUE=DATE:20120819\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:aimp5n9lik2ou27b85rtrfkf0k@google.com\r\n\
+        CREATED:20120118T160431Z\r\n\
+        DESCRIPTION:with entomologist Carolyn Belle\r\n\
+        LAST-MODIFIED:20120118T160431Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Bug Quest!\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20120620T100000\r\n\
+        DTEND;TZID=America/New_York:20120620T110000\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20120912T140000Z;BYDAY=WE\r\n\
+        EXDATE;TZID=America/New_York:20120704T100000\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:lq60qo4pdgpslsitsj6vmej72s@google.com\r\n\
+        CREATED:20120118T154215Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T154215Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Summer Sprouts\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120621\r\n\
+        DTEND;VALUE=DATE:20120622\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:apirqse2p3qsr9kp4oviahun64@google.com\r\n\
+        CREATED:20120118T154137Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T154137Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Last Day of School\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120609T140000Z\r\n\
+        DTEND:20120609T153000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:rbebrd020hm69ae7j84jlnqj3o@google.com\r\n\
+        CREATED:20120118T142442Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T142442Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fairy Family Fun\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120531T210000Z\r\n\
+        DTEND:20120531T230000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:ovjrfoqfmk2ur3s80qae7cvpks@google.com\r\n\
+        CREATED:20110801T004901Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T142343Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG in Ithaca Festival Parade\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20120526T100000\r\n\
+        DTEND;TZID=America/New_York:20120526T103000\r\n\
+        RRULE:FREQ=MONTHLY;COUNT=5;BYDAY=4SA\r\n\
+        EXDATE;TZID=America/New_York:20120526T100000\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:1e1a93g2uuhsj28rbjrdiludec@google.com\r\n\
+        CREATED:20120118T142035Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T142119Z\r\n\
+        LOCATION:ICG - Meet at Gaia the Turtle\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Director's Garden Tour\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20120411T090000\r\n\
+        DTEND;TZID=America/New_York:20120411T160000\r\n\
+        RRULE:FREQ=WEEKLY;COUNT=1;BYDAY=WE,TH\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:0h297q1cn3uo1vo027jv97ob3k@google.com\r\n\
+        CREATED:20120118T140552Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T140552Z\r\n\
+        LOCATION:CCE\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG Camp\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120326\r\n\
+        DTEND;VALUE=DATE:20120327\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20120611;BYDAY=MO\r\n\
+        EXDATE;VALUE=DATE:20120409\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:htkcl0ag25blmo2nlpbfq55oh4@google.com\r\n\
+        CREATED:20120118T133107Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20120118T133107Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Creek Elem: Seed to Salad\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111012T133000Z\r\n\
+        DTEND:20111012T150000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:sdr3hujcec40fj3hhci1oa6phs@google.com\r\n\
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
+        CREATED:20111010T162435Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20111010T162514Z\r\n\
+        LOCATION:Ithaca Children's Garden\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Field Trip: Northeast Elementary PreK\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111015T190000Z\r\n\
+        DTEND:20111015T220000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:ug04shocc904sii2me3l54qm1s@google.com\r\n\
+        CREATED:20110411T195834Z\r\n\
+        DESCRIPTION:Celebrate scarecrows and everything autumn at the Children's Ga\r\n rden in Cass Park.  Fun for all ages!\\n\\nScarecrow Making\\nPumpkin Carving\\\r\n nHands-On Harvest Fun\\nApple Taste Test\\nPumpkins for Sale\\nMusic and Refre\r\n shments\\n\\nThe event is free! Suggested donation.\\n\\nJoin us at the Ithaca \r\n Children\xE2\x80\x99s Garden on Saturday October 15\\, 3-6pm to celebrate scarecrows\\, \r\n pumpkins\\, and everything autumn.  The Scarecrow Jubilee and Pumpkin Jam co\r\n mbine again this year for an afternoon of family fun at the Garden. \\n\\nWe\xE2\x80\x99\r\n ll have all the materials you\xE2\x80\x99ll need to create a scarecrow of your own. St\r\n aff from Cayuga Landscape and volunteers will be on hand to help you master\r\n  the basic construction.  We\xE2\x80\x99ll have pumpkins for sale at bargain prices an\r\n d lots of kid-safe carving tools so you can create a jack-o-lantern and lea\r\n ve your goop with us. Also plenty of harvest-themed hands-on activities: vi\r\n sit the pumpkin station\\, make a felt crow\\, and create a seed mosaic and a\r\n  gourd critter.  A performance by entertainer Judy Stock\\, music\\, and food\r\n  round out the event.\\n\\nThe event is free and great for all ages.  Donatio\r\n ns are welcome.  The Garden is located at the southern end of Cass Park on \r\n Rt. 89 in Ithaca \\n\\n\r\n\
+        LAST-MODIFIED:20111007T005802Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Scarecrow Jubilee & Pumpkin Jam\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20111107T153000\r\n\
+        DTEND;TZID=America/New_York:20111107T163000\r\n\
+        RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:jlbjct5mbe5gkfpj77komuk26k@google.com\r\n\
+        CREATED:20111007T005353Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20111007T005354Z\r\n\
+        LOCATION:Hasbrouck Apts. Cornell\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Garden Fun @ Hasbrouck\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111017T193000Z\r\n\
+        DTEND:20111017T203000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:u96s8aql2i7jmkhhhv1be4j1qo@google.com\r\n\
+        CREATED:20111007T005213Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20111007T005213Z\r\n\
+        LOCATION:Hasbrouck Apts. Cornell\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Garden Fun @ Hasbrouck\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111010T173000Z\r\n\
+        DTEND:20111010T203000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:hliu1itr32oie87c9fn7g4m4k0@google.com\r\n\
+        CREATED:20110912T162958Z\r\n\
+        DESCRIPTION:On this day off from school\\, spend the afternoon sampling harv\r\n est goodies and trying out all the great hands-on activities organized by C\r\n ornell Cooperative Extension of Tompkins County. The event is free.  Join t\r\n he Ithaca Children's Garden for a fun project and celebrate the harvest. \\n\r\n\
+        LAST-MODIFIED:20111007T005110Z\r\n\
+        LOCATION:Hancock St\\, Former P&C store parking lot\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Harvest Fest for Kids\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111009T143000Z\r\n\
+        DTEND:20111009T163000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:br0eotrbgd284uev1q34osr8lo@google.com\r\n\
+        CREATED:20111007T005048Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20111007T005048Z\r\n\
+        LOCATION:Ithaca Children's Garden\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Private Birthday Party\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20110801T160000\r\n\
+        DTEND;TZID=America/New_York:20110801T180000\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20111010T200000Z;BYDAY=MO\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:1himgvf337br9ejvr1oi19ddlk@google.com\r\n\
+        CREATED:20110731T234743Z\r\n\
+        DESCRIPTION:2 hours of working & learning in the garden.  5-7 pm drop in.  \r\n Volunteers can help out\\, enjoy refreshments and take home a plant (supplie\r\n s permitting) if they'd like.  This should be half about work\\, and half ab\r\n out connecting and informing volunteers about what we do.\r\n\
+        LAST-MODIFIED:20110923T152639Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG Volunteer Mondays\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110925T170000Z\r\n\
+        DTEND:20110925T183000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:vircjrntbpohaco5kqhinlli6s@google.com\r\n\
+        CREATED:20110907T180824Z\r\n\
+        DESCRIPTION:Fall is a magical time in the Garden.  Come learn about fairy l\r\n ore\\, build fairy houses\\, weave wands\\, and mix up fairy dust.  Learn how \r\n to create a a fairy garden and take home seeds to get one started.  For age\r\n s 3 and up. $12/child/$18 per family.  Space is limited.  Registration requ\r\n ested:  272.2292 x186 or lam26@cornell.edu\r\n\
+        LAST-MODIFIED:20110919T144750Z\r\n\
+        LOCATION:Ithaca Children's Garden\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fairy Gardens\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110925T180000Z\r\n\
+        DTEND:20110925T190000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:eifl2ldqfhtq88kl1hff9tod5s@google.com\r\n\
+        CREATED:20110907T180849Z\r\n\
+        DESCRIPTION:Join Children's Garden Director\\, Erin Marteal for a walk throu\r\n gh the Garden. Learn about Garden history\\, Gaia the Turtle\\, the whimsy hi\r\n dden around every corner\\, programs\\, events. Bring your questions.  Great \r\n for all ages. For more information: enm6@cornell.edu or 272.2292 x122.\r\n\
+        LAST-MODIFIED:20110919T144714Z\r\n\
+        LOCATION:Ithaca Children's Garden\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG Garden Tour (Erin)\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111001T150000Z\r\n\
+        DTEND:20111001T160000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:hg0of8471p1cedsk1h9aqvbtok@google.com\r\n\
+        CREATED:20110916T221423Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110919T144544Z\r\n\
+        LOCATION:Ithaca Children's Garden\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Donor Garden Tour\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111029T130000Z\r\n\
+        DTEND:20111029T190000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:vldb11nbacflu3rpqks20us13o@google.com\r\n\
+        CREATED:20110801T000013Z\r\n\
+        DESCRIPTION:Stop by the Children's Garden table at the 8th annual Insectapa\r\n looza! I\\nInsectapalooza is a one day Insect Fair for the entire family. Co\r\n me share our fascination with insects and their arthropod kin (spiders\\, sc\r\n orpions\\, centipedes\\, and others). At Insectapalooza we have fun and educa\r\n tional exhibits for all age-groups\\, from children to adults. The event is \r\n free open to the public.\r\n\
+        LAST-MODIFIED:20110919T144506Z\r\n\
+        LOCATION:Comstock Hall\\, Cornell University\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Insectapalooza 2011\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111112T150000Z\r\n\
+        DTEND:20111112T210000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:m31r8ikqtjcvk37e9fmeusmdoc@google.com\r\n\
+        CREATED:20110829T183221Z\r\n\
+        DESCRIPTION:Join the Ithaca Children's Garden at the Family Reading Partner\r\n ship's Kids Book Fest.  This year's theme is \"Reading Magic\" and the Childr\r\n en's Garden will be featuring Weslandia by Paul Fleischman.  This great boo\r\n k follows Wesley and his magical \"swist\" flowers on an adventure all about \r\n the many ways plants are a part of our everyday lives.  The Book Fest featu\r\n res a full day worth of fun.  Find out more on the Family Reading Partnersh\r\n ip's website: www.familyreading.org\r\n\
+        LAST-MODIFIED:20110919T144032Z\r\n\
+        LOCATION:Boynton Middle School\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Kids Book Fest\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120408\r\n\
+        DTEND;VALUE=DATE:20120409\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:vpi5lae1degiq9pr3rg6fu9h08@google.com\r\n\
+        CREATED:20110907T182637Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110907T182637Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:schedule volunteer days/take home activity\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120219\r\n\
+        DTEND;VALUE=DATE:20120220\r\n\
+        RRULE:FREQ=DAILY;UNTIL=20120224\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:dgu7u2ek1at3b224b3s9o3acsc@google.com\r\n\
+        CREATED:20110907T181912Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110907T181912Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICSD WINTER BREAK\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20120109T103000\r\n\
+        DTEND;TZID=America/New_York:20120109T113000\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20120227T153000Z;BYDAY=MO\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:80s36mesf7k99h38aruk7vhk7s@google.com\r\n\
+        CREATED:20110907T181530Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110907T181530Z\r\n\
+        LOCATION:Mama Goose\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Winter Sprouts\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20111203\r\n\
+        DTEND;VALUE=DATE:20111204\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:urgp85660vnvc1oikkh09dsg1g@google.com\r\n\
+        CREATED:20110907T181053Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110907T181053Z\r\n\
+        LOCATION:First Presbyterian & First Baptist Church\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Alternative Gift Fair\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111016T190000Z\r\n\
+        DTEND:20111016T210000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:pqbqkttpltibmitarbt6escm3c@google.com\r\n\
+        CREATED:20110907T180929Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110907T180930Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Bulb Labyrinth Memorial Garden Event\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110925T160000Z\r\n\
+        DTEND:20110925T210000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:i4tnttvkci1dmf03rg3mr3bvp8@google.com\r\n\
+        CREATED:20110803T005352Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110907T180536Z\r\n\
+        LOCATION:Rhiner's Festival\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG at Rhiner's Festival\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111001T140000Z\r\n\
+        DTEND:20111001T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:vg1dqqc949k2lgblkfbbbo65qk@google.com\r\n\
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
+        CREATED:20110720T175631Z\r\n\
+        DESCRIPTION:2010 GREEN BUILDINGS OPEN HOUSE\\nSat & Sun\\, October 2-3\\, 10am\r\n -4pm\\nMore than 30 homes and businesses-and one children's garden- that use\r\n  renewable energy and/or eco-friendly building practices will be open to th\r\n e public for self-guided tours during this two-day event. Homeowners and/or\r\n  builders will be on hand to discuss their work and answer questions about \r\n solar energy\\, wind power\\, geothermal\\, solar hot water\\, straw bale const\r\n ruction\\, timber framing\\, non-toxic finishes\\, local and reclaimed materia\r\n ls\\, and more. The event is free\\, but we are collecting donations at the s\r\n ites. Visit http://ccetompkins.org/gb-open-house and click on the 2010 link\r\n  for details on specific sites and which day they\xE2\x80\x99re open. Van\\, bicycle\\, \r\n and walking tours available\xE2\x80\x94preregistration required. Call (607) 272-2292 o\r\n r e-mail gm52@cornell.edu to preregister or for more information. Presented\r\n  by Tompkins County Cooperative Extension and the Ithaca Green Building All\r\n iance\\, in conjunction with the Northeast Sustainable Energy Association an\r\n d the American Solar Energy Society.\r\n\
+        LAST-MODIFIED:20110906T145217Z\r\n\
+        LOCATION:Ithaca Children's Garden\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG on Green Buildings Open House\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110912T210000Z\r\n\
+        DTEND:20110912T230000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:fl7pa7q60v8pb3vks7rtnf29vk@google.com\r\n\
+        CREATED:20110829T235631Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110829T235653Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Flag/ Banner painting\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110820T140000Z\r\n\
+        DTEND:20110820T150000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:djt9p0e2q2i7lmbopni67ud19s@google.com\r\n\
+        CREATED:20110803T131319Z\r\n\
+        DESCRIPTION:Meet entomologist (bug wizard!) Carolyn Klass for a hands-on Bu\r\n g Quest adventure.  Catch\\, observe\\, learn about\\, and release incredible \r\n insects that make their homes in meadows\\, wetlands\\, and backyards.  For a\r\n ges 3 and up.  $8 per child/$12 per family.\r\n\
+        LAST-MODIFIED:20110803T131655Z\r\n\
+        LOCATION:Ithaca Children's Garden\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Bug Quest with entomologist Carolyn Klass\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110827T140000Z\r\n\
+        DTEND:20110827T153000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:7gb94fasicvn8uulaeeskihjvo@google.com\r\n\
+        CREATED:20110801T015215Z\r\n\
+        DESCRIPTION:Summer is a magical time in the Garden.  Come learn about fairy\r\n  lore\\, build fairy houses\\, weave wands\\, and mix up fairy dust.  Learn ho\r\n w to create a a fairy garden and take home seeds to get one started.  For a\r\n ges 3 and up. $12/child/$18 per family.  Space is limited.  Registration re\r\n quested:  272.2292 x186 or lam26@cornell.edu\r\n\
+        LAST-MODIFIED:20110803T131524Z\r\n\
+        LOCATION:Ithaca Children's Garden\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Midsummer Fairy Gardens\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20111006T183000Z\r\n\
+        DTEND:20111006T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:a7b53v00snpsae5dgnccut4lgs@google.com\r\n\
+        CREATED:20110801T123710Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110801T124914Z\r\n\
+        LOCATION:Icg\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Plant Science students to ICG\r\n\
+        TRANSP:OPAQUE\r\n\
+        CATEGORIES:http://schemas.google.com/g/2005#event\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110922T183000Z\r\n\
+        DTEND:20110922T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:o89jh4m59e5asvm7fem8rrll04@google.com\r\n\
+        CREATED:20110801T123845Z\r\n\
+        LAST-MODIFIED:20110801T123845Z\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Plant Science students to ICG\r\n\
+        TRANSP:OPAQUE\r\n\
+        CATEGORIES:http://schemas.google.com/g/2005#event\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120714\r\n\
+        DTEND;VALUE=DATE:20120715\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:g37h52jlo6njcq38m5001hmfp0@google.com\r\n\
+        CREATED:20110801T010048Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110801T010048Z\r\n\
+        LOCATION:Fingerlakes Dragon Boat Festival\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG at Fingerlakes Dragon Boat Festival\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120922T160000Z\r\n\
+        DTEND:20120922T220000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:a4dp6mt7u4ov92jrcufuo7i5ic@google.com\r\n\
+        CREATED:20110801T005956Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110801T005956Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Rhiner's Festival\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20121013T180000Z\r\n\
+        DTEND:20121013T230000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:9pisfih21bodurs62crmuajv20@google.com\r\n\
+        CREATED:20110801T005856Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110801T005856Z\r\n\
+        LOCATION:ICG\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Scarecrow Jubilee & Pumpkin Jam\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20120804T170000Z\r\n\
+        DTEND:20120804T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:5gf6r3dbgrio984937b0hi68qc@google.com\r\n\
+        CREATED:20110801T005503Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110801T005503Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:7th Hatchday\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20120705T090000\r\n\
+        DTEND;TZID=America/New_York:20120705T140000\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20120816T130000Z;BYDAY=MO,TU,WE,TH\r\n\
+        EXDATE;TZID=America/New_York:20120705T090000\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:lhs7mkfmo8srqqu7ls4i83e0qo@google.com\r\n\
+        CREATED:20110801T005358Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110801T005411Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:YHAP\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20120616\r\n\
+        DTEND;VALUE=DATE:20120617\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:fm9qofafh57q3t7lknpgromjg8@google.com\r\n\
+        CREATED:20110801T005144Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110801T005155Z\r\n\
+        LOCATION:Southside Community Center\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:ICG at Juneteenth\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110815T130000Z\r\n\
+        DTEND:20110815T190000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:bh9ejff2s844t941vohtpu1cuc@google.com\r\n\
+        CREATED:20110731T235516Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110731T235516Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Cornell POST volunteers at ICG\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110827T163000Z\r\n\
+        DTEND:20110827T193000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:4rc48jehi6afq2alr9b65hk5ks@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20110706T185028Z\r\n\
+        DESCRIPTION:Family Day at The History Center\\nTheme: Focus on Sustainabilit\r\n y\\nTime: 12:30 - 3:30pm\\nWhat:  Music by June Apple.\\nFree Purity ice cream\r\n .\\nActivities for kids\\, fun for the whole family!\\nCost: Free\\nWhere:  The\r\n  History Center\\, 401 E. State Street\\, First Floor\\nlots of free parking i\r\n n the lot around back!\\nhttp://www.thehistorycenter.net/news2011/familyday.\r\n html\r\n\
+        LAST-MODIFIED:20110720T175017Z\r\n\
+        LOCATION:History Center\\, State Street\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:History Center Family Day: Sustainability\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20110516T170000\r\n\
+        DTEND;TZID=America/New_York:20110516T190000\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20110627T210000Z;BYDAY=MO\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:q70u2tkpnqtn3ljajmejupai90@google.com\r\n\
+        CREATED:20110511T191015Z\r\n\
+        DESCRIPTION:Ithaca Children's Garden will be hosting drop-in volunteer work\r\n  & learning \"Dig It\" sessions on Monday evenings 5-7pm May 16 - June 27 at \r\n the Ithaca Children's Garden.  Volunteers will be working with the guidance\r\n  of a professional horticulturist to get the garden in shape this season.  \r\n Come once or several times to learn gardening basics hands-on\\, or simply t\r\n o help the Children's Garden look its best. All ages welcome.\\n\\nHorticultu\r\n rist Linda Yannone has studied at the Institute for Ecosystem Studies in Mi\r\n llbrook and New York Botanical Garden\\, and holds a bachelors degree in pla\r\n nt science\\, a masters in teaching in agriculture\\, and an MPS in horticult\r\n ure\\, all from Cornell. She owns Gardenella\\, a small garden design and est\r\n ate maintenance company with special attention to native and medicinal plan\r\n ts\\, based in Ithaca\\, NY and Sherman\\, CT\\, and has been gardening for ove\r\n r 25 years.\\n\\nFor information contact: Erin Marteal\\, 607.227.2982\r\n\
+        LAST-MODIFIED:20110511T191146Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Drop-In Volunteer & Learn Evenings with Linda Yannone\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20110615T100000\r\n\
+        DTEND;TZID=America/New_York:20110615T110000\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20110914T140000Z;BYDAY=WE\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:fqqnk4l8t9iupkrcvirsv76mn8@google.com\r\n\
+        CREATED:20110411T195629Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110508T025809Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Summer Sprouts\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20110707\r\n\
+        DTEND;VALUE=DATE:20110708\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20110728;BYDAY=TH\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:e31oc23kaeiqf661puu34c1jk0@google.com\r\n\
+        CREATED:20110411T195703Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110508T025809Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Music in the Garden\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20110804T100000\r\n\
+        DTEND;TZID=America/New_York:20110804T110000\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20110825T140000Z;BYDAY=TH\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:rjjqkkpt6flidufea4mj4gk3qc@google.com\r\n\
+        CREATED:20110411T195814Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110508T025809Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Chefs\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20110711T100000\r\n\
+        DTEND;TZID=America/New_York:20110711T110000\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20110829T140000Z;BYDAY=MO\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:i56hf2f0rvljkn1ppsv3qlljug@google.com\r\n\
+        CREATED:20110411T195723Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110508T025809Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Art in the Garden\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110806T170000Z\r\n\
+        DTEND:20110806T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:4aqp654mb1dnn3jv0tbn3jn768@google.com\r\n\
+        CREATED:20110411T195747Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110508T025807Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Gaia's Hatchday Celebration\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110514T130000Z\r\n\
+        DTEND:20110514T170000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:6k2jpusdfhf69fpofgqqu1j1mc@google.com\r\n\
+        CREATED:20110411T195225Z\r\n\
+        DESCRIPTION:NEW LOCATION THIS YEAR-NYS Armory!  Cooperative Extension Maste\r\n r Gardener volunteers\\, over 40 area growers\\,  and other garden groups off\r\n er perennials\\, specialty plants and gardening advice. You will find organi\r\n cally grown vegetable transplants and heirloom varieties\\, a huge variety o\r\n f annuals\\, herbs and many specialty perennials\\, flowering shrubs\\, trees\\\r\n , hardy roses and fruit crops.  Free soil pH testing is available and educa\r\n tional exhibits and information are offered.  Kids can join the Ithaca Chil\r\n dren's Garden for a fun hands-on activity.  Bring baskets\\, wagons\\, and ot\r\n her containers for transporting plants.  For more information\\, call (607) \r\n 272-2292.\r\n\
+        LAST-MODIFIED:20110508T025806Z\r\n\
+        LOCATION:NYS Armory 1765 Hanshaw Road Ithaca\\, New York 14850\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Spring Garden Fair and Plant Sale\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20110507T170000Z\r\n\
+        DTEND:20110507T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:k2tp8er01t6r5tmdo969bsc834@google.com\r\n\
+        CREATED:20110124T183239Z\r\n\
+        DESCRIPTION:Welcome spring and help open the Ithaca Children's Garden for t\r\n he season with hands-on activities for all ages including:\\nTree planting i\r\n n the new Forest Garden\\nSeed starting in the Edible Garden\\nCreate garden \r\n art for both the Children's Garden and your home garden\\nSpecial Mother's D\r\n ay projects for your family\\nand more....\\n\\nThe event is free and appropri\r\n ate for all ages. Donations welcome. \r\n\
+        LAST-MODIFIED:20110508T025805Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Spring Open House\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20110428\r\n\
+        DTEND;VALUE=DATE:20110429\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:36msnpd0nhq0hunl6p57e1pmv8@google.com\r\n\
+        CREATED:20110411T194927Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110508T025805Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Salad Farmers Begins: Contact 272.2292 x186 or lam26@cornell.edu to\r\n  register\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20110425\r\n\
+        DTEND;VALUE=DATE:20110426\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:aljgijgu2dlk44hn05q2comhjo@google.com\r\n\
+        CREATED:20110411T194856Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20110508T025805Z\r\n\
+        LOCATION:\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Registration Deadline for Salad Farmers\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20110124\r\n\
+        DTEND;VALUE=DATE:20110125\r\n\
+        RRULE:FREQ=WEEKLY;UNTIL=20110228;BYDAY=MO\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:b19tt5l1mqidj72c8i22g53rck@google.com\r\n\
+        CREATED:20110124T183206Z\r\n\
+        DESCRIPTION:  Especially for young children ages 2 to 5 and their caregiver\r\n s\\, Winter Sprouts features a stories and get-your-hands-dirty activities a\r\n t 10:30am through the end of February.  Explore trees\\, snow\\, seeds\\, bird\r\n s\\, flowers\\, caterpillars and more!  For more info: lam26@cornell.edu\\, 27\r\n 2.2292 x186.\r\n\
+        LAST-MODIFIED:20110124T183206Z\r\n\
+        LOCATION:Mama Goose 430 W. State St. Ithaca\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Winter Sprouts\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20101204\r\n\
+        DTEND;VALUE=DATE:20101205\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:tfjrcse8ad0evmpmvluj28177o@google.com\r\n\
+        CREATED:20101006T153250Z\r\n\
+        DESCRIPTION:The Ithaca Alternative Gift Fair is a fun way to bypass the ann\r\n ual stress of holiday shopping and \"stuff\" accumulation while honoring frie\r\n nds and relatives with donations to causes that fit their values. What's mo\r\n re\\, the Ithaca Alternative Gift Fair provides critical support for a diver\r\n se collection of community organizations whose work has local\\, national\\, \r\n and international reach.\\n\\nCome support the Ithaca Children's Garden and m\r\n any other local non-profits!  The event runs 10am-6pm on Saturday 12/4.\r\n\
+        LAST-MODIFIED:20101006T153250Z\r\n\
+        LOCATION:First Presbyterian and First Baptist Churchs adjacent to DeWitt Pa\r\n rk in Ithaca\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Ithaca Alternative Gift Fair\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20101113\r\n\
+        DTEND;VALUE=DATE:20101114\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:1ksrhilej840e5gcvuu4gvve80@google.com\r\n\
+        CREATED:20101006T153019Z\r\n\
+        DESCRIPTION:Lots of book-based fun at the Family Reading Partnership's annu\r\n al Kids Book Fest. The event runs 10am-4pm at Boynton Middle School.  Activ\r\n ities from many community organizations\\, including the Children's Garden\\,\r\n  performances\\, book signing and more! \r\n\
+        LAST-MODIFIED:20101006T153019Z\r\n\
+        LOCATION:Boynton Middle School\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Kids' Book Fest\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20101016\r\n\
+        DTEND;VALUE=DATE:20101017\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:ihr8682vt8en6409gd5eegn8nc@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20100427T132610Z\r\n\
+        DESCRIPTION:Join us at the Ithaca Children\xE2\x80\x99s Garden on Saturday October 16\\\r\n , 2-6pm to celebrate scarecrows\\, pumpkins\\, and everything autumn.  The Sc\r\n arecrow Jubilee and Pumpkin Jam combine this year for an afternoon of famil\r\n y fun at the Garden.\\n\\nWe\xE2\x80\x99ll have all the materials you\xE2\x80\x99ll need to create \r\n a scarecrow of your own plus tons of hands to help.  We\xE2\x80\x99ll have pumpkins fo\r\n r sale at bargain prices and lots of kid-safe carving tools so you can crea\r\n te a jack-o-lantern and leave your goop with us. Also plenty of harvest-the\r\n med hands-on activities: visit the pumpkin station\\, make a felt crow\\, and\r\n  create a seed mosaic and a gourd critter.  A performance by entertainer Ju\r\n dy Stock\\, music\\, and food round out the event.\\n\\nThe event is free and g\r\n reat for all ages.  Donations are welcome.  The Garden is located at the so\r\n uthern end of Cass Park on Rt. 89 in Ithaca\\n\\nFor more information contact\r\n  Leigh MacDonald-Rizzo\\, Education Coordinator: 272-2292 x186 or LAM26@corn\r\n ell.edu\r\n\
+        LAST-MODIFIED:20101006T152728Z\r\n\
+        LOCATION:Cass Park/ Rt. 89\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Pumpkin Jam and Scarecrow Jubilee\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20101011T170000Z\r\n\
+        DTEND:20101011T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:f643trtk3end7k7jmfuvg3uf9c@google.com\r\n\
+        CREATED:20101006T152611Z\r\n\
+        DESCRIPTION:Visit the Children's Garden table at this great event coordinat\r\n ed by Cooperative Extension of Tompkins County.  Great fall and harvest the\r\n med activities for kids of all ages.\r\n\
+        LAST-MODIFIED:20101006T152611Z\r\n\
+        LOCATION:Hancock St. P&C\\, Ithaca\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Fall Harvest Festival for Kids\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100717T150000Z\r\n\
+        DTEND:20100717T163000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:gmli94s7ffp4te1fchapk3i9m0@google.com\r\n\
+        CREATED:20100701T162946Z\r\n\
+        DESCRIPTION:Summer is a magical time in the Garden. Come learn about fairy \r\n lore\\, build fairy houses\\, weave wands\\, and mix up fairy dust.  Learn how\r\n  to create a fairy garden and take home seeds to get one started.  The cost\r\n  is $8 per child\\, $14 per family. Space is limited. Registration requested\r\n : 272-2292 x186 or lam26@cornell.edu.\r\n\
+        LAST-MODIFIED:20100712T104114Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Midsummer Fairy Gardens: A Family Fun Workshop\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100724T150000Z\r\n\
+        DTEND:20100724T160000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:0biuu9anhlvvqa9mrqjt06gc8s@google.com\r\n\
+        CREATED:20100628T194956Z\r\n\
+        DESCRIPTION:Meet entomologist Carolyn Klass at the Children's Garden for a \r\n hands-on Bug Quest adventure.  Catch\\, observe\\, learn about\\, and release \r\n incredible insects that make their homes in meadows\\, wetlands\\, and backya\r\n rds.  For ages 4 and up.  The cost is $6 per child\\, $10 per family.  Regis\r\n tration requested: 272-2292 x186 or lam26@cornell.edu.\r\n\
+        LAST-MODIFIED:20100712T104114Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Bug Quest: A Family Fun Workshop\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100731T180000Z\r\n\
+        DTEND:20100731T230000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:qk6ih0901hn0t4ei5t2n732jos@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20100427T132157Z\r\n\
+        DESCRIPTION:Join the Ithaca Children's Garden in celebrating Gaia's 5th Hat\r\n chday at this great community event. Tons of hands-on activities from explo\r\n ring the wetland stream to tasting quirky fruits and vegetables. Cake\\, ice\r\n  cream\\, face painting\\, and special performances offered throughout the ev\r\n ent.\\n\r\n\
+        LAST-MODIFIED:20100712T104114Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:5th Annual Turtle Hatchday Celebration\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20100815T130000\r\n\
+        DTEND;TZID=America/New_York:20100815T143000\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=SU;UNTIL=20100919T170000Z;WKST=SU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:h2dq9vt9aut0i7ka4j8r20j5jc@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20100427T132424Z\r\n\
+        DESCRIPTION:Gardening\\, cooking\\, and culture combine in this innovative pr\r\n ogram in partnership with CERIS\\, the Cornell Educational Resource for Inte\r\n rnational Studies. 6 international food plots will be grown in our Edible G\r\n arden and one or more will be highlighted during each session.   Cost is $4\r\n  per child. No need to register.\r\n\
+        LAST-MODIFIED:20100621T104124Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Chefs\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100613T170000Z\r\n\
+        DTEND:20100613T183000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:5f9ts3g8sddm6aq7jcq7r00hig@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20100427T131952Z\r\n\
+        DESCRIPTION:Gardening\\, cooking\\, and culture combine in this innovative pr\r\n ogram in partnership with CERIS\\, the Cornell Educational Resource for Inte\r\n rnational Studies. 6 international food plots will be grown in our Edible G\r\n arden and one or more will be highlighted during each session.   Cost is $4\r\n  per child. No need to register.\r\n\
+        LAST-MODIFIED:20100621T104124Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Chefs\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20100712T100000\r\n\
+        DTEND;TZID=America/New_York:20100712T110000\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20100830T140000Z;WKST=SU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:mlm3oups4bemaa0pkto9pebkf8@google.com\r\n\
+        CREATED:20100222T202437Z\r\n\
+        DESCRIPTION:Find your muse in the Garden. We'll collect inspiration and mat\r\n erials to make beautiful art in and from the Garden. A new project every we\r\n ek. For ages 4 and up with a caregiver. Cost is $2 per child. No need to re\r\n gister.\r\n\
+        LAST-MODIFIED:20100621T104124Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Art in the Garden\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100603T213000Z\r\n\
+        DTEND:20100603T223000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:7ci36hugvkqqlhb7i908sjnfgc@google.com\r\n\
+        CREATED:20100527T155825Z\r\n\
+        DESCRIPTION:Walk with the ICG in the parade! The theme is singing in the ra\r\n in and we'd love to have families walk with us wearing rain boots\\, ponchos\r\n  and carrying watering cans!  Please call to ask where to meet up! 607-272-\r\n 2292\r\n\
+        LAST-MODIFIED:20100621T104123Z\r\n\
+        LOCATION:Cayuga Street\\, Ithaca\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Ithaca Festival Parade\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100711T170000Z\r\n\
+        DTEND:20100711T183000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:0mkp0o8c2ag3lhv11amvgghi1g@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20100427T132052Z\r\n\
+        DESCRIPTION:Gardening\\, cooking\\, and culture combine in this innovative pr\r\n ogram in partnership with CERIS\\, the Cornell Educational Resource for Inte\r\n rnational Studies. 6 international food plots will be grown in our Edible G\r\n arden and one or more will be highlighted during each session.   Cost is $4\r\n  per child. No need to register.\\n\r\n\
+        LAST-MODIFIED:20100621T104123Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Chefs\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100602T220000Z\r\n\
+        DTEND:20100603T000000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:t3u5jk1at2c8v7so1s0egidel0@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20100427T133033Z\r\n\
+        DESCRIPTION:The Ithaca Children's Garden in partnership with the Cornell Pl\r\n antations will sponsor a free public screening at Tompkins County Public Li\r\n brary on June 2 at 6:00 pm.\\n\\nFilm Originator and Outreach Director Elizab\r\n eth Goodenough\\, and a panel of local researchers and educators will be on \r\n hand to answer questions along with exhibitors of local nature programs for\r\n  children.\\n\\nProduced by Michigan Television\\, Where Do the Children Play?\r\n  grew from Dr. Goodenough's work on Secret Spaces of Childhood (University \r\n of Michigan Press 2004). \"Children need free time every day to discover the\r\n ir own abilities\\, desires\\, and limitations\\,\" says Goodenough\\, who also \r\n edited the film's twin companion volumes\\, Where Do the Children Play?:A St\r\n udy Guide to the Film and A Place for Play.\\n\\nWhere Do the Children Play? \r\n is part of a larger outreach project at University of Michigan developed by\r\n  Dr. Elizabeth Goodenough. It includes a web site ( www.michigantelevision.\r\n org/childrenplay)\\; two companion volumes\\; a documentary with children's a\r\n uthor Christopher Paul Curtis filmed in Flint\\, Michigan entitled \"Secret S\r\n paces/Childhood Places\"\\; and three youth mini-documentaries\\, and programs\r\n  coordinated at the Ginsberg Center by Ashley Miller. Support for WDCP? cam\r\n e from the Ruth Mott Foundation\\, Blue Cross/Blue Shield of Michigan Founda\r\n tion and W. K. Kellogg Foundation.\\n\\nFor more information about this scree\r\n ning of Where Do the Children Play? call Ashley Miller at (607) 664-6333.\r\n\
+        LAST-MODIFIED:20100621T104123Z\r\n\
+        LOCATION:Tompkins County Library\\, 101 E. Green St. Ithaca\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:\"Where do the Children Play?\" film screening and discussion\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100516T170000Z\r\n\
+        DTEND:20100516T183000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:crnof9m592n13btorulcti31uc@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20100427T131246Z\r\n\
+        DESCRIPTION:The vision for Garden Chefs in 2010 will be much broader in sco\r\n pe and culinary boundaries.  The Ithaca Children\xE2\x80\x99s Garden will collaborate \r\n with Cornell Educational Resources for International Studies (CERIS) and wi\r\n ll represent each of the six program areas (East Asia\\, Africa\\, Europe\\, L\r\n atin America\\, South Asia\\, and Southeast Asia) with its own garden plot an\r\n d recipes unique to those regions.  Through planting\\, tasting and cooking\\\r\n , youth will learn about each culture and the roles the plants play within \r\n them.   Offered to youth ages 7 to 12\\, each session will involve hands-on \r\n vegetable gardening where youth will learn the basics of soil health\\, prop\r\n er planting\\, sequential planting\\, watering\\, integrated pest management\\,\r\n  and harvesting skills\\; a cultural lesson from one of the 6 international \r\n regions\\; and cooking using vegetables and herbs grown by the youth. \\n\\n$4\r\n  per child. No registration necessary.\r\n\
+        LAST-MODIFIED:20100427T131246Z\r\n\
+        LOCATION:Cass Park\\, Rt. 89\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Chefs\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100501T140000Z\r\n\
+        DTEND:20100501T180000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:s67dbld46vlqin8pionme7ssj0@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20100427T125739Z\r\n\
+        DESCRIPTION:Help construct the child-sized bird house and assist with garde\r\n n maintenance projects.\r\n\
+        LAST-MODIFIED:20100427T131007Z\r\n\
+        LOCATION:Rt. 89\\, Cass Park\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Volunteer workday- Bird House project\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20100623T100000\r\n\
+        DTEND;TZID=America/New_York:20100623T110000\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=WE;UNTIL=20100915T140000Z;WKST=SU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:gst16k6gsg9cb849qqm8tniq4c@google.com\r\n\
+        CREATED:20100222T202329Z\r\n\
+        DESCRIPTION:For preschooler ages 2 to 5 and their caregivers. Meet under th\r\n e Story Tree for tales about gardens and the creatures that live there. Hel\r\n p grow vegetables and flowers: plant seeds\\, pull weeds\\, dig in the soil\\,\r\n  water\\, smell flowers\\, taste veggies\\, and more! Donations welcome. No ne\r\n ed to register.\r\n\
+        LAST-MODIFIED:20100312T070935Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Summer Sprouts\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20100104T100000\r\n\
+        DTEND;TZID=America/New_York:20100104T110000\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20100222T150000Z;WKST=SU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:qo1den4kgdvme99vri8h85h9vo@google.com\r\n\
+        CREATED:20100106T155731Z\r\n\
+        DESCRIPTION:Based on the Children's Garden's popular Summer Sprouts program\r\n \\, Winter Sprouts combines a nature-themed story and hands-on activities fo\r\n r children ages 2-5 and their caregivers.  Join us at Mama Goose every Mond\r\n ay in January and February at 10am.  A new story and activity each week.  T\r\n he program is free\\, no need to pre-register\\, just stop by.  For more info\r\n rmation on Winter Sprouts contact Leigh at the Ithaca Children's Garden: 27\r\n 2-2292 x186 or ithacachildrensgarden@cornell.edu.  \r\n\
+        LAST-MODIFIED:20100110T061609Z\r\n\
+        LOCATION:Mama Goose: 430 W. State St. Ithaca\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Winter Sprouts\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;TZID=America/New_York:20100504T170000\r\n\
+        DTEND;TZID=America/New_York:20100504T183000\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=20100629T210000Z;WKST=SU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:pg7ef8ho90g32uqc8sj8aq070c@google.com\r\n\
+        CREATED:20100106T160903Z\r\n\
+        DESCRIPTION:Help prepare the Garden for the season: planting\\, weeding\\, mu\r\n lching\\, and more.  All ages welcome.\\n\\nThe Ithaca Children's Garden is lo\r\n cated in Cass Park\\, Route 89 in Ithaca.\\n\\nContact Garden Manager\\, Meghan\r\n  Cerveny for more information: 272-2292 x122 or mep245@cornell.edu\r\n\
+        LAST-MODIFIED:20100110T061609Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Volunteer Work Day at the Garden\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100502T170000Z\r\n\
+        DTEND:20100502T190000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:6evckifhp6jhmqaket5gsk0us4@google.com\r\n\
+        CREATED:20100106T170953Z\r\n\
+        DESCRIPTION:Celebrate Arbor Day\\, May Day\\, and welcome Spring at the Ithac\r\n a Children's Garden with hands-on activities for youth and adults including\r\n  tree planting\\, wetlands exploration\\, sowing vegetable seeds\\, fairy gard\r\n ens and Troll House adventures.  The event is free and open to all ages. Do\r\n nations welcome.\r\n\
+        LAST-MODIFIED:20100110T061609Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Spring Open House & Tree Planting\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100424T140000Z\r\n\
+        DTEND:20100424T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:3i9gq8aj4mkesm4edmq6bdq5t0@google.com\r\n\
+        CREATED:20100106T171655Z\r\n\
+        DESCRIPTION:Join Ithaca Children's Garden staff and volunteers as we instal\r\n l the newest theme-garden\\, the Sound Garden.\\n\\nat the Ithaca Children's G\r\n arden\\, Cass Park\\, Route 89 in Ithaca.\\n\\nfor more information contact Gar\r\n den Manager\\, Meghan Cerveny\\, 272-2292 x122 or mep245@cornell.edu\r\n\
+        LAST-MODIFIED:20100110T061609Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Sound Garden Community Build\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100427T210000Z\r\n\
+        DTEND:20100427T220000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:n9ifulbhk34clf3v1u3b8mjsmo@google.com\r\n\
+        CREATED:20100106T173246Z\r\n\
+        DESCRIPTION:Learn how to construct a small\\, home-garden sized hoop house f\r\n or season extension by building one in the Children's Garden's Edible Garde\r\n n. Other methods of season extension such as cold frames\\, row covers\\, and\r\n  crop selection are also covered.\\n\\nAt the Ithaca Children's Garden\\, Cass\r\n  Park\\, Route 89 in Ithaca\\n\\nThis workshop is part of the Community Food G\r\n rowers Training Series.  Cost is $5 for this workshop.\\n\\nfor more informat\r\n ion or to register\\, contact Josh Dolan\\, 272-2292 or jd285@cornell.edu\r\n\
+        LAST-MODIFIED:20100110T061609Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Season Extension Workshop\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100410T140000Z\r\n\
+        DTEND:20100410T200000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:v5pa8frjhr90uehag9oghgli90@google.com\r\n\
+        CREATED:20100106T171304Z\r\n\
+        DESCRIPTION:at the Ithaca Children's Garden\\, Cass Park\\, Route 89 in Ithac\r\n a\\n\\nfor more information contact Garden Manager\\, Meghan Cerveny at 272-22\r\n 92 x122 or mep245@cornell.edu\r\n\
+        LAST-MODIFIED:20100110T061609Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Plastic Bottle Greenhouse Community Build\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100515T130000Z\r\n\
+        DTEND:20100515T170000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:e5eqq16i9pjb4i3lc2uo2cag6k@google.com\r\n\
+        CREATED:20100106T161223Z\r\n\
+        DESCRIPTION:\r\n\
+        LAST-MODIFIED:20100110T061609Z\r\n\
+        LOCATION:New location to be announced\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Fair Plant Sale\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20100417T140000Z\r\n\
+        DTEND:20100417T180000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:gof2ppuvda16u174p0uha654ec@google.com\r\n\
+        CREATED:20100106T171521Z\r\n\
+        DESCRIPTION:Join ICG staff and volunteers in constructing a child-sized bir\r\n d house for the new Bird Habitat Garden.\\n\\nat the Ithaca Children's Garden\r\n \\, Cass Park\\, Route 89 in Ithaca\\n\\nfor more information contact Garden Ma\r\n nager\\, Meghan Cerveny\\, 272-2292 x122 or mep245@cornell.edu\r\n\
+        LAST-MODIFIED:20100110T061609Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Child-Size Bird House Community Build\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART:20091205T160000Z\r\n\
+        DTEND:20091206T000000Z\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:0vo5j4orin28e9k5imee6oh648@google.com\r\n\
+        CREATED:20091117T143659Z\r\n\
+        DESCRIPTION:The Ithaca Alternative Gift Fair is a fun way to bypass the ann\r\n ual stress of holiday shopping and \"stuff\" accumulation while honoring frie\r\n nds and relatives with donations to causes that fit their values. What's mo\r\n re\\, the IthacaAlternative Gift Fair provides critical support for a divers\r\n e collection of community organizations whose work has local\\, national\\, a\r\n nd international reach.\\n\\nHOW DOES IT WORK? Each organization that partici\r\n pates in the fair offers variously priced gifts that have a specific purpos\r\n e. Last year\\, the Ithaca Alternative Gift Fair raised over $45\\,000\\, all \r\n of which went to the participating organizations. Gifts in the past have ra\r\n nged from $5 to give a compact fluorescent light bulb to a local\\, rural ho\r\n usehold\\; $10 for a week of school\\, clothing and two meals a day for an or\r\n phan in Zambia\\; to $100 for a \"Golden Opportunity\" scholarship fund to hel\r\n p students remain successful in area schools. There were 160 offerings to c\r\n hoose from. For each donation\\, the giver received a holiday card with a de\r\n scription of the organization and gift.\\n\r\n\
+        LAST-MODIFIED:20091219T055622Z\r\n\
+        LOCATION:First Prespyterian Church: 315 N. Cayuga St. Ithaca\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Ithaca Alternative Gift Fair\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090913\r\n\
+        DTEND;VALUE=DATE:20090914\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:mgdub5nkevs0mk066a5sln50qo@google.com\r\n\
+        CREATED:20090713T192837Z\r\n\
+        DESCRIPTION:Sunday Sept. 13\\n1:00pm-2:30pm\\n\\nPart of the Garden Chefs seri\r\n es.  \\n\\nCome harvest delicious pizza toppings at the Garden.  We'll make o\r\n ur own dough and create amazing mini pizza which we'll cook on a grill righ\r\n t at the Garden.  \\nFor ages 7 and up with a caregiver.\\n\\nRegistration req\r\n uired. Space is limited.  Please register by Thursday 9/10.  272-2292 x186 \r\n or ithacachildrensgarden@cornell.edu.\\n\\nCost: $5 per child or $10 per fami\r\n ly.  Scholarships available.\r\n\
+        LAST-MODIFIED:20090808T133136Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Chefs: Pizza!\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090829\r\n\
+        DTEND;VALUE=DATE:20090830\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:ff65rnp40uau9mb2pqvmuc86do@google.com\r\n\
+        CREATED:20090808T132741Z\r\n\
+        DESCRIPTION:Saturday August 29th\\n1:00-2:30pm\\n\\nPart of the Garden Chefs s\r\n eries.  \\n\\nJoin our guest Fumi and learn how to make sushi from the vegeta\r\n bles in the Garden.  For ages 7 and up with a caregiver.\\n\\nRegistration re\r\n quired. Space is limited.  Please register by Thursday August 27th.  272-22\r\n 92 x186 or ithacachildrensgarden@cornell.edu.\\n\\nCost: $5 per child or $10 \r\n per family.  Scholarships available.\r\n\
+        LAST-MODIFIED:20090808T132906Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Chefs: Sushi\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090822\r\n\
+        DTEND;VALUE=DATE:20090823\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:apbjjumio462km668o44ds4a28@google.com\r\n\
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T191333Z\r\n\
+        DESCRIPTION:Saturday August 22\\n11am-12pm\\n\\nJoin entomologist Carolyn Klas\r\n s on a bug hunt through the Children's Garden. Net in hand we'll collect in\r\n sects from the Wildflower Meadow\\, Wetland Stream\\, and forest edge and lea\r\n rn all about these amazing creatures. For children ages 4 and up with a car\r\n egiver. \\n\\nRegistration required. Space is limited.  Please register by 7/\r\n 21.  272-2292 x 186 or ithacachildrensgarden@cornell.edu\\n\\nCost\\nMembers: \r\n $6 per child or $10 per family\\nNon Members: $8 per child or $14 per family\r\n \\n\\n\r\n\
+        LAST-MODIFIED:20090713T193718Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:1\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Bug Hunt! A Family Fun Workshop\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090808\r\n\
+        DTEND;VALUE=DATE:20090809\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:jbsh1438seujtf779bj153sb1s@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T154021Z\r\n\
+        DESCRIPTION:Saturday August 8\\n1:00pm-4:00pm\\n\\nCome celebrate Gaia the Tur\r\n tle's \"Hatchday\" with an afternoon of fun for all ages.  Onondaga Nation St\r\n oryteller Perry Ground performs\\, the Cornell Herp Club will have live rept\r\n iles and amphibians\\, lots of hands-on activities\\, face-paining\\, cake and\r\n  ice cream! \r\n\
+        LAST-MODIFIED:20090713T193608Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Gaia's Hatch Day Celebration\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090725\r\n\
+        DTEND;VALUE=DATE:20090726\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:pe0mujorr6q2sbh69mu7fr1r04@google.com\r\n\
+        CREATED:20090713T190524Z\r\n\
+        DESCRIPTION:Saturday July 25\\n1:00pm-2:30pm\\n\\nThe first in the Garden Chef\r\n s series.  \\n\\nCome harvest cucumbers\\, beans\\, and radishes and learn how \r\n to make quick\\, refrigerator pickles and dilly beans.  You'll take home a j\r\n ar of each as well as recipes and the know-how to make pickles and home.\\nF\r\n or ages 7 and up with a caregiver.\\n\\nRegistration required. Space is limit\r\n ed.  Please register by Wednesday 7/22.  272-2292 x186 or ithacachildrensga\r\n rden@cornell.edu.\\n\\nCost: $5 per child or $10 per family.  Scholarships av\r\n ailable.\\n\\n\\n\\n\r\n\
+        LAST-MODIFIED:20090713T193427Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Garden Chefs: Pickles\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090725\r\n\
+        DTEND;VALUE=DATE:20090726\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:8v3h8fa76hulg0k2e551h6kbh0@google.com\r\n\
+        CREATED:20090713T190507Z\r\n\
+        DESCRIPTION:Saturday July 25\\n10am-11:30am\\n\\nSummer is a magical time when\r\n  fairies often visit the human world.  Learn how to invite fairies into you\r\n r garden.  Build fairy houses\\, mix-up fairy dust\\, weave a wand\\, and expe\r\n rience fairy magic at the Garden. For ages 3 and up with a caregiver.  \\n\\n\r\n Registration required. Space is limited.  Please register by Friday 7/24.  \r\n 272-2292 x 186 or ithacachildrensgarden@cornell.edu\\n\\nCost\\nMembers: $6 pe\r\n r child or $10 per family\\nNon Members: $8 per child or $14 per family\r\n\
+        LAST-MODIFIED:20090713T193405Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Midsummer Fairy Gardens: A Family Fun Workshop\r\n\
+        TRANSP:OPAQUE\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090715\r\n\
+        DTEND;VALUE=DATE:20090716\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:79b9umps957r5r8f2pbeb8qrrs@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20090715\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T161155Z\r\n\
+        DESCRIPTION:10-11am at the Ithaca Children's Garden in Cass Park.\\n\\nStory:\r\n  Wonderful Worms by Linda Glasser and The Big Fat Worm by Nancy Van Laan\\n\\\r\n nMeet under the Story Tree for tales about gardens and the creatures that l\r\n ive there. Help grow vegetables and flowers: plant seeds\\, pull weeds\\, dig\r\n  in the soil\\, water\\, smell flowers\\, taste veggies\\, and more! For presch\r\n oolers ages 2 to 5 and their caregivers. Free\\, donations welcome.\r\n\
+        LAST-MODIFIED:20090709T173349Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Summer Sprouts\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090714\r\n\
+        DTEND;VALUE=DATE:20090715\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:onmj23d22u370o2fptpdnhc1v4@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20090714\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T160912Z\r\n\
+        DESCRIPTION:5:30-6:15pm at the Ithaca Children's Garden in Cass Park. \\n\\nA\r\n ctivity: Water Cycle Fun\\n\\nTurtle Time interprets Gaia the Turtle and her \r\n wetland habitat with family fun and learning about the natural environment \r\n through hands-on activities. With a new theme each week you can explore Gai\r\n a's wetland\\, play games\\, create with cattails\\, and become a water drople\r\n t. For families of all ages. Free\\, donations welcome.\r\n\
+        LAST-MODIFIED:20090709T172101Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Turtle Time\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090713\r\n\
+        DTEND;VALUE=DATE:20090714\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:7pqkssov4nnkjnvhnguvvbui4g@google.com\r\n\
+        RECURRENCE-ID;VALUE=DATE:20090713\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T160504Z\r\n\
+        DESCRIPTION:10-11am at the Ithaca Children's Garden in Cass Park. \\n\\nProje\r\n ct: Painted Rocks and Terra Cotta Pots\\n\\nFind your muse in the Garden. We'\r\n ll collect inspiration and materials to make beautiful art in and from the \r\n Garden. A new project each week. For ages 4 and up with a caregiver. $1 per\r\n  child.\r\n\
+        LAST-MODIFIED:20090709T172011Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Art in the Garden\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090707\r\n\
+        DTEND;VALUE=DATE:20090708\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=20090825;WKST=SU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:onmj23d22u370o2fptpdnhc1v4@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T160912Z\r\n\
+        DESCRIPTION:5:30-6:15pm at the Ithaca Children's Garden in Cass Park. \\n\\nT\r\n urtle Time interprets Gaia the Turtle and her wetland habitat with family f\r\n un and learning about the natural environment through hands-on activities. \r\n With a new theme each week you can explore Gaia's wetland\\, play games\\, cr\r\n eate with cattails\\, and become a water droplet. For families of all ages. \r\n Free\\, donations welcome.\r\n\
+        LAST-MODIFIED:20090618T170215Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Turtle Time\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090706\r\n\
+        DTEND;VALUE=DATE:20090707\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20090831;WKST=SU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:7pqkssov4nnkjnvhnguvvbui4g@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T160504Z\r\n\
+        DESCRIPTION:10-11am at the Ithaca Children's Garden in Cass Park. \\n\\nFind \r\n your muse in the Garden. We'll collect inspiration and materials to make be\r\n autiful art in and from the Garden. A new project each week. For ages 4 and\r\n  up with a caregiver. $1 per child.\r\n\
+        LAST-MODIFIED:20090618T170202Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Art in the Garden\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090617\r\n\
+        DTEND;VALUE=DATE:20090618\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=WE;UNTIL=20090916;WKST=SU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:79b9umps957r5r8f2pbeb8qrrs@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T161155Z\r\n\
+        DESCRIPTION:10-11am at the Ithaca Children's Garden in Cass Park.\\n\\nMeet u\r\n nder the Story Tree for tales about gardens and the creatures that live the\r\n re. Help grow vegetables and flowers: plant seeds\\, pull weeds\\, dig in the\r\n  soil\\, water\\, smell flowers\\, taste veggies\\, and more! For preschoolers \r\n ages 2 to 5 and their caregivers. Free\\, donations welcome.\r\n\
+        LAST-MODIFIED:20090618T170130Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Summer Sprouts\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20091017\r\n\
+        DTEND;VALUE=DATE:20091018\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:jv4ofs3qmo3geps4aamlmemebk@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T155102Z\r\n\
+        DESCRIPTION:1-4pm at the Ithaca Children's Garden in Cass Park.\\n\\nCome mak\r\n e a scarecrow! Celebrate everything autumn with great activities! Free fami\r\n ly fun!\r\n\
+        LAST-MODIFIED:20090618T170046Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Scarecrow Jubilee\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20091016\r\n\
+        DTEND;VALUE=DATE:20091017\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:ufvsdqlp78oeabir5289dpobhk@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T155014Z\r\n\
+        DESCRIPTION:5:30-7:30pm at the Ithaca Children's Garden in Cass Park.\\n\\nCo\r\n me enjoy live music\\, pumpkin decorating\\, a lighted pumpkin walk\\, and a p\r\n umpkin-carving contest and prizes! Bring a carved pumpkin or create one at \r\n the Jam.\r\n\
+        LAST-MODIFIED:20090618T170032Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:2\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Pumpkin Jam\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        BEGIN:VEVENT\r\n\
+        DTSTART;VALUE=DATE:20090902\r\n\
+        DTEND;VALUE=DATE:20090903\r\n\
+        RRULE:FREQ=WEEKLY;BYDAY=WE;UNTIL=20091014;WKST=SU\r\n\
+        DTSTAMP:20120608T163118Z\r\n\
+        UID:epr7n4djiip06m1qiutc7sckv0@google.com\r\n\
+        CLASS:PUBLIC\r\n\
+        CREATED:20090618T155255Z\r\n\
+        DESCRIPTION:5-7pm at the Ithaca Children's Garden in Cass Park.\r\n\
+        LAST-MODIFIED:20090618T170020Z\r\n\
+        LOCATION:42.445898\\, -76.514277\r\n\
+        SEQUENCE:0\r\n\
+        STATUS:CONFIRMED\r\n\
+        SUMMARY:Volunteer Workday\r\n\
+        TRANSP:TRANSPARENT\r\n\
+        END:VEVENT\r\n\
+        END:VCALENDAR\r\n"
+    http_version: 
+  recorded_at: Fri, 08 Jun 2012 16:31:25 GMT
+recorded_with: VCR 2.2.0

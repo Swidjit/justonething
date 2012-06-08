@@ -1,6 +1,6 @@
 class EventsController < ItemsController
   before_filter :convert_times_to_db_format, :only => [:create,:update]
-
+  
   private
   def convert_times_to_db_format
     if params[:event].present?
@@ -18,4 +18,5 @@ class EventsController < ItemsController
   def item_class
     Event
   end
+  
 end

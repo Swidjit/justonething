@@ -20,6 +20,8 @@ gem 'newrelic_rpm'
 gem 'hirefireapp'
 gem 'stringex'
 gem 'airbrake'
+gem 'icalendar'
+gem 'andand'
 
 # Image uploading and processing.
 gem 'dragonfly',  '~> 0.9.10'
@@ -35,6 +37,11 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+group :test do
+  gem 'webmock'
+  gem 'vcr'
+end
 
 group :development, :test do
   gem 'heroku', '2.20.1'
@@ -55,5 +62,6 @@ group :development, :test do
 
   # Jenkins CI needs a JS runtime
   gem 'therubyracer', '0.9.10'
+  
 end
 

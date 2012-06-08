@@ -38,6 +38,7 @@ class ItemsController < ApplicationController
 
     item_params.delete(:user_id)
 
+    @item.processing_through_ui!
     @item.assign_attributes(item_params)
 
     format_expires_on
@@ -49,6 +50,7 @@ class ItemsController < ApplicationController
   end
 
   def update
+    @item.processing_through_ui!
     @item.assign_attributes(item_params)
     format_expires_on
     @item.save

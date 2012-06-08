@@ -78,6 +78,51 @@ describe Event do
       Event.owned_or_bookmarked_by_or_rsvp_to(rsvp.user).count.should == 1
     end
   end
+  
+  describe '#importing_from_ical_feed' do
+    before(:each) {
+      VCR.use_cassette('ical_feed', erb: true, allow_playback_repeats: true) do
+        @feed = Factory :feed
+      end
+      @feed_event = Icalendar::Event.new
+      @feed_event.summary = 'Pancake Breakfast'
+      @feed_event.description = 'Come join us at the Varna Community Center for pancakes.'
+      @feed_event.dtstart = 2.days.from_now
+      @feed_event.dtend = 2.days.from_now + 3.hours
+      @feed_event.location = 'Varna Community Center'
+    }
+    it "should import future event" do
+      Event.new_from_feed @feed_event, @feed
+      
+      event = @feed.user.items.last
+      event.title.should == @feed_event.summary
+      event.description.should == @feed_event.description
+      event.start_datetime.to_time.should == @feed_event.dtstart.to_time
+      event.end_datetime.to_time.should == @feed_event.dtend.to_time
+      event.location.should == @feed_event.location
+    end
+    
+    it "should not import past event" do
+      @feed_event.dtstart = 1.day.ago
+      @feed_event.dtend = 18.hours.ago
+      Event.new_from_feed @feed_event, @feed
+      @feed.user.items.count.should == 0
+    end
+    
+    it "should not import duplicate event" do
+      Event.new_from_feed @feed_event, @feed
+      Event.new_from_feed @feed_event, @feed
+      @feed.user.items.count.should == 1
+    end
+    
+    it "should not import events more than a month from now" do
+      @feed_event.dtstart = 1.month.from_now + 1.day
+      @feed_event.dtend = 1.month.from_now + 1.day + 1.hour
+      Event.new_from_feed @feed_event, @feed
+      @feed.user.items.count.should == 0
+      
+    end
+  end
 
   before(:all) { @item_class = Event }
   it_should_behave_like 'an item'

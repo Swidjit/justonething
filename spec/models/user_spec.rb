@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe User do
+  
+  it { should have_many :feeds }
+  
   describe 'supports reading and writing of' do
     it 'an about' do
       subject.about = "I'm silly!"

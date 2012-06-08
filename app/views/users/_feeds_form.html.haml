@@ -1,0 +1,18 @@
+- f.object.feeds.build
+= f.fields_for :feeds do |f2|
+  .feed
+    - if f.object.andand.new_record?
+      %h3 Add a New Feed
+    %div
+      = f2.label :name
+      = f2.text_field :name
+    %div
+      = f2.label :url
+      = f2.text_field :url
+    = render 'items/tag_form', f: f2
+    - unless f2.object.andand.new_record?
+      .destroy
+        = f2.check_box :_destroy
+        = f2.label :_destroy, 'Remove this feed upon submit'
+          
+          

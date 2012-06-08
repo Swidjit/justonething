@@ -1,8 +1,8 @@
 class Event < Item
   attr_accessible :cost, :location, :start_datetime, :end_datetime, :start_date, :start_time,
     :end_date, :end_time
-  validates_presence_of :location, :start_datetime, :end_datetime, :start_date, :start_time,
-    :end_date, :end_time
+  validates_presence_of :location, :start_datetime, :end_datetime
+  validates_presence_of :start_date, :start_time, :end_date, :end_time, if: :processing_through_ui?
   attr_accessor :start_time, :start_date, :end_time, :end_date
 
   has_many :rsvps, :dependent => :destroy, :foreign_key => :item_id
@@ -42,6 +42,26 @@ class Event < Item
       datetime_value
     end
   end
+  
+  def self.new_from_feed(event, feed)
+    return if event.dtstart.to_time < Time.now or event.dtstart.to_time > 1.month.from_now
+    user = feed.user
+    unless user.items.where(type: 'Event', title: event.summary, start_datetime: event.dtstart.to_time).present?
+      e = Event.new
+      e.title = event.summary
+      e.description = event.description.present? ? event.description : event.summary
+      e.start_datetime = event.dtstart.to_time
+      e.end_datetime = event.dtend.to_time
+      e.location = event.location.present? ? event.location : "Location not given"
+      e.user = user
+      e.tag_list = feed.tag_list
+      e.geo_tag_list= feed.geo_tag_list
+      e.save!
+    end
+    
+  end
+  
+  
 
 private
 
