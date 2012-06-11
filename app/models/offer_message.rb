@@ -17,20 +17,18 @@ private
       notification = Notification.new
       notification.notifier = self
 
-      # If this is the user that sent the offer then notify item owner
-      if self.offer.user_id == self.user_id
-        notification.sender = self.user
-        notification.receiver = self.offer.item.user
-      else
-        notification.sender = self.user
-        notification.receiver = self.offer.user
-      end
+      notification.sender = self.user
+      notification.receiver = notification_recipient
 
       notification.save
     end
   end
 
   def send_email
-    OfferMailer.new_offer_email(self.offer).deliver
+    OfferMailer.new_offer_email(self.offer, notification_recipient).deliver
+  end
+
+  def notification_recipient
+    return (self.offer.user_id == self.user_id) ? self.offer.item.user : self.offer.user
   end
 end
