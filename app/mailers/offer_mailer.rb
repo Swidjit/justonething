@@ -6,7 +6,8 @@ class OfferMailer < ActionMailer::Base
     @item = offer.item
     @item_url = send("#{@item.class.to_s.underscore}_url",@item.user.cities.first,@item)
     to = @item.user.email
-
-    mail(:to => to, :subject => "You just received an offer on #{@item.title}")
+    subject = (offer.messages.count == 1) ? "You just received an offer on #{@item.title}" :
+                                            "You just received a message on an offer on #{@item.title}"
+    mail(:to => to, :subject => subject)
   end
 end

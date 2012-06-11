@@ -8,7 +8,7 @@ class OfferMessage < ActiveRecord::Base
   attr_accessible :offer, :offer_id, :user, :text
 
   after_create :notify_appropriate_user
-  after_create :send_email_if_first
+  after_create :send_email
 
 private
   def notify_appropriate_user
@@ -30,9 +30,7 @@ private
     end
   end
 
-  def send_email_if_first
-    if self.offer.messages.count == 1
-      OfferMailer.new_offer_email(self.offer).deliver
-    end
+  def send_email
+    OfferMailer.new_offer_email(self.offer).deliver
   end
 end
