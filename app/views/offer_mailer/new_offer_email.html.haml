@@ -1,3 +1,8 @@
-%p= "You have received an offer on #{link_to(@item.title,@item_url)}".html_safe
-%p The offer is as follows:
-%p= @offer.try(:messages).try(:first).try(:text)
+- if @offer.messages.count == 1
+  %p= "You have received an offer on #{link_to(@item.title,@item_url)}".html_safe
+  %p The offer is as follows:
+  %p= @offer.messages.first.text
+- else
+  %p= "You have a reply to an offer on #{link_to(@item.title,@item_url)}".html_safe
+  %p The message is as follows:
+  %p= @offer.messages.last.text
