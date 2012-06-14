@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
       @feed_items = @feed_items.paginate(:page => params[:page], :total_entries => total_entries)
       respond_to do |f|
         f.html { render html_layout }
-        f.js { render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items) }
+        f.js { render @feed_items.decorate }
       end
     else
       render html_layout

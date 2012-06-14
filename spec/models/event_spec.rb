@@ -97,8 +97,8 @@ describe Event do
       event = @feed.user.items.last
       event.title.should == @feed_event.summary
       event.description.should == @feed_event.description
-      event.start_datetime.to_time.should == @feed_event.dtstart.to_time
-      event.end_datetime.to_time.should == @feed_event.dtend.to_time
+      event.start_datetime.to_time.to_s.should == @feed_event.dtstart.to_time.to_s
+      event.end_datetime.to_time.should.to_s == @feed_event.dtend.to_time.to_s
       event.location.should == @feed_event.location
     end
     
@@ -127,6 +127,11 @@ describe Event do
     before(:each) {
       @event = Factory :event
     }
+    it "should have recurring rule" do
+      @event.rule = 'daily'
+      @event.save
+      @event.reload.is_recurring?.should == true
+    end
     it "should be daily" do
       @event.rule = 'daily'
       @event.save
@@ -144,6 +149,25 @@ describe Event do
       @event.rule = 'monthly'
       @event.save
       @event.reload.is_monthly?.should == true
+    end
+    it "should have next occurrence" do
+      @event.start_datetime = 1.week.ago
+      @event.end_datetime = 1.week.ago + 1.hour
+      @event.expires_on = 1.year.from_now
+      @event.monthly_week = 1
+      @event.monthly_day = 2
+      @event.rule = 'monthly'
+      @event.send :write_rules
+      @event.next_occurrence.to_time.should > Time.now 
+      # it's important that it has a next occurrence in the future, not going to calculate the next first Tuesday
+    end
+    it "should update rule expiry when updating event expiry" do
+      @event.weekly_day = 3
+      @event.rule = 'weekly'
+      @event.save
+      @event.expires_on = 1.year.from_now
+      @event.save
+      @event.reload.rule.until_time.to_time.to_s.should == 1.year.from_now.to_time.to_s
     end
   end
 

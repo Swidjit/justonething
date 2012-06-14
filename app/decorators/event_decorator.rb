@@ -9,7 +9,8 @@ class EventDecorator < ItemDecorator
     if params[:event].present? && params[:event]["start_#{format}".to_sym].present?
       params[:event]["start_#{format}".to_sym]
     elsif event.start_datetime.present?
-      event.start_datetime.strftime(send("#{format}_format"))
+      event.next_occurrence.strftime(send("#{format}_format"))
+      # event.start_datetime.strftime(send("#{format}_format"))
     end
   end
 

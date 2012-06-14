@@ -16,6 +16,7 @@ class Event < Item
   serialize :rules, IceCube::Schedule
   after_initialize :init_rules
   before_validation :write_rules
+  before_update :update_rule_expirations, if: :rules_need_updating?
   
   scope :upcoming, lambda {
     { :conditions => ["#{Event.table_name}.start_datetime >= ?", DateTime.now.beginning_of_day] }
@@ -70,6 +71,10 @@ class Event < Item
     rules.rrules.first
   end
   
+  def is_recurring?
+    rule.present?
+  end
+  
   def is_daily?
     rule.is_a? IceCube::DailyRule
   end
@@ -100,71 +105,13 @@ class Event < Item
     @set_rule = value
   end
   
-  def times=(values)
-    @set_times = values
-  end
   
-  class EventTime
-    def initialize(params=nil)
-      if params
-        if params[:start_date].present? && params[:start_time].present?
-          start_date_time = params[:start_date] + ' ' + params[:start_time]
-          @start_datetime = Event.datetimepicker_to_datetime(start_date_time,Time.zone)
-        end
-        if params[:end_date].present? && params[:end_time].present?
-          end_date_time = params[:end_date] + ' ' + params[:end_time]
-          @end_datetime = Event.datetimepicker_to_datetime(end_date_time,Time.zone)
-        end
-        
-      end
+  def next_occurrence
+    if rule.present?
+      rules.next_occurrence
+    else
+      start_datetime
     end
-    
-    def start_date
-      start_datetime('date')
-    end
-    
-    def end_date
-      end_datetime('date')
-    end
-    
-    def start_time
-      start_datetime('time')
-    end
-    
-    def end_time
-      end_datetime('time')
-    end
-    
-    def start_datetime(format='datetime')
-      @start_datetime.andand.strftime(send("#{format}_format"))
-    end
-    
-    def end_datetime(format='datetime')
-      @end_datetime.andand.strftime(send("#{format}_format"))
-    end
-    
-    def valid?
-      @start_datetime > Time.now
-    end
-    
-    private
-
-    def date_format
-      '%m/%d/%Y'
-    end
-
-    def datetime_format
-      date_format + ' ' + time_format
-    end
-
-    def time_format
-      '%l:%M %P'
-    end
-    
-  end
-  
-  def times
-    [EventTime.new]
   end
   
 
@@ -175,8 +122,12 @@ private
   end
   
   def init_rules
+    self.rules ||= fresh_schedule
+  end
+  
+  def fresh_schedule
     duration = end_datetime ? (end_datetime - start_datetime) : 3600
-    self.rules ||= IceCube::Schedule.new(start_datetime || Time.now, end_time: expires_on, duration: duration)
+    IceCube::Schedule.new(start_datetime || Time.now, end_time: expires_on, duration: duration)
   end
   
   def write_rules
@@ -187,9 +138,19 @@ private
       when 'monthly' then add_monthly_rule!
       end
     end
-    set_times
   end
   
+  def rules_need_updating?
+    is_recurring? and (start_datetime_changed? or end_datetime_changed? or expires_on_changed?)
+  end
+  
+  def update_rule_expirations
+    self.rules.end_time   = expires_on
+    self.rules.start_time = start_datetime
+    self.rule.until expires_on
+  end
+  
+  # be sure not to remove exception dates when we get there
   def clear_rules!
     rules.rrules.each do |rule|
       self.rules.remove_recurrence_rule rule
@@ -222,10 +183,6 @@ private
     rule.present? ? rule.to_hash[:validations][:day_of_week] : nil
   end
   
-  def set_times
-    return unless @set_times
-    # DO SOMETHING!
-  end
   
   
 end

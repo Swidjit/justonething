@@ -32,7 +32,9 @@ class ItemDecorator < ApplicationDecorator
   def timing(include_icon = true)
     if item.start_datetime.present?
       icon_class = include_icon ? 'cal_icon smIcon' : ''
-      content_tag :div, DateTimeDecorator.new(item.start_datetime).event_start_time, :class => icon_class
+      # you already have the EventDecorator to format the time, so why send it to DateTimeDecorator?
+      content_tag :div, start_datetime, class: icon_class
+      # content_tag :div, DateTimeDecorator.new(start_datetime).event_start_time, :class => icon_class
     end
   end
 

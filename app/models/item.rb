@@ -97,6 +97,22 @@ class Item < ActiveRecord::Base
     result = ActiveRecord::Base.connection.execute("SELECT COUNT(sub.*) as total_count FROM (#{subquery}) sub")
     result.first["total_count"].to_i
   end
+  
+  def decorator
+    (self.class.to_s + "Decorator").constantize
+  end
+  
+  def self.decorate(items)
+    items.map {|item| item.decorator.decorate item }
+  end
+  
+  def self.decorated
+    decorate scoped || []
+  end
+  
+  def to_partial_path
+    'items/item'
+  end
 
   def self.classes
     %w( HaveIt WantIt Event Thought Link Collection )
