@@ -120,7 +120,30 @@ describe Event do
       @feed_event.dtend = 1.month.from_now + 1.day + 1.hour
       Event.new_from_feed @feed_event, @feed
       @feed.user.items.count.should == 0
-      
+    end
+  end
+  
+  describe "#event_recurrences" do
+    before(:each) {
+      @event = Factory :event
+    }
+    it "should be daily" do
+      @event.rule = 'daily'
+      @event.save
+      @event.reload.is_daily?.should == true
+    end
+    it "should be weekly" do
+      @event.weekly_day = 3
+      @event.rule = 'weekly'
+      @event.save
+      @event.reload.is_weekly?.should == true
+    end
+    it "should be monthly" do
+      @event.monthly_week = 1
+      @event.monthly_day = 2
+      @event.rule = 'monthly'
+      @event.save
+      @event.reload.is_monthly?.should == true
     end
   end
 

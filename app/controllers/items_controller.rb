@@ -146,7 +146,7 @@ private
       item_id = item_id_from_slug(params[:id])
       # Ensure only active items can be seen in show
       if params[:action] == 'show'
-        @item = item_decorator.decorate item_class.active.find item_id
+        @item = item_decorator.decorate item_class.active.find(item_id)
       else
         @item = item_decorator.find item_id
       end

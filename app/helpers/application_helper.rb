@@ -54,4 +54,5 @@ module ApplicationHelper
     str = f.object_name.gsub(/\[|\]/,"_").gsub('__', '_').sub(/_$/, '')
   end
   
+  
 end
