@@ -1,0 +1,9 @@
+%div.contentRow.visible_overflow.without_border
+  %div.title_heading.left.no-padding-top.right_padding_10= title
+.clearAll
+- if events.present?
+  = render :partial => 'items/slim_event', :collection => EventDecorator.decorate(events), :as => :item
+- else
+  %div.title_heading 
+    %br
+      No events to show.

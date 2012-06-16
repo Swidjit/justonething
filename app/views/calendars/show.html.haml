@@ -19,7 +19,7 @@
     )
 
   %div.inline
-    = "for #{@date_display}"
+    = "for #{@calendar.date_display}"
     %input.datepicker#calendar_select_date_hidden{:type => :hidden}
     %a#calendar_select_date{:href => '#'}
       select a new date
@@ -39,7 +39,7 @@
     = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
 
 .cal_lower_nav.clearAll
-  = (@week == 0) ? "< prev week" : link_to("< prev week", week_calendar_index_path(@week - 1))
-  = link_to "next week >", week_calendar_index_path(@week + 1)
+  = (@week == 0) ? "< prev week" : link_to("< prev week", calendar_path(from: @calendar.beginning_of_previous_week, to: @calendar.end_of_previous_week))
+  = link_to "next week >", calendar_path(from: @calendar.beginning_of_next_week, to: @calendar.end_of_next_week)
 
 %div.clearAll

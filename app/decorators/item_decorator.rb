@@ -33,7 +33,7 @@ class ItemDecorator < ApplicationDecorator
     if item.start_datetime.present?
       icon_class = include_icon ? 'cal_icon smIcon' : ''
       # you already have the EventDecorator to format the time, so why send it to DateTimeDecorator?
-      content_tag :div, start_datetime, class: icon_class
+      content_tag :div, next_occurrence, class: icon_class
       # content_tag :div, DateTimeDecorator.new(start_datetime).event_start_time, :class => icon_class
     end
   end
@@ -112,7 +112,15 @@ class ItemDecorator < ApplicationDecorator
 
     if h.can? :manage, item
       links << link_to('Edit', edit_polymorphic_path(item))
-      links << link_to('Delete', item, :confirm => 'Are you sure?', :method => :delete)
+      
+      msg = 'Are you sure?'
+      delete_text = 'Delete'
+      if item.type == 'Event' and item.is_recurrence? and h.params[:controller] == 'calendars'
+        links << link_to('Delete One', event_path(item, date: item.start_datetime.to_s(:ymd)), confirm: 'Are you sure? This will only delete this instance of the event, and not the entire event.', method: :delete)
+        msg << ' This will delete event and all of its instances.'
+        delete_text << ' All'
+      end
+      links << link_to(delete_text, item, :confirm => msg, :method => :delete)
       toggle_active_text = item.active ? 'Deactivate' : 'Activate'
       links << link_to(toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
     end
@@ -130,11 +138,25 @@ class ItemDecorator < ApplicationDecorator
     if h.current_user && item.type == 'Event'
       #check for rsvps
       if item.rsvp_users.include?(h.current_user)
-        rsvp = item.rsvps.where(:user_id => h.current_user.id)
+        rsvp = item.rsvps.where(:user_id => h.current_user.id).first
         links << link_to('Cancel RSVP', rsvp_path(rsvp), :method => :delete)
       else
         links << link_to('RSVP', rsvps_path(:item_id => item.id), :method => :post)
       end
+      
+      # check for reminders
+      if item.has_reminder_for?(current_user)
+        reminder = item.reminder_for_user current_user
+        links << link_to('Cancel Reminder', reminder_path(reminder), method: :delete)
+      else
+        remind_me_text = 'Remind Me'
+        if item.is_recurring? or item.is_recurrence?
+          links << link_to('Remind Me Once', reminders_path(item_id: item.id, date: item.start_datetime.to_s(:ymd)), method: :post)
+          remind_me_text << ' Every Time'
+        end
+        links << link_to(remind_me_text, reminders_path(item_id: item.id), method: :post)
+      end
+      
     end
 
     if h.can? :create, Comment

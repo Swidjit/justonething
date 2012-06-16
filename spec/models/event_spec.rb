@@ -34,26 +34,19 @@ describe Event do
     event.should have(1).error_on(:start_date)
   end
 
-  describe "#for_week" do
-    it "should return an event from today with week 0" do
-      event = Factory(:event, :start_datetime => 1.days.from_now)
-      Event.for_week(0).all.should include event
+  
+
+  describe "#between" do
+    it "should return an event from today" do
+      event = Factory(:event, start_datetime: 1.day.from_now, end_datetime: 36.hours.from_now)
+      Event.between(1.day.from_now.beginning_of_day, 8.days.from_now).should_not be_empty
     end
 
-    it "should return an event from 7 days from now with week 0" do
-      event = Factory(:event, :start_datetime => 7.days.from_now)
-      Event.for_week(0).all.should include event
+    it "should return an event from 7 days from now" do
+      event = Factory(:event, start_datetime: 7.days.from_now, end_datetime: 36.hours.from_now)
+      Event.between(Time.now, 7.days.from_now.end_of_day).should_not be_empty
     end
 
-    it "should not return an event from 8 days from now with week 0" do
-      event = Factory(:event, :start_datetime => 8.days.from_now)
-      Event.for_week(0).all.should_not include event
-    end
-
-    it "should return an event from 8 days from now with week 1" do
-      event = Factory(:event, :start_datetime => 8.days.from_now)
-      Event.for_week(1).all.should include event
-    end
   end
 
   describe "#owned_or_bookmarked_by_or_rsvp_to" do
@@ -151,15 +144,22 @@ describe Event do
       @event.reload.is_monthly?.should == true
     end
     it "should have next occurrence" do
-      @event.start_datetime = 1.week.ago
-      @event.end_datetime = 1.week.ago + 1.hour
+      @event.start_datetime = 1.week.from_now
+      @event.end_datetime = 1.week.from_now + 1.hour
       @event.expires_on = 1.year.from_now
       @event.monthly_week = 1
       @event.monthly_day = 2
       @event.rule = 'monthly'
-      @event.send :write_rules
-      @event.next_occurrence.to_time.should > Time.now 
+      @event.save
+      @event.next_occurrence.should_not be_nil
       # it's important that it has a next occurrence in the future, not going to calculate the next first Tuesday
+    end
+    it "should return occurrences between two dates" do
+      @event.start_datetime = 1.day.from_now
+      @event.end_datetime = @event.start_datetime + 1.hour
+      @event.rule = 'daily'
+      @event.save
+      @event.occurrences_between(Time.now.beginning_of_day, 1.week.from_now.end_of_day).size > 0
     end
     it "should update rule expiry when updating event expiry" do
       @event.weekly_day = 3

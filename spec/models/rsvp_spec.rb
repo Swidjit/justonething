@@ -12,7 +12,7 @@ describe Rsvp do
     it "should be filterable by user" do
       r1 = Factory(:rsvp)
       r2 = Factory(:rsvp)
-
+      
       r1.user.rsvps.should == [r1]
       r2.user.rsvps.should == [r2]
     end

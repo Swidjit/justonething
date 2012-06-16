@@ -9,8 +9,7 @@ class EventDecorator < ItemDecorator
     if params[:event].present? && params[:event]["start_#{format}".to_sym].present?
       params[:event]["start_#{format}".to_sym]
     elsif event.start_datetime.present?
-      event.next_occurrence.strftime(send("#{format}_format"))
-      # event.start_datetime.strftime(send("#{format}_format"))
+      event.start_datetime.strftime(send("#{format}_format"))
     end
   end
 
@@ -20,6 +19,11 @@ class EventDecorator < ItemDecorator
     elsif event.end_datetime.present?
       event.end_datetime.strftime(send("#{format}_format"))
     end
+  end
+  
+  def next_occurrence(format = 'datetime')
+    event.is_recurring? ? "#{event.rule.to_s} @ #{start_datetime('time')}" : start_datetime
+    #event.next_occurrence.strftime(send("#{format}_format"))
   end
 
   def weekday_options

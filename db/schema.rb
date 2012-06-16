@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608230220) do
+ActiveRecord::Schema.define(:version => 20120615152655) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -221,6 +221,15 @@ ActiveRecord::Schema.define(:version => 20120608230220) do
 
   add_index "recommendations", ["item_id", "user_id"], :name => "index_recommendations_on_item_id_and_user_id", :unique => true
 
+  create_table "reminders", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.date     "date"
+    t.date     "sent_on"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "rsvps", :force => true do |t|
     t.integer  "user_id"
     t.integer  "item_id"
@@ -307,6 +316,9 @@ ActiveRecord::Schema.define(:version => 20120608230220) do
 
   add_foreign_key "offers", "items", :name => "offers_item_id_fk"
   add_foreign_key "offers", "users", :name => "offers_user_id_fk"
+
+  add_foreign_key "reminders", "items", :name => "reminders_item_id_fk"
+  add_foreign_key "reminders", "users", :name => "reminders_user_id_fk"
 
   add_foreign_key "rsvps", "items", :name => "rsvps_item_id_fk"
   add_foreign_key "rsvps", "users", :name => "rsvps_user_id_fk"

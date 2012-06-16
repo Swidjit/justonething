@@ -1,6 +1,22 @@
 class EventsController < ItemsController
   before_filter :convert_times_to_db_format, :only => [:create,:update]
   
+  def destroy
+    if params[:date]
+      @item.cancel_occurrence(params[:date])
+      flash[:notice] = "The event was cancelled."
+    else
+      @item.delete
+      flash[:notice] = "The event was successfully deleted."
+    end
+    # if deleted from show go to root else go back to feed
+    if request.referer == send("#{item_class.to_s.underscore}_url",params[:id])
+      redirect_to root_path
+    else
+      redirect_to :back
+    end
+  end
+  
   private
   def convert_times_to_db_format
     if params[:event].present?
