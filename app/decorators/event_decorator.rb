@@ -51,6 +51,20 @@ class EventDecorator < ItemDecorator
       ["Last", -1]
     ]
   end
+  
+  def description
+    html = super
+    if event.is_recurring?
+      date = @event_date || Time.now
+      upcoming_events = event.next_occurrences 6, date
+      if upcoming_events.present?
+        html << content_tag(:h4, 'Upcoming dates for this event')
+        collection_arr = upcoming_events.map {|date| content_tag :li, date.to_s(:short) }
+        html << content_tag(:ul, collection_arr.join('').html_safe)
+      end
+    end
+    html
+  end
 
   private
   # TODO: Move this to an initializer and use datetime.to_s(:format_defined_in_initializer)

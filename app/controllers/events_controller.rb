@@ -4,9 +4,9 @@ class EventsController < ItemsController
   def show
     if params[:date]
       begin
-        date = Date.parse params[:date]
-        if @item.is_recurring? and @item.occurs_on? date
-          @item.model = @item.model.to_occurrence(date)
+        @event_date = Date.parse params[:date]
+        if @item.is_recurring? and @item.occurs_on? @event_date
+          @item.model = @item.model.to_occurrence(@event_date)
         end
       rescue ArgumentError
       end

@@ -5,6 +5,11 @@ module Event::Occurrences
     rule.present? ? schedule.next_occurrence(time) : start_datetime
   end
   
+  def next_occurrences(num, time=nil)
+    time = time.present? ? time.to_time : Time.now
+    rule.present? ? schedule.next_occurrences(num, time) : [start_datetime]
+  end
+  
   def occurs_on?(date)
     rule.present? ? schedule.occurs_on?(date.to_date) : (start_datetime >= date && end_datetime <= date)
   end
