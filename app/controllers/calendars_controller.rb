@@ -9,7 +9,7 @@ class CalendarsController < ApplicationController
       @to   = params[:to].andand.to_time   || @from.end_of_week
     end
     
-    @calendar = Calendar.new from: @from, to: @to, filter: params[:filter], user: current_user
+    @calendar = Calendar.new from: @from, to: @to, filter: params[:filter], user: current_user, city: current_city, ability: current_ability
     
     @filter = params[:filter] || 'all events'
 

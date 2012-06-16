@@ -10,14 +10,15 @@ class Calendar
   end
   
   def initialize(options={})
-    @from, @to, @filter, @user = options[:from], options[:to], options[:filter], options[:user]
+    @from, @to, @filter, @user, @city, @ability = options[:from], options[:to], options[:filter], options[:user], options[:city], options[:ability]
     @from = @from.beginning_of_day
     @to = @to.end_of_day
   end
   
   def events
     return @events if @events
-    @events = Event.reorder('').between(from, to) 
+    @events = Event.reorder('').between(from, to)
+    @events = @events.access_controlled_for(@user, @city, @ability) if @city and @user
     @events = @events.having_tag_with_name(@filter) if @filter.present?
     @events = @events.map {|event| event.occurrences_between(from, to)}.flatten.sort_by(&:start_datetime)
   end
