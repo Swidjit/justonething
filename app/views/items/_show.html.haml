@@ -20,7 +20,7 @@
     %br
     = item.thumb_with_lightbox
   .itemInfo
-    .itemTitle= item.title
+    %h1.itemTitle= item.title
     - if can? :manage, item
       #visiEXP
         .visiRow
