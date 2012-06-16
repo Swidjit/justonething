@@ -222,3 +222,59 @@ ul.two_col_mid {
   width: auto;
   padding: 10px;
 }
+
+.calendar-item {
+    position:relative;
+    background:#E1E7EC;
+    padding:10px 0px 10px 10px;
+    margin-bottom:10px;
+    min-height:48px;
+    h3 {
+        margin-top:0;
+    }
+    p {
+        margin-bottom:0;
+    }
+    .itemIcons {
+        background:#E1E7EC;
+    }
+}
+
+.calendar-column {
+    width:48%;
+}
+.calendar-day {
+    margin-bottom:40px;
+    h2 {
+        float:left;
+        width:60px;
+        margin-top:0;
+        border:3px solid #075A8E;
+        line-height:auto;
+        text-align:center;
+        div {
+            padding:5px 0;
+        }
+        .month {
+            color:white;
+            background:#075A8E;
+        }
+        .day {
+            color: #075A8E;
+        }
+    }
+    .calendar-item {
+        margin-left:80px;
+    }
+}
+.calendar-week-links-top {
+    float:right;
+    font-size:150%;
+    margin-right:40px;
+    a {
+        text-decoration:none;
+        &:hover {
+            text-decoration:underline;
+        }
+    }
+}

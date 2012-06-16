@@ -4,6 +4,10 @@ module Event::Occurrences
     time = time.present? ? time.to_time : Time.now
     rule.present? ? schedule.next_occurrence(time) : start_datetime
   end
+  
+  def occurs_on?(date)
+    rule.present? ? schedule.occurs_on?(date.to_date) : (start_datetime >= date && end_datetime <= date)
+  end
 
   def occurrences_between(from, to)
     if is_recurring?

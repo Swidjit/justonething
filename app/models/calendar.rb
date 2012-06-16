@@ -2,6 +2,12 @@ class Calendar
   
   attr_accessor :from, :to, :filter, :user
   
+  def self.upcoming_events(user)
+    now = Time.now
+    calendar = Calendar.new from: now, to: (now + 2.weeks), user: user
+    events = user ? calendar.user_events : calendar.events
+    events[0..3]
+  end
   
   def initialize(options={})
     @from, @to, @filter, @user = options[:from], options[:to], options[:filter], options[:user]

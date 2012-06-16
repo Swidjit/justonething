@@ -1,6 +1,18 @@
 class EventsController < ItemsController
   before_filter :convert_times_to_db_format, :only => [:create,:update]
   
+  def show
+    if params[:date]
+      begin
+        date = Date.parse params[:date]
+        if @item.is_recurring? and @item.occurs_on? date
+          @item.model = @item.model.to_occurrence(date)
+        end
+      rescue ArgumentError
+      end
+    end
+  end
+  
   def destroy
     if params[:date]
       @item.cancel_occurrence(params[:date])

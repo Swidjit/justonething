@@ -12,6 +12,10 @@ class EventDecorator < ItemDecorator
       event.start_datetime.strftime(send("#{format}_format"))
     end
   end
+  
+  def date
+    event.start_datetime.to_date
+  end
 
   def end_datetime(format = 'datetime')
     if params[:event].present? && params[:event]["end_#{format}".to_sym].present?
