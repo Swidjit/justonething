@@ -43,7 +43,7 @@ describe Event do
     end
 
     it "should return an event from 7 days from now" do
-      event = Factory(:event, start_datetime: 7.days.from_now, end_datetime: 36.hours.from_now)
+      event = Factory(:event, start_datetime: 7.days.from_now, end_datetime: (7.days.from_now + 1.hour))
       Event.between(Time.now, 7.days.from_now.end_of_day).should_not be_empty
     end
 
@@ -136,12 +136,19 @@ describe Event do
       @event.save
       @event.reload.is_weekly?.should == true
     end
-    it "should be monthly" do
+    it "should be monthly by week/day" do
       @event.monthly_week = 1
       @event.monthly_day = 2
-      @event.rule = 'monthly'
+      @event.rule = 'monthly_week'
       @event.save
-      @event.reload.is_monthly?.should == true
+      @event.reload.is_monthly_week?.should == true
+    end
+    it "should be monthly by day of month" do
+      @event.monthly_date = 15
+      @event.rule = 'monthly_date'
+      @event.save
+      @event.reload.is_monthly_date?.should == true
+      @event.monthly_date.should == 15
     end
     it "should have next occurrence" do
       @event.start_datetime = 1.week.from_now

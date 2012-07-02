@@ -52,6 +52,10 @@ class EventDecorator < ItemDecorator
     ]
   end
   
+  def date_of_month_options
+    (1..31).map { |n| [n.ordinalize, n] }
+  end
+  
   def description
     html = super
     if event.is_recurring?

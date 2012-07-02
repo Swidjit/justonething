@@ -65,8 +65,8 @@ http_interactions:
         END:STANDARD\r\n\
         END:VTIMEZONE\r\n\
         BEGIN:VEVENT\r\n\
-        DTSTART:<%= 5.days.from_now.strftime("%Y%m%d") %>T230000Z\r\n\
-        DTEND:<%= 5.days.from_now.strftime("%Y%m%d") %>T010000Z\r\n\
+        DTSTART:<%= 5.days.from_now.strftime("%Y%m%d") %>T040000Z\r\n\
+        DTEND:<%= 6.days.from_now.strftime("%Y%m%d") %>T080000Z\r\n\
         DTSTAMP:20120608T163118Z\r\n\
         UID:d1hu8i1r83a2k4r7shshi16mgg@google.com\r\n\
         ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Ithaca\r\n  Children's Garden;X-NUM-GUESTS=0:mailto:ju6l13rier0b6t6cm8bn7r4fvo@group.c\r\n alendar.google.com\r\n\
@@ -80,8 +80,8 @@ http_interactions:
         TRANSP:OPAQUE\r\n\
         END:VEVENT\r\n\
         BEGIN:VEVENT\r\n\
-        DTSTART:<%= 2.days.from_now.strftime("%Y%m%d") %>T220000Z\r\n\
-        DTEND:<%= 2.days.from_now.strftime("%Y%m%d") %>T003000Z\r\n\
+        DTSTART:<%= 2.days.from_now.strftime("%Y%m%d") %>T120000Z\r\n\
+        DTEND:<%= 2.days.from_now.strftime("%Y%m%d") %>T133000Z\r\n\
         DTSTAMP:20120608T163118Z\r\n\
         UID:cnmqc6fktlqb2set4ejnvuchts@google.com\r\n\
         CREATED:20120601T215908Z\r\n\

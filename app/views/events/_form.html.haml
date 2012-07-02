@@ -28,11 +28,18 @@
             until the expiration date below
       %li
         %label
-          = radio_button_tag "event[rule]", 'monthly', f.object.is_monthly?
+          = radio_button_tag "event[rule]", 'monthly_week', f.object.is_monthly_week?
           %span
             This event repeats every
             = select_tag "event[monthly_week]", options_for_select(f.object.week_of_month_options, f.object.monthly_week)
             = select_tag "event[monthly_day]", options_for_select(f.object.weekday_options, f.object.monthly_day)
+            of the month until the expiration date below.
+      %li
+        %label
+          = radio_button_tag "event[rule]", 'monthly_date', f.object.is_monthly_date?
+          %span
+            This event repeats every
+            = select_tag "event[monthly_date]", options_for_select(f.object.date_of_month_options, f.object.monthly_date)
             of the month until the expiration date below.
 
     / = f.inputs :class => 'extra_inform_box' do

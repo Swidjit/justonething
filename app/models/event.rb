@@ -6,11 +6,12 @@ class Event < Item
   include Reminders
   
   attr_accessible :cost, :location, :start_datetime, :end_datetime, :start_date, :start_time,
-    :end_date, :end_time, :rule, :weekly_day, :monthly_week, :monthly_day, :times
+    :end_date, :end_time, :rule, :weekly_day, :monthly_week, :monthly_day, :monthly_date, :times
 
   validates_presence_of :location, :start_datetime, :end_datetime
   validates_presence_of :start_date, :start_time, :end_date, :end_time, if: :processing_through_ui?
-  validate :start_datetime_in_future
+  validate :start_datetime_in_future, on: :create
+  validate :event_ends_after_it_starts
   
   attr_accessor :start_time, :start_date, :end_time, :end_date
 
@@ -55,7 +56,11 @@ class Event < Item
   private
 
   def start_datetime_in_future
-    errors.add(:start_date, "must be not have already passed") if start_datetime.present? && start_datetime < DateTime.now
+    errors.add(:start_date, "must not have already passed") if start_datetime.present? && start_datetime < DateTime.now
+  end
+  
+  def event_ends_after_it_starts
+    errors.add(:end_date, "must be later than start date") if start_datetime.present? && end_datetime.present? && end_datetime < start_datetime
   end
     
 end
