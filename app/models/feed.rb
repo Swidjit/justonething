@@ -1,5 +1,7 @@
 class Feed < ActiveRecord::Base
   
+  attr_accessor :_process
+  
   include TagConversion
   
   belongs_to :user
@@ -9,9 +11,11 @@ class Feed < ActiveRecord::Base
   validates_presence_of :name, :url, :user
   validate :validate_ical, :if => :url_changed?
 
-  attr_accessible :name, :url, :tag_list, :geo_tag_list, as: :default
+  attr_accessible :name, :url, :tag_list, :geo_tag_list, :_destroy, :_process, as: :default
   
   after_initialize :set_defaults
+  after_create :process!
+  after_update :process_conditionally
   
   # This started off like Item model's set_defaults. If you're using nested attributes, you also have to
   # say the attribute will change and use or= otherwise it blanks out the tags.
@@ -22,9 +26,22 @@ class Feed < ActiveRecord::Base
     self.geo_tag_list ||= self.geo_tags.collect(&:name).join(',')
   end
   
+  def _process=(value)
+    @process_on_save = value == "1"
+  end
+  
+  def process_conditionally
+    if @process_on_save 
+      @process_on_save = nil
+      process!
+    else
+      true
+    end
+  end
+  
   def process!
     cals = load_url
-    return unless cals
+    return true unless cals
     cal = cals.first
 
     cal.events.each do |event|
