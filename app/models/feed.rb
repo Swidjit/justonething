@@ -51,7 +51,12 @@ class Feed < ActiveRecord::Base
   
   def load_url
     begin
-      response = Net::HTTP.get_response(URI(url))
+      uri = URI url
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
       Icalendar.parse response.body
     rescue Exception => e
       false
