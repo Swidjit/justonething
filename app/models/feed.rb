@@ -75,7 +75,8 @@ class Feed < ActiveRecord::Base
       request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
       Icalendar.parse response.body
-    rescue Exception => e
+    rescue Exception => exception
+      ExceptionNotifier::Norifier.background_exception_notification(exception, {}).deliver
       false
     end    
   end

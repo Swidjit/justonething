@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120615152655) do
+ActiveRecord::Schema.define(:version => 20120703124559) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(:version => 20120615152655) do
     t.boolean  "disabled",              :default => false
     t.integer  "thumbnail_id"
     t.text     "rules"
+    t.boolean  "imported",              :default => false, :null => false
   end
 
   add_index "items", ["thumbnail_id"], :name => "index_items_on_thumbnail_id"

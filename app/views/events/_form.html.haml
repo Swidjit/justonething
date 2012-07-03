@@ -14,46 +14,37 @@
       %li.text
         = image_tag('blue_tag.png')
         Event Recurrence
-      / Rules
-      %li
-        %label
-          = radio_button_tag "event[rule]", 'daily', f.object.is_daily?
-          %span This event repeats daily until the expiration date below.
-      %li
-        %label
-          = radio_button_tag "event[rule]", 'weekly', f.object.is_weekly?
-          %span
-            This event repeats weekly on
-            = select_tag "event[weekly_day]", options_for_select(f.object.weekday_options, f.object.weekly_day)
-            until the expiration date below
-      %li
-        %label
-          = radio_button_tag "event[rule]", 'monthly_week', f.object.is_monthly_week?
-          %span
-            This event repeats every
-            = select_tag "event[monthly_week]", options_for_select(f.object.week_of_month_options, f.object.monthly_week)
-            = select_tag "event[monthly_day]", options_for_select(f.object.weekday_options, f.object.monthly_day)
-            of the month until the expiration date below.
-      %li
-        %label
-          = radio_button_tag "event[rule]", 'monthly_date', f.object.is_monthly_date?
-          %span
-            This event repeats every
-            = select_tag "event[monthly_date]", options_for_select(f.object.date_of_month_options, f.object.monthly_date)
-            of the month until the expiration date below.
+      - if f.object.imported and f.object.is_recurring?
+        %li.text= f.object.next_occurrence
+      - else
+        / Rules
+        %li
+          %label
+            = radio_button_tag "event[rule]", 'daily', f.object.is_daily?
+            %span This event repeats daily until the expiration date below.
+        %li
+          %label
+            = radio_button_tag "event[rule]", 'weekly', f.object.is_weekly?
+            %span
+              This event repeats weekly on
+              = select_tag "event[weekly_day]", options_for_select(f.object.weekday_options, f.object.weekly_day)
+              until the expiration date below
+        %li
+          %label
+            = radio_button_tag "event[rule]", 'monthly_week', f.object.is_monthly_week?
+            %span
+              This event repeats every
+              = select_tag "event[monthly_week]", options_for_select(f.object.week_of_month_options, f.object.monthly_week)
+              = select_tag "event[monthly_day]", options_for_select(f.object.weekday_options, f.object.monthly_day)
+              of the month until the expiration date below.
+        %li
+          %label
+            = radio_button_tag "event[rule]", 'monthly_date', f.object.is_monthly_date?
+            %span
+              This event repeats every
+              = select_tag "event[monthly_date]", options_for_select(f.object.date_of_month_options, f.object.monthly_date)
+              of the month until the expiration date below.
 
-    / = f.inputs :class => 'extra_inform_box' do
-    /   %li.text
-    /     = image_tag('blue_tag.png')
-    /     Additional Times
-    /     %br
-    /     - f.object.times.each do |time|
-    /       = text_field_tag 'event[times][][start_date]', time.start_date, placeholder: 'Start Date', class: 'datepicker time_start_date'
-    /       = text_field_tag 'event[times][][start_time]', time.start_time, placeholder: 'Start Time', class: 'timepicker'
-    /       = text_field_tag 'event[times][][end_date]', time.end_date, placeholder: 'End Date', class: 'datepicker time_end_date'
-    /       = text_field_tag 'event[times][][end_time]', time.end_time, placeholder: 'End Time', class: 'timepicker'
-    /       %br
-        
     = f.inputs :class => 'extra_inform_box' do
       %li.text
         = image_tag('blue_tag.png')

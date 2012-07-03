@@ -79,7 +79,7 @@ describe UsersController do
           }
         }
       }
-      VCR.use_cassette('ical_feed', erb: true, allow_playback_repeats: true) do
+      VCR.use_cassette('ical_feed') do
         put :update, id: @user.id, user: params
         @user.reload.feeds.count.should == 1
         feed = @user.feeds.first

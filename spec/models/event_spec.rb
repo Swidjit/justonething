@@ -74,7 +74,7 @@ describe Event do
   
   describe '#importing_from_ical_feed' do
     before(:each) {
-      VCR.use_cassette('ical_feed', erb: true, allow_playback_repeats: true) do
+      VCR.use_cassette('ical_feed') do
         @feed = Factory :feed
       end
       @feed_event = Icalendar::Event.new
@@ -86,8 +86,7 @@ describe Event do
     }
     it "should import future event" do
       Event.new_from_feed @feed_event, @feed
-      
-      event = @feed.user.items.last
+      event = @feed.user.items.first
       event.title.should == @feed_event.summary
       event.description.should == @feed_event.description
       event.start_datetime.to_time.to_s.should == @feed_event.dtstart.to_time.to_s
@@ -98,21 +97,23 @@ describe Event do
     it "should not import past event" do
       @feed_event.dtstart = 1.day.ago
       @feed_event.dtend = 18.hours.ago
-      Event.new_from_feed @feed_event, @feed
-      @feed.user.items.count.should == 0
+      event = Event.new_from_feed @feed_event, @feed
+      event.should be_nil
     end
     
     it "should not import duplicate event" do
       Event.new_from_feed @feed_event, @feed
+      count = Event.count
       Event.new_from_feed @feed_event, @feed
-      @feed.user.items.count.should == 1
+      Event.count.should == count
     end
     
     it "should not import events more than a month from now" do
+      count = Event.count
       @feed_event.dtstart = 1.month.from_now + 1.day
       @feed_event.dtend = 1.month.from_now + 1.day + 1.hour
       Event.new_from_feed @feed_event, @feed
-      @feed.user.items.count.should == 0
+      Event.count.should == count
     end
   end
   

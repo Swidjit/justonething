@@ -105,17 +105,17 @@ module Event::Recurrences
     add_rule Rule.monthly.day_of_week day => [@monthly_week.to_i]
   end
   
+  def add_weekly_rule!
+    @weekly_day ||= start_datetime.stftime("%u")
+    add_rule Rule.weekly(1).day(@weekly_day.to_i)
+  end
+    
   def add_rule(rule)
     clear_rules!
     rule.until(expires_on.to_time) if expires_on.present?
     schedule.add_recurrence_rule rule
   end
 
-  def add_weekly_rule!
-    @weekly_day ||= start_datetime.stftime("%u")
-    add_rule Rule.weekly(1).day(@weekly_day.to_i)
-  end
-    
   # be sure not to remove exception dates when we get there
   def clear_rules!
     return if rules.blank?

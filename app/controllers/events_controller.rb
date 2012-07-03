@@ -11,6 +11,10 @@ class EventsController < ItemsController
       rescue ArgumentError
       end
     end
+    respond_to do |format|
+      format.html
+      format.ics { render text: @item.to_ics(standalone: true) }
+    end
   end
   
   def destroy

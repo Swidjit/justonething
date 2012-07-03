@@ -1,15 +1,20 @@
 %h1.title_heading
   = image_tag 'item_icon_cal.png', :class => 'left right-margin'
-  = @current_city.name
-  Events Calendar
+  = @calendar_title
 
 - week_links = capture do
   = (@week == 0) ? "&laquo; prev week".html_safe : link_to("&laquo; prev week".html_safe, calendar_path(from: @calendar.beginning_of_previous_week, to: @calendar.end_of_previous_week))
   |
   = link_to "next week &raquo;".html_safe, calendar_path(from: @calendar.beginning_of_next_week, to: @calendar.end_of_next_week)
-
+  %form{method: 'GET'}
+    = hidden_field_tag :from, @from
+    = hidden_field_tag :to, @to
+    = text_field_tag :filter, @filter, placeholder: 'Filter by tag'
+    = submit_tag 'Submit'
+    %input{type: :reset, value: 'Reset', onclick: "$('#filter').val(null);$(this).closest('form').submit()"}
+    
 .contentRow.without_border.left-padding
-  = "you are currently viewing #{@filter}"
+  = "you are currently viewing #{@filter || 'all events'}"
   - if @item_preset_tags.present?
     (
     %ul.inline_menu_with_dropdowns
@@ -30,7 +35,12 @@
       select a new date
       = image_tag 'arrowDN.png'
 
-  %span.calendar-week-links-top= week_links
+  %span.calendar-week-links-top
+    = week_links
+    %p
+      Subscribe to this calendar:
+      %br
+      = link_to calendar_url(format: :ics, filter: @filter)
 
 %div.clearAll
 

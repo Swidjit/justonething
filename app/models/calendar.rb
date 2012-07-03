@@ -10,19 +10,30 @@ class Calendar
   end
   
   def initialize(options={})
-    @from, @to, @filter, @user, @city, @ability = options[:from], options[:to], options[:filter], options[:user], options[:city], options[:ability]
-    @from = @from.beginning_of_day
-    @to = @to.end_of_day
+    @from, @to, @filter, @user, @city, @ability, @ical = options[:from], options[:to], options[:filter], options[:user], options[:city], options[:ability], options[:ical]
+    unless @ical
+      @from = @from.beginning_of_day
+      @to = @to.end_of_day
+    end
+  end
+  
+  def to_ics
+    calendar = Icalendar::Calendar.new
+    ical_events.each do |event|
+      calendar.add_event event.to_ics
+    end
+    calendar.publish
+    calendar.to_ical
   end
   
   def events
     return @events if @events
-    @events = Event.reorder('').between(from, to)
+    @events = @ical ? Event.order(:start_datetime) : Event.reorder('').between(from, to)
     @events = @events.access_controlled_for(@user, @city, @ability) if @city and @user
     @events = @events.having_tag_with_name(@filter) if @filter.present?
-    @events = @events.map {|event| event.occurrences_between(from, to)}.flatten.sort_by(&:start_datetime)
+    @events = @events.map {|event| event.occurrences_between(from, to)}.flatten.sort_by(&:start_datetime) unless @ical
   end
-
+  
   def user_events
     return @user_events if @user_events
     if user.blank? or events.blank?

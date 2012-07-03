@@ -1,21 +1,21 @@
-- if item.user != current_user && !item.has_offer_from?(current_user)
+- if @item.user != current_user && !@item.has_offer_from?(current_user)
   = form_for :offer, :url => item_offers_path(@item) do |f|
-    = f.hidden_field :item_id, :value => item.id
+    = f.hidden_field :item_id, :value => @item.id
     = text_area_tag :text
     = f.submit 'send offer'
 
-- elsif item.user != current_user && item.has_offer_from?(current_user)
-  - offer = item.offer_from(current_user)
+- elsif @item.user != current_user && @item.has_offer_from?(current_user)
+  - offer = @item.offer_from(current_user)
   .offer_heading
     from
     %span
       = link_to offer.user.display_name, profile_path(offer.user.display_name)
-  = render :partial => 'offers/offer', :locals => { :@offer => offer }
+  = render 'offers/offer', :@offer => offer 
 
-- elsif item.user == current_user
-  - if item.offers.present?
+- elsif @item.user.eql? current_user
+  - if @item.offers.present?
     - # We can't use :as => :@offer for some reason so loop the collection ourselves
-    - item.offers.each do |offr|
-      = render :partial => 'offers/offer', :locals => { :@offer => offr }
+    - @item.offers.each do |offr|
+      = render 'offers/offer', :@offer => offr 
   - else
     %p No offers yet.

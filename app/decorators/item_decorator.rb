@@ -156,6 +156,7 @@ class ItemDecorator < ApplicationDecorator
         end
         links << link_to(remind_me_text, reminders_path(item_id: item.id), method: :post)
       end
+      links << link_to('Export to Calendar', event_path(item, format: :ics))
       
     end
 
