@@ -86,7 +86,15 @@ module Event::Recurrences
       schedule.remove_exception_time rule
     }
   end
-    
+   
+  def clear_rules!
+    return if rules.blank?
+    schedule.rrules.each do |rule|
+      schedule.remove_recurrence_rule rule
+    end
+  end
+  
+   
     
   private
     
@@ -117,13 +125,6 @@ module Event::Recurrences
   end
 
   # be sure not to remove exception dates when we get there
-  def clear_rules!
-    return if rules.blank?
-    schedule.rrules.each do |rule|
-      schedule.remove_recurrence_rule rule
-    end
-  end
-  
   def unserialize_schedule
     @schedule = (rules.blank? or rules == "--- \n") ? fresh_schedule : Schedule.from_yaml(rules)
   end

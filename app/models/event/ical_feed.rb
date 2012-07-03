@@ -13,6 +13,7 @@ module Event::IcalFeed
       e.start_datetime = event.dtstart.to_time
       e.end_datetime = event.dtend.to_time
       if event.recurrence_rules.present?
+        e.clear_rules! if e.rule.present?
         e.expires_on = nil
         event.recurrence_rules.each do |rule|
           e.schedule.add_recurrence_rule IceCube::Rule.from_ical(rule.orig_value.sub(/;WKST=\w\w/,''))            
