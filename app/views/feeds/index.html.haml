@@ -11,7 +11,7 @@
       common tags:
       - @taglist.each do |this_tag|
         %span.tag_droplet
-          = link_to this_tag.name, main_feeds_path(type: @type_link, tag_name: this_tag.name)
+          = link_to this_tag.name, main_feeds_path(type: @type_link, tag_name: this_tag.name), :id => "droplet-#{this_tag.name}"
   %div#category_search_wrapper
     %form#category_search_form{:method => 'GET', action: search_feeds_path}
       %input{:type => 'hidden', :name => 'type', :value => @type_link}
