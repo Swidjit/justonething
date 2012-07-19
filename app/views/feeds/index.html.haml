@@ -1,8 +1,21 @@
 .title_heading
   = "#{current_city.name} - #{@title}"
 
-- if @hide_tabbed_types.blank?
-  %div
-    = tabbed_item_types('type')
+.filter_wrapper
+  %div.tag_cloud
+    - if @hide_tabbed_types.blank?
+      %div.tabbed_types_wrapper
+        filter by:
+        = tabbed_item_types('type')
+    %div
+      common tags:
+      - @taglist.each do |this_tag|
+        %span.tag_droplet
+          = link_to this_tag.name, main_feeds_path(type: @type_link, tag_name: this_tag.name)
+  %div#category_search_wrapper
+    %form#category_search_form{:method => 'GET', action: search_feeds_path}
+      %input{:type => 'hidden', :name => 'type', :value => @type_link}
+      %input#category_search{:type => 'text', :name => 'q', :placeholder => 'Search this feed'}
+      %input#category_search_submit{:type => 'submit', :value => 'search'}
 
 = render :partial => 'endless_scroll'
