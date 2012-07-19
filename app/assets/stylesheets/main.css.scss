@@ -68,15 +68,30 @@ ul.two_col_mid {
 }
 
 .title_heading {
-  font-size:16px;
+  font-size:18px;
   color:#88068e;
   padding-left:10px;
-  padding-top: 15px;
+  padding-top: 5px;
+  font-weight:bold;
 
   a, a:hover {
     color:#88068e;
     text-decoration: none;
   }
+}
+
+.home_menu {
+  list-style: none;
+  float: left;
+}
+.home_menu li {
+  float: left;
+  display: block;
+  padding: 8px 15px 0 0;
+}
+
+.container_heading h3 {
+  font-size: 18px;
 }
 
 #search {

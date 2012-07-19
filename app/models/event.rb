@@ -13,7 +13,7 @@ class Event < Item
   validate :start_datetime_in_future
 
   scope :upcoming, lambda {
-    { :conditions => ["#{Event.table_name}.start_datetime >= ?", DateTime.now.beginning_of_day] }
+    { :conditions => ["#{Event.table_name}.start_datetime >= ?", DateTime.now] }
   }
 
   # week is zero-indexed starting with the current day as the first day of the first week
