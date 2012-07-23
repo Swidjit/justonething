@@ -7,6 +7,8 @@ describe FeedsController do
   end
 
   describe "GET all" do
+    render_views
+
     it 'should only load tagged item' do
       item = Factory(:thought, :user => @user, :tag_list => 'icecream')
       get :index, :type => 'all', :tag_name => 'icecream'
@@ -14,9 +16,17 @@ describe FeedsController do
       get :index, :type => 'all', :tag_name => 'elephant'
       assigns(:feed_items).should == []
     end
+
+    it 'should show tags in tag cloud' do
+      item = Factory(:have_it, :user => @user, :tag_list => 'icecream')
+      get :index, :type => 'all'
+      response.body.should have_selector('a#droplet-icecream')
+    end
   end
 
   describe 'GET specific item type' do
+    render_views
+
     it 'should only load items of the correct type' do
       thought = Factory(:thought, :user => @user)
       want_it = Factory(:want_it, :user => @user)
@@ -24,6 +34,12 @@ describe FeedsController do
       assigns(:feed_items).should == [thought]
       get :index, :type => 'want_its'
       assigns(:feed_items).should == [want_it]
+    end
+
+    it 'should show tags in tag cloud' do
+      item = Factory(:have_it, :user => @user, :tag_list => 'icecream')
+      get :index, :type => 'have_it'
+      response.body.should have_selector('a#droplet-icecream')
     end
   end
 

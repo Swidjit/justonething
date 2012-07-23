@@ -47,7 +47,7 @@ module ApplicationHelper
       end
     end
 
-    content_tag(:ul, tabs.join(' ').html_safe, :class=> 'tabbed_types') + content_tag(:div, '', :class => 'clear')
+    content_tag(:ul, tabs.join(' ').html_safe, :class=> 'tabbed_types clearfix') + content_tag(:div, '', :class => 'clear')
   end
   
   def id_from_object_name(f)
