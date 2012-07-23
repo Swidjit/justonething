@@ -49,7 +49,13 @@ class ApplicationController < ActionController::Base
   def render_paginated_feed( html_layout )
     # sometimes @feed_items is an array of objects, and does not require additional counting
     total_entries = @feed_items.is_a?(Array) ? @feed_items.length : Item.count_by_subquery(@feed_items)
-
+    @taglist = Tag.find(:all,
+                        :select => 'tags.name, count(tags.name) as tag_count',
+                        :conditions => ['items.id in (?)', @feed_items.collect(&:id)],
+                        :joins => 'INNER JOIN "items_tags" ON "items_tags"."tag_id" = "tags"."id" INNER JOIN "items" ON "items"."id" = "items_tags"."item_id"',
+                        :order => 'count(tags.name) DESC, tags.name',
+                        :limit => '20',
+                        :group => 'tags.name')
     if total_entries > 0
       @feed_items = @feed_items.paginate(:page => params[:page], :total_entries => total_entries)
       respond_to do |f|
