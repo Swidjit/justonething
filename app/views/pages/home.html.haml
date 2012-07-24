@@ -3,13 +3,19 @@
   = javascript_tag { "USER_LOGGED_IN = #{current_user.present?}" }
 
 .title_heading
-  = current_city.name
-  
-%p
-  Swidjit is a tool to help you connect to all the resources, people, ideas, and opportunities in your community. It is a central hub for local commerce, information, activities, and collaboration. This is a beta version of this platform, so please
-  = link_to 'provide feedback', contact_path
-  about your experience and we will take it into account as we improve the site over the coming months.
+  Ithaca, NY
 
+%div{:style => "margin-top: 10px; width: 200px; float:left; margin-bottom: 15px"}
+  = image_tag('community-network.jpg', {:width => 200,:height => 110})
+%div{:style => "float:left; width: 70%; margin-left: 15px; margin-top: 15px;"} 
+  Welcome to Swidjit.  You are the very early adopters of an exciting social innovation designed to reshape the social and economic landscape of our society. Swidjit aims to provide unprecedented access to the goods, services, information, organizations and activities available within communities.  It is a platform for the local economy and a hub for community information. 
+  %div{:style => "clear:both"}
+  %ul.home_menu
+    %li= link_to "About", pages_path(:page_name => :about)
+    %li= link_to "FAQ", pages_path(:page_name => :faq)
+    %li= link_to "Our Blog", 'http://blog.swidjit.com/'
+    %li= link_to "Contact Us", contact_path
+%div{:style => "width:100%; clear:both"}
 
 
 .wide_container

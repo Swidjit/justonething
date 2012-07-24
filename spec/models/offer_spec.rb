@@ -39,14 +39,16 @@ describe Offer do
     end
   end
 
-  it "should send an e-mail when an offer is created" do
+  it "should send an e-mail when an offer is created and on subsequent messages" do
     original_size = ActionMailer::Base.deliveries.size
 
-    offer = Factory(:offer_message).offer
+    o1 = Factory(:offer_message, :text => SecureRandom.hex(16))
     ActionMailer::Base.deliveries.size.should == original_size + 1
+    ActionMailer::Base.deliveries.last.body.should =~ /#{o1.text}/
 
-    Factory(:offer_message, :offer => offer, :user => offer.user)
-    ActionMailer::Base.deliveries.size.should == original_size + 1
+    o2 = Factory(:offer_message, :offer => o1.offer, :user => o1.offer.user, :text => SecureRandom.hex(16))
+    ActionMailer::Base.deliveries.size.should == original_size + 2
+    ActionMailer::Base.deliveries.last.body.should =~ /#{o2.text}/
   end
 
   it "#for_user" do

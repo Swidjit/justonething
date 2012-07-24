@@ -21,7 +21,7 @@ class Event < Item
   scope :order_by_start_datetime, :order => "start_datetime ASC"
 
   scope :upcoming, lambda {
-    { :conditions => ["#{Event.table_name}.start_datetime >= ?", DateTime.now.beginning_of_day] }
+    { :conditions => ["#{Event.table_name}.start_datetime >= ?", DateTime.now] }
   }
 
   scope :between, lambda {|from, to| 

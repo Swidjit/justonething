@@ -59,7 +59,8 @@
                 - if signed_in? && current_user.collections.any?
                   -current_user.collections.each do |col|
                     %li= link_to col.title, col
-                %li= link_to 'browse collections', '#'
+                - else 
+                  %li= "no collections yet"
             %h3
               %a.secHdr2{:href => "#"} Communities
             %div
@@ -85,6 +86,7 @@
             %li= link_to "FAQ", pages_path(:page_name => :faq)
             %li= link_to "About", pages_path(:page_name => :about)
             %li= link_to "Privacy Policy", pages_path(:page_name => 'privacy-policy')
+            %li= link_to "Swidjit Blog", 'http://blog.swidjit.com/'
             %li= link_to "Contact Us", contact_path
             - if signed_in?
               %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
@@ -114,7 +116,11 @@
             = link_to "", user_notifications_path(:user_id => current_user.id), :class => 'topLinks top4', :title => 'Notifications'
             = link_to "", bookmarks_path, :class => 'topLinks top3', :title => 'Bookmarks'
             = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2', :title => 'Profile'
-          = link_to "", calendar_path, :class => 'topLinks top1', :title => 'Events Calendar'
+            = link_to "", calendar_index_path, :class => 'topLinks top1', :title => 'Events Calendar'
+          - else    
+            = link_to "", calendar_index_path, :class => 'topLinks top1', :title => 'Events Calendar'
+            %div{:style => "margin-top:15px;float:right;color:#ffffff"}
+              ithaca event calendar
         - if signed_in?
           .add_item_row
             .addLink
@@ -123,9 +129,7 @@
             %div{:style => "clear:both;"}
         - else
           .add_item_row.logged_out
-            you are browsing
-            = @current_city.name
-            as a guest. please
+            Welcome, guest. Please
             = link_to('login/register',new_user_session_path)
             to add content and participate in social tools
         .mainContentWrap
