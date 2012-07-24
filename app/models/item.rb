@@ -102,7 +102,7 @@ class Item < ActiveRecord::Base
     (self.class.to_s + "Decorator").constantize
   end
   
-  def self.decorate(items)
+  def self.decorate(items=[])
     items.map {|item| item.decorator.decorate item }
   end
   
@@ -115,7 +115,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.classes
-    %w( HaveIt WantIt Event Thought Link Collection )
+    %w{ HaveIt WantIt Event Thought Link Collection }
   end
 
   def set_defaults
