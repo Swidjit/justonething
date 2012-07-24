@@ -93,6 +93,7 @@ class FeedsController < ApplicationController
     else
       @type = 'all'
     end
+    @type_link = @type
     @type = @type.titleize
     feed_items.includes(:tags, :geo_tags, :collections, :bookmark_users, :item_flag_users, :thumbnail, :user
       ).access_controlled_for(current_user, current_city, current_ability)

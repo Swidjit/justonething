@@ -118,31 +118,50 @@ ul.two_col_mid {
     width: 5000px;
   }
 }
+#category_search_submit
+{
+  border:none;
+  border-width:0px;
+  border-style:solid;
+  background: transparent url('magnifying_glass.png') center no-repeat;
+  text-indent: -9000px;
+  text-transform: capitalize;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+.tag_cloud
+{
+  width: 750px;
+  padding: 10px;
+  background: #ADC3D1;
+  border: 1px solid white;
 
+  a
+  {
+    text-decoration:none;
+  }
+}
+.tabbed_types_wrapper
+{
+  display:inline;
+}
 .tabbed_types {
-  float: left;
-  margin: 0 0 3em 0;
+  margin: 0;
   padding: 0;
   list-style: none;
-  background-color: #ccc;
-  border: 1px solid #fff;
-  border-width: 1px 0px;
+  display:inline;
 
   li {
     display: inline;
-    float: left;
-    border-right: 1px solid #fff;
-    font-weight: bold;
     padding: 0px;
     margin: 0px;
 
     a {
-      display: block;
-      padding: 6px 11px;
       text-decoration: none;
-      color: #000;
       margin: 0px;
       border-left: none;
+      text-transform:lowercase;
     }
 
     a:hover {
@@ -234,4 +253,16 @@ ul.two_col_mid {
   margin: 10px;
   width: auto;
   padding: 10px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content:"";
+    display:table;
+}
+.clearfix:after {
+    clear:both;
+}
+.clearfix {
+    zoom:1; /* For IE 6/7 (trigger hasLayout) */
 }
