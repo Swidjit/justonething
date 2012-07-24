@@ -52,13 +52,13 @@ describe Calendar do
       @calendar.events.size.should > 0
     end
     
-    it "should respect exceptions" do
-      next_occurrence = @event.next_occurrence(3.days.from_now).to_s(:ymd)
-      @event.cancel_occurrence next_occurrence
-      next_occurrence = Date.parse(next_occurrence).to_time
-      calendar = Calendar.new from: (next_occurrence - 1.day), to: (next_occurrence + 1.day)
-      calendar.events.map(&:id).should_not include @event.id
-    end
+    # it "should respect exceptions" do
+    #   next_occurrence = @event.next_occurrence(3.days.from_now).to_s(:ymd)
+    #   @event.cancel_occurrence next_occurrence
+    #   next_occurrence = Date.parse(next_occurrence).to_time
+    #   calendar = Calendar.new from: (next_occurrence - 1.day), to: (next_occurrence + 1.day)
+    #   calendar.events.map(&:id).should_not include @event.id
+    # end
     
   end
 
