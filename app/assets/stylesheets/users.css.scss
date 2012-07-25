@@ -49,3 +49,39 @@
     list-style: none;
   }
 }
+
+.feed {
+    padding-bottom:10px;
+    margin-bottom:10px;
+    border-bottom:1px dotted #564b47;
+    label {
+        width:100px;
+        display:inline-block;
+    }
+    input[type=text] {
+        width:500px;
+    }
+    .destroy label {
+        width:auto;
+    }
+    li {
+        list-style:none;
+        &.text {
+            display:none;
+        }
+    }
+    div, li {
+        margin-bottom:10px;
+    }
+    .tag_box {
+        padding-top:0;
+        padding-bottom:0;
+        padding-left:0;
+        padding-right:0;
+        border-bottom:none;
+        ol {
+            margin:0;
+            padding:0;
+        }
+    }
+}

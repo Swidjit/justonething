@@ -4,4 +4,5 @@ class Tag < ActiveRecord::Base
   default_scope :conditions => "#{table_name}.type IS NULL"
 
   has_and_belongs_to_many :items, :uniq => true
+  has_and_belongs_to_many :feeds, :uniq => true
 end

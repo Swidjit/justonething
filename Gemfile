@@ -20,11 +20,15 @@ gem 'newrelic_rpm'
 gem 'hirefireapp'
 gem 'stringex'
 gem 'airbrake'
-
+gem 'icalendar'
+gem 'andand'
+gem 'ice_cube', git: 'https://github.com/dfurber/ice_cube.git'
 # Image uploading and processing.
 gem 'dragonfly',  '~> 0.9.10'
 gem 'fog',        '~> 1.3.1'
 gem 'rack-cache', '~> 1.2', require: 'rack/cache'
+gem 'exception_notification_rails3', :require => 'exception_notifier'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -35,6 +39,11 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+group :test do
+  gem 'webmock'
+  gem 'vcr'
+end
 
 group :development, :test do
   gem 'heroku', '2.20.1'
@@ -55,5 +64,6 @@ group :development, :test do
 
   # Jenkins CI needs a JS runtime
   gem 'therubyracer', '0.9.10'
+  
 end
 

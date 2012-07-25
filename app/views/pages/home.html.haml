@@ -125,7 +125,7 @@
       %ul
         - @upcoming_events.each do |i|
           %li= link_to i.title, event_path(i)
-    = link_to 'view whole event calendar', calendar_index_path
+    = link_to 'view whole event calendar', calendar_path
     %h4 Add an Event:
     .add_item
       %p

@@ -26,7 +26,7 @@ Swidjit::Application.routes.draw do
         resources :comments, :only => :create
       end
     end
-
+    
     resources :collections, :only => [] do
       member do
         post :add_item
@@ -81,10 +81,9 @@ Swidjit::Application.routes.draw do
       resources :offers, :only => :index
     end
 
-    resources :calendar, :only => [:index] do
+    resource :calendar, :only => [:show] do
       collection do
-        get :week, :path => "week/:week_no", :controller => :calendar, :action => :index
-        get :date, :path => "date/:month/:day/:year", :controller => :calendar, :action => :index
+        get :date, :path => "date/:month/:day/:year", action: :show #, :controller => :calendar, :action => :index
       end
     end
 
@@ -96,6 +95,7 @@ Swidjit::Application.routes.draw do
     match 'contact' => 'contact#create', :as => 'contact', :via => :post
 
     resources :rsvps, :only => [:create,:destroy,:index]
+    resources :reminders, :only => [:create, :destroy]
 
     resources :offers, :only => [:destroy] do
       resources :offer_messages, :only => [:create]

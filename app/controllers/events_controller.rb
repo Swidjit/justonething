@@ -1,6 +1,38 @@
 class EventsController < ItemsController
   before_filter :convert_times_to_db_format, :only => [:create,:update]
-
+  
+  def show
+    if params[:date]
+      begin
+        @event_date = Date.parse params[:date]
+        if @item.is_recurring? and @item.occurs_on? @event_date
+          @item.model = @item.model.to_occurrence(@event_date)
+        end
+      rescue ArgumentError
+      end
+    end
+    respond_to do |format|
+      format.html
+      format.ics { render text: @item.to_ics(standalone: true) }
+    end
+  end
+  
+  def destroy
+    if params[:date]
+      @item.cancel_occurrence(params[:date])
+      flash[:notice] = "The event was cancelled."
+    else
+      @item.delete
+      flash[:notice] = "The event was successfully deleted."
+    end
+    # if deleted from show go to root else go back to feed
+    if request.referer == send("#{item_class.to_s.underscore}_url",params[:id])
+      redirect_to root_path
+    else
+      redirect_to :back
+    end
+  end
+  
   private
   def convert_times_to_db_format
     if params[:event].present?
@@ -18,4 +50,5 @@ class EventsController < ItemsController
   def item_class
     Event
   end
+  
 end

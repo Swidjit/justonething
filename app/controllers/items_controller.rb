@@ -38,6 +38,7 @@ class ItemsController < ApplicationController
 
     item_params.delete(:user_id)
 
+    @item.processing_through_ui!
     @item.assign_attributes(item_params)
 
     format_expires_on
@@ -49,6 +50,7 @@ class ItemsController < ApplicationController
   end
 
   def update
+    @item.processing_through_ui!
     @item.assign_attributes(item_params)
     format_expires_on
     @item.save
@@ -144,7 +146,7 @@ private
       item_id = item_id_from_slug(params[:id])
       # Ensure only active items can be seen in show
       if params[:action] == 'show'
-        @item = item_decorator.decorate item_class.active.find item_id
+        @item = item_decorator.decorate item_class.active.find(item_id)
       else
         @item = item_decorator.find item_id
       end

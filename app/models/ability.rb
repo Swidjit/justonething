@@ -22,6 +22,7 @@ class Ability
       can :manage, Rsvp, :user_id => user.id
       can :manage, Vouch, :voucher_id => user.id
       can :read, Notification, :receiver_id => user.id
+      can :manage, Reminder, :user_id => user.id
 
       # Any member of a community can issue an invite if it's a public group
       can :create, CommunityInvitation, :community => { :id => user.community_ids, :is_public => true }

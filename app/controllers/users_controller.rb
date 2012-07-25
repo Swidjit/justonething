@@ -21,8 +21,7 @@ class UsersController < ApplicationController
 
   def update
     @user.new_open_hours = params[:open_hours]
-
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes params[:user]
       redirect_to profile_path(@user.display_name)
     else
       render :edit

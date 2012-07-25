@@ -18,8 +18,9 @@ FactoryGirl.define do
     end_time '07:00 PM'
     end_date '12/21/2012'
     start_date '12/21/2012'
-    end_datetime '2012-12-21 07:00 pm'
-    start_datetime '2012-12-21 07:00 am'
+    end_datetime 27.hours.from_now
+    start_datetime 26.hours.from_now
+    expires_on 1.year.from_now
   end
 
   factory :have_it, :parent => :item, :class => 'have_it' do

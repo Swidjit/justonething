@@ -9,7 +9,7 @@
       %input.add-to-delegates.autocomplete-user{:type=>'text',:placeholder=>'add delegate'}
     = render :partial => 'delegates/delegate', :collection => DelegateDecorator.decorate(@user.delegates_as_delegator)
 
-= form_for @user do |f|
+= semantic_form_for @user do |f|
   - if @user.errors.full_messages.any?
     %div.error
       - @user.errors.full_messages.each do |msg|
@@ -70,6 +70,13 @@
     account geo tags
     %span optional
     = f.text_field :geo_tag_list, {:class => 'item_geo_tags', "data-pre" => @user.geo_tags.collect{|tag| {:id => tag.name, :name => tag.name}}.to_json}
+
+  %fieldset.feeds
+    %h3
+      %a{:href => "#", :class => 'toggle-user-edit'}= image_tag 'right_arrow.png', :class => 'left'
+      Feeds
+    .user_edit.hidden.contentRow
+      = render 'feeds_form', f: f
 
   %div.pad
     = f.submit "Update Profile"

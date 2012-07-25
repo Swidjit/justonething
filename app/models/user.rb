@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
       :display_name, :as => [:default,:devise]
 
   attr_accessible :about, :websites, :address, :phone, :geo_tag_list, :profile_pic,
-    :profile_pic_id, :as => :default
+    :profile_pic_id, :feeds_attributes, :as => :default
 
   attr_readonly :display_name
 
@@ -45,6 +45,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :geo_tags, :join_table => :users_tags, :association_foreign_key => :tag_id, :uniq => true, :conditions => "tags.type = 'GeoTag'"
 
   has_and_belongs_to_many :cities
+  
+  has_many :reminders, dependent: :destroy
 
   # Open Hours
   has_many :open_hours, :dependent => :destroy
@@ -58,6 +60,9 @@ class User < ActiveRecord::Base
   has_many :delegates_as_delegatee, :foreign_key => :delegatee_id, :class_name => "Delegate", :dependent => :delete_all
   has_many :delegators, :through => :delegates_as_delegatee
   has_many :delegatees, :through => :delegates_as_delegator
+  
+  has_many :feeds, dependent: :destroy
+  accepts_nested_attributes_for :feeds, allow_destroy: true, reject_if: :all_blank
 
   belongs_to :profile_pic, :class_name => 'Image'
   validates_associated :profile_pic
