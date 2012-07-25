@@ -1,0 +1,70 @@
+= f.inputs :class => 'tag_box' do
+  %li.text
+    = image_tag('blue_tag.png')
+    tag your item
+    %span optional
+  = f.input :tag_list, :label => 'Tags', :input_html => {:class => 'item_tags', "data-pre" => f.object.tag_list.split(',').collect{|tag| {:id => tag, :name => tag}}.to_json}
+  - if @item_preset_tags.andand.any?
+    %li.tag_list
+      .title_box2
+        %label Click any of these to add them
+      %ul.preset_tags
+        - @item_preset_tags.each do |tag|
+          %li.preset_tag= tag.tag
+  = f.semantic_errors :tags
+
+= f.inputs :class => 'tag_box' do
+  %li.text
+    = image_tag('blue_tag.png')
+    geo tag your item
+    %span optional
+  = f.input :geo_tag_list, :label => 'Geo Tags', :input_html => {:class => 'item_geo_tags', "data-pre" => f.object.geo_tag_list.split(',').collect{|tag| {:id => tag, :name => tag}}.to_json}  
+  = f.semantic_errors :geo_tags
+  - if current_user.geo_tags.present?
+    %li.geo_tag_list
+      .title_box2
+        %label Click any of these to add them
+      %ul.preset_geo_tags
+        - current_user.geo_tags.each do |tag|
+          %li.preset_geo_tag= tag.name
+
+:javascript
+  $(document).ready(function(){
+    var tag_list_selector = "##{id_from_object_name f}_tag_list";
+    $(tag_list_selector).tokenInput(
+      "#{autocomplete_search_tags_path}", {
+        theme: "facebook",
+        preventDuplicates:"true",
+        minChars: 2
+      }
+    );
+    $("li.preset_tag").click(function(){
+      var tag_name = $.trim($(this).text());
+      $(tag_list_selector).tokenInput(
+        "add",
+        {
+          id: tag_name,
+          name: tag_name
+        }
+      );
+    });
+
+    var geo_tag_list_selector = "##{id_from_object_name f}_geo_tag_list";
+    $(geo_tag_list_selector).tokenInput(
+      "#{autocomplete_search_geo_tags_path}", {
+        theme: "facebook",
+        preventDuplicates:"true",
+        minChars: 2
+      }
+    );
+    $("li.preset_geo_tag").click(function(){
+      var tag_name = $.trim($(this).text());
+      $(geo_tag_list_selector).tokenInput(
+        "add",
+        {
+          id: tag_name,
+          name: tag_name
+        }
+      );
+    });
+  });

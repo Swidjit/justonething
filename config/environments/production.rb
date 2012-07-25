@@ -11,7 +11,7 @@ Swidjit::Application.configure do
     :domain         => 'heroku.com'
   }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => 'swidjit.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'swidjit.com' }
 
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -76,4 +76,11 @@ Swidjit::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[Swidjit] ",
+    :sender_address => %{"Exception Notifier" <swidjit@swidjit.com>},
+    :exception_recipients => %w{furberd@gmail.com alex@swidjit.com}
+
+
 end

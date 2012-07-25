@@ -2,6 +2,7 @@ class Item < ActiveRecord::Base
   self.per_page = 25
 
   include ModelReference
+  include TagConversion
 
   references_users_in :description, :title
 
@@ -44,7 +45,7 @@ class Item < ActiveRecord::Base
   has_and_belongs_to_many :tags, :uniq => true, :conditions => "tags.type IS NULL"
   has_and_belongs_to_many :geo_tags, :join_table => :items_tags, :association_foreign_key => :tag_id, :uniq => true, :conditions => "tags.type = 'GeoTag'"
 
-  attr_accessor :has_expiration, :tag_list, :geo_tag_list
+  attr_accessor :has_expiration
 
   after_initialize :set_defaults
 
@@ -54,7 +55,7 @@ class Item < ActiveRecord::Base
   validates_inclusion_of :has_expiration, :in => ['0','1']
   validate :user_belongs_to_communities, :user_owns_lists, :posted_by_user_is_delegatee_of_user
 
-  before_validation :handle_has_expiration, :convert_tag_list_to_tags
+  before_validation :handle_has_expiration
 
   default_scope { order_by_created_at }
   default_scope { where(["#{table_name}.disabled = false"]) }
@@ -96,9 +97,25 @@ class Item < ActiveRecord::Base
     result = ActiveRecord::Base.connection.execute("SELECT COUNT(sub.*) as total_count FROM (#{subquery}) sub")
     result.first["total_count"].to_i
   end
+  
+  def decorator
+    (self.class.to_s + "Decorator").constantize
+  end
+  
+  def self.decorate(items=[])
+    items.map {|item| item.decorator.decorate item }
+  end
+  
+  def self.decorated
+    decorate scoped || []
+  end
+  
+  def to_partial_path
+    'items/item'
+  end
 
   def self.classes
-    %w( HaveIt WantIt Event Thought Link Collection )
+    %w{ HaveIt WantIt Event Thought Link Collection }
   end
 
   def set_defaults
@@ -108,6 +125,10 @@ class Item < ActiveRecord::Base
     self.has_expiration = self.expires_on.present? ? '1' : '0'
     self.tag_list = self.tags.collect(&:name).join(',')
     self.geo_tag_list = self.geo_tags.collect(&:name).join(',')
+  end
+  
+  def auto_tag_field
+    description
   end
 
   def allows_offers?
@@ -150,46 +171,20 @@ class Item < ActiveRecord::Base
   def to_param
     "#{title.to_url}-#{id}"
   end
+  
+  def processing_through_ui!
+    @processing_through_ui = true
+  end
+  
+  def processing_through_ui?
+    @processing_through_ui ? true : nil
+  end
+
 
   private
   def handle_has_expiration
     if has_expiration.to_i == 0
       self.expires_on = nil
-    end
-  end
-
-  def convert_tag_list_to_tags
-    convert_tags
-    convert_geo_tags
-  end
-
-  def convert_tags
-    self.tags = []
-    temp_tags = []
-    tag_list.split(',').map{|t| temp_tags << Tag.find_or_initialize_by_name(t.strip.downcase)} if tag_list.present?
-    self.description.scan(/(\s|^)#([a-zA-Z0-9-]+)/) do |tag|
-      unless tag[1].strip.match(/^\d+$/)
-        temp_tags << Tag.find_or_initialize_by_name(tag[1].strip.downcase)
-      end
-    end
-
-    if temp_tags.reject{|tag| tag.valid? }.any?
-      self.tag_list = temp_tags.uniq.map(&:name).join(',') #ensure we carry over any from the desc
-      self.errors.add(:tags, 'must begin with a letter and can only contain letters, numbers, and hyphens')
-    else
-      self.tags = temp_tags.uniq
-    end
-  end
-
-  def convert_geo_tags
-    self.geo_tags = []
-    temp_geo_tags = []
-    geo_tag_list.split(',').map{|t| temp_geo_tags << GeoTag.find_or_initialize_by_name(t.strip.downcase)} if geo_tag_list.present?
-
-    if temp_geo_tags.reject{|tag| tag.valid? }.any?
-      self.errors.add(:geo_tags, 'must begin with a letter and can only contain letters, numbers, and hyphens')
-    else
-      self.geo_tags = temp_geo_tags.uniq
     end
   end
 

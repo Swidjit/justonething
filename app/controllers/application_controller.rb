@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :authenticate
   before_filter :set_time_zone
   before_filter :set_most_recent_city
 
@@ -60,7 +61,7 @@ class ApplicationController < ActionController::Base
       @feed_items = @feed_items.paginate(:page => params[:page], :total_entries => total_entries)
       respond_to do |f|
         f.html { render html_layout }
-        f.js { render :partial => 'items/item', :collection => ItemDecorator.decorate(@feed_items) }
+        f.js { render @feed_items.decorate }
       end
     else
       render html_layout
@@ -70,5 +71,16 @@ class ApplicationController < ActionController::Base
   def default_url_options
     { :city_url_name => current_city.url_name }
   end
+  
+  def authenticate
+    if request.subdomains.any? and request.subdomains.first != 'www'
+      if Rails.env == 'production' 
+        authenticate_or_request_with_http_basic do |username, password|
+          username == "swidjit" && password == "kolket"
+        end
+      end
+    end
+  end
+  
 
 end

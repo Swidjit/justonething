@@ -49,4 +49,10 @@ module ApplicationHelper
 
     content_tag(:ul, tabs.join(' ').html_safe, :class=> 'tabbed_types clearfix') + content_tag(:div, '', :class => 'clear')
   end
+  
+  def id_from_object_name(f)
+    str = f.object_name.gsub(/\[|\]/,"_").gsub('__', '_').sub(/_$/, '')
+  end
+  
+  
 end

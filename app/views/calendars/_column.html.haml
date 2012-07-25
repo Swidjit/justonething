@@ -1,0 +1,20 @@
+%h1= title
+.clearAll
+- if events.present?
+  - events = EventDecorator.decorate(events)
+  - if params[:day].present?
+    %h2= "Events For #{@from.to_s(:short)}"
+    - events.each do |item|
+      = render 'item', item: item
+  - else
+    - events.group_by(&:date).each do |date, group|
+      .calendar-day
+        %h2
+          .month= date.to_time.strftime("%B")
+          .day= date.to_time.strftime("%d")
+        - group.each do |item|
+          = render 'item', item: item
+- else
+  %div.title_heading 
+    %br
+      No events to show.

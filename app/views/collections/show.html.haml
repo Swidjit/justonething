@@ -5,4 +5,4 @@
   .contentRow.pad.without_border
     = render :partial => 'feeds/endless_scroll'
 
-= render :partial => 'items/show', :locals => { :item => @item }
+= render template: 'items/show'

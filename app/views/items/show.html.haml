@@ -16,39 +16,39 @@
   });
 .contentRow.without_border.overflow-visible
   .itemPic.wide
-    = item.class_feed
+    = @item.class_feed
     %br
-    = item.thumb_with_lightbox
+    = @item.thumb_with_lightbox
   .itemInfo
-    .itemTitle= item.title
-    - if can? :manage, item
+    %h1.itemTitle= @item.title
+    - if can? :manage, @item
       #visiEXP
         .visiRow
-          = item.visibility_form
+          = @item.visibility_form
           .xtraLine
       .clear-right
-    .itemDesc= item.description
+    .itemDesc= @item.description
     - if @item.respond_to?(:link_tag)
       Link:
       = @item.link_tag
-    .multiLinks= item.iconic_information(false)
+    .multiLinks= @item.iconic_information(false)
     .itemIcons
-      = item.manage_links
-      - if can? :mamange, item
+      = @item.manage_links
+      - if can? :mamange, @item
         %span#addTo2.addTo2
           %a{:href => "#"}
             = image_tag('visible_icon.jpg')
             = image_tag 'arrowDN.png'
   .clear
 
-- if item.allows_offers?
+- if @item.allows_offers?
   .contentRow
     %p.header
       %label Offers
   .contentRow.pad.without_border
     .comment_block
       Offer
-      = render :partial => 'offers', :locals => { :item => item }
+      = render 'offers'
     %div{:style => "clear:both;"}
 
 = yield :middle
@@ -62,7 +62,7 @@
   .comment_block
     Comment
     %a#comment{:name => 'comment'}
-    = form_for item.comments.build, {:url => comments_path(item)} do |f|
+    = form_for @item.comments.build, {:url => comments_path(@item)} do |f|
       = f.text_area :text, :class => 'user-suggestion'
       = f.submit 'Comment'
 
@@ -70,18 +70,18 @@
   %p.header
     %label Recommendations
 .contentRow.pad.without_border
-  - if item.recommendations.any?
-    = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(item.recommendations)
-  - if can? :recommend, item
+  - if @item.recommendations.any?
+    = render :partial => 'recommendations/for_@item', :collection => RecommendationDecorator.decorate(@item.recommendations)
+  - if can? :recommend, @item
     .comment_block
       Recommend
       %a#recommend{:name => 'recommend'}
-      = form_for Recommendation.new, :url => recommendations_path(item) do |f|
+      = form_for Recommendation.new, :url => recommendations_path(@item) do |f|
         = f.text_area :description, { :class => 'user-suggestion' }
         = f.submit 'Recommend'
 
 - content_for :head do
-  %meta{:property => "og:title", :content => "Swidjit - #{item.title}"}
-  %meta{:property => "og:url", :content => item.distinct_url}
+  %meta{:property => "og:title", :content => "Swidjit - #{@item.title}"}
+  %meta{:property => "og:url", :content => @item.distinct_url}
   %meta{:property => "og:site_name", :content => "Swidjit"}
   %meta{:property => "fb:admins", :content => Facebook::APP_ID}

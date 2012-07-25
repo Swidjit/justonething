@@ -64,9 +64,30 @@ describe UsersController do
 
     it "should change the user profile" do
       about = SecureRandom.base64(12)
-      post :update, :id => @user.id, :user => {:about => about}
+      put :update, :id => @user.id, :user => {:about => about}
       @user.reload.about.should == about
     end
+    
+    it "should add a feed to the user profile" do
+      params = {
+        feeds_attributes: {
+          0 => {
+            name: "Garden Events", 
+            url: "http://www.google.com/calendar/ical/ju6l13rier0b6t6cm8bn7r4fvo%40group.calendar.google.com/public/basic.ics",
+            tag_list: "gardens", 
+            geo_tag_list: "ithaca"
+          }
+        }
+      }
+      VCR.use_cassette('ical_feed') do
+        put :update, id: @user.id, user: params
+        @user.reload.feeds.count.should == 1
+        feed = @user.feeds.first
+        feed.tag_list.should == 'gardens'
+        feed.geo_tag_list.should == 'ithaca'
+      end
+    end
+    
   end
 
   describe 'GET references' do

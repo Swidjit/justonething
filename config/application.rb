@@ -16,7 +16,7 @@ module Swidjit
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{Rails.root}/lib/autoload)
+    config.autoload_paths += %W(#{Rails.root}/lib/autoload #{Rails.root}/app/decorators)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -65,6 +65,8 @@ module Swidjit
       :metastore   => URI.encode("file:#{Rails.root}/tmp/dragonfly/cache/meta"),
       :entitystore => URI.encode("file:#{Rails.root}/tmp/dragonfly/cache/body")
     } unless Rails.env.production? # Rails 3.1+ already inserts Rack::Cache in production.
+    
+    config.active_record.auto_explain_threshold_in_seconds = 2
 
     config.middleware.insert_after 'Rack::Cache', 'Dragonfly::Middleware', :images
 

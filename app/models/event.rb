@@ -1,31 +1,36 @@
 class Event < Item
+  
+  include Recurrences
+  include Occurrences
+  include IcalFeed
+  include Reminders
+  
   attr_accessible :cost, :location, :start_datetime, :end_datetime, :start_date, :start_time,
-    :end_date, :end_time
-  validates_presence_of :location, :start_datetime, :end_datetime, :start_date, :start_time,
-    :end_date, :end_time
+    :end_date, :end_time, :rule, :weekly_day, :monthly_week, :monthly_day, :monthly_date, :times
+
+  validates_presence_of :location, :start_datetime, :end_datetime
+  validates_presence_of :start_date, :start_time, :end_date, :end_time, if: :processing_through_ui?
+  validate :start_datetime_in_future, on: :create
+  validate :event_ends_after_it_starts
+  
   attr_accessor :start_time, :start_date, :end_time, :end_date
 
   has_many :rsvps, :dependent => :destroy, :foreign_key => :item_id
   has_many :rsvp_users, :through => :rsvps, :source => :user
-
+  
   scope :order_by_start_datetime, :order => "start_datetime ASC"
-
-  validate :start_datetime_in_future
 
   scope :upcoming, lambda {
     { :conditions => ["#{Event.table_name}.start_datetime >= ?", DateTime.now] }
   }
 
-  # week is zero-indexed starting with the current day as the first day of the first week
-  scope :for_week, lambda { |week| {
-    :conditions => ["#{Event.table_name}.start_datetime >= ? AND #{Event.table_name}.start_datetime <= ?",
-                    (week * 7).days.from_now.beginning_of_day, ((week + 1) * 7).days.from_now.end_of_day]
-  } }
-
-  scope :for_date, lambda { |date| {
-    :conditions => ["#{Event.table_name}.start_datetime >= ? AND #{Event.table_name}.start_datetime <= ?", date.beginning_of_day, date.end_of_day]
-  } }
-
+  scope :between, lambda {|from, to| 
+    where("(#{Event.table_name}.start_datetime >= :from AND #{Event.table_name}.end_datetime <= :to) OR " + 
+          "((#{Event.table_name}.expires_on IS NULL OR #{Event.table_name}.expires_on >= :from) AND " + 
+          "#{Event.table_name}.rules IS NOT NULL AND #{Event.table_name}.rules NOT LIKE '%rrules:[]%')", 
+          { from: from, to: to })
+  }
+  
   scope :owned_or_bookmarked_by_or_rsvp_to, lambda { |user| {
     :select => "DISTINCT #{Item.table_name}.*",
     :joins => "LEFT JOIN #{Bookmark.table_name} ON #{Bookmark.table_name}.item_id = #{Item.table_name}.id " +
@@ -42,10 +47,20 @@ class Event < Item
       datetime_value
     end
   end
-
-private
+    
+  def duration
+    @duration ||= end_datetime ? (end_datetime - start_datetime) : 3600    
+  end
+  
+  
+  private
 
   def start_datetime_in_future
-    errors.add(:start_date, "must be not have already passed") if start_datetime.present? && start_datetime < DateTime.now
+    errors.add(:start_date, "must not have already passed") if rule.blank? && start_datetime.present? && start_datetime < DateTime.now
   end
+  
+  def event_ends_after_it_starts
+    errors.add(:end_date, "must be later than start date") if start_datetime.present? && end_datetime.present? && end_datetime < start_datetime
+  end
+    
 end

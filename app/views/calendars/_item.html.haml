@@ -1,0 +1,9 @@
+.calendar-item
+  %input{:type=>'hidden',:value=>item.user.id, :name => 'item_user_id'}
+  %h3= link_to item.short_title, event_path(item, date: item.date)
+  %p
+    = item.start_datetime('time')
+    to
+    = item.end_datetime('time')
+  .itemIcons
+    = item.manage_links
