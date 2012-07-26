@@ -43,7 +43,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def short_description
-    h.auto_link(linkify_tags(linkify_profiles(h.truncate_on_word(item.description, 400))), :link => :urls)
+    h.auto_link(linkify_tags(linkify_profiles(h.truncate_on_word(item.description, 250))), :link => :urls)
   end
 
   def collections
