@@ -38,7 +38,7 @@
                 %li= link_to "Want Its", main_feeds_path(type: 'want_its')
                 %li= link_to "Thoughts", main_feeds_path(type: 'thoughts')
                 %li= link_to "Links", main_feeds_path(type: 'links')
-                %li= link_to 'Events', main_feeds_path(type: 'events')
+                %li= link_to 'Events', calendar_path
                 %li= link_to 'Collections', main_feeds_path(type: 'collections')
             %h3
               %a.secHdr1{:href => "#"} System Feeds
@@ -85,9 +85,9 @@
           %ul.extra_links.home_menu
             %li= link_to "FAQ", pages_path(:page_name => :faq)
             %li= link_to "About", pages_path(:page_name => :about)
-            %li= link_to "Privacy Policy", pages_path(:page_name => 'privacy-policy')
-            %li= link_to "Swidjit Blog", 'http://blog.swidjit.com/'
-            %li= link_to "Contact Us", contact_path
+            %li= link_to "Privacy", pages_path(:page_name => 'privacy-policy')
+            %li= link_to "Blog", 'http://blog.swidjit.com/'
+            %li= link_to "Contact", contact_path
             - if signed_in?
               %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
             - else
