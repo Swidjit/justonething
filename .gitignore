@@ -27,3 +27,5 @@
 
 *.DS_Store
 .sass-cache/
+.metadata/
+*.dump
