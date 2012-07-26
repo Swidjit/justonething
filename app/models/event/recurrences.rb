@@ -133,7 +133,7 @@ module Event::Recurrences
     options = {}
     options.merge!(end_time: expires_on) if expires_on.present?
     options.merge!(duration: duration) if duration.present? and duration > 0
-    Schedule.new(start_datetime.andand.utc || Time.now, options)
+    Schedule.new(start_datetime || Time.now, options)
   end
 
   def get_monthly_rule
@@ -154,6 +154,7 @@ module Event::Recurrences
   
   def write_rules
     if @set_rule
+      @schedule = fresh_schedule if new_record?
       case @set_rule
       when 'daily' then add_daily_rule!
       when 'weekly' then add_weekly_rule!
@@ -164,7 +165,7 @@ module Event::Recurrences
   end
 
   def update_rule_expirations
-    schedule.start_time = start_datetime.utc
+    schedule.start_time = start_datetime
     schedule.end_time = expires_on
     schedule.duration = duration
     self.rule.until expires_on
