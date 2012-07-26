@@ -10,7 +10,7 @@ module Event::Recurrences
     before_validation :write_rules
     before_update :update_rule_expirations, if: :rules_need_updating?
     after_initialize :unserialize_schedule
-    before_save :serialize_schedule
+    before_save :serialize_schedule, unless: :rules_need_updating? #because we serialize the schedule at the end of that
 
   end
   
@@ -169,6 +169,7 @@ module Event::Recurrences
     schedule.end_time = expires_on
     schedule.duration = duration
     self.rule.until expires_on
+    serialize_schedule
   end
 
 end
