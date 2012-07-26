@@ -16,7 +16,7 @@ module Event::Occurrences
 
   def occurrences_between(from, to)
     if is_recurring?
-      schedule.occurrences_between(from.utc, to.utc).map {|date| to_occurrence(date) }.compact
+      schedule.occurrences_between(from, to).map {|date| to_occurrence(date) }.compact
     else
       (start_datetime >= from and end_datetime <= to) ? [self] : []
     end
@@ -43,15 +43,12 @@ module Event::Occurrences
   end
     
   def cancel_occurrence(date)
-    time = Time.at adjust_time_for_date(date)
-    schedule.add_exception_time time.utc
+    times = schedule.occurrences_between Date.parse(date).to_time.beginning_of_day, Date.parse(date).to_time.end_of_day
+    times.each do |time|
+      schedule.add_exception_time time
+    end
     save
     Reminder.send_cancellation_notices self, date
-  end
-    
-  def adjust_time_for_date(date)
-    add_time = start_datetime.to_i - start_datetime.beginning_of_day.to_i
-    Date.parse(date).to_time.to_i + add_time
   end
     
     

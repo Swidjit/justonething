@@ -33,7 +33,7 @@ class EventsController < ItemsController
     end
   end
   
-  private
+  
   def convert_times_to_db_format
     if params[:event].present?
       if params[:event][:start_date].present? && params[:event][:start_time].present?

@@ -31,6 +31,7 @@ class Calendar
     @events = @ical ? Event.order(:start_datetime) : Event.reorder('').between(from, to)
     @events = @events.access_controlled_for(@user, @city, @ability) if @city and @user
     @events = @events.having_tag_with_name(@filter) if @filter.present?
+    @events = @events.where active: true
     @events = @events.map {|event| event.occurrences_between(from, to)}.flatten.sort_by(&:start_datetime) unless @ical
   end
   
