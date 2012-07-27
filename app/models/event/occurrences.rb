@@ -25,6 +25,9 @@ module Event::Occurrences
   # The reason is to create multiple event records with the same id but different start date for recurring records,
   # then freeze them so nobody screws up the master.
   def to_occurrence(date)
+    if date.is_a?(Date)
+      date = next_occurrence(date)
+    end
     event = Event.new
     event.start_datetime = date
     event.end_datetime = date + duration

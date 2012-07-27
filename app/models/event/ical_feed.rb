@@ -4,14 +4,15 @@ module Event::IcalFeed
     
     def self.new_from_feed(event, feed)
       #return if event.recurrence_rules.blank? and event.dtstart.to_time < Time.now or event.dtstart.to_time > 1.month.from_now
+      Time.zone = 'Eastern Time (US & Canada)'
       user = feed.user
       e = user.items.where(type: 'Event', title: event.summary, start_datetime: event.dtstart.to_time).first
       unless e.present?
         e = Event.new
         e.imported = true
       end
-      e.start_datetime = event.dtstart.to_time
-      e.end_datetime = event.dtend.to_time
+      e.start_datetime = event.dtstart #.to_time
+      e.end_datetime = event.dtend #.to_time
       if event.recurrence_rules.present?
         e.clear_rules! if e.rule.present?
         e.expires_on = nil
