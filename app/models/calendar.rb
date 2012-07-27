@@ -2,7 +2,7 @@ class Calendar
   
   attr_accessor :from, :to, :filter, :user
   
-  def self.upcoming_events(user)
+  def self.upcoming_events(user=nil)
     now = Time.now
     calendar = Calendar.new from: now, to: (now + 2.weeks), user: user
     events = user ? calendar.user_events : calendar.events
