@@ -4,23 +4,21 @@ module Event::IcalFeed
     
     def self.new_from_feed(event, feed)
       #return if event.recurrence_rules.blank? and event.dtstart.to_time < Time.now or event.dtstart.to_time > 1.month.from_now
-      Time.zone = 'Eastern Time (US & Canada)'
       user = feed.user
       e = user.items.where(type: 'Event', title: event.summary, start_datetime: event.dtstart.to_time).first
       unless e.present?
         e = Event.new
         e.imported = true
       end
-      e.start_datetime = event.dtstart.to_time.utc
-      e.end_datetime = event.dtend.to_time.utc
-      if event.rrule_property.present?
+      e.start_datetime = event.dtstart.to_time
+      e.end_datetime = event.dtend.to_time
+      if event.recurrence_rules.present?
         e.clear_rules! if e.rule.present?
         e.expires_on = nil
-        event.rrule_property.each do |rule|
-          e.schedule.add_recurrence_rule IceCube::Rule.from_ical(rule.to_s.sub(/^\:/,'').sub(/;WKST=\w\w/,''))            
+        event.recurrence_rules.each do |rule|
+          e.schedule.add_recurrence_rule IceCube::Rule.from_ical(rule.orig_value.sub(/;WKST=\w\w/,''))            
         end
-        event.exdate_property.each do |time|
-          time = time.to_s.sub /^\;/,''
+        event.exception_dates.each do |time|
           e.schedule.add_exception_time time.to_time
         end
       end
