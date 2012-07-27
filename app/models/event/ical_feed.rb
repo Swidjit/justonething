@@ -19,7 +19,7 @@ module Event::IcalFeed
           e.schedule.add_recurrence_rule IceCube::Rule.from_ical(rule.orig_value.sub(/;WKST=\w\w/,''))            
         end
         event.exception_dates.each do |time|
-          e.schedule.add_exception_time time
+          e.schedule.add_exception_time time.to_time
         end
       end
       next_time = e.next_occurrence
