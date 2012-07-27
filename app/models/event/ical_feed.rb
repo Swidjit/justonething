@@ -23,9 +23,6 @@ module Event::IcalFeed
         end
       end
       next_time = e.next_occurrence
-      puts next_time.inspect
-      puts e.start_datetime.inspect
-      puts e.rule.to_s
       return if next_time.blank? or next_time < Time.now or next_time > 1.month.from_now
       
       e.title = event.summary
