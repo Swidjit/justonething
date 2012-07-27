@@ -74,7 +74,8 @@ class Feed < ActiveRecord::Base
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
-      Icalendar.parse response.body
+      #Icalendar.parse response.body
+      RiCal.parse_string response.body
     rescue Exception => exception
       ExceptionNotifier::Notifier.background_exception_notification(exception, {}).deliver
       false
