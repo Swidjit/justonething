@@ -5,7 +5,7 @@ module Event::IcalFeed
     def self.new_from_feed(event, feed)
       #return if event.recurrence_rules.blank? and event.dtstart.to_time < Time.now or event.dtstart.to_time > 1.month.from_now
       user = feed.user
-      e = user.items.where(type: 'Event', title: event.summary, start_datetime: event.dtstart.to_time).first
+      e = user.items.where(type: 'Event', title: event.summary, start_datetime: event.dtstart.to_time).includes([:cities, :item_visibility_rules]).first
       unless e.present?
         e = Event.new
         e.imported = true
@@ -31,7 +31,12 @@ module Event::IcalFeed
       e.user = user
       e.tag_list = feed.tag_list
       e.geo_tag_list= feed.geo_tag_list
-      e.save
+
+      e.save 
+      if e.persisted? and e.cities.blank? and user.cities.any?
+        city = user.cities.first
+        e.item_visibility_rules.find_or_create_by_visibility_id_and_visibility_type(city.id, 'City')
+      end      
       e
 
     end
