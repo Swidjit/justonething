@@ -48,7 +48,7 @@ class Feed < ActiveRecord::Base
       Event.new_from_feed event, self
     end
     
-    update_attribute :last_read_at, Time.now
+    update_column :last_read_at, Time.now
     
   end
   

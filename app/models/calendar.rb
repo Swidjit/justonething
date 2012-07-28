@@ -11,10 +11,10 @@ class Calendar
   
   def initialize(options={})
     @from, @to, @filter, @user, @city, @ability, @ical = options[:from], options[:to], options[:filter], options[:user], options[:city], options[:ability], options[:ical]
-    unless @ical
-      @from = @from.beginning_of_day
-      @to = @to.end_of_day
-    end
+    # unless @ical
+    #   @from = @from.beginning_of_day
+    #   @to = @to.end_of_day
+    # end
   end
   
   def to_ics
@@ -31,7 +31,7 @@ class Calendar
     @events = @ical ? Event.order(:start_datetime) : Event.reorder('').between(from, to)
     #@events = @events.access_controlled_for(@user, @city, @ability) if @city and @user
     @events = @events.having_tag_with_name(@filter) if @filter.present?
-    @events = @events.where active: true
+    @events = @events.includes(:user, :tags, :geo_tags).where active: true
     @events = @events.map {|event| event.occurrences_between(from, to)}.flatten.sort_by(&:start_datetime) unless @ical
   end
   
