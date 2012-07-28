@@ -29,6 +29,7 @@ module Event::IcalFeed
       e.description = event.description.present? ? event.description : event.summary
       e.location = event.location.present? ? event.location : "Location not given"
       e.user = user
+      e.posted_by_user = user
       e.tag_list = feed.tag_list
       e.geo_tag_list= feed.geo_tag_list
 

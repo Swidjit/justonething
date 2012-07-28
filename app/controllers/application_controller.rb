@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def item_id_from_slug(slug)
-    slug #.split('-').last
+    slug.split('-').last
   end
 
   def item_path(item)
