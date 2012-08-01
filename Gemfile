@@ -23,6 +23,7 @@ gem 'airbrake'
 gem 'icalendar'
 gem 'andand'
 gem 'ice_cube', git: 'https://github.com/dfurber/ice_cube.git'
+
 # Image uploading and processing.
 gem 'dragonfly',  '~> 0.9.10'
 gem 'fog',        '~> 1.3.1'

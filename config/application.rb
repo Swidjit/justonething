@@ -66,8 +66,6 @@ module Swidjit
       :entitystore => URI.encode("file:#{Rails.root}/tmp/dragonfly/cache/body")
     } unless Rails.env.production? # Rails 3.1+ already inserts Rack::Cache in production.
     
-    config.active_record.auto_explain_threshold_in_seconds = 2
-
     config.middleware.insert_after 'Rack::Cache', 'Dragonfly::Middleware', :images
 
     # Load API keys from .gitignored secrets file and transform

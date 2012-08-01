@@ -48,7 +48,7 @@ class Feed < ActiveRecord::Base
       Event.new_from_feed event, self
     end
     
-    update_attribute :last_read_at, Time.now
+    update_column :last_read_at, Time.now
     
   end
   
@@ -75,8 +75,9 @@ class Feed < ActiveRecord::Base
       request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
       Icalendar.parse response.body
+      # RiCal.parse_string response.body
     rescue Exception => exception
-      ExceptionNotifier::Norifier.background_exception_notification(exception, {}).deliver
+      ExceptionNotifier::Notifier.background_exception_notification(exception, {}).deliver
       false
     end    
   end
