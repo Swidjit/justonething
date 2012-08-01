@@ -63,6 +63,7 @@ class Item < ActiveRecord::Base
   scope :order_by_created_at, :order => "#{self.table_name}.created_at DESC"
 
   scope :active, lambda{ where(["#{table_name}.active = true AND (#{table_name}.expires_on >= ? OR #{table_name}.expires_on IS NULL)", DateTime.now.end_of_day.to_s(:db)]) }
+  scope :published, lambda{ where("#{table_name}.active = true")}
   scope :inactive, lambda{ where(["#{table_name}.active = false OR (#{table_name}.expires_on < ?)", DateTime.now.beginning_of_day.to_s(:db)]) }
   scope :deactivated, :conditions => "#{self.table_name}.active = false"
   scope :recommended, where("#{self.table_name}.recommendations_count > 0"
