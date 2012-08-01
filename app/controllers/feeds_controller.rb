@@ -22,7 +22,7 @@ class FeedsController < ApplicationController
   end
 
   def drafts
-    @feed_items  = Item.inactive.where(:user_id => current_user.id)
+    @feed_items  = Item.inactive.where(:user_id => current_user.id).order('expires_on asc')
     render_paginated_feed :drafts
   end
 
