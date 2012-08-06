@@ -16,10 +16,10 @@ module Event::Occurrences
 
   def occurrences_between(from, to)
     if is_recurring?
-      # old_zone = Time.zone
-      # Time.zone = 'UTC'
+      old_zone = Time.zone
+      Time.zone = 'UTC'
       items = schedule.occurrences_between(from, to).map {|date| to_occurrence(date.localtime) }.compact
-      # Time.zone = old_zone
+      Time.zone = old_zone
       items
     else
       (start_datetime >= from and end_datetime <= to) ? [self] : []
