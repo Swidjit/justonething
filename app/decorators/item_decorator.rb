@@ -115,7 +115,7 @@ class ItemDecorator < ApplicationDecorator
       
       msg = 'Are you sure?'
       delete_text = 'Delete'
-      if item.type == 'Event' and item.is_recurrence? and h.params[:controller] == 'calendars'
+      if item.type == 'Event' and item.is_recurrence? and (h.params[:controller] == 'calendars' or h.params[:date])
         links << link_to('Delete One', event_path(item, date: item.start_datetime.to_s(:ymd)), confirm: 'Are you sure? This will only delete this instance of the event, and not the entire event.', method: :delete)
         msg << ' This will delete event and all of its instances.'
         delete_text << ' All'

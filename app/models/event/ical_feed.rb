@@ -5,7 +5,7 @@ module Event::IcalFeed
     def self.new_from_feed(event, feed)
       #return if event.recurrence_rules.blank? and event.dtstart.to_time < Time.now or event.dtstart.to_time > 1.month.from_now
       user = feed.user
-      e = user.items.where(type: 'Event', title: event.summary, start_datetime: event.dtstart.to_time).first
+      e = user.items.where(type: 'Event', title: event.summary, start_datetime: event.dtstart.to_time).includes([:cities, :item_visibility_rules]).first
       unless e.present?
         e = Event.new
         e.imported = true
@@ -19,22 +19,23 @@ module Event::IcalFeed
           e.schedule.add_recurrence_rule IceCube::Rule.from_ical(rule.orig_value.sub(/;WKST=\w\w/,''))            
         end
         event.exception_dates.each do |time|
-          e.schedule.add_exception_time time
+          e.schedule.add_exception_time time.to_time
         end
       end
       next_time = e.next_occurrence
-      puts next_time.inspect
-      puts e.start_datetime.inspect
-      puts e.rule.to_s
       return if next_time.blank? or next_time < Time.now or next_time > 1.month.from_now
-      
       e.title = event.summary
       e.description = event.description.present? ? event.description : event.summary
       e.location = event.location.present? ? event.location : "Location not given"
       e.user = user
       e.tag_list = feed.tag_list
       e.geo_tag_list= feed.geo_tag_list
-      e.save
+      e.save 
+
+      if e.persisted? and e.cities.blank? and user.cities.any?
+        city = user.cities.first
+        e.item_visibility_rules.find_or_create_by_visibility_id_and_visibility_type(city.id, 'City')
+      end      
       e
 
     end

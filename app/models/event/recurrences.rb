@@ -8,9 +8,8 @@ module Event::Recurrences
     attr_reader :schedule
     attr_writer :weekly_day, :monthly_week, :monthly_day, :monthly_date #, :times
     before_validation :write_rules
-    before_update :update_rule_expirations, if: :rules_need_updating?
     after_initialize :unserialize_schedule
-    before_save :serialize_schedule, unless: :rules_need_updating? #because we serialize the schedule at the end of that
+    before_save :serialize_schedule
 
   end
   
@@ -94,6 +93,11 @@ module Event::Recurrences
     end
   end
   
+  def force_rule_update!
+    @force_rule_update = true
+  end
+  
+  
    
     
   private
@@ -143,13 +147,20 @@ module Event::Recurrences
   def get_monthly_date_rule
     rule.present? ? rule.to_hash[:validations][:day_of_month] : nil
   end
+  
+  def force_rule_update?
+    @force_rule_update ? true : nil
+  end
 
   def rules_need_updating?
-    is_recurring? and (start_datetime_changed? or end_datetime_changed? or expires_on_changed?)
+    force_rule_update? or (persisted? and is_recurring? and (start_datetime_changed? or end_datetime_changed? or expires_on_changed?))
   end
   
   def serialize_schedule
-    self.rules = @schedule.to_yaml if is_recurring?
+    if rules_need_updating? or (new_record? and is_recurring?)
+      update_rule_expirations
+      self.rules = @schedule.to_yaml #if is_recurring?
+    end
   end
   
   def write_rules
@@ -166,10 +177,9 @@ module Event::Recurrences
 
   def update_rule_expirations
     schedule.start_time = start_datetime
-    schedule.end_time = expires_on
+    schedule.end_time = expires_on if expires_on.present?
     schedule.duration = duration
-    self.rule.until expires_on
-    serialize_schedule
+    self.rule.until(expires_on) if expires_on.present?
   end
 
 end
