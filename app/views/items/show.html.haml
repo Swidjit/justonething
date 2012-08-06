@@ -15,7 +15,7 @@
     );
   });
 .contentRow.without_border.overflow-visible
-  -if Date.strptime(@item.expires_on, '%m/%d/%Y') < Date.today
+  -if @item.expires_on.present? and Date.strptime(@item.expires_on, '%m/%d/%Y') < Date.today
     .alert
       %strong Notice:
       This item is expired. It expired on 

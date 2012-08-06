@@ -18,7 +18,7 @@ module Event::Occurrences
     if is_recurring?
       # old_zone = Time.zone
       # Time.zone = 'UTC'
-      items = schedule.occurrences_between(from, to).map {|date| to_occurrence(date.localtime) }.compact
+      items = schedule.occurrences_between(from, to).map {|date| to_occurrence(date) }.compact
       # Time.zone = old_zone
       items
     else
