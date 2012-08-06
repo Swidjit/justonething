@@ -49,7 +49,6 @@ class ApplicationController < ActionController::Base
 
   def render_paginated_feed( html_layout )
     # sometimes @feed_items is an array of objects, and does not require additional counting
-    @feed_items.reset
     total_entries = @feed_items.is_a?(Array) ? @feed_items.length : Item.count_by_subquery(@feed_items)
     @taglist = Tag.find(:all,
                         :select => 'tags.name, count(tags.name) as tag_count',
