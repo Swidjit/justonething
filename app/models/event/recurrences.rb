@@ -93,6 +93,11 @@ module Event::Recurrences
     end
   end
   
+  def force_rule_update!
+    @force_rule_update = true
+  end
+  
+  
    
     
   private
@@ -142,9 +147,13 @@ module Event::Recurrences
   def get_monthly_date_rule
     rule.present? ? rule.to_hash[:validations][:day_of_month] : nil
   end
+  
+  def force_rule_update?
+    @force_rule_update ? true : nil
+  end
 
   def rules_need_updating?
-    persisted? and is_recurring? and (start_datetime_changed? or end_datetime_changed? or expires_on_changed?)
+    force_rule_update? or (persisted? and is_recurring? and (start_datetime_changed? or end_datetime_changed? or expires_on_changed?))
   end
   
   def serialize_schedule
