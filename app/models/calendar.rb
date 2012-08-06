@@ -49,20 +49,28 @@ class Calendar
     "#{from.to_s(:short)} to #{to.to_s(:short)}"
   end
   
+  def previous_week
+    (@from - 1.week).beginning_of_week(:sunday)
+  end
+  
   def beginning_of_previous_week
-    (@from - 1.week).beginning_of_week.to_s(:ymd)
+    previous_week.to_s(:ymd)
   end
   
   def end_of_previous_week
-    (@from - 1.week).end_of_week.to_s(:ymd)
+    (previous_week + 6.days).to_s(:ymd)
+  end
+  
+  def next_week
+    (@from + 1.week).beginning_of_week(:sunday)
   end
   
   def beginning_of_next_week
-    (@from + 1.week).beginning_of_week.to_s(:ymd)
+    next_week.to_s(:ymd)
   end
   
   def end_of_next_week
-    (@from + 1.week).end_of_week.to_s(:ymd)
+    (next_week + 6.days).to_s(:ymd)
   end
   
 end
