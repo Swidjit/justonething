@@ -8,7 +8,7 @@ class CalendarsController < ApplicationController
       @from = @to = "#{params[:year]}-#{params[:month]}-#{params[:day]}".to_time
     else
       @from = params[:from] ? Time.parse(params[:from]) : Time.now.beginning_of_week(:sunday)
-      @to   = params[:to] ? Time.parse(params[:to]) : @from + 6.days
+      @to   = params[:to] ? Time.parse(params[:to]) : @from.end_of_day + 6.days
     end
 
     respond_to do |format|
