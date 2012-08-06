@@ -24,16 +24,14 @@ module Event::IcalFeed
       end
       next_time = e.next_occurrence
       return if next_time.blank? or next_time < Time.now or next_time > 1.month.from_now
-      
       e.title = event.summary
       e.description = event.description.present? ? event.description : event.summary
       e.location = event.location.present? ? event.location : "Location not given"
       e.user = user
-      e.posted_by_user = user
       e.tag_list = feed.tag_list
       e.geo_tag_list= feed.geo_tag_list
-
       e.save 
+
       if e.persisted? and e.cities.blank? and user.cities.any?
         city = user.cities.first
         e.item_visibility_rules.find_or_create_by_visibility_id_and_visibility_type(city.id, 'City')
