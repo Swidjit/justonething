@@ -10,6 +10,7 @@ module Event::IcalFeed
         e = Event.new
         e.imported = true
       end
+      e.feed = feed
       e.start_datetime = event.dtstart.to_time
       e.end_datetime = event.dtend.to_time
       if event.recurrence_rules.present?

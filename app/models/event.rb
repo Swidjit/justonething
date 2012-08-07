@@ -17,6 +17,7 @@ class Event < Item
 
   has_many :rsvps, :dependent => :destroy, :foreign_key => :item_id
   has_many :rsvp_users, :through => :rsvps, :source => :user
+  belongs_to :feed
   
   scope :order_by_start_datetime, :order => "start_datetime ASC"
 

@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Feed do
   it { should belong_to :user }
+  it { should have_many :events }
   it { should have_and_belong_to_many :tags }
   it { should have_and_belong_to_many :geo_tags }
   
