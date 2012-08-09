@@ -61,7 +61,7 @@ module Event::Recurrences
   end
 
   def rule
-    schedule.rrules.first
+    @schedule.rrules.first
   end
   
   def mday
@@ -93,12 +93,6 @@ module Event::Recurrences
     end
   end
   
-  def force_rule_update!
-    @force_rule_update = true
-  end
-  
-  
-   
     
   private
     
@@ -130,14 +124,12 @@ module Event::Recurrences
 
   # be sure not to remove exception dates when we get there
   def unserialize_schedule
+    rules = read_attribute 'rules'
     @schedule = (rules.blank? or rules == "--- \n") ? fresh_schedule : Schedule.from_yaml(rules)
   end
   
   def fresh_schedule
-    options = {}
-    options.merge!(end_time: expires_on) if expires_on.present?
-    options.merge!(duration: duration) if duration.present? and duration > 0
-    Schedule.new(start_datetime || Time.now, options)
+    Schedule.new
   end
 
   def get_monthly_rule
@@ -148,18 +140,10 @@ module Event::Recurrences
     rule.present? ? rule.to_hash[:validations][:day_of_month] : nil
   end
   
-  def force_rule_update?
-    @force_rule_update ? true : nil
-  end
-
-  def rules_need_updating?
-    force_rule_update? or (persisted? and is_recurring? and (start_datetime_changed? or end_datetime_changed? or expires_on_changed?))
-  end
-  
   def serialize_schedule
-    if rules_need_updating? or (new_record? and is_recurring?)
-      update_rule_expirations
-      self.rules = @schedule.to_yaml #if is_recurring?
+    if is_recurring?
+      update_rule_expirations!
+      write_attribute 'rules', @schedule.to_yaml
     end
   end
   
@@ -175,11 +159,11 @@ module Event::Recurrences
     end
   end
 
-  def update_rule_expirations
-    schedule.start_time = start_datetime
-    schedule.end_time = expires_on if expires_on.present?
-    schedule.duration = duration
-    self.rule.until(expires_on) if expires_on.present?
+  def update_rule_expirations!
+    @schedule.start_time = start_datetime
+    @schedule.end_time = expires_on.to_time if expires_on.present?
+    @schedule.duration = duration
+    rule.until(expires_on.to_time) if expires_on.present?
   end
 
 end

@@ -5,8 +5,12 @@ class EventsController < ItemsController
     if params[:date]
       begin
         @event_date = Date.parse params[:date]
-        if @item.is_recurring? and @item.occurs_on? @event_date
-          @item.model = @item.model.to_occurrence(@event_date)
+        if @item.is_recurring?
+          if @item.occurs_on? params[:date]
+            @item.model = @item.model.to_occurrence(@event_date)
+          else
+            render('errors/404', :status => 404) and return
+          end
         end
       rescue ArgumentError
       end

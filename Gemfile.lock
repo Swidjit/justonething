@@ -4,12 +4,6 @@ GIT
   specs:
     railroad (0.5.8)
 
-GIT
-  remote: https://github.com/dfurber/ice_cube.git
-  revision: e7668537ce48aff66b7557c174bf1c26ac457877
-  specs:
-    ice_cube (0.8.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -143,6 +137,7 @@ GEM
     httpauth (0.1)
     i18n (0.6.0)
     icalendar (1.1.6)
+    ice_cube (0.8.0)
     journey (1.0.4)
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
@@ -313,7 +308,7 @@ DEPENDENCIES
   heroku (= 2.20.1)
   hirefireapp
   icalendar
-  ice_cube!
+  ice_cube
   jquery-rails
   newrelic_rpm
   omniauth-facebook (= 1.2.0)
