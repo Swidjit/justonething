@@ -59,4 +59,18 @@ module IceCube
     end
 
   end
+  
+  module TimeUtil
+
+    ICAL_DAYS = {
+      'SU' => :sunday, 'MO' => :monday, 'TU' => :tuesday, 'WE' => :wednesday,
+      'TH' => :thursday, 'FR' => :friday, 'SA' => :saturday
+    }
+
+    def self.ical_day_to_symbol(str)
+      day = ICAL_DAYS[str]
+      raise "No such day: #{str}" if day.nil?
+      day
+    end
+  end
 end
