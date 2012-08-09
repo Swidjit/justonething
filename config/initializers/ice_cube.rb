@@ -72,5 +72,28 @@ module IceCube
       raise "No such day: #{str}" if day.nil?
       day
     end
+    
+    # Serialize a time appropriate for storing
+    def self.serialize_time(time)
+      t = time.to_s
+      Time.parse(t).utc
+    end
+
+    # Deserialize a time serialized with serialize_time
+    def self.deserialize_time(time)
+      time = time[:time] if time.is_a? Hash
+      time.in_time_zone Time.zone
+    end
+    
+  end
+end
+
+module Icalendar
+  class Parser < Icalendar::Base
+    # Dates, Date-Times & Times
+    # NOTE: icalendar's datetime parser sucks compared to Rails. So let's defer to Rails.
+    def parse_datetime(name, params, value)
+      Time.parse value
+    end
   end
 end
