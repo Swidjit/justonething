@@ -30,3 +30,4 @@
 .metadata/
 *.dump
 *.rdb
+nohup.out

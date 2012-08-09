@@ -160,7 +160,7 @@ module Event::Recurrences
   end
 
   def update_rule_expirations!
-    @schedule.start_time = start_datetime
+    @schedule.start_time = start_datetime.utc
     @schedule.end_time = expires_on.to_time if expires_on.present?
     @schedule.duration = duration
     rule.until(expires_on.to_time) if expires_on.present?
