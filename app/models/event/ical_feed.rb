@@ -5,13 +5,14 @@ module Event::IcalFeed
     def self.new_from_feed(event, feed)
       #return if event.recurrence_rules.blank? and event.dtstart.to_time < Time.now or event.dtstart.to_time > 1.month.from_now
       user = feed.user
-      e = user.items.where(type: 'Event', title: event.summary, start_datetime: event.dtstart.to_time).includes([:cities, :item_visibility_rules]).first
+      starts_at = event.dtstart.to_time.utc
+      e = user.items.where(type: 'Event', title: event.summary, start_datetime: starts_at).includes([:cities, :item_visibility_rules]).first
       unless e.present?
         e = Event.new
         e.imported = true
       end
       e.feed = feed
-      e.start_datetime = event.dtstart.to_time
+      e.start_datetime = starts_at
       e.end_datetime = event.dtend.to_time
       if event.recurrence_rules.present?
         e.clear_rules! if e.rule.present?

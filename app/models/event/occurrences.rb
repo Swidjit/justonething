@@ -16,7 +16,7 @@ module Event::Occurrences
 
   def occurrences_between(from, to)
     if is_recurring?
-      schedule.occurrences_between(from, to).map {|date| to_occurrence(date) }.compact
+      schedule.occurrences_between(from, to).map {|date| to_occurrence(date.in_time_zone(Time.zone)) }.compact
     else
       (start_datetime >= from and end_datetime <= to) ? [self] : []
     end
