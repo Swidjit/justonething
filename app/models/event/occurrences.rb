@@ -16,7 +16,7 @@ module Event::Occurrences
 
   def occurrences_between(from, to)
     if is_recurring?
-      schedule.occurrences_between(from, to).map {|date| to_occurrence(date.in_time_zone(Time.zone)) }.compact
+      schedule.occurrences_between(from, to).map {|date| to_occurrence(date) }.compact
     else
       (start_datetime >= from and end_datetime <= to) ? [self] : []
     end
@@ -26,7 +26,6 @@ module Event::Occurrences
   # then freeze them so nobody screws up the master.
   def to_occurrence(date)
     date = next_occurrence(date) if date.is_a?(Date)
-    logger.info date.inspect
     event = Event.new
     event.start_datetime = date
     event.end_datetime = date + duration
