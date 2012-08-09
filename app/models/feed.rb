@@ -5,6 +5,7 @@ class Feed < ActiveRecord::Base
   include TagConversion
   
   belongs_to :user
+  has_many :events, dependent: :destroy
   has_and_belongs_to_many :tags, :uniq => true, :conditions => "tags.type IS NULL"
   has_and_belongs_to_many :geo_tags, :join_table => :feeds_tags, :association_foreign_key => :tag_id, :uniq => true, :conditions => "tags.type = 'GeoTag'"
   

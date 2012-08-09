@@ -87,6 +87,7 @@ describe Event do
     it "should import future event" do
       Event.new_from_feed @feed_event, @feed
       event = @feed.user.items.first
+      event.feed.id.should == @feed.id
       event.title.should == @feed_event.summary
       event.description.should == @feed_event.description
       event.start_datetime.to_time.to_s.should == @feed_event.dtstart.to_time.to_s
