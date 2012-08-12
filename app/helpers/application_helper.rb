@@ -4,6 +4,29 @@ module ApplicationHelper
     @current_decorated_user ||= UserDecorator.decorate current_user
   end
 
+  def tag_cloud_for(feed_items, type_link='all')
+    if feed_items.present?
+      taglist = Tag.find(:all,
+                          :select => 'tags.name, count(tags.name) as tag_count',
+                          :conditions => ['items.id in (?)', feed_items.collect(&:id)],
+                          :joins => 'INNER JOIN "items_tags" ON "items_tags"."tag_id" = "tags"."id" INNER JOIN "items" ON "items"."id" = "items_tags"."item_id"',
+                          :order => 'count(tags.name) DESC, tags.name',
+                          :limit => '20',
+                          :group => 'tags.name')
+    else
+      taglist = []
+    end
+
+    html = '';
+    taglist.each do |this_tag|
+      html += content_tag(:span,
+                          (link_to this_tag.name, main_feeds_path(type: type_link, tag_name: this_tag.name), :id => "droplet-#{this_tag.name}"),
+                          :class => 'tag_droplet')
+    end
+
+    content_tag :div, 'common tags: ' + html
+  end
+
   def error_messages_for(resource)
     return "" if resource.errors.empty?
 
