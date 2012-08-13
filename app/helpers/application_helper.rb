@@ -24,7 +24,7 @@ module ApplicationHelper
                           :class => 'tag_droplet')
     end
 
-    content_tag :div, 'common tags: ' + html
+    content_tag :div, 'common tags: ' + html.html_safe
   end
 
   def error_messages_for(resource)
