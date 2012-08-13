@@ -7,16 +7,26 @@
   = error_messages_for(@user)
 
   %div
+    = f.check_box :is_business, {:id => 'is_business_signup'}
+    = f.label :is_business, 'This Account is for a business or organization'
+  %br
+
+  %div#bname_signup.hidden
+    = f.label :business_name, 'Business or Organization Name'
+    %br
+    = f.text_field :business_name
+
+  %div
     = f.label :display_name
     %br
     = f.text_field :display_name
 
-  %div
+  %div#fname_signup
     = f.label :first_name
     %br
     = f.text_field :first_name
 
-  %div
+  %div#lname_signup
     = f.label :last_name
     %br
     = f.text_field :last_name

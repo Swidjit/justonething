@@ -8,7 +8,7 @@ class UserDecorator < ApplicationDecorator
   end
 
   def name
-    "#{user.first_name} #{user.last_name}"
+    user.is_business ? user.business_name : "#{user.first_name} #{user.last_name}"
   end
 
   def about

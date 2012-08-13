@@ -22,7 +22,7 @@
       %li profile URL
       %li= profile_url(@user.display_name)
       %li name
-      %li= "#{@user.first_name} #{@user.last_name}"
+      %li= @user.is_business ? @user.business_name : "#{@user.first_name} #{@user.last_name}"
       %li= f.label :zipcode
       %li= f.text_field :zipcode
     %div.clear

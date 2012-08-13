@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 
   validate :is_thirteen?, :on => :create
   validates_presence_of :first_name, :last_name, :zipcode
+  validates_presence_of :business_name, :if => :is_business
   validates :display_name, :presence => true, :format => { :with => /^[a-zA-Z0-9]+$/, :message => 'can contain only letters and numbers - no spaces or symbols' },
       :exclusion => { :in => BLACK_LISTED_USER_URLS }
   validates_uniqueness_of :display_name, :case_sensitive => false
