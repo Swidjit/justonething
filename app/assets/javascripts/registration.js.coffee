@@ -4,7 +4,7 @@ $ ->
     $('#fname_signup label').text 'Contact first name'
     $('#lname_signup label').text 'Contact last name'
 
-  $('input#is_business_signup').on 'change' ->
+  $('input#is_business_signup').change ->
     if this.checked
       do $('#bname_signup').show
       $('#fname_signup label').text 'Contact first name'
