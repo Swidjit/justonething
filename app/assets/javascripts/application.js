@@ -26,10 +26,10 @@ jQuery(function() {
 	if('placeholder' in test) jQuery.support.placeholder = true;
 });
 
-$(document).ready(function(){
-
+(function( $ ) {
+  $.fn.placeholderFix = function(){
     if (!$.support.placeholder){
-        $('[placeholder]').focus(function() {
+        $(this).find('[placeholder]').focus(function() {
             var input = $(this);
             if (input.val() == input.attr('placeholder')) {
                 input.val('');
@@ -50,7 +50,11 @@ $(document).ready(function(){
             })
         });
     }
+  };
+})( jQuery );
 
+$(document).ready(function(){
+  $(document).placeholderFix();
   $('#multiAccordion').accordion({autoHeight: false});
   swidjit.mainmenu();
   $('.datepicker').datepicker();
@@ -264,6 +268,7 @@ var swidjit = function() {
     },
     loadAddItemForm : function(href){
       $("#add_item_form").load(href, function(){
+        $('#add_item_form').placeholderFix();
         $('#add_item_form .datepicker').datepicker();
         $('#add_item_form .timepicker').timepicker({showPeriod: true});
         swidjit.userSuggestify($("#add_item_form .user-suggestion"));

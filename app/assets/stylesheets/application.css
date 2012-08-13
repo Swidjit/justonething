@@ -243,4 +243,5 @@ div.clearAll {
 
 .relative { position: relative; }
 
-
+input[type="text"].placeholder,
+input.placeholder{color:#CCC;}
