@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807124347) do
+ActiveRecord::Schema.define(:version => 20120813203611) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -276,6 +276,8 @@ ActiveRecord::Schema.define(:version => 20120807124347) do
     t.string   "phone"
     t.string   "zipcode"
     t.integer  "profile_pic_id"
+    t.boolean  "is_business"
+    t.string   "business_name"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
