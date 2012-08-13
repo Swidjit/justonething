@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
-  if document.getElementById('is_business_signup').checked
+  if document.getElementById('is_business_signup') && document.getElementById('is_business_signup').checked
     do $('#bname_signup').show
     $('#fname_signup label').text 'Contact first name'
     $('#lname_signup label').text 'Contact last name'
