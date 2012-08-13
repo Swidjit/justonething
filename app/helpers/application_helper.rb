@@ -19,9 +19,11 @@ module ApplicationHelper
 
     html = '';
     taglist.each do |this_tag|
-      html += content_tag(:span,
+      span_tag = content_tag(:span,
                           (link_to this_tag.name, main_feeds_path(type: type_link, tag_name: this_tag.name), :id => "droplet-#{this_tag.name}").html_safe,
-                          :class => 'tag_droplet').html_safe
+                          :class => 'tag_droplet')
+      span_tag.html_safe
+      html += span_tag
     end
 
     content_tag :div, 'common tags: ' + html.html_safe
