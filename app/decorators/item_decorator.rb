@@ -189,6 +189,51 @@ class ItemDecorator < ApplicationDecorator
     end
   end
 
+  def manage_links_lite
+    links = []
+
+    if h.can? :manage, item
+      links << link_to('Edit', edit_polymorphic_path(item))
+      
+      msg = 'Are you sure?'
+      delete_text = 'Delete'
+      links << link_to(delete_text, item, :confirm => msg, :method => :delete)
+      toggle_active_text = item.active ? 'Deactivate' : 'Activate'
+      links << link_to(toggle_active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
+    end
+
+    if h.current_user.present?
+      #check for bookmarks
+      if item.bookmark_users.include?(h.current_user)
+        bookmark = item.bookmarks.detect { |bookmark| bookmark.user_id == current_user.id }
+        links << link_to('Remove Bookmark', bookmark_path(bookmark), :method => :delete)
+      else
+        links << link_to('Bookmark', bookmarks_path(:item_id => item.id), :method => :post)
+      end
+    end
+
+    if h.can? :create, Item
+      links << link_to('Duplicate', send("duplicate_#{item.class.to_s.underscore}_path",item))
+    end
+
+    if h.current_user.present? && !item.flagged_by_user?(current_user)
+      links << link_to('Flag', send("flag_#{item.class.to_s.underscore}_path", item), :method => :put)
+    end
+
+    icons = []
+
+    if links.any?
+      icons << h.render(:partial => 'items/manage_menu', :locals => {:links => links})
+    end
+
+    if icons.any?
+      h.content_tag(:ul, icons.join(' ').html_safe, :class => 'menu_with_dropdowns')
+    else
+     ''
+    end
+  end
+
+
   def price_tag
     if item.cost.present?
       content_tag :div, item.cost, :class => 'smIcon2 smIcon'
