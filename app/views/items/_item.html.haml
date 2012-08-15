@@ -1,5 +1,6 @@
 .contentRow
-  %input{:type=>'hidden',:value=>item.user.id, :name => 'item_user_id'}
+  - if item.user.present? && item.user.id.present?
+    %input{:type=>'hidden',:value=>item.user.id, :name => 'item_user_id'}
   .itemPic
     = item.class_feed
     %br
