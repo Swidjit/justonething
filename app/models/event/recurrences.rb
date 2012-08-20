@@ -6,7 +6,7 @@ module Event::Recurrences
   included do
 
     attr_reader :schedule
-    attr_writer :weekly_day, :monthly_week, :monthly_day, :monthly_date #, :times
+    attr_writer :weekly_day, :monthly_week, :monthly_day, :monthly_date, :times
     before_validation :write_rules
     after_initialize :unserialize_schedule
     before_save :serialize_schedule
@@ -93,6 +93,18 @@ module Event::Recurrences
     end
   end
   
+  def times
+    schedule.recurrence_times.map {|time| RecurrenceTime.new time }
+  end
+  
+  class RecurrenceTime
+    attr_accessor :start_date, :start_time
+    def initialize(time)
+      @start_date = time.strftime '%m/%d/%Y'
+      @start_time = time.strftime '%l:%M %P'
+    end
+  end
+  
     
   private
     
@@ -147,6 +159,23 @@ module Event::Recurrences
     end
   end
   
+  def set_times!
+    schedule.rtimes.each { |time| schedule.remove_recurrence_time time }
+    if @times.present?
+      @times.each do |params|
+        if params[:start_date].present? and params[:start_time].present?
+          start_date_time = params[:start_date] + ' ' + params[:start_time]
+          params[:start_datetime] = Event.datetimepicker_to_datetime(start_date_time,Time.zone)
+        end
+        if params[:end_date].present? and params[:end_time].present?
+          end_date_time = params[:end_date] + ' ' + params[:end_time]
+          params[:end_datetime] = Event.datetimepicker_to_datetime(end_date_time,Time.zone)
+        end
+        schedule.add_recurrence_time params[:start_datetime]
+      end
+    end
+  end
+  
   def write_rules
     if @set_rule
       @schedule = fresh_schedule if new_record?
@@ -156,6 +185,7 @@ module Event::Recurrences
       when 'monthly_week' then add_monthly_week_rule!
       when 'monthly_date' then add_monthly_date_rule!
       end
+      set_times!
     end
   end
 
