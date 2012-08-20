@@ -4,6 +4,7 @@ class CalendarsController < ApplicationController
 
   # TODO: change to have from date and to date instead of week_no or month/day/year
   def show
+
     if params[:day]
       @from = @to = "#{params[:year]}-#{params[:month]}-#{params[:day]}".to_time
     else
