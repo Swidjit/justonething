@@ -8,6 +8,9 @@
       = f.input :location, :input_html => {:placeholder => 'Event Location'}
       = f.input :start_date, :input_html => {:placeholder => 'Start Date', :value => @item.start_datetime('date'), :class => 'datepicker event_start_date'}
       = f.input :start_time, :input_html => {:placeholder => 'Start Time', :value => @item.start_datetime('time'), :class => 'timepicker'}
+      %li.text
+        = check_box_tag 'has-end-time', 1, f.object.end_datetime.present?
+        %label{for: 'has-end-time'} The event has an end time.
       = f.input :end_date, :input_html => {:placeholder => 'End Date', :value => @item.end_datetime('date'), :class => 'datepicker event_end_date'}
       = f.input :end_time, :input_html => {:placeholder => 'End Time', :value => @item.end_datetime('time'), :class => 'timepicker'}
     =f.inputs :class => 'extra_inform_box' do
@@ -55,27 +58,14 @@
             = text_field_tag 'event[times][][start_date]', time.start_date, placeholder: 'Start Date', class: 'datepicker time_start_date'
             = text_field_tag 'event[times][][start_time]', time.start_time, placeholder: 'Start Time', class: 'timepicker'
             = link_to "Remove", "#", class: 'remove-time'
-          %br
         #new-event-time-form
           .additional-time
             = text_field_tag 'event[times][][start_date]', nil, placeholder: 'Start Date', class: 'datepicker time_start_date'
             = text_field_tag 'event[times][][start_time]', nil, placeholder: 'Start Time', class: 'timepicker'
             = link_to "Remove", "#", class: 'remove-time'
-          %br
         %a#add-another-time{:href => '#'} Add Another Time
         %br
-        %script{type: 'text/javascript'}
-          var html = $($('#new-event-time-form').html());
-          $('#add-another-time').click(function(e){
-          var new_html = html.clone()
-          $('#new-event-time-form').after(new_html);
-          $('input.datepicker').datepicker();
-          $('input.timepicker').timepicker({showPeriod: true});
-          });
-          $('a.remove-time').live('click', function(e){
-          e.preventDefault();
-          $(this).closest('.additional-time').remove()
-          });
+        = javascript_tag "swidjit.activateEvent()"
         
 
     = f.inputs :class => 'extra_inform_box' do
