@@ -26,10 +26,9 @@ class EventDecorator < ItemDecorator
   end
   
   def next_occurrence(format = 'datetime')
-    event.is_recurring? ? "#{event.rule.to_s} @ #{start_datetime('time')}" : start_datetime
-    #event.next_occurrence.strftime(send("#{format}_format"))
+    event.rule.present? ? "#{event.rule.to_s} @ #{start_datetime('time')}" : start_datetime
   end
-
+  
   def weekday_options
     [
       ["Monday", 1],

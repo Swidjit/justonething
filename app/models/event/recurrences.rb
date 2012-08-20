@@ -8,13 +8,14 @@ module Event::Recurrences
     attr_reader :schedule
     attr_writer :weekly_day, :monthly_week, :monthly_day, :monthly_date, :times
     before_validation :write_rules
+    before_validation :add_recurrence_times
     after_initialize :unserialize_schedule
     before_save :serialize_schedule
 
   end
   
   def is_recurring?
-    schedule && rule.present?
+    schedule && (rule.present? or times.present?)
   end
     
   def is_recurrence!
@@ -94,7 +95,7 @@ module Event::Recurrences
   end
   
   def times
-    schedule.recurrence_times.map {|time| RecurrenceTime.new time }
+    @times ||= schedule.present? ? (schedule.recurrence_times - [start_datetime]).map {|time| RecurrenceTime.new time } : []
   end
   
   class RecurrenceTime
@@ -153,14 +154,16 @@ module Event::Recurrences
   end
   
   def serialize_schedule
-    if is_recurring?
+    if is_recurring? or @times.present?
       update_rule_expirations!
       write_attribute 'rules', @schedule.to_yaml
     end
   end
   
-  def set_times!
+  def add_recurrence_times
+    @schedule ||= fresh_schedule
     schedule.rtimes.each { |time| schedule.remove_recurrence_time time }
+    schedule.add_recurrence_time start_datetime
     if @times.present?
       @times.each do |params|
         if params[:start_date].present? and params[:start_time].present?
@@ -185,7 +188,6 @@ module Event::Recurrences
       when 'monthly_week' then add_monthly_week_rule!
       when 'monthly_date' then add_monthly_date_rule!
       end
-      set_times!
     end
   end
 
@@ -193,7 +195,7 @@ module Event::Recurrences
     @schedule.start_time = start_datetime
     @schedule.end_time = expires_on.to_time if expires_on.present?
     @schedule.duration = duration
-    rule.until(expires_on.to_time) if expires_on.present?
+    rule.until(expires_on.to_time) if rule.present? and expires_on.present?
   end
 
 end

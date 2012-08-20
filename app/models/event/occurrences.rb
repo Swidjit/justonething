@@ -2,16 +2,16 @@ module Event::Occurrences
 
   def next_occurrence(time=nil)
     time = time.present? ? time.to_time : Time.now
-    rule.present? ? schedule.next_occurrence(time) : start_datetime
+    is_recurring? ? schedule.next_occurrence(time) : start_datetime
   end
   
   def next_occurrences(num, time=nil)
     time = time.present? ? time.to_time : Time.now
-    rule.present? ? schedule.next_occurrences(num, time) : [start_datetime]
+    is_recurring? ? schedule.next_occurrences(num, time) : [start_datetime]
   end
   
   def occurs_on?(date)
-    rule.present? ? schedule.occurs_on?(date.to_date) : (start_datetime >= date && end_datetime <= date)
+    is_recurring? ? schedule.occurs_on?(date.to_date) : (start_datetime >= date && end_datetime <= date)
   end
 
   def occurrences_between(from, to)
