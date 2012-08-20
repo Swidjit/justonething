@@ -85,6 +85,7 @@ Swidjit::Application.routes.draw do
         get :references
       end
       resources :offers, :only => :index
+      resource :calendar, only: :show
     end
 
     resource :calendar, :only => [:show] do
