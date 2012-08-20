@@ -44,11 +44,7 @@ class Feed < ActiveRecord::Base
     cals = load_url
     return true unless cals
     cal = cals.first
-
-    cal.events.each do |event|
-      Event.new_from_feed event, self
-    end
-    
+    cal.events.each { |event| Event.new_from_feed event, self }
     update_column :last_read_at, Time.now
     
   end

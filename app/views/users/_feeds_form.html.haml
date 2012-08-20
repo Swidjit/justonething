@@ -9,6 +9,11 @@
     %div
       = f2.label :url
       = f2.text_field :url
+    %div
+      = "If location information is missing from individual events, use this location as the event's location."
+      %br
+      = f2.label :location, "Location"
+      = f2.text_field :location
     = render 'items/tag_form', f: f2
     - unless f2.object.andand.new_record?
       .destroy

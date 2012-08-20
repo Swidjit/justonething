@@ -7,7 +7,7 @@ class PagesController < ApplicationController
   def home
     @recent_have_its = HaveIt.order_by_created_at.limit(20).all.sample(4)
     @recent_want_its = WantIt.order_by_created_at.limit(20).all.sample(4)
-    @upcoming_events = Calendar.upcoming_events #(current_user) #Event.upcoming.reorder('').order_by_start_datetime.limit(4).all
+    @upcoming_events = Calendar.upcoming_events city: current_city, ability: current_ability
     @recent_thoughts = Thought.order_by_created_at.limit(20).all.sample(4)
     @recent_collections = Collection.order_by_created_at.limit(20).all.sample(4)
     @recent_links = Link.order_by_created_at.limit(20).all.sample(4)

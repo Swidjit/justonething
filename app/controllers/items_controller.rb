@@ -86,6 +86,8 @@ class ItemsController < ApplicationController
     item_to_duplicate = item_class.find(item_id_from_slug(params[:id]))
     @item = item_decorator.decorate item_to_duplicate.dup
     @item.tags = item_to_duplicate.tags
+    @item.item_visibility_rules = item_to_duplicate.item_visibility_rules
+    @item.cities = item_to_duplicate.cities
     @item.set_defaults
     render :new
   end

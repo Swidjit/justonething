@@ -48,6 +48,39 @@
     = f.inputs :class => 'extra_inform_box' do
       %li.text
         = image_tag('blue_tag.png')
+        Additional Times
+        %br
+        - f.object.times.each do |time|
+          .additional-time
+            = text_field_tag 'event[times][][start_date]', time.start_date, placeholder: 'Start Date', class: 'datepicker time_start_date'
+            = text_field_tag 'event[times][][start_time]', time.start_time, placeholder: 'Start Time', class: 'timepicker'
+            = link_to "Remove", "#", class: 'remove-time'
+          %br
+        #new-event-time-form
+          .additional-time
+            = text_field_tag 'event[times][][start_date]', nil, placeholder: 'Start Date', class: 'datepicker time_start_date'
+            = text_field_tag 'event[times][][start_time]', nil, placeholder: 'Start Time', class: 'timepicker'
+            = link_to "Remove", "#", class: 'remove-time'
+          %br
+        %a#add-another-time{:href => '#'} Add Another Time
+        %br
+        %script{type: 'text/javascript'}
+          var html = $($('#new-event-time-form').html());
+          $('#add-another-time').click(function(e){
+          var new_html = html.clone()
+          $('#new-event-time-form').after(new_html);
+          $('input.datepicker').datepicker();
+          $('input.timepicker').timepicker({showPeriod: true});
+          });
+          $('a.remove-time').live('click', function(e){
+          e.preventDefault();
+          $(this).closest('.additional-time').remove()
+          });
+        
+
+    = f.inputs :class => 'extra_inform_box' do
+      %li.text
+        = image_tag('blue_tag.png')
         Extra Information
         %span optional
       = f.input :cost, :input_html => {:placeholder => 'Cost'}
