@@ -29,7 +29,13 @@ module Event::IcalFeed
       return if next_time.blank? or next_time < Time.now or next_time > 1.month.from_now
       e.title = event.summary
       e.description = event.description.present? ? event.description : event.summary
-      e.location = event.location.present? ? event.location : "Location not given"
+      if e.location.blank? or e.location == "Location not given"
+        if event.location.present?
+          e.location = event.location
+        else
+          e.location = feed.location || "Location not given"
+        end
+      end
       e.user = user
       e.tag_list = feed.tag_list
       e.geo_tag_list= feed.geo_tag_list
