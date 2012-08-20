@@ -27,7 +27,8 @@ class CalendarsController < ApplicationController
       format.html {
         @calendar = Calendar.new calendar_options
         @filter = params[:filter]
-        @calendar_title = "#{@current_city.name} Events Calendar"
+        @calendar_title = @user.present? ? "#{@user.display_name}'s" : @current_city.name
+        @calendar_title << " Events Calendar"
         @events = @calendar.events
         @user_events = @calendar.user_events
         @item_preset_tags = ItemPresetTag.where(item_type: Event.to_s)
