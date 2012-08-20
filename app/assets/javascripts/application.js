@@ -207,7 +207,9 @@ $("#calendar_select_date").live("click", function() {
   return false;
 });
 $("#calendar_select_date_hidden").live("change", function() {
-  window.location.href = '/' + swidjit.currentCity() + '/calendar/date/' + $(this).val();
+    var href = window.location.href.split('calendar/');
+    href = href[0];
+    window.location.href = href + 'calendar/date/' + this.value;
 });
 
 $("#add_item_form .visibility_rule_remove").live('click',function(){

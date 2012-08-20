@@ -41,5 +41,10 @@ class CalendarsController < ApplicationController
     end
     
   end
+  
+  def resource_path(options={})
+    params[:user_id] ? user_calendar_path(params[:user_id], options) : calendar_path(options)
+  end
+  helper_method :resource_path
 
 end

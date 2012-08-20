@@ -85,7 +85,11 @@ Swidjit::Application.routes.draw do
         get :references
       end
       resources :offers, :only => :index
-      resource :calendar, only: :show
+      resource :calendar, :only => [:show] do
+        collection do
+          get :date, :path => "date/:month/:day/:year", action: :show #, :controller => :calendar, :action => :index
+        end
+      end
     end
 
     resource :calendar, :only => [:show] do
