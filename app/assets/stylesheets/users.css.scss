@@ -85,3 +85,25 @@
         }
     }
 }
+
+#upcoming-events {
+    float:right;
+    width: 300px;
+    font-size:90%;
+    background:#E1E7EC;
+    padding:0 10px;
+    
+    .calendar-day h2 {
+        width:50px;
+    }
+    .calendar-item {
+        margin-left:68px;
+        padding:0px;
+    }
+}
+
+#user-profile {
+    .more {
+        float:left;
+    }
+}

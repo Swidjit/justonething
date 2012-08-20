@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   authorize_resource
 
   def show
+    @upcoming_events = Calendar.upcoming_events(user: @user, city: current_city, ability: current_ability).map {|e| EventDecorator.decorate e }
+
     item_type = params[:type] || 'all'
     @feed_items = @user.items
     if %w( events have_its want_its links thoughts ).include? item_type

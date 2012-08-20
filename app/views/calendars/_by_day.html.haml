@@ -1,0 +1,7 @@
+- events.group_by(&:date).each do |date, group|
+  .calendar-day
+    %h2
+      .month= date.to_time.strftime("%b")
+      .day= date.to_time.strftime("%d")
+    - group.each do |item|
+      = render 'calendars/item', item: item
