@@ -27,7 +27,7 @@ class CalendarsController < ApplicationController
       format.html {
         @calendar = Calendar.new calendar_options
         @filter = params[:filter]
-        @calendar_title = @user.present? ? "#{@user.display_name}'s" : @current_city.name
+        @calendar_title = params[:user_id].present? ? "#{@user.display_name}'s" : @current_city.name
         @calendar_title << " Events Calendar"
         @events = @calendar.events
         @user_events = @calendar.user_events

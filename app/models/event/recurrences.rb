@@ -15,7 +15,7 @@ module Event::Recurrences
   end
   
   def is_recurring?
-    schedule && (rule.present? or times.present?)
+    schedule && (rule.present? or times.present? or @set_rule == 'none')
   end
     
   def is_recurrence!
@@ -183,6 +183,7 @@ module Event::Recurrences
     if @set_rule
       @schedule = fresh_schedule if new_record?
       case @set_rule
+      when 'none' then clear_rules!
       when 'daily' then add_daily_rule!
       when 'weekly' then add_weekly_rule!
       when 'monthly_week' then add_monthly_week_rule!

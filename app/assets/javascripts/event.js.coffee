@@ -24,9 +24,16 @@ $(document).ready ->
         else
             $('#event_end_date, #event_end_time').prop 'disabled', yes
 
-        html = $ $('#new-event-time-form').html()
+        template = '''
+            <div class="additional-time">
+              <input class="datepicker time_start_date" name="event[times][][start_date]" placeholder="Start Date" type="text">
+              <input class="timepicker" name="event[times][][start_time]" placeholder="Start Time" type="text">
+              <a href="#" class="remove-time">Remove</a>
+            </div>
+            '''
+        
         $('#add-another-time').click (e) ->
-            new_html = html.clone()
+            new_html = $ template
             $('#new-event-time-form').after(new_html)
             $('input.datepicker').datepicker()
             $('input.timepicker').timepicker showPeriod: yes
