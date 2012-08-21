@@ -1,8 +1,16 @@
-.title_heading New Community
 
+.headingLeft
+  .page_heading
+    = image_tag('notification.png')
+    Create a New Community
+.clear
+.indent
+  .mainDesc
+    Communities are a great way to communicate with a select group of people around a specific topic of interest.  They are an effective way to organize a discussion around a common theme while using all of Swidjit's social and organizational features.  Communites can be public (anyone can join) or private (invite-only).  They can be visible (anyone can browse) or hidden (only community members can see it).  In time, we will also be adding the ability to moderate communities, and to post to them via email.
+  
 = semantic_form_for @community do |f|
   = f.inputs do
-    = f.input :name
+    = f.input :name, :label => 'Community Name'
     = f.input :is_public, :label => 'Public community'
-    = f.input :description
+    = f.input :description, :label => 'Description'
   = f.submit

@@ -80,6 +80,15 @@ ul.two_col_mid {
     text-decoration: none;
   }
 }
+
+.title_sub_heading {
+  font-size:14px;
+  color:#bbb;
+  margin: 3px 0 0 15px;
+  float: left;
+
+}
+
 .extra_links a {
   color: #ffffff;
   font-size: 12px;
@@ -204,6 +213,7 @@ ul.two_col_mid {
   bottom: 0px;
   right: 0px;
   overflow: auto;
+  background-color: #fff;
 }
 
 .dropdown_1column.wide {
@@ -356,4 +366,73 @@ ul.two_col_mid {
 }
 .clearfix {
     zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+/* for communities pages */
+
+.headingLeft {
+  width: 80%;
+  float:left;
+  margin-top: 6px;
+}
+.headingRight {
+  width: 20%;
+  float:right;
+  text-align: right;
+  margin-top: 15px;
+}
+.headingRight ul {
+  list-style-type: none;
+  float:left;
+}
+.mainContent {
+
+  border: 0px;
+}
+.indent {
+  margin-left: 17px;
+  font-size: 15px;
+}
+
+.mainDesc {
+  padding: 14px 0;
+}
+
+.page_heading {
+  font-size:18px;
+  color:#88068e;
+  padding: 10px 0 0px 10px;
+  font-weight:bold;
+  float: left;
+
+  a, a:hover {
+    color:#88068e;
+    text-decoration: none;
+  }
+}
+
+.page_sub_heading {
+  font-size:14px;
+  color:#bbb;
+  margin: 3px 0 0 42px;
+  float: left;
+
+}
+
+.communityList {
+  margin: 10px 20px 0 25px;
+  background-color: #eee;
+  padding: 4px;
+  width: 90%
+}
+
+.communityList .right_col {
+  float:left;
+  width: 20%;
+  text-align: right;
+}
+
+.communityList .left_col {
+  float:left;
+  width: 80%;
 }

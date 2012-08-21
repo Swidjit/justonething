@@ -1,7 +1,20 @@
-.title_heading Communities
+.headingLeft
+  .page_heading
+    = image_tag('notification.png')
+    Ithaca Swidjit Communities
+.clear
+.indent
+  .mainDesc
+    Communities are a great way to communicate with a select group of people around a specific topic of interest.  They are an effective way to organize a discussion around a common theme while using all of Swidjit's social and organizational features.  Communites can be public (anyone can join) or private (invite-only).  They can be visible (anyone can browse) or hidden (only community members can see it).  In time, we will also be adding the ability to moderate communities, and to post to them via email.
 
-%ul
-  - @communities.each do |comm|
-    %li
+ 
+- @communities.each do |comm|
+  .communityList 
+    .left_col
       = link_to comm.name, comm
+    .right_col
       = comm.manage_links('span')
+    .clear 
+    .left_col  
+      = comm.description
+    .clear 
