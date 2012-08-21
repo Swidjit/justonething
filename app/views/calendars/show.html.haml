@@ -3,9 +3,9 @@
   = @calendar_title
 
 - week_links = capture do
-  = (@week == 0) ? "&laquo; prev week".html_safe : link_to("&laquo; prev week".html_safe, calendar_path(from: @calendar.beginning_of_previous_week, to: @calendar.end_of_previous_week))
+  = (@week == 0) ? "&laquo; prev week".html_safe : link_to("&laquo; prev week".html_safe, resource_path(from: @calendar.beginning_of_previous_week, to: @calendar.end_of_previous_week))
   |
-  = link_to "next week &raquo;".html_safe, calendar_path(from: @calendar.beginning_of_next_week, to: @calendar.end_of_next_week)
+  = link_to "next week &raquo;".html_safe, resource_path(from: @calendar.beginning_of_next_week, to: @calendar.end_of_next_week)
   %form{method: 'GET'}
     = hidden_field_tag :from, @from
     = hidden_field_tag :to, @to

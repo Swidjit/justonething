@@ -94,11 +94,11 @@ $(document).ready(function(){
 
   $("#moreLink").toggle(function(){
       $(".profileBio").animate({height:$("#btxt").height()}, {queue:false, duration: 500});
-      $('#moreLink').html('View Less <img src="img/arrowUP.png" border="0" alt="" />');
+      $('#moreLink').html('View Less <img src="/assets/arrowUP.png" border="0" alt="" />');
     },
     function(){
       $(".profileBio").animate({height: "100px"}, {queue:false, duration: 500})
-      $('#moreLink').html('View Full Bio <img src="img/arrowDN.png" border="0" alt="" />');
+      $('#moreLink').html('View Full Bio <img src="assets/arrowDN.png" border="0" alt="" />');
     }
   );
 
@@ -207,7 +207,9 @@ $("#calendar_select_date").live("click", function() {
   return false;
 });
 $("#calendar_select_date_hidden").live("change", function() {
-  window.location.href = '/' + swidjit.currentCity() + '/calendar/date/' + $(this).val();
+    var href = window.location.href.split('calendar/');
+    href = href[0];
+    window.location.href = href + 'calendar/date/' + this.value;
 });
 
 $("#add_item_form .visibility_rule_remove").live('click',function(){

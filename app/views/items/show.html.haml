@@ -76,7 +76,7 @@
     %label Recommendations
 .contentRow.pad.without_border
   - if @item.recommendations.any?
-    = render :partial => 'recommendations/for_@item', :collection => RecommendationDecorator.decorate(@item.recommendations)
+    = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(@item.recommendations)
   - if can? :recommend, @item
     .comment_block
       Recommend

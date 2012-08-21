@@ -4,7 +4,16 @@
   %ul.menu_with_dropdowns
     = @user.manage_links(:li)
     = @user.add_to_list
-.contentRow
+.contentRow#user-profile
+
+  #upcoming-events
+    %h2 Upcoming Events
+    - if @upcoming_events.blank?
+      %p This user has no upcoming events.
+    - else
+      = render 'calendars/by_day', events: @upcoming_events
+    %p= link_to "View #{@user.display_name}'s event calendar", user_calendar_path(@user)
+  
   .profilePic
     = @user.profile_pic
   .profileBio

@@ -8,8 +8,8 @@ class Event < Item
   attr_accessible :cost, :location, :start_datetime, :end_datetime, :start_date, :start_time,
     :end_date, :end_time, :rule, :weekly_day, :monthly_week, :monthly_day, :monthly_date, :times
 
-  validates_presence_of :location, :start_datetime, :end_datetime
-  validates_presence_of :start_date, :start_time, :end_date, :end_time, if: :processing_through_ui?
+  validates_presence_of :location, :start_datetime
+  validates_presence_of :start_date, :start_time, if: :processing_through_ui?
   validate :start_datetime_in_future, on: :create
   validate :event_ends_after_it_starts
   
@@ -26,7 +26,7 @@ class Event < Item
   }
 
   scope :between, lambda {|from, to| 
-    where("(#{Event.table_name}.start_datetime >= :from AND #{Event.table_name}.end_datetime <= :to) OR " + 
+    where("(#{Event.table_name}.start_datetime >= :from AND (end_datetime IS NULL OR #{Event.table_name}.end_datetime <= :to)) OR " + 
           "((#{Event.table_name}.expires_on IS NULL OR #{Event.table_name}.expires_on >= :from) AND " + 
           "#{Event.table_name}.rules IS NOT NULL AND #{Event.table_name}.rules NOT LIKE '%rrules:[]%')", 
           { from: from.to_time.beginning_of_day, to: to.to_time.end_of_day })
@@ -50,7 +50,7 @@ class Event < Item
   end
     
   def duration
-    @duration ||= end_datetime ? (end_datetime - start_datetime) : 3600    
+    @duration ||= end_datetime ? (end_datetime - start_datetime) : 2.hours    
   end
   
   

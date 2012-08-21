@@ -26,7 +26,9 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def creator
-    content_tag :div, link_to(item.user.display_name, profile_path(item.user.display_name)), :class => 'smIcon3 smIcon'
+    if item.user.present?
+      content_tag :div, link_to(item.user.display_name, profile_path(item.user.display_name)), :class => 'smIcon3 smIcon'
+    end
   end
 
   def timing(include_icon = true)
