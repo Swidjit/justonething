@@ -32,14 +32,16 @@ class Event < Item
           { from: from.to_time.beginning_of_day, to: to.to_time.end_of_day })
   }
   
-  scope :owned_or_bookmarked_by_or_rsvp_to, lambda { |user| {
-    :select => "DISTINCT #{Item.table_name}.*",
-    :joins => "LEFT JOIN #{Bookmark.table_name} ON #{Bookmark.table_name}.item_id = #{Item.table_name}.id " +
-        "LEFT JOIN #{Rsvp.table_name} ON #{Rsvp.table_name}.item_id = #{Item.table_name}.id",
-    :conditions => ["#{Item.table_name}.user_id = ? OR
-      (#{Rsvp.table_name}.user_id = ? AND #{Rsvp.table_name}.id IS NOT NULL) OR
-      (#{Bookmark.table_name}.user_id = ? AND #{Bookmark.table_name}.id IS NOT NULL)", user.id, user.id, user.id]
-  } }
+  scope :owned_or_bookmarked_by_or_rsvp_to, lambda { |user| 
+    user.blank? ? {} : {
+      :select => "DISTINCT #{Item.table_name}.*",
+      :joins => "LEFT JOIN #{Bookmark.table_name} ON #{Bookmark.table_name}.item_id = #{Item.table_name}.id " +
+          "LEFT JOIN #{Rsvp.table_name} ON #{Rsvp.table_name}.item_id = #{Item.table_name}.id",
+      :conditions => ["#{Item.table_name}.user_id = ? OR
+        (#{Rsvp.table_name}.user_id = ? AND #{Rsvp.table_name}.id IS NOT NULL) OR
+        (#{Bookmark.table_name}.user_id = ? AND #{Bookmark.table_name}.id IS NOT NULL)", user.id, user.id, user.id]
+      } 
+  }
 
   def self.datetimepicker_to_datetime(datetime_value, time_zone)
     if datetime_value.is_a?(String) && datetime_value.present?
