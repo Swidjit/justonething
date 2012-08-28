@@ -23,6 +23,10 @@
         / Rules
         %li
           %label
+            = radio_button_tag "event[rule]", 'none', !f.object.rule.present?
+            %span This event does not recur.
+        %li
+          %label
             = radio_button_tag "event[rule]", 'daily', f.object.is_daily?
             %span This event repeats daily until the expiration date below.
         %li
@@ -65,7 +69,7 @@
             = link_to "Remove", "#", class: 'remove-time'
         %a#add-another-time{:href => '#'} add another time
         %br
-        = javascript_tag "swidjit.activateEvent()"
+        = javascript_tag "$(document).ready(function(){swidjit.activateEvent()});"
         
 
     = f.inputs :class => 'extra_inform_box' do

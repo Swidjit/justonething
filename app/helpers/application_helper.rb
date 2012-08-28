@@ -77,6 +77,17 @@ module ApplicationHelper
   def id_from_object_name(f)
     str = f.object_name.gsub(/\[|\]/,"_").gsub('__', '_').sub(/_$/, '')
   end
-  
+
+  def page_title
+    title = []
+    if defined?(@item) && @item.try(:title).present?
+      title << @item.title 
+    elsif @title.present?
+      title << @title
+    end
+    title << current_city.name
+    title << "Swidjit"
+    title.join(' - ')
+  end
   
 end
