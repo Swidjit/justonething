@@ -1,5 +1,9 @@
 %div.item_visibility
-  %p.vis_label Visibility
+  %li.text
+    = image_tag('blue_tag.png')
+    item visibility
+    .addFormText
+      Visibility settings determine which cities, communities and lists can see your item.  By default, it is publicly visible to your home city.  Add or delete visibility here.
   = item.tokenized_visibility_rules
   %ul.menu_with_dropdowns
     %li

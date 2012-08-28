@@ -3,11 +3,12 @@
     = image_tag('blue_tag.png')
     tag your item
     %span optional
+    .addFormText
+      Tags are like keywords or topics related to your post.  Click on any of these suggested tags to add them, or enter your own into the field, seperated by a comma.
   = f.input :tag_list, :label => 'Tags', :input_html => {:class => 'item_tags', "data-pre" => f.object.tag_list.split(',').collect{|tag| {:id => tag, :name => tag}}.to_json}
   - if @item_preset_tags.andand.any?
     %li.tag_list
       .title_box2
-        %label Click any of these to add them
       %ul.preset_tags
         - @item_preset_tags.each do |tag|
           %li.preset_tag= tag.tag
@@ -18,6 +19,8 @@
     = image_tag('blue_tag.png')
     geo tag your item
     %span optional
+    .addFormText
+      geo-tags are specific neighborhoods, streets, towns or apartment buildings that help better describe the location or geographical relevance of an item.
   = f.input :geo_tag_list, :label => 'Geo Tags', :input_html => {:class => 'item_geo_tags', "data-pre" => f.object.geo_tag_list.split(',').collect{|tag| {:id => tag, :name => tag}}.to_json}  
   = f.semantic_errors :geo_tags
   - if current_user.geo_tags.present?

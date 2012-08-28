@@ -1,7 +1,8 @@
 = f.inputs :class => 'tag_box' do
   %li.text
     = image_tag('blue_tag.png')
-    Thumbnail image
+    thumbnail image
+    %span optional
   .thumbnail
     =@item.thumb
   = f.input :thumbnail,    :as => :file, :input_html => {:id => 'thumbnail', :name => 'thumbnail'}
@@ -11,8 +12,10 @@
 
 - if current_user.delegators.present? && !@item.persisted?
   = f.inputs :class => 'posting_box' do
-    %li
-      %span Posting as:
+    %li.text
+      = image_tag('blue_tag.png')
+      posting as
+    .clear  
     = f.input :user_id, :as => :select, :collection => current_user.delegators, :label => "Posting as:", :include_blank => current_user.display_name, :input_html => { :class => 'item_delegator', :onchange => 'swidjit.updateVisibilityForm(this)' }
 = f.inputs :class => 'visible_box' do
   = f.input :community_ids, :as => :hidden, :input_html => {:value => @item.community_ids.join(',')}
@@ -21,8 +24,12 @@
   %li
     = render :partial => 'items/visibility_form', :locals => { :ajax => false, :item => @item }
 = f.inputs do
-  %li.text Item Expiration
-  = f.input :active
+  %li.text
+    = image_tag('blue_tag.png')
+    item expiration
+    .addFormText
+      By default, your item will expire in 15 days or the day after the event.  You can choose a different expiry date, or select 'never' to keep your post active indefinitely.
+
   = @item.expires_on_fields(f)
 = f.submit (@item.persisted? ? 'Update' : 'Post')
 

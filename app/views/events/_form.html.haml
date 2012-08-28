@@ -4,7 +4,7 @@
     = f.inputs :class => 'extra_inform_box' do
       %li.text
         = image_tag('blue_tag.png')
-        Information
+        information
       = f.input :location, :input_html => {:placeholder => 'Event Location'}
       = f.input :start_date, :input_html => {:placeholder => 'Start Date', :value => @item.start_datetime('date'), :class => 'datepicker event_start_date'}
       = f.input :start_time, :input_html => {:placeholder => 'Start Time', :value => @item.start_datetime('time'), :class => 'timepicker'}
@@ -16,7 +16,7 @@
     =f.inputs :class => 'extra_inform_box' do
       %li.text
         = image_tag('blue_tag.png')
-        Event Recurrence
+        event recurrence
       - if f.object.imported and f.object.is_recurring?
         %li.text= f.object.next_occurrence
       - else
@@ -51,7 +51,7 @@
     = f.inputs :class => 'extra_inform_box' do
       %li.text
         = image_tag('blue_tag.png')
-        Additional Times
+        additional times
         %br
         - f.object.times.each do |time|
           .additional-time
@@ -63,7 +63,7 @@
             = text_field_tag 'event[times][][start_date]', nil, placeholder: 'Start Date', class: 'datepicker time_start_date'
             = text_field_tag 'event[times][][start_time]', nil, placeholder: 'Start Time', class: 'timepicker'
             = link_to "Remove", "#", class: 'remove-time'
-        %a#add-another-time{:href => '#'} Add Another Time
+        %a#add-another-time{:href => '#'} add another time
         %br
         = javascript_tag "swidjit.activateEvent()"
         
