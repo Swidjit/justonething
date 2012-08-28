@@ -2,7 +2,7 @@
   = form_for :offer, :url => item_offers_path(@item) do |f|
     = f.hidden_field :item_id, :value => @item.id
     = text_area_tag :text
-    = f.submit 'send offer'
+    = f.submit 'send msg'
 
 - elsif @item.user != current_user && @item.has_offer_from?(current_user)
   - offer = @item.offer_from(current_user)

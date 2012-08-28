@@ -1,4 +1,4 @@
-%div.title_heading your offers
+%div.title_heading private messages
 
 - @offers.group_by(&:item).each do |item, offers|
   %div.contentRow
@@ -10,7 +10,7 @@
           from
           %span= link_to offer.user.display_name, profile_path(offer.user.display_name)
 
-        %span.right= link_to 'delete offer', offer_path(offer), :method => :delete
+        %span.right= link_to 'delete msg', offer_path(offer), :method => :delete
 
         %div.clear
 

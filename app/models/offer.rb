@@ -10,11 +10,11 @@ class Offer < ActiveRecord::Base
 
   attr_accessible :user, :item_id
 
-  validates_uniqueness_of :item_id, :scope => :user_id, :message => "You can only have one offer per item."
+  validates_uniqueness_of :item_id, :scope => :user_id, :message => "You can only have one message thread per item."
 
   validates :user_id, :exclusion => { :in => lambda { |offer|
     [Item.find(offer.item_id).user_id]
-  }, :message => "You cannot create an offer on your own item." }
+  }, :message => "You cannot message yourself about your own item." }
 
   validate :item_type_is_allowed
 

@@ -177,16 +177,16 @@ mark{
 
 .notice, .success, .alert {
   clear: both;
-  padding: 8px 35px 8px 14px;
-  margin: 10px 0;
-  display: inline-block;
+  padding: 8px 15px 8px 14px;
+  margin: -10px 0 17px 0;
+ 
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  color: #c09853;
+  color: #000000;
 }
 .success, .notice {
   background-color: #dff0d8;
@@ -198,7 +198,7 @@ mark{
 .alert {
   background-color: #f2dede;
   border-color: #eed3d7;
-  color: #b94a48;
+  color: #000;
 }
 
 .img_info .fb-like, .multiLinks .fb-like {

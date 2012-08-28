@@ -18,8 +18,9 @@
   -if (!@item.expires_on.nil?) && (Date.strptime(@item.expires_on, '%m/%d/%Y') < Date.today)
     .alert.expired-notice
       %strong Notice:
-      This item is expired. It expired on 
-      = @item.expires_on
+      This item expired on 
+      = @item.expires_on 
+      and it has not been deactivted or renewed by the author.  You may wish to comment or private message the author to check if it is still valid.
   .itemPic.wide
     = @item.class_feed
     %br
@@ -39,7 +40,7 @@
     .multiLinks= @item.iconic_information(false)
     .itemIcons
       = @item.manage_links
-      - if can? :mamange, @item
+      - if can? :manange, @item
         %span#addTo2.addTo2
           %a{:href => "#"}
             = image_tag('visible_icon.jpg')
@@ -47,43 +48,47 @@
   .clear
 
 - if @item.allows_offers?
-  .contentRow
+  .contentRow.h_pad.without_border.without_padding
     %p.header
-      %label Offers
-  .contentRow.pad.without_border
+      %label Private Messages
+  .contentRow.h_pad.without_border.without_padding
+    - if can? :manage, @item
+      %p Private discussions with people who have contacted you about this item.
+    - else 
+      %p You can have a private conversation about this item with its author.
     .comment_block
-      Offer
       = render 'offers'
     %div{:style => "clear:both;"}
 
 = yield :middle
 
-.contentRow
+.contentRow.h_pad.without_border.without_padding
   %p.header
     %label Comments
-.contentRow.pad.without_border
+.contentRow.h_pad.without_border.without_padding
+  Or, comment publicly to all users who can view this item.
   - if @comments.any?
     = render :partial => 'comments/comment', :collection => CommentDecorator.decorate(@comments.order(:created_at))
   .comment_block
-    Comment
     %a#comment{:name => 'comment'}
     = form_for @item.comments.build, {:url => comments_path(@item)} do |f|
       = f.text_area :text, :class => 'user-suggestion'
       = f.submit 'Comment'
 
-.contentRow
-  %p.header
-    %label Recommendations
-.contentRow.pad.without_border
-  - if @item.recommendations.any?
-    = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(@item.recommendations)
-  - if can? :recommend, @item
-    .comment_block
-      Recommend
-      %a#recommend{:name => 'recommend'}
-      = form_for Recommendation.new, :url => recommendations_path(@item) do |f|
-        = f.text_area :description, { :class => 'user-suggestion' }
-        = f.submit 'Recommend'
+-#
+  .contentRow.h_pad.without_border.without_padding
+    %p.header
+      %label Recommendations
+  .contentRow.h_pad.without_border.without_padding
+    - if @item.recommendations.any?
+      = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(@item.recommendations)
+    - if can? :recommend, @item
+      .comment_block
+        Recommend
+        %a#recommend{:name => 'recommend'}
+        = form_for Recommendation.new, :url => recommendations_path(@item) do |f|
+          = f.text_area :description, { :class => 'user-suggestion' }
+          = f.submit 'Recommend'
 
 - content_for :head do
   %meta{:property => "og:title", :content => "Swidjit - #{@item.title}"}

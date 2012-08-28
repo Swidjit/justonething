@@ -663,6 +663,9 @@ ul.navMenus.extra_links {
 .without_border {
   border: none;
 }
+.without_padding {
+  padding-top:0px;
+}
 .nameRow { width:98%;margin:0 auto;padding-top:10px;text-align:left;border-bottom:2px solid #eeeeee;position:relative;height:40px;z-index:999999;}
 .nameRow .title_heading {
   float: left;
@@ -676,6 +679,7 @@ ul.navMenus.extra_links {
 .voucher { margin-left: 10px;padding:0;float:left; }
 .voucher .label { color:#91989c;font-size:12px;margin:9px 0 0 0;float:right; line-height: 10px; }
 .pad {padding: 20px 1% 0 1%;width:96%;}
+.h_pad {padding: 0px 1% 0 1%;width:96%;}
 
 
 .profilePic { background-repeat: no-repeat;margin:0 0 20px 8px;width:127px;height:127px;overflow:hidden;float:left;padding-right:25px; }
