@@ -4,7 +4,7 @@ class FeedsController < ApplicationController
   def index
     if params[:tag_name].present?
       @tag = Tag.find_by_name(params[:tag_name])
-      @title = " with Tag: #{params[:tag_name]}"
+      @title = %& "#{params[:tag_name]}"&
       if @tag.present?
         @feed_items = filter_by_type_and_access(@tag.items)
       else
@@ -15,8 +15,9 @@ class FeedsController < ApplicationController
       @feed_items = filter_by_type_and_access(Item)
     end
 
-    item_type_string = @type == 'All' ? 'All Items' : @type
-    @title = "#{item_type_string}" + (@title || '')
+    item_type_string = @type == 'items ' ? '' : @type
+    @title = "#{item_type_string} tagged " + (@title || '') 
+    #- @title = @title + " feed [#{item_type_string}]"
 
     render_paginated_feed :index
   end

@@ -247,6 +247,18 @@ class ItemDecorator < ApplicationDecorator
       content_tag :div, linkified_tags.html_safe, :class => 'smIcon1 smIcon'
     end
   end
+  
+  def tag_List
+    if item.tags.any?
+      item.tags.each {|tag| tag_list = tag_list + tag.name}
+    end
+  end
+  
+  def clean_desc
+    #- item.description.gsub(/<\/?[^>]*>/, "") 
+    #- item.description.gsub("!&#x000A;", " ")
+    item.description
+  end 
 
   def geo_tagged_as
     if item.geo_tags.any?

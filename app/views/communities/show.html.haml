@@ -25,3 +25,10 @@
         = tabbed_item_types('type')
     
   = render :partial => 'feeds/endless_scroll'
+  
+- content_for :head do
+  %meta{:property => "og:title", :content => "#{@community.name} Community - Ithaca Swidjit"}
+  %meta{:property => "og:site_name", :content => "Ithaca Swidjit"}
+  %meta{:property => "fb:admins", :content => Facebook::APP_ID}
+  %meta{:name => "description", :content => @community.description.gsub(/<\/?[^>]*>/, "") }
+

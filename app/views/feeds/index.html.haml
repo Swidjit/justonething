@@ -15,3 +15,9 @@
       %input#category_search_submit{:type => 'submit', :value => 'search'}
 
 = render :partial => 'endless_scroll'
+
+- content_for :head do
+  %meta{:property => "og:title", :content => "#{@type} on Ithaca Swidjit"}
+  %meta{:property => "og:site_name", :content => "Ithaca Swidjit"}
+  %meta{:property => "fb:admins", :content => Facebook::APP_ID}
+  %meta{:name => "description", :content => "#{@type} on Ithaca Swidjit" }

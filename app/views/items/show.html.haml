@@ -95,3 +95,5 @@
   %meta{:property => "og:url", :content => @item.distinct_url}
   %meta{:property => "og:site_name", :content => "Swidjit"}
   %meta{:property => "fb:admins", :content => Facebook::APP_ID}
+  %meta{:name => "description", :content => @item.short_description}
+  %meta{:name => "keywords", :content => @item.tag_list}

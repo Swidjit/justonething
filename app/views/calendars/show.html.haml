@@ -58,3 +58,12 @@
 .cal_lower_nav.clearAll
   = week_links
 %div.clearAll
+
+- content_for :head do
+  %meta{:property => "og:title", :content => "Ithaca Events - Ithaca Swidjit"}
+  %meta{:property => "og:site_name", :content => "Ithaca Swidjit"}
+  %meta{:property => "fb:admins", :content => Facebook::APP_ID}
+  %meta{:name => "title", :content => "Ithaca Events - Ithaca Swidjit" }
+  %meta{:name => "keywords", :content => "events, activities, music, movies, theater, exercise, yoga, yard sales, homeschooling, dance, dancing, workshops, tours, markets" }
+  %meta{:name => "description", :content => "Ithaca's most comprehensize event calendar of all the live music, festivals, plays, meetings, tours, sales, workshops and other activities happening in our area." }
+  

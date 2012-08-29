@@ -9,6 +9,9 @@ class ItemsController < ApplicationController
   before_filter :load_comments, :only => :show
 
   def show
+    set_meta_tags :title => 'Member Login',
+              :description => 'Member login page.',
+              :keywords => 'Site, Login, Members'
   end
 
   def new
