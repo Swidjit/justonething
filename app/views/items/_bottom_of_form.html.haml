@@ -15,7 +15,7 @@
     %li.text
       = image_tag('blue_tag.png')
       posting as
-    .clear  
+    .clear
     = f.input :user_id, :as => :select, :collection => current_user.delegators, :label => "Posting as:", :include_blank => current_user.display_name, :input_html => { :class => 'item_delegator', :onchange => 'swidjit.updateVisibilityForm(this)' }
 = f.inputs :class => 'visible_box' do
   = f.input :community_ids, :as => :hidden, :input_html => {:value => @item.community_ids.join(',')}
