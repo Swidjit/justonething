@@ -331,7 +331,7 @@
 .ui-accordion .ui-accordion-header .ui-icon { position: absolute; left: .5em; top: 50%; margin-top: -8px; }
 .ui-accordion .ui-accordion-content { padding: 0em 2.2em; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
 .ui-accordion .ui-accordion-content-active { display: block; }
-#multiAccordion h3 {font-weight: bold;}
+#multiAccordion h3 {font-weight: bold; margin-left: 0px;}
 /*
  * jQuery UI Autocomplete 1.8.9
  *
@@ -593,7 +593,7 @@ ul.navMenus.extra_links {
   list-style-type: none;
   color: #eeeeee;
   padding:0;
-  margin-left:5px;
+  margin:0 0 0 5px;
 }
 .navMenus li { border-bottom: 1px solid #30749F;padding:3px; }
 .navMenus a { color:#eeeeee;text-decoration:none; }
@@ -632,7 +632,14 @@ ul.navMenus.extra_links {
   background-position:0px -27px;
 }
 
-.column_content_nav { background:#30749f;height:40px;text-align:right;overflow:hidden;padding-right:20px;}
+.column_content_nav {text-align:right;overflow:hidden; float: left; padding:4px 0 0 36px; }
+.column_content_nav form {
+	font-size: 16px;
+}
+.column_content_nav input {
+	height: 21px;
+}
+
 .mainContent {
   background:#ffffff;
   text-align:left;

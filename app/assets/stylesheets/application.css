@@ -40,6 +40,13 @@ fieldset {
   width:100%;
   height:100%;
 }
+#top_nav {
+  float:left;
+  width: 100%;
+  background-color: #075a8e;
+  padding:0;
+  margin:0;
+}
 #menu {
   float:left;
   width: 225px;
@@ -56,7 +63,8 @@ fieldset {
 }
 
 .logo {
-  padding:10px 0 0 10px;
+  padding:0px 0 0 10px;
+  float:left;
 }
 
 .hidden {
