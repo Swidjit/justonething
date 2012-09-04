@@ -62,6 +62,7 @@ group :development, :test do
   gem 'railroad', :git => 'git://github.com/sonnym/RailRoad.git'
   gem 'pry'
   gem 'pry-stack_explorer'
+  gem 'ruby-debug19'
 
   # Jenkins CI needs a JS runtime
   gem 'therubyracer', '0.9.10'

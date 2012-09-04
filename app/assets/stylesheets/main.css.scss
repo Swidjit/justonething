@@ -108,18 +108,31 @@ ul.two_col_mid {
 }
 
 #search {
-  float: left;
-  margin: 7px 10px;
+	padding: 0px;
+	margin: 13px 0 0 0;
+}
+#search_input { 
+   padding: 4px; 
+   font-size: 1em; 
+   line-height: 20px;
+float:left;
+margin: 0px;
+}
+#search_button { 
+   /* image replacement */
+   text-indent: -99999px; 
+   width: 30px; 
+   height: 34px;
+margin: 0px 0px 0 -2px;
+   display: block;
+   background: #adc3d1 url(https://s3.amazonaws.com/swidjit-prod/images/search.png) 0 0 no-repeat;
+float:left;
+border-width: 2px 2px 2px 0px;
+padding-bottom: 3px;
+border-color: #ddd;
 
-  input {
-    padding: 2px 5px;
-    font-size: 1em;
-    color: #000;
-  }
 
-  input[type='text'] {
-    width: 220px;
-  }
+   /* placing next to input using float or absolute positioning omitted ... */
 }
 
 .itemTitle, .multiLinks {
@@ -128,6 +141,9 @@ ul.two_col_mid {
   .no_break_hide {
     width: 5000px;
   }
+}
+#category_search {
+	font-size: 1em;
 }
 #category_search_submit
 {
@@ -201,15 +217,35 @@ ul.two_col_mid {
   line-height: 35px;
 }
 
+.profile_info {
+	margin: 5px;
+	
+	background-color: white;
+	float: left;
+}
+.profile_info_pic {
+	float: left;
+	padding: 0 7px 0 18px;
+	width: 60px;
+	height: 50px;
+}
+.profile_info_name {
+	float: left;
+	font-size: 13px;
+	width: 120px;
+}
+
 #socialmedia_icons {
-  margin: 5px auto;
+  margin: 1px auto;
   text-align: center;
+background-color: #07446a;
+padding: 15px 0;
 }
 
 .mainContentWrap {
   position: absolute;
   left: 225px;
-  top: 82px;
+  top: 102px;
   bottom: 0px;
   right: 0px;
   overflow: auto;
@@ -443,3 +479,10 @@ ul.two_col_mid {
   color:#000;
 }
 
+.notification {
+	font-size: 17px;
+	font-color: black;
+	width: 120px;
+	padding: 0px;
+	margin-left: 7px;
+}

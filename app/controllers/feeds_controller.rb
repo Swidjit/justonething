@@ -61,6 +61,15 @@ class FeedsController < ApplicationController
 
     render_paginated_feed :index
   end
+  
+  def suggested_items
+    @title = 'Feed of Your Most Familiar Users'
+    @feed_items = SuggestedItem.where('suggested_user_id = ?', current_user.id)
+    @title = "#{@type} Suggested Items: #{params[:tag_name]}"
+
+
+    render_paginated_feed :index
+  end
 
   def nearby
     @type = (params[:type] || 'all').singularize.camelize

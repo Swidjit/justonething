@@ -72,6 +72,7 @@ class UserDecorator < ApplicationDecorator
 
   def profile_pic(size='150')
     pic_options = { :alt => self.display_name, :class => 'user_prof_pic' }
+    puts "test"
     if user.profile_pic.present?
       ImageDecorator.new(user.profile_pic).thumb("#{size}x#{size}>",pic_options)
     else

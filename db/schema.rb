@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120820165552) do
+ActiveRecord::Schema.define(:version => 20120903214931) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -241,6 +241,15 @@ ActiveRecord::Schema.define(:version => 20120820165552) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "suggested_items", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.text     "message"
+    t.integer  "suggested_user_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "tags", :force => true do |t|
     t.string "name", :null => false
     t.string "type"
@@ -328,6 +337,9 @@ ActiveRecord::Schema.define(:version => 20120820165552) do
 
   add_foreign_key "rsvps", "items", :name => "rsvps_item_id_fk"
   add_foreign_key "rsvps", "users", :name => "rsvps_user_id_fk"
+
+  add_foreign_key "suggested_items", "items", :name => "suggested_items_item_id_fk"
+  add_foreign_key "suggested_items", "users", :name => "suggested_items_user_id_fk"
 
   add_foreign_key "users_tags", "tags", :name => "users_tags_tag_id_fk"
   add_foreign_key "users_tags", "users", :name => "users_tags_user_id_fk"

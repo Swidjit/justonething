@@ -315,6 +315,11 @@ class ItemDecorator < ApplicationDecorator
       render(:partial => 'visibility_form', :locals => { :ajax => true, :item => self })
     end
   end
+  
+  def suggest_item_form
+    render(:partial => 'suggest_item_form', :locals => { :ajax => true, :item => self })
+
+  end
 
   def offer_users_for_select
     h.options_from_collection_for_select(item.offers.map(&:user), :id, :display_name)

@@ -45,6 +45,8 @@ Swidjit::Application.routes.draw do
         resources :offers, :only => :index
       end
     end
+    
+    resources :suggested_items, :only => [:create,:destroy]
 
     resource :feeds, :only => [] do
       member do
@@ -52,6 +54,7 @@ Swidjit::Application.routes.draw do
         get :nearby
         get :drafts
         get 'recommendations(/:type)', :action => :recommendations, :as => 'recommendations'
+        get :suggested_items
         get 'familiar_users(/:type)', :action => :familiar_users, :as => 'familiar_users'
         get :search, :action => :search
         get ':type(/:tag_name)', :action => :index, :as => 'main', :defaults => { :type => :all }

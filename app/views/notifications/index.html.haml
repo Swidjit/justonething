@@ -3,8 +3,9 @@
     = image_tag('notification.png')
     your notifications
 - @notifications.each do |note|
-  .contentRow
-    .title_heading.left= note.user_friendly_type
-    = note.linked_sender
-    = note.middle_text
-    = note.notifier_link
+  .contentRow.no_border
+    .notification.left= note.user_friendly_type
+    %div{:style => "font-size:15px"}
+      = note.linked_sender
+      = note.middle_text
+      = note.notifier_link

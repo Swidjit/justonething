@@ -35,6 +35,8 @@ class NotificationDecorator < ApplicationDecorator
           end
         when 'Delegate'
           'has added you as a delegate, you can now post items as them'
+        when 'SuggestedItem'
+          'has suggested that you check out this item: ' 
       end
     end
   end
@@ -42,7 +44,7 @@ class NotificationDecorator < ApplicationDecorator
   def notifier_link
     target = notification.notifier
     case notification.notifier_type
-      when 'Comment','Offer','Recommendation'
+      when 'Comment','Offer','Recommendation','SuggestedItem'
         h.link_to(target.item.title,h.send("#{target.item.class.to_s.underscore}_path",target.item))
       when 'OfferMessage'
         h.link_to(target.offer.item.title,h.send("#{target.offer.item.class.to_s.underscore}_path",target.offer.item))
@@ -52,22 +54,25 @@ class NotificationDecorator < ApplicationDecorator
         '' # No link for this
       when 'Item','HaveIt','WantIt','Event','Thought','Link','Collection'
         h.link_to(target.title,h.send("#{target.class.to_s.underscore}_path",target))
+        
     end
   end
 
   def user_friendly_type
     if notification.is_mention?
-      'mention'
+      '{mention}'
     else
       case notification.notifier_type
         when 'Comment','Offer','Recommendation'
           notification.notifier_type.downcase
         when 'CommunityInvitation'
-          'invitation'
+          '{invitation}'
         when 'OfferMessage'
-          'offer reply'
+          '{message}'
         when 'Delegate'
-          'delegation'
+          '{delegation}'
+        when 'SuggestedItem'
+          '{suggestions}'  
       end
     end
   end

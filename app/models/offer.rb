@@ -16,7 +16,7 @@ class Offer < ActiveRecord::Base
     [Item.find(offer.item_id).user_id]
   }, :message => "You cannot message yourself about your own item." }
 
-  validate :item_type_is_allowed
+  #validate :item_type_is_allowed
 
   scope :for_user, lambda { |user| { :joins => :item, :conditions => ["#{Item.table_name}.user_id = ?", user.id] } }
 
@@ -26,7 +26,8 @@ class Offer < ActiveRecord::Base
   end
 
   def item_type_is_allowed
-    errors.add(:item, "type not allowed") unless item.allows_offers?
+    #errors.add(:item, "type not allowed") unless item.allows_offers?
+    true
   end
 
   def notify_item_owner

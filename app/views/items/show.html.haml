@@ -46,7 +46,8 @@
             = image_tag('visible_icon.jpg')
             = image_tag 'arrowDN.png'
   .clear
-
+  = @item.suggest_item_form
+  
 - if @item.allows_offers?
   .contentRow.h_pad.without_border.without_padding
     %p.header
