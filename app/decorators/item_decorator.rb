@@ -131,9 +131,11 @@ class ItemDecorator < ApplicationDecorator
       #check for bookmarks
       if item.bookmark_users.include?(h.current_user)
         bookmark = item.bookmarks.detect { |bookmark| bookmark.user_id == current_user.id }
-        links << link_to('Remove Bookmark', bookmark_path(bookmark), :method => :delete)
+        link = bookmark_path(bookmark)
+        h.render(:partial => 'items/bookmark_button', :locals => {:link => link})
       else
-        links << link_to('Bookmark', bookmarks_path(:item_id => item.id), :method => :post)
+        link = bookmarks_path(:item_id => item.id)
+        h.render(:partial => 'items/bookmark_button', :locals => {:link => link})
       end
     end
 
@@ -162,10 +164,6 @@ class ItemDecorator < ApplicationDecorator
       
     end
 
-    if h.can? :create, Comment
-      links << link_to('Comment', send("#{item.class.to_s.underscore}_path",item,:anchor => 'comment'))
-    end
-
     if h.can? :create, Item
       links << link_to('Duplicate', send("duplicate_#{item.class.to_s.underscore}_path",item))
     end
@@ -183,9 +181,9 @@ class ItemDecorator < ApplicationDecorator
     if links.any?
       icons << h.render(:partial => 'items/manage_menu', :locals => {:links => links})
     end
-
+    icons << h.render(:partial => 'items/social_bar')
     if icons.any?
-      h.content_tag(:ul, icons.join(' ').html_safe, :class => 'menu_with_dropdowns')
+      h.content_tag(:div, icons.join(' ').html_safe)
     else
      ''
     end
@@ -225,11 +223,11 @@ class ItemDecorator < ApplicationDecorator
     icons = []
 
     if links.any?
-      icons << h.render(:partial => 'items/manage_menu', :locals => {:links => links})
+      icons << h.render(:partial => 'items/manage_feed_item_menu', :locals => {:links => links})
     end
 
     if icons.any?
-      h.content_tag(:ul, icons.join(' ').html_safe, :class => 'menu_with_dropdowns')
+      h.content_tag(:ul, icons.join(' ').html_safe)
     else
      ''
     end

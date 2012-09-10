@@ -1,0 +1,18 @@
+
+.headingLeft
+  %h2.page-heading
+    %i.icon-group        
+    Edit Community
+.clear
+= semantic_form_for @community, :url => {:action => "update"}, :html => { :id => "community-form"} do |f|
+  = f.inputs do
+    
+    .form-title
+      %i.icon-group
+      Edit Community
+    = f.input :name,:input_html => {:placeholder => 'name your community here'}    
+    .form-section-break
+    = f.input :description, :input_html => {:placeholder => 'now describe what it is all about'}
+    .form-section-break
+    = f.input :is_public, :hint => "uncheck if you want this community to be invite-only", :label => ' make this a public community'
+  = f.submit 

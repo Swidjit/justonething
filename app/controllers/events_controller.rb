@@ -33,7 +33,7 @@ class EventsController < ItemsController
     if request.referer == send("#{item_class.to_s.underscore}_url",params[:id])
       redirect_to root_path
     else
-      redirect_to :back
+      redirect_to profile_path(current_user.display_name)
     end
   end
   
@@ -54,5 +54,5 @@ class EventsController < ItemsController
   def item_class
     Event
   end
-  
+
 end

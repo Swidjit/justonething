@@ -1,20 +1,26 @@
-.title_heading
-  = "#{current_city.name} - #{@title}"
+.contentRow.without_border.overflow-visible
+  .row-fluid
+    .span10
+      %h2.page-heading
+        %i.icon-camera-retro        
+        = "#{current_city.name} - #{@title}"
+    .span2{style:"margin:6px 20px 0 0px"}
+      = render :partial => 'custom_feed_subscriptions/add_tag'
+  
+  .filter_wrapper
+    %div.tag_cloud
+      - if @hide_tabbed_types.blank?
+        %div.tabbed_types_wrapper
+          filter by:
+          = tabbed_item_types('type')
+      = tag_cloud_for @feed_items, @type_link
+    %div#category_search_wrapper
+      %form#category_search_form{:method => 'GET', action: search_feeds_path}
+        %input{:type => 'hidden', :name => 'type', :value => @type_link}
+        %input#category_search{:type => 'text', :name => 'q', :placeholder => 'Search this feed'}
+        %input#category_search_submit{:type => 'submit', :value => 'search'}
 
-.filter_wrapper
-  %div.tag_cloud
-    - if @hide_tabbed_types.blank?
-      %div.tabbed_types_wrapper
-        filter by:
-        = tabbed_item_types('type')
-    = tag_cloud_for @feed_items, @type_link
-  %div#category_search_wrapper
-    %form#category_search_form{:method => 'GET', action: search_feeds_path}
-      %input{:type => 'hidden', :name => 'type', :value => @type_link}
-      %input#category_search{:type => 'text', :name => 'q', :placeholder => 'Search this feed'}
-      %input#category_search_submit{:type => 'submit', :value => 'search'}
-
-= render :partial => 'endless_scroll'
+  = render :partial => 'endless_scroll'
 
 - content_for :head do
   %meta{:property => "og:title", :content => "#{@type} on Ithaca Swidjit"}

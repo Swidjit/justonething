@@ -1,0 +1,6 @@
+- if @feed_items.empty?
+  %p No items found.
+- else
+  .feed.endless_scrolling
+    = render @feed_items.decorated
+    = render 'feeds/pageless', total_pages: @feed_items.total_pages, path_to_page: url_for(params.merge({:format => :js }))

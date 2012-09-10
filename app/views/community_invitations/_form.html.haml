@@ -1,3 +1,9 @@
-= form_for community.community_invitations.build do |f|
-  = f.text_field :invitee_display_name, { :class => 'autocomplete-user' }
-  = f.submit 'Send Invite'
+.community-invite-form
+  .section-heading
+    Invite People
+  %p
+    So you've created a community, big deal.  A community is nothing without people!  So invite some:
+  
+  = form_for community.community_invitations.build do |f|
+    = f.text_field :invitee_display_name, { :class => 'autocomplete-user', :placeholder => 'swidjit username' }
+    = f.submit 'Send Invite'

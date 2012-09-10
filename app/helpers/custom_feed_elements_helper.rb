@@ -1,0 +1,2 @@
+module CustomFeedElementsHelper
+end

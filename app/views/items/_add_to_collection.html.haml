@@ -1,8 +1,10 @@
-%li
-  %a{:href => "#", :onclick => "return false", :class => 'iconLink5'}
-    = image_tag 'arrowDN.png'
-  %div.dropdown_1column.align_right1
+.btn-group
+  %button.btn 
+    collect
+  %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+    %span.caret
+  %ul.dropdown-menu
     - current_user.collections.each do |col|
       - if col.items.map(&:id).exclude?(item.id)
-        %div.col_1
+        %li
           = link_to col.title, add_item_collection_path(col, {:item_id => item.id}), {:method => :post}

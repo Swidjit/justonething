@@ -1,0 +1,15 @@
+.title_heading= @custom_feed.name
+=link_to 'Delete custom_feed', custom_feed_path(@custom_feed), :confirm => 'Are you sure?', :method => 'delete'
+
+%h3
+  %a{:href => "#", :class => 'toggle-user-edit'}= image_tag 'right_arrow.png', :class => 'left'
+  Users
+.user_edit.hidden.contentRow
+  %ul.tokenized
+    %li.add_token
+      %input.add-to-custom_feed.autocomplete-user{:type=>'text',:placeholder=>'add user'}
+
+%div
+  = tabbed_item_types('type')
+
+= render :partial => 'feeds/endless_scroll'

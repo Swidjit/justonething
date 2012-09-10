@@ -5,6 +5,7 @@ class FeedsController < ApplicationController
     if params[:tag_name].present?
       @tag = Tag.find_by_name(params[:tag_name])
       @title = %& "#{params[:tag_name]}"&
+      @feed_type = "tag"
       if @tag.present?
         @feed_items = filter_by_type_and_access(@tag.items)
       else
@@ -64,9 +65,9 @@ class FeedsController < ApplicationController
   
   def suggested_items
     @title = 'Feed of Your Most Familiar Users'
-    @feed_items = SuggestedItem.where('suggested_user_id = ?', current_user.id)
+    base_feed_items = SuggestedItem.where('suggested_user_id = ?', current_user.id)
     @title = "#{@type} Suggested Items: #{params[:tag_name]}"
-
+    @feed_items = filter_by_type_and_access(base_feed_items)
 
     render_paginated_feed :index
   end

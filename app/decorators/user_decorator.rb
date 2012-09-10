@@ -25,7 +25,12 @@ class UserDecorator < ApplicationDecorator
 
   def manage_links(link_wrapper)
     html = []
+    icons = []
 
+    if h.can? :manage, user
+      html << h.link_to('Edit Profile', h.edit_user_path(user))
+    end
+    
     if h.current_user.present? && h.current_user != user && h.current_user.persisted?
       delegation = h.current_user.delegation_for_user(user)
 
@@ -38,17 +43,21 @@ class UserDecorator < ApplicationDecorator
       if !user.vouches.collect(&:voucher_id).include? h.current_user.id
         html << h.link_to('vouch for', h.user_vouches_path(:user_id => user.id), :method => :post)
       end
-    end
+    end      
+        
+   
+    
+    if html.any?
+      html << h.render(:partial => 'items/manage_feed_item_menu', :locals => {:links => html})
+    end  
+     if h.current_user.present? && h.current_user.lists.any?
+        /html << h.render(:partial => 'vouch', :locals => {:user => model})/
+        html << h.render(:partial => 'add_to_list', :locals => {:user => model})
+      end  
 
-    if h.can? :manage, user
-      html << h.link_to('Edit Profile', h.edit_user_path(user))
-    end
-
-    if link_wrapper.present?
-      html.map!{|link| h.content_tag(link_wrapper,link)}
-    end
 
     return html.join(' ').html_safe
+
   end
 
   def item_creation_links

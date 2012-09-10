@@ -1,0 +1,9 @@
+.btn-group
+  %button.btn 
+    Grab Feed
+  %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+    %span.caret
+  %ul.dropdown-menu.pull-right
+    - current_user.custom_feed_subscriptions.each do |sub|
+      %li 
+        = link_to sub.custom_feed.name, add_element_custom_feed_path(sub, {:feed_type => @feed_type, :title => params[:tag_name]}), {:method => :post}

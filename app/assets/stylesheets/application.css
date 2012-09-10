@@ -19,15 +19,15 @@ html{ height:100%; }
 body {
   height:100%;
   background-color: #075a8e;
-  font-size: 13px;
-  font-family: Arial, SunSans-Regular, Sans-Serif;
+  font: 14px/21px 'Dosis', "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
   color:#564b47;
   padding:0 0px;
   margin:0;
 }
 
 a, a:hover, a:visited {
-  color: #30749F;
+  color: #07446a;
 }
 
 fieldset {
@@ -82,6 +82,14 @@ fieldset {
 .hidden {
   display: none;
 }
+
+.add_item_bar {
+	background-color:#cc0;
+	width:100%;
+	position:fixed;
+	z-index: 997;
+}
+
 
 #add_item_button {
   background: url("add-item-btn.png") no-repeat scroll 0 0 transparent;

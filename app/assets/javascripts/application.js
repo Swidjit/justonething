@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require jquery.tokeninput
 //= require jquery.caret
 //= require jquery.multi-accordion-1.5.3
@@ -109,6 +110,21 @@ $("#add_user_to_list_dropdown a").live('click',function(){
   var user_id = $("#user_id_for_list").val();
   var list_id = $(this).attr('data-list-id');
   var url = base_list_url.replace('/0','/'+list_id) + '/add_user';
+  $.ajax({
+    type: 'POST',
+    url: url,
+    data: { user_id: user_id },
+    success: function(data){
+      $("span.notice").text(data.notice);
+    },
+    error: function(xhr,status,data){
+    }
+  });
+});
+$("#add_tag_to_custom_feed_dropdown a").live('click',function(){
+  var user_id = $("#user_id_for_sub").val();
+  var feed_id = $(this).attr('data-sub-id');
+  var url = base_custom_feed_element_url.replace('/0','/'+feed_id) + '/add_element';
   $.ajax({
     type: 'POST',
     url: url,

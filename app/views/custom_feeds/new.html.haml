@@ -1,0 +1,4 @@
+= form_for @custom_feed, :url => {:action => 'create'} do |f|
+  = f.text_field :name, :placeholder => 'custom feed name'
+  = f.text_field :description
+  = f.submit 'Add Custom Feed'

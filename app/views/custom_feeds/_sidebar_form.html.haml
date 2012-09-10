@@ -1,0 +1,3 @@
+= form_for :custom_feed, :url => {:action => 'new', :controller => 'custom_feeds'} do |f|
+  = f.submit '+'
+  = f.text_field :name, :placeholder => 'custom feed name'

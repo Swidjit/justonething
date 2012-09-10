@@ -1,10 +1,9 @@
-%li
-  %a{:href => "#",:onclick => "return false"}
-    Add to List
-    = image_tag 'arrowDN.png'
-  #add_user_to_list_dropdown.dropdown_1column.align_right1
+.btn-group
+  %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+    add to list
+  %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+    %span.caret
+  %ul.dropdown-menu
     - current_user.lists.each do |lst|
-      .col_1
-        %a{:href => "#",'data-list-id' => lst.id}= lst.name
-  = hidden_field_tag('user_id_for_list', user.id, :id => 'user_id_for_list')
-
+      %li
+        = link_to lst.name, add_user_list_path(lst.id, :user_id => user.id), :method => :post

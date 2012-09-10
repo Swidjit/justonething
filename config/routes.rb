@@ -1,5 +1,7 @@
 Swidjit::Application.routes.draw do
 
+
+
   scope 'admin', :module => 'admin' do
     resources :item_preset_tags, :only => [:index, :new, :create, :destroy]
     resources :items, :only => [] do
@@ -47,6 +49,9 @@ Swidjit::Application.routes.draw do
     end
     
     resources :suggested_items, :only => [:create,:destroy]
+    resources :custom_feeds, :only => [:new, :create]
+    resources :custom_feed_subscriptions
+    resources :custom_feed_elements, :only => [:new, :create]
 
     resource :feeds, :only => [] do
       member do
@@ -68,7 +73,7 @@ Swidjit::Application.routes.draw do
       end
     end
 
-    resources :communities, :only => [:new,:create,:show,:index] do
+    resources :communities, :only => [:new,:create,:show,:index,:destroy,:edit,:update] do
       member do
         post :join
         delete :leave
@@ -76,13 +81,32 @@ Swidjit::Application.routes.draw do
       end
     end
 
-    resources :lists, :only => [:show,:create,:destroy] do
+    resources :lists, :only => [:show,:create,:destroy,:add_user] do
       member do
         post :add_user
         post :delete_user
       end
     end
-
+    
+    resources :custom_feed_elements, :only => [:show,:create,:destroy] do
+      member do
+        post :add_element
+      end
+    end
+    
+    resources :custom_feeds, :only => [:show,:create,:destroy] do
+      member do
+        post :new
+        post :add_element
+      end
+    end
+    
+    resources :custom_feed_elements, :only => [:show,:create,:destroy] do
+      member do
+        post :add
+      end
+    end
+    
     resources :users, :only => [] do
       member do
         get :references

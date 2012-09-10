@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120903214931) do
+ActiveRecord::Schema.define(:version => 20120904235720) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -72,6 +72,33 @@ ActiveRecord::Schema.define(:version => 20120903214931) do
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
   end
+
+  create_table "custom_feed_elements", :id => false, :force => true do |t|
+    t.integer "custom_feed_id", :null => false
+    t.string  "element_type",   :null => false
+    t.string  "element_name",   :null => false
+  end
+
+  add_index "custom_feed_elements", ["custom_feed_id"], :name => "index_custom_feed_elements_on_custom_feed_id"
+
+  create_table "custom_feed_subscriptions", :force => true do |t|
+    t.integer "user_id",                          :null => false
+    t.integer "custom_feed_id",                   :null => false
+    t.integer "frequency",      :default => 9999, :null => false
+  end
+
+  add_index "custom_feed_subscriptions", ["custom_feed_id", "user_id"], :name => "index_custom_feed_subscriptions_on_custom_feed_id_and_user_id", :unique => true
+  add_index "custom_feed_subscriptions", ["user_id"], :name => "index_custom_feed_subscriptions_on_user_id"
+
+  create_table "custom_feeds", :force => true do |t|
+    t.string   "name",        :null => false
+    t.integer  "user_id"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "custom_feeds", ["user_id"], :name => "index_custom_feeds_on_user_id"
 
   create_table "delegates", :force => true do |t|
     t.integer  "delegator_id"

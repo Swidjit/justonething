@@ -1,0 +1,23 @@
+%a{:href => calendar_path}
+  %i.icon-calendar
+%a{:href => profile_path(current_user.display_name)}
+  %i.icon-user
+%a{:href => bookmarks_path}
+  %i.icon-bookmark
+%a{:href => user_notifications_path(current_user.display_name)}
+  %i.icon-exclamation-point
+%a{:href => user_offers_path(current_user.display_name)}
+  %i.icon-inbox  
+%a{:href => edit_user_path(current_user)}
+  %i.icon-cog'
+
+#top_nav_menu a {
+	font-size: 36px;
+	color: #a2cfe1;
+}
+#top_nav_menu a:hover {
+	font-size: 36px;
+	color: #9bc392;
+	text-decoration: none;
+	text-shadow: 0px 1px 1px #4d4d4d;
+}

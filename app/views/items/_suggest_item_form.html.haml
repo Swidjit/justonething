@@ -1,31 +1,33 @@
 = form_tag({:controller => "suggested_items", :action => "create"}, :method => "post") do 
-  = text_field_tag(:user_list, nil, :class => 'add-to-delegates autocomplete-user')
+  Know someone who might want to know about this item?  Add an email or Swidjit username and we will mkae sure they hear about it.
+  .clear
+  = text_field_tag(:user_list, nil, :class => 'autocomplete-user')
   = hidden_field_tag 'item_id', item.id
   = submit_tag("Suggest")
 
-  :javascript
-    $(".suggest-item").live("autocompleteselect",function(){
-      suggest_item($(this));
-    });
-    $(".ui-menu-item").live('click',function(){
-      suggest_item($(".suggest-item"));
-    });
-    function suggest_item($self){
-      document.write('Hello World!');
-      var url = '#{suggested_item_path}';
-      $.ajax({
-        type: 'POST',
-        url: url,
-        data: { item_id: @item.id, format: 'json' },
-        success: function(data){
-          $("span.notice").text(data.notice);
-          if(data.success){
-            $new_li = $(data.token_html);
-            $self.closest('li').after($new_li);
-            $self.val('');
-          }
-        },
-        error: function(xhr,status,data){
+:javascript
+  $(".suggest-item").live("autocompleteselect",function(){
+    suggest_item($(this));
+  });
+  $(".ui-menu-item").live('click',function(){
+    suggest_item($(".suggest-item"));
+  });
+  function suggest_item($self){
+    document.write('Hello World!');
+    var url = '#{suggested_item_path}';
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: { item_id: @item.id, format: 'json' },
+      success: function(data){
+        $("span.notice").text(data.notice);
+        if(data.success){
+          $("#suggest-form").css('overflow','hidden').animate(
+            {height: "0px"},
+            {queue:false, duration: 300});
         }
-      });
-    }
+      },
+      error: function(xhr,status,data){
+      }
+    });
+  }

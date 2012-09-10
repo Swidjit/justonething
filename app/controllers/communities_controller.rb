@@ -8,6 +8,7 @@ class CommunitiesController < ApplicationController
   end
 
   def show
+    @upcoming_events = Calendar.upcoming_events(user: @user, city: current_city, ability: current_ability).map {|e| EventDecorator.decorate e }
     item_type = params[:type] || 'all'
     if %w( events have_its want_its links thoughts ).include? item_type
       @feed_items = @community.items.where(:type => item_type.camelize.singularize).access_controlled_for(current_user, current_city, current_ability)
@@ -20,8 +21,29 @@ class CommunitiesController < ApplicationController
 
   def new
   end
+  
+  def edit
+    @community = Community.find(params[:id])
+  end
+  
+  def destroy
+    if(Community.find(params[:id])).destroy
+      flash[:notice] = "Successfully deleted community"
+      redirect_to root_path
+    else
+      redirect_to root_path
+      flash[:notice] = "Error deleting community"
+    end
+  end
 
   def create
+    @community.assign_attributes(params[:community])
+    @community.user = current_user
+    @community.save
+    respond_with @community
+  end
+  
+  def update
     @community.assign_attributes(params[:community])
     @community.user = current_user
     @community.save

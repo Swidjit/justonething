@@ -14,6 +14,28 @@
       }
     );
   });
+  $(document).ready(function(){
+    $(".reveal-suggest").toggle(
+      function () {
+        $("#suggest-form").animate(
+          {height:$(".suggest-form").height()},
+          {queue:false, duration: 300},
+          $("#suggest-form").css('overflow','visible')
+        );
+      }, function () {
+        $("#suggest-form").css('overflow','hidden').animate(
+          {height: "0px"},
+          {queue:false, duration: 300});
+      }
+    );
+    $('.nested-reply').click(function(event) {
+      var e = event.target;
+      e.toggle();
+      
+      
+    });
+  });
+  
 .contentRow.without_border.overflow-visible
   -if (!@item.expires_on.nil?) && (Date.strptime(@item.expires_on, '%m/%d/%Y') < Date.today)
     .alert.expired-notice
@@ -21,32 +43,34 @@
       This item expired on 
       = @item.expires_on 
       and it has not been deactivted or renewed by the author.  You may wish to comment or private message the author to check if it is still valid.
-  .itemPic.wide
-    = @item.class_feed
-    %br
-    = @item.thumb_with_lightbox
-  .itemInfo
-    %h1.itemTitle= @item.title
-    - if can? :manage, @item
-      #visiEXP
-        .visiRow
-          = @item.visibility_form
-          .xtraLine
-      .clear-right
-    .itemDesc= @item.description
-    - if @item.respond_to?(:link_tag)
-      Link:
-      = @item.link_tag
-    .multiLinks= @item.iconic_information(false)
-    .itemIcons
-      = @item.manage_links
-      - if can? :manange, @item
-        %span#addTo2.addTo2
-          %a{:href => "#"}
-            = image_tag('visible_icon.jpg')
-            = image_tag 'arrowDN.png'
-  .clear
-  = @item.suggest_item_form
+  .row-fluid    
+    .span12
+      %h2.page-heading
+        %i.icon-camera-retro        
+        = @item.title
+  .row-fluid  
+    .span12
+      .btn-toolbar{style: "margin:15px 0 5px -2px"}
+        = @item.manage_links
+  #suggest-form{style:"overflow:hidden; height: 0px"}
+    .row-fluid
+      .span12.padded10
+        = @item.suggest_item_form          
+  .row-fluid  
+    .span8
+      .item-body{style: "padding: 0px 10px;"}
+        #test
+          .itemDesc= @item.description
+          - if @item.respond_to?(:link_tag)
+            Link:
+            = @item.link_tag
+      posted by 
+      = link_to @item.user.display_name, profile_path(@item.user.display_name)    
+      .multiLinks= @item.iconic_information(false)
+    .span4
+      .itemPic.wide{style:"width: 90%"}
+        = @item.thumb_with_lightbox  
+
   
 - if @item.allows_offers?
   .contentRow.h_pad.without_border.without_padding

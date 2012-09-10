@@ -23,11 +23,13 @@ class Ability
       can :manage, Vouch, :voucher_id => user.id
       can :read, Notification, :receiver_id => user.id
       can :manage, Reminder, :user_id => user.id
+      
 
       # Any member of a community can issue an invite if it's a public group
       can :create, CommunityInvitation, :community => { :id => user.community_ids, :is_public => true }
       # The creator of the community can issue invites regardless of public/private
       can :create, CommunityInvitation, :community => { :user_id => user.id }
+      can :destroy, Community, :community => { :user_id => user.id }
       can :read_items, Community, :id => user.community_ids
       can [:accept,:decline], CommunityInvitation, :invitee_id => user.id, :status => 'P'
 

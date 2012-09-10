@@ -1,51 +1,63 @@
-.nameRow
-  .title_heading= "@#{@user.display_name}"
-  = @user.vouches_display
-  %ul.menu_with_dropdowns
-    = @user.manage_links(:li)
-    = @user.add_to_list
-.contentRow#user-profile
-
-  #upcoming-events
-    %h2 Upcoming Events
-    - if @upcoming_events.blank?
-      %p This user has no upcoming events.
-    - else
-      = render 'calendars/by_day', events: @upcoming_events
-    %p= link_to "View #{@user.display_name}'s event calendar", user_calendar_path(@user)
-  
-  .profilePic
-    = @user.profile_pic
-  .profileBio
-    #btxt
-      %ul
-        - %w( name about websites address phone ).each do |field|
-          - if @user.send(field).present?
-            %li
-              = "#{field}:"
-              = @user.send(field)
-        - if @user.open_hours.any?
-          %li
-            hours:
-            %ul
-              - @user.open_hours.each do |oh|
+.contentRow.without_border.overflow-visible
+  .row-fluid    
+    .span3
+      %div{style:" padding: 12px; height: 130px"}
+        = @user.profile_pic
+      .user-pages
+        .section-heading
+          User Pages
+        .indent
+      #upcoming-events
+        .section-heading
+          User Events
+        - if @upcoming_events.blank?
+          %p This user has no upcoming events.
+        - else
+          = render 'calendars/by_day', events: @upcoming_events
+        %p= link_to "#{@user.display_name}'s calendar", user_calendar_path(@user)      
+      .user-info
+        /= @user.vouches_display/
+    .span9{style:"margin-left: -20px"}
+      .row-fluid
+        .span12
+          %h2.page-heading     
+            = @user.display_name
+      .row-fluid  
+        .span12
+          .btn-toolbar{style: "margin:15px 0 5px -2px"}     
+            = @user.manage_links(:li)
+      .row-fluid
+        .span12
+          #btxt
+            %ul{style:"list-style:none; margin: 0px"}
+              - %w( name about websites address phone ).each do |field|
+                - if @user.send(field).present?
+                  %li
+                    = "#{field}:"
+                    = @user.send(field)
+              - if @user.open_hours.any?
                 %li
-                  = oh.day_of_week
-                  = oh.open_time
-                  to
-                  = oh.close_time
-  .more
-    %a#moreLink{:href => ""}
-      View Full Bio
-      = image_tag('arrowDN.png')
-  .clear
-.contentRow
-  %div
-    = tabbed_item_types('type')
-  - if false # This will be for importance/familiarty ordering
-    .addTo.filter
-      Filters
-      = image_tag('arrowDN.png')
+                  hours:
+                  %ul
+                    - @user.open_hours.each do |oh|
+                      %li
+                        = oh.day_of_week
+                        = oh.open_time
+                        to
+                        = oh.close_time
+            %a#moreLink{:href => ""}
+              View Full Bio
+              = image_tag('arrowDN.png')                  
 
-.contentRow
-  = render :partial => 'feeds/endless_scroll'
+      .row-fluid{style:"margin-top:15px;"}
+        .span12
+          %div
+            = tabbed_item_types('type')
+          - if false # This will be for importance/familiarty ordering
+            .addTo.filter
+              Filters
+              = image_tag('arrowDN.png')
+      .row-fluid
+        .span12
+
+          = render :partial => 'feeds/endless_scroll'

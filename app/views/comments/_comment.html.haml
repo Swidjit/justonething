@@ -3,14 +3,14 @@
     = UserDecorator.new(comment.user).linked_profile_pic('40')
     %span= link_to comment.user.display_name, profile_path(comment.user.display_name)
     says
-    %a.reply{:href => "#"} reply
-  %p= comment.text
-  .clear
-  .comment-reply.hidden
-    = form_for comment.item.comments.build do |f|
-      = f.hidden_field :parent_id, :value => comment.id
-      = f.text_area :text, :class => 'user-suggestion'
-      = f.submit 'Reply'
+    %p= comment.text
+    .nested-reply
+      %a{:href => "#"} reply
+      .reply-form
+        = form_for comment.item.comments.build do |f|
+          = f.hidden_field :ancestry, :value => comment.id
+          = f.text_area :text, :class => 'user-suggestion'
+          = f.submit 'Reply'
   - if comment.children.any?
     .nested_comments
       = render :partial => 'comments/comment', :collection => CommentDecorator.decorate(comment.children.order(:created_at))

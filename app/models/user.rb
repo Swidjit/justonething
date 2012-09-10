@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
 
   has_many :items
   has_many :lists
+  has_many :custom_feeds
+  has_many :custom_feed_subscriptions
   has_and_belongs_to_many :communities, :uniq => true
   has_many :recommendations, :dependent => :destroy
   has_many :rsvps, :dependent => :destroy

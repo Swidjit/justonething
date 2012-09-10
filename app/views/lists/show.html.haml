@@ -1,10 +1,9 @@
 .title_heading= @list.name
 =link_to 'Delete list', list_path(@list), :confirm => 'Are you sure?', :method => 'delete'
 
-%h3
-  %a{:href => "#", :class => 'toggle-user-edit'}= image_tag 'right_arrow.png', :class => 'left'
-  Users
-.user_edit.hidden.contentRow
+.section-heading
+  Users in List
+.user_edit
   %ul.tokenized
     %li.add_token
       %input.add-to-list.autocomplete-user{:type=>'text',:placeholder=>'add user'}

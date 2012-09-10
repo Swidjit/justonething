@@ -87,17 +87,14 @@
 }
 
 #upcoming-events {
-    float:right;
-    width: 300px;
     font-size:90%;
-    background:#E1E7EC;
-    padding:0 10px;
+    padding:0 10px 0 0;
     
     .calendar-day h2 {
-        width:50px;
+        width:35px;
     }
     .calendar-item {
-        margin-left:68px;
+        margin-left:50px;
         padding:0px;
     }
 }
@@ -106,4 +103,10 @@
     .more {
         float:left;
     }
+}
+
+#btxt {
+	background-color: #eee;
+	padding: 10px;
+	margin-top:15px;
 }

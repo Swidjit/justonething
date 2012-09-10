@@ -2,13 +2,7 @@ class SuggestedItemsController < ApplicationController
   
   authorize_resource :only => :destroy
   before_filter :load_resource, :only => :destroy
-  
-  
-  
-  def show
-    #suggested_item = SuggestedItem.where(:user_id => current_user.id)
-  end  
-  
+ 
   def new
     @suggested_item = SuggestedItem.new
   end
@@ -21,14 +15,12 @@ class SuggestedItemsController < ApplicationController
       #debugger
       if @suggested_item.save
         flash[:notice] = "Item suggested."
-        redirect_to :back
       else
         flash[:error] = "An error occurred."
-        redirect_to :fuck
       end 
-      
+      redirect_to :back
     else
-      redirect_to :home 
+      redirect_to :back 
     end
   end
   

@@ -1,0 +1,9 @@
+.btn-group
+  %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+    %i.icon-cog
+  %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+    %span.caret
+  %ul.dropdown-menu.pull-right
+    - links.each do |link|
+      %li
+        = link.html_safe

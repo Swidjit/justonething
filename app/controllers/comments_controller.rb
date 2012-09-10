@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   authorize_resource
+  before_filter :load_resource, :only => :destroy
 
   def create
     comment = Comment.new params[:comment]
@@ -16,5 +17,19 @@ class CommentsController < ApplicationController
       redirect_to root_path
     end
   end
+  
+  def destroy
+    if @comment.destroy
+      flash[:notice] = "Bookmark removed"
+    else
+      flash[:error] = "An error occurred."
+    end
 
+    redirect_to :back
+  end
+    
+private
+  def load_resource
+    @comment = Comment.find(params[:id])
+  end
 end

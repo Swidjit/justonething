@@ -1,63 +1,70 @@
-%h1.title_heading
-  = image_tag 'item_icon_cal.png', :class => 'left right-margin'
-  = @calendar_title
-
-- week_links = capture do
-  = (@week == 0) ? "&laquo; prev week".html_safe : link_to("&laquo; prev week".html_safe, resource_path(from: @calendar.beginning_of_previous_week, to: @calendar.end_of_previous_week))
-  |
-  = link_to "next week &raquo;".html_safe, resource_path(from: @calendar.beginning_of_next_week, to: @calendar.end_of_next_week)
-  %form{method: 'GET'}
-    = hidden_field_tag :from, @from
-    = hidden_field_tag :to, @to
-    = text_field_tag :filter, @filter, placeholder: 'Filter by tag'
-    = submit_tag 'Submit'
-    %input{type: :reset, value: 'Reset', onclick: "$('#filter').val(null);$(this).closest('form').submit()"}
-    
-.contentRow.without_border.left-padding
-  = "you are currently viewing #{@filter || 'all events'}"
-  - if @item_preset_tags.present?
-    (
-    %ul.inline_menu_with_dropdowns
-      %li
-        %a{:href => "#",:onclick => "return false"}
-          filters
-          = image_tag 'arrowDN.png'
-        %div#filter_rainbow_dropdown.dropdown_1column.align_right1
-          - @item_preset_tags.each do |ipt|
-            %div.col_1
-              = link_to ipt.tag, params.merge({:filter => ipt.tag})
-    )
-
-  %span
-    = "for #{@calendar.date_display}"
-    %input.datepicker#calendar_select_date_hidden{:type => :hidden}
-    %a#calendar_select_date{:href => '#'}
+.contentRow.without_border.overflow-visible
+  .row-fluid    
+    .span12
+      %h2.page-heading
+        %i.icon-calendar        
+        = @calendar_title
+      .clear
+      .page_sub_heading
+        Subscribe to this calendar:
+        = link_to calendar_url(format: :ics, filter: @filter)
+      
+  .row-fluid    
+    .span6.feature-text
+      .section-heading
+        Change Date
       select a new date
-      = image_tag 'arrowDN.png'
-
-  %span.calendar-week-links-top
-    = week_links
-    %p
-      Subscribe to this calendar:
+      %input.datepicker#calendar_select_date_hidden{:type => :hidden}
+      %a#calendar_select_date{:href => '#'}
+        select a new date
+        = image_tag 'arrowDN.png'      
       %br
-      = link_to calendar_url(format: :ics, filter: @filter)
+      or scroll through by week
+      - week_links = capture do
+        = (@week == 0) ? "&laquo; prev week".html_safe : link_to("&laquo; prev week".html_safe, resource_path(from: @calendar.beginning_of_previous_week, to: @calendar.end_of_previous_week))
+        |
+        = link_to "next week &raquo;".html_safe, resource_path(from: @calendar.beginning_of_next_week, to: @calendar.end_of_next_week)
 
-%div.clearAll
+      = week_links
+      %p     
+    .span6.feature-text
+      .section-heading
+        Filter      
+      filter this calendar by 
+      - if @item_preset_tags.present?
+        %ul.inline_menu_with_dropdowns
+          %li
+            %a{:href => "#",:onclick => "return false"}
+              event type
+              = image_tag 'arrowDN.png'
+            %div#filter_rainbow_dropdown.dropdown_1column.align_right1
+              - @item_preset_tags.each do |ipt|
+                %div.col_1
+                  = link_to ipt.tag, params.merge({:filter => ipt.tag})
+        %br
+        
+        %form{method: 'GET'}
+          = hidden_field_tag :from, @from
+          = hidden_field_tag :to, @to
+          = text_field_tag :filter, @filter, placeholder: 'or filter by any tag'
+          = submit_tag 'Submit'
+          %input{type: :reset, value: 'Reset', onclick: "$('#filter').val(null);$(this).closest('form').submit()"}
+ 
+         
+  - if @user_events.present?
+    %div.calendar-column.left
+      = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
 
-- if @user_events.present?
-  %div.calendar-column.left
-    = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
+    %div.calendar-column.right
+      = render :partial => 'column', :locals => { :title => 'your events', :show_nav => false, :events => @user_events }
 
-  %div.calendar-column.right
-    = render :partial => 'column', :locals => { :title => 'your events', :show_nav => false, :events => @user_events }
+  - else
+    %div.left{:style => 'width: 100%'}
+      = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
 
-- else
-  %div.left{:style => 'width: 100%'}
-    = render :partial => 'column', :locals => { :title => 'upcoming events', :show_nav => true, :events => @events }
-
-.cal_lower_nav.clearAll
-  = week_links
-%div.clearAll
+  .cal_lower_nav.clearAll
+    = week_links
+  %div.clearAll
 
 - content_for :head do
   %meta{:property => "og:title", :content => "Ithaca Events - Ithaca Swidjit"}

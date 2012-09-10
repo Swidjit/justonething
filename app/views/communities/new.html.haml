@@ -1,16 +1,22 @@
 
 .headingLeft
-  .page_heading
-    = image_tag('notification.png')
-    Create a New Community
+  %h2.page-heading
+    %i.icon-group        
+    Create a Community
 .clear
 .indent
   .mainDesc
-    Communities are a great way to communicate with a select group of people around a specific topic of interest.  They are an effective way to organize a discussion around a common theme while using all of Swidjit's social and organizational features.  Communites can be public (anyone can join) or private (invite-only).  They can be visible (anyone can browse) or hidden (only community members can see it).  In time, we will also be adding the ability to moderate communities, and to post to them via email.
+    Communities are a great way to communicate with a group of people around a specific topic of interest.  They are an effective way to organize a discussion around a common theme while using all of Swidjit's social and organizational features.  Communites can be public (anyone can join) or private (invite-only).  They can be visible (anyone can browse) or hidden (only community members can see it).  In time, we will also be adding the ability to moderate communities, and to post to them via email.
   
-= semantic_form_for @community do |f|
+= semantic_form_for @community, :html => { :id => "community-form"} do |f|
   = f.inputs do
-    = f.input :name, :label => 'Community Name'
-    = f.input :is_public, :label => 'Public community'
-    = f.input :description, :label => 'Description'
+    
+    .form-title
+      %i.icon-group
+      Add a New Community
+    = f.input :name,:input_html => {:placeholder => 'name your community here'}    
+    .form-section-break
+    = f.input :description, :input_html => {:placeholder => 'now describe what it is all about'}
+    .form-section-break
+    = f.input :is_public, :hint => "uncheck if you want this community to be invite-only", :label => ' make this a public community'
   = f.submit

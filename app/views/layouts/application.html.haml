@@ -12,147 +12,170 @@
       = stylesheet_link_tag '/assets/jqcss/ie_only.css'
     :javascript
       var base_list_url = '#{list_path(0)}';
+      var base_custom_feed_element_url = '#{custom_feed_element_path(0)}';
       var fb_app_id = '#{Facebook::APP_ID}';
     = javascript_include_tag "application"
+    = javascript_include_tag "slider.js"
     = yield :head
     = csrf_meta_tags
   %body
 
     = render :partial => 'layouts/facebook_js'
 
-    #container
-      #top_nav
-        .logo= link_to(image_tag('logo.jpg'), root_path)
-        .column_content_nav
-          %form#search{method: "get", action: search_feeds_path }
-            %input{type: "text", id: "search_input", name: "q", placeholder: "search Ithaca, NY"}
-            %input{type: "submit", value: "search", id: "search_button"}
-        #top_nav_menu
-          - if signed_in?
-            = link_to "", edit_user_path(current_user), :class => 'topLinks top5', :title => 'Edit Profile'
-            = link_to "", user_offers_path(current_user.display_name), :class => 'topLinks icon_offer', :title => 'Offers'
-            = link_to "", user_notifications_path(current_user.display_name), :class => 'topLinks top4', :title => 'Notifications'
-            = link_to "", bookmarks_path, :class => 'topLinks top3', :title => 'Bookmarks'
-            = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2', :title => 'Profile'
-            = link_to "", calendar_path, :class => 'topLinks top1', :title => 'Events Calendar'
-          - else    
-            = link_to "", calendar_path, :class => 'topLinks top1', :title => 'Events Calendar'
-            %div{:style => "margin-top:15px;float:right;color:#ffffff"}
-              ithaca event calendar
-      .clear
-      #menu
-        
-        #menuInnerWrapper
+    .navbar-fixed-top
+      .navbar-inner
+        .row-fluid 
+          .span3
+            .logo= link_to(image_tag('logo.jpg'), root_path)
+          .span4
+            .column_content_nav
+              %form#search{method: "get", action: search_feeds_path }
+                %input{type: "text", id: "search_input", name: "q", placeholder: "search Ithaca, NY"}
+                %input{type: "submit", value: "search", id: "search_button"}
+          .span5      
+            #top_nav_menu
+              - if signed_in?
+                = link_to "", edit_user_path(current_user), :class => 'topLinks top5', :title => 'Edit Profile'
+                = link_to "", user_offers_path(current_user.display_name), :class => 'topLinks icon_offer', :title => 'Offers'
+                = link_to "", user_notifications_path(current_user.display_name), :class => 'topLinks top4', :title => 'Notifications'
+                = link_to "", bookmarks_path, :class => 'topLinks top3', :title => 'Bookmarks'
+                = link_to "", profile_path(current_user.display_name), :class=> 'topLinks top2', :title => 'Profile'
+                = link_to "", calendar_path, :class => 'topLinks top1', :title => 'Events Calendar'
+              - else    
+                = link_to "", calendar_path, :class => 'topLinks top1', :title => 'Events Calendar'
+                %div{:style => "margin-top:15px;float:right;color:#ffffff"}
+                  ithaca event calendar
+    .container-fluid{style:"background-color:#075a8e"}
+      .row-fluid  
+        .span3
+          .sidebar-nav.sidebar-nav-fixed
 
-          #multiAccordion
-            
-            %h3
-              %a.secHdr1{:href => "#"} Categories
-            %div
-              %ul.navMenus
-                %li= link_to "Have Its", main_feeds_path(type: 'have_its')
-                %li= link_to "Want Its", main_feeds_path(type: 'want_its')
-                %li= link_to "Thoughts", main_feeds_path(type: 'thoughts')
-                %li= link_to "Links", main_feeds_path(type: 'links')
-                %li= link_to 'Events', calendar_path
-                %li= link_to 'Collections', main_feeds_path(type: 'collections')
-            %h3
-              %a.secHdr1{:href => "#"} System Feeds
-            %div
-              %ul.navMenus
-                %li= link_to 'Recommendations', recommendations_feeds_path
-                %li= link_to 'All Items', main_feeds_path
+            #menuInnerWrapper
+              #multiAccordion
+
+                %h3
+              
+                  %a.secHdr1{:href => "#"} Categories
+                %div
+                  %ul.navMenus
+                    %li= link_to "Have Its", main_feeds_path(type: 'have_its')
+                    %li= link_to "Want Its", main_feeds_path(type: 'want_its')
+                    %li= link_to "Thoughts", main_feeds_path(type: 'thoughts')
+                    %li= link_to "Links", main_feeds_path(type: 'links')
+                    %li= link_to 'Events', calendar_path
+                    %li= link_to 'Collections', main_feeds_path(type: 'collections')
+                %h3
+                  %a.secHdr1{:href => "#"} System Feeds
+                %div
+                  %ul.navMenus
+                    %li= link_to 'Recommendations', recommendations_feeds_path
+                    %li= link_to 'All Items', main_feeds_path
+                    - if signed_in?
+                      %li= link_to 'Familiar Users', familiar_users_feeds_path
+                      %li= link_to 'Suggested to You', suggested_items_feeds_path
+                      %li= link_to 'Mentions', references_user_path(current_user)
+                      %li= link_to 'Inactive Items', drafts_feeds_path
+                      - if current_user.geo_tags.present?
+                        %li= link_to 'Nearby', nearby_feeds_path
+                %h3
+                  %a.secHdr6{:href=>'#'} Collections
+                %div
+                  %ul.navMenus
+                    - if signed_in? && current_user.collections.any?
+                      -current_user.collections.each do |col|
+                        %li= link_to col.title, col
+                    - else 
+                      %li= "no collections yet"
+                %h3
+                  %a.secHdr2{:href => "#"} Communities
+                %div
+                  %ul.navMenus
+                    %li= link_to 'List of Communities', communities_path
+                    - if signed_in?
+                      %li= link_to 'Create a Community', new_community_path
+                      - current_user.communities.each do |comm|
+                        %li= link_to comm.name, comm
                 - if signed_in?
-                  %li= link_to 'Familiar Users', familiar_users_feeds_path
-                  %li= link_to 'Suggested to You', suggested_items_feeds_path
-                  %li= link_to 'Mentions', references_user_path(current_user)
-                  %li= link_to 'Inactive Items', drafts_feeds_path
-                  - if current_user.geo_tags.present?
-                    %li= link_to 'Nearby', nearby_feeds_path
-            %h3
-              %a.secHdr6{:href=>'#'} Collections
-            %div
-              %ul.navMenus
-                - if signed_in? && current_user.collections.any?
-                  -current_user.collections.each do |col|
-                    %li= link_to col.title, col
-                - else 
-                  %li= "no collections yet"
-            %h3
-              %a.secHdr2{:href => "#"} Communities
-            %div
-              %ul.navMenus
-                %li= link_to 'List of Communities', communities_path
+                  %h3
+                    %a.secHdr3{:href => "#"} Lists
+                  %div
+                    %ul.navMenus
+                      - current_user.lists.each do |list|
+                        %li= link_to list.name, list
+                      %li
+                        = form_for List.new do |f|
+                          = f.submit '+'
+                          = f.text_field :name, :placeholder => 'list name'
+                        #new_list_errors
                 - if signed_in?
-                  %li= link_to 'Create a Community', new_community_path
-                  - current_user.communities.each do |comm|
-                    %li= link_to comm.name, comm
+                  %h3
+                    %a.secHdr3{:href => "#"} Custom Feeds
+                  %div
+                    %ul.navMenus
+                      - current_user.custom_feed_subscriptions.each do |subscription|
+                        %li= link_to subscription.custom_feed.name, subscription.custom_feed
+                      %li
+                        = render :partial => 'custom_feeds/sidebar_form'
+                        #new_cs_errors
+
+                %h3
+                  %a.secHdr1{:href => "#"} Meet Swidjit
+                %div
+                  %ul.navMenus
+                    %li= link_to "FAQ", pages_path(:page_name => :faq)
+                    %li= link_to "About", pages_path(:page_name => :about)
+                    %li= link_to "Privacy", pages_path(:page_name => 'privacy-policy')
+                    %li= link_to "Blog", 'http://blog.swidjit.com/'
+                    %li= link_to "Contact", contact_path
+                    - if signed_in?
+                      %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
+                    - else
+                      %li= link_to 'Sign in/Register', new_user_session_path         
+              #socialmedia_icons
+                = link_to image_tag('icons/twitter.png'), 'https://twitter.com/#!/Swidjit'
+                = link_to image_tag('icons/facebook.png'), 'http://www.facebook.com/pages/Swidjit/194313903947215'
+                = link_to image_tag('icons/googleplus.png', :alt => 'GooglePlus'), 'https://plus.google.com/u/0/b/116234830703382726755/'
+                = link_to image_tag('icons/youtube.png'), 'http://www.youtube.com/user/Swidjit'
+              - if signed_in?
+                - if current_user.is_admin?
+                  %li= link_to 'Manage Preset Tags', item_preset_tags_path
+                  %li= link_to 'Manage Flagged Items', flagged_items_path
+                  %li= link_to 'Manage Users', admin_users_path
+              -#
+                - unless user_signed_in?
+                  = form_for(:user, :url => user_session_path) do |f|
+                    = f.label :email
+                    = f.text_field :email              
+                    = f.label :password
+                    = f.password_field :password              
+                    = f.submit "Sign in"              
+      
+        .span9{style:"background-color:#fff"}
+          .add_item_bar
             - if signed_in?
-              %h3
-                %a.secHdr3{:href => "#"} Lists
-              %div
-                %ul.navMenus
-                  - current_user.lists.each do |list|
-                    %li= link_to list.name, list
-                  %li
-                    = form_for List.new do |f|
-                      = f.submit '+'
-                      = f.text_field :name, :placeholder => 'list name'
-                    #new_list_errors
-              %h3
-                %a.secHdr1{:href => "#"} Meet Swidjit
-              %div
-                %ul.navMenus
-                  %li= link_to "FAQ", pages_path(:page_name => :faq)
-                  %li= link_to "About", pages_path(:page_name => :about)
-                  %li= link_to "Privacy", pages_path(:page_name => 'privacy-policy')
-                  %li= link_to "Blog", 'http://blog.swidjit.com/'
-                  %li= link_to "Contact", contact_path
-                  - if signed_in?
-                    %li= link_to "Log out", destroy_user_session_url, :method => 'delete'
-                  - else
-                    %li= link_to 'Sign in/Register', new_user_session_path         
-          #socialmedia_icons
-            = link_to image_tag('icons/twitter.png'), 'https://twitter.com/#!/Swidjit'
-            = link_to image_tag('icons/facebook.png'), 'http://www.facebook.com/pages/Swidjit/194313903947215'
-            = link_to image_tag('icons/googleplus.png', :alt => 'GooglePlus'), 'https://plus.google.com/u/0/b/116234830703382726755/'
-            = link_to image_tag('icons/youtube.png'), 'http://www.youtube.com/user/Swidjit'
-          - if signed_in?
-            - if current_user.is_admin?
-              %li= link_to 'Manage Preset Tags', item_preset_tags_path
-              %li= link_to 'Manage Flagged Items', flagged_items_path
-              %li= link_to 'Manage Users', admin_users_path
-          -#
-            - unless user_signed_in?
-              = form_for(:user, :url => user_session_path) do |f|
-                = f.label :email
-                = f.text_field :email              
-                = f.label :password
-                = f.password_field :password              
-                = f.submit "Sign in"              
+              .add_item_row
+                .addLink
+                  %a#add_item_button{:href => "#"}
+                = current_decorated_user.item_creation_links
+                %div{:style => "clear:both;"}
+            - else
+              .add_item_row.logged_out
+                Welcome, guest. Please
+                = link_to('login/register',new_user_session_path)
+                to add content and participate in social tools
 
-      #content
 
-        - if signed_in?
-          .add_item_row
-            .addLink
-              %a#add_item_button{:href => "#"}
-            = current_decorated_user.item_creation_links
-            %div{:style => "clear:both;"}
-        - else
-          .add_item_row.logged_out
-            Welcome, guest. Please
-            = link_to('login/register',new_user_session_path)
-            to add content and participate in social tools
-        .mainContentWrap
-          #add_item_form_wrapper
-            #add_item_form.item_form
-          .mainContent
-            -if notice.present?
-              %span.notice= notice
-            -if alert.present?
-              %span.alert= alert
-            = yield
+          %div{style:"padding-top:40px; background-color: #fff"}
+            #add_item_form_wrapper
+              #add_item_form.item_form
+
+            .mainContent
+              -if notice.present?
+                %span.notice= notice
+              -if alert.present?
+                %span.alert= alert
+              = yield
+               
     :javascript
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-24444933-1']);

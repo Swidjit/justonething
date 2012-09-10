@@ -45,9 +45,7 @@ class ListsController < ApplicationController
       notice = "Successfully added user to #{@list.name}"
       success_val = true
     end
-    respond_to do |f|
-      f.json { render :json => {:notice => notice, :success => success_val, :user_id => user.id }}
-    end
+    redirect_to :back
   end
 
   def delete_user
