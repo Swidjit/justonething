@@ -4,6 +4,10 @@ class RegistrationsController < Devise::RegistrationsController
     new_user_session_path
   end
 
+  def create
+    super
+  end
+
   def build_resource(hash=nil)
     hash ||= params[resource_name] || {}
     self.resource = resource_class.new_with_session(hash, session)

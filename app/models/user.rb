@@ -26,6 +26,27 @@ class User < ActiveRecord::Base
   before_validation :update_open_hours_if_present
 
   attr_accessor :is_thirteen, :new_open_hours, :geo_tag_list
+  
+  def active_for_authentication? 
+    super && approved? 
+  end 
+
+  def approved?
+    valid_zips = [ 14883,13864,13073,13068,14580,14581,14582,14583,14584,14585,14586,14587,14588,14589,14813,14867,14886,14882];
+    if (valid_zips.include?(self.zipcode.to_i))
+      true
+    else
+      false
+    end
+  end
+
+  def inactive_message 
+    if !approved? 
+      :not_approved 
+    else 
+      super # Use whatever other message 
+    end 
+  end
 
   has_many :items
   has_many :lists
@@ -72,6 +93,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :profile_pic
 
   after_create :add_to_city
+
 
   class << self
     def all_by_lower_display_name(display_names)
@@ -161,6 +183,7 @@ class User < ActiveRecord::Base
     # TODO: base this off of zipcode?
     self.cities << City.first
   end
+
 
   def is_thirteen?
     errors.add(:base,'You must be at least 13 years of age to register') if is_thirteen.blank? || is_thirteen.to_i != 1
