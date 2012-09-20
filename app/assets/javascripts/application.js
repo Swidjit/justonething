@@ -11,7 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery_ujs
-//= require twitter/bootstrap
+//= require bootstrap
 //= require jquery.tokeninput
 //= require jquery.caret
 //= require jquery.multi-accordion-1.5.3
