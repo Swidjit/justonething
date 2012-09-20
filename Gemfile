@@ -65,8 +65,8 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'ruby-debug19'
 
-  # Jenkins CI needs a JS runtime
-  gem 'therubyracer', '0.9.10'
-  
+
 end
 
+  # Jenkins CI needs a JS runtime
+  gem 'therubyracer', '0.9.10'
