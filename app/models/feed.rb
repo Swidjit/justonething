@@ -12,7 +12,7 @@ class Feed < ActiveRecord::Base
   validates_presence_of :name, :url, :user
   validate :validate_ical, :if => :url_changed?
 
-  attr_accessible :name, :url, :tag_list, :geo_tag_list, :_destroy, :_process, as: :default
+  attr_accessible :name, :url, :location, :tag_list, :geo_tag_list, :_destroy, :_process, as: :default
   
   after_initialize :set_defaults
   after_create :process!

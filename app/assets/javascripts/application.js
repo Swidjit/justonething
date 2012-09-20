@@ -18,7 +18,11 @@
 //= require auto
 //= require jquery.pageless
 //= require jquery.xdomainajax
-//= require lightbox
+//= require jquery.ui.timepicker
+//= require jquery.pageless
+//= require jquery.smooth-scroll.min
+//= require lightview
+//= require excanvas
 //= require_directory .
 
 jQuery(function() {
@@ -206,6 +210,7 @@ $(".toggle-user-edit").live("click",function(){
   var slider = $(this).parent().siblings('.user_edit');
 
   swidjit.toggleWithArrow(img_tag,slider);
+    slider.toggleClass('hidden');
   return false;
 });
 

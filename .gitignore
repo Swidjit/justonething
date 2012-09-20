@@ -31,3 +31,4 @@
 *.dump
 *.rdb
 nohup.out
+/.idea

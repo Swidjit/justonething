@@ -337,38 +337,7 @@ ActiveRecord::Schema.define(:version => 20120904235720) do
   add_index "vouches", ["vouchee_id"], :name => "index_vouches_on_vouchee_id"
   add_index "vouches", ["voucher_id", "vouchee_id"], :name => "index_vouches_on_voucher_id_and_vouchee_id", :unique => true
 
-  add_foreign_key "bookmarks", "items", :name => "bookmarks_item_id_fk"
-  add_foreign_key "bookmarks", "users", :name => "bookmarks_user_id_fk"
-
-  add_foreign_key "cities_users", "cities", :name => "cities_users_city_id_fk", :dependent => :delete
-  add_foreign_key "cities_users", "users", :name => "cities_users_user_id_fk", :dependent => :delete
-
-  add_foreign_key "delegates", "users", :name => "delegates_delegatee_id_fk", :column => "delegatee_id"
-  add_foreign_key "delegates", "users", :name => "delegates_delegator_id_fk", :column => "delegator_id"
-
-  add_foreign_key "feeds", "users", :name => "feeds_user_id_fk", :dependent => :delete
-
-  add_foreign_key "item_flags", "items", :name => "item_flags_item_id_fk"
-  add_foreign_key "item_flags", "users", :name => "item_flags_user_id_fk"
-
-  add_foreign_key "items", "users", :name => "items_posted_by_user_id_fk", :column => "posted_by_user_id"
-
-  add_foreign_key "offer_messages", "offers", :name => "offer_messages_offer_id_fk"
-  add_foreign_key "offer_messages", "users", :name => "offer_messages_user_id_fk"
-
-  add_foreign_key "offers", "items", :name => "offers_item_id_fk"
-  add_foreign_key "offers", "users", :name => "offers_user_id_fk"
-
-  add_foreign_key "reminders", "items", :name => "reminders_item_id_fk"
-  add_foreign_key "reminders", "users", :name => "reminders_user_id_fk"
-
-  add_foreign_key "rsvps", "items", :name => "rsvps_item_id_fk"
-  add_foreign_key "rsvps", "users", :name => "rsvps_user_id_fk"
-
   add_foreign_key "suggested_items", "items", :name => "suggested_items_item_id_fk"
   add_foreign_key "suggested_items", "users", :name => "suggested_items_user_id_fk"
-
-  add_foreign_key "users_tags", "tags", :name => "users_tags_tag_id_fk"
-  add_foreign_key "users_tags", "users", :name => "users_tags_user_id_fk"
 
 end
