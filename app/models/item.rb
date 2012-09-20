@@ -74,6 +74,10 @@ class Item < ActiveRecord::Base
 
   scope :flagged, :conditions => "EXISTS (SELECT * FROM #{ItemFlag.table_name} WHERE #{ItemFlag.table_name}.item_id = #{table_name}.id)"
 
+  scope :within_community, lambda { |community|
+    joins(:communities).where('communities.id'=>community.id)
+  }
+
   def self.access_controlled_for(user, city, ability)
     user ||= User.new
     controlled_scope = joins("LEFT JOIN #{ItemVisibilityRule.table_name} ivr ON #{self.table_name}.id = ivr.item_id " +

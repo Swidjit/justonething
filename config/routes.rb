@@ -79,6 +79,11 @@ Swidjit::Application.routes.draw do
         delete :leave
         resources :community_invitations, :only => :create
       end
+      resource :calendar, :only => [:show] do
+        collection do
+          get :date, :path => "date/:month/:day/:year", action: :show #, :controller => :calendar, :action => :index
+        end
+      end
     end
 
     resources :lists, :only => [:show,:create,:destroy,:add_user] do

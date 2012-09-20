@@ -71,6 +71,8 @@ class UserDecorator < ApplicationDecorator
       links << h.link_to('link', h.new_link_path(path_options), :id => 'post_link', :class => 'add_item_txt')
       links << h.link_to('event', h.new_event_path(path_options), :id => 'post_event', :class => 'add_item_txt')
       links << h.link_to('collection', h.new_collection_path(path_options), :id => 'post_collection', :class => 'add_item_txt')
+    else
+      links << h.content_tag(:span, 'you must be a member of the community')
     end
     links.join(' ').html_safe
   end

@@ -13,6 +13,7 @@ class CalendarsController < ApplicationController
     end
 
     @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+
     calendar_options = { 
       from: @from, 
       to: @to, 
@@ -20,14 +21,26 @@ class CalendarsController < ApplicationController
       user: @user, 
       current_user: current_user, 
       city: current_city, 
-      ability: current_ability 
+      ability: current_ability,
     }
+
     calendar_options.merge!(user_created: true) if params[:user_id]
+    if params[:community_id]
+      @community = Community.find params[:community_id]
+      calendar_options.merge!(community: @community, community_created: true)
+    end
+
     respond_to do |format|
       format.html {
         @calendar = Calendar.new calendar_options
         @filter = params[:filter]
-        @calendar_title = params[:user_id].present? ? "#{@user.display_name}'s" : @current_city.name
+        @calendar_title = if @community
+                            "#{@community.name}'s"
+                          elsif params[:user_id].present?
+                            "#{@user.display_name}'s"
+                          else
+                            @current_city.name
+                          end
         @calendar_title << " Events Calendar"
         @title = @calendar_title
         @events = @calendar.events

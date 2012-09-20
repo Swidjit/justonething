@@ -3,15 +3,18 @@ class Calendar
   attr_accessor :from, :to, :filter, :user
   
   def self.upcoming_events(options=nil)
-    user, city, ability = options[:user], options[:city], options[:ability]
+    #community, user, city, ability = options[:community], options[:user], options[:city], options[:ability]
     now = Time.now
-    calendar = Calendar.new from: now, to: (now + 2.weeks), user: user, city: city, ability: ability, user_created: true
+    options.merge! from: now, to: (now + 2.weeks)
+    options.merge!(user_created: true) if options.key?(:user)
+    options.merge!(community_created: true) if options.key?(:community)
+    calendar = Calendar.new options
     calendar.events[0..3]
   end
   
   def initialize(options={})
-    @from, @to, @filter, @user, @current_user = options[:from], options[:to], options[:filter], options[:user], options[:current_user]
-    @city, @ability, @ical, @user_created = options[:city], options[:ability], options[:ical], options[:user_created]
+    @community, @from, @to, @filter, @user, @current_user = options[:community], options[:from], options[:to], options[:filter], options[:user], options[:current_user]
+    @city, @ability, @ical, @user_created, @community_created = options[:city], options[:ability], options[:ical], options[:user_created], options[:community_created]
   end
   
   def to_ics
@@ -29,6 +32,7 @@ class Calendar
     @events = @events.where(user_id: @user.id) if @user and @user_created
     @events = @events.access_controlled_for(@current_user, @city, @ability) # if @city and @user
     @events = @events.having_tag_with_name(@filter) if @filter.present?
+    @events = @events.within_community(@community) if @community and @community_created
     @events = @events.includes(:user).where active: true
     @events = @events.map {|event| event.occurrences_between(from, to)}.flatten.sort_by(&:start_datetime) unless @ical
   end

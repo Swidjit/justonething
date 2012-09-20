@@ -23,8 +23,17 @@
     Community Description
   .indent
     = @community.description
-        
-    
+
+  .section-heading
+    #upcoming-events
+      .section-heading
+        Community Events
+      - if @upcoming_events.blank?
+        %p This user has no upcoming events.
+      - else
+        = render 'calendars/by_day', events: @upcoming_events
+      %p= link_to "#{@community.name}'s calendar", community_calendar_path(@community)
+
   .section-heading
     Community Posts
   - if can? :read_items, @community

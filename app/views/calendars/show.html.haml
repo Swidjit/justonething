@@ -7,7 +7,12 @@
       .clear
       .page_sub_heading
         Subscribe to this calendar:
-        = link_to calendar_url(format: :ics, filter: @filter)
+        - if params[:user_id].present?
+          = link_to user_calendar_url(@user, format: :ics, filter: @filter)
+        - elsif params[:community_id].present?
+          = link_to community_calendar_url(@community, format: :ics, filter: @filter)
+        - else
+          = link_to calendar_url(format: :ics, filter: @filter)
       
   .row-fluid    
     .span6.feature-text
