@@ -6,7 +6,7 @@ class Event < Item
   include Reminders
   
   attr_accessible :cost, :location, :start_datetime, :end_datetime, :start_date, :start_time,
-    :end_date, :end_time, :rule, :weekly_day, :monthly_week, :monthly_day, :monthly_date, :times
+    :end_date, :end_time, :rules, :times
 
   validates_presence_of :location, :start_datetime
   validates_presence_of :start_date, :start_time, if: :processing_through_ui?

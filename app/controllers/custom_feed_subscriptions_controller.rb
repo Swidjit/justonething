@@ -3,7 +3,7 @@ class CustomFeedSubscriptionsController < ApplicationController
   def index
      @user_subscriptions  = current_user.custom_feed_subscriptions;
      #render 'index'      
-  def
+  end
     
   def create
     @feed_subscription = CustomFeedSubscription.new
@@ -18,16 +18,17 @@ class CustomFeedSubscriptionsController < ApplicationController
   end
   
   def update_frequency
-    @feed_subscription = CustomFeedSubscription.find(params[:feed_subscription][:id]);
+    @feed_subscription = CustomFeedSubscription.find(params[:feed_subscription][:id])
     @feed_subscription.frequency = params[:feed_subscription][:frequency]
     if @feed_subscription.save
       puts("saved")
     else
       puts("failed")
     end
+  end
 
   def destroy
-    @feed_subscription = CustomFeedSubscription.find(params[:feed_subscription][:id]);
+    @feed_subscription = CustomFeedSubscription.find(params[:feed_subscription][:id])
     @feed_description.destroy
   end
   

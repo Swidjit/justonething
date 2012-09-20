@@ -1,0 +1,35 @@
+%li.rule
+  %ul
+    %li
+      %label
+        = radio_button_tag "event[rules][#{index}][rule]", 'none', rule.is_empty?
+        %span This rule is empty.
+    %li
+      %label
+        = radio_button_tag "event[rules][#{index}][rule]", 'daily', rule.is_daily?
+        %span This event repeats daily until the expiration date below.
+    %li
+      %label
+        = radio_button_tag "event[rules][#{index}][rule]", 'weekly', rule.is_weekly?
+        %span
+          This event repeats weekly on
+          = select_tag "event[rules][#{index}][weekly_day]", options_for_select(weekday_options, rule.weekly_day), class: 'weekly-day'
+          until the expiration date below
+    %li
+      %label
+        = radio_button_tag "event[rules][#{index}][rule]", 'monthly_week', rule.is_monthly_week?
+        %span
+          This event repeats every
+          = select_tag "event[rules][#{index}][monthly_week]", options_for_select(week_of_month_options, rule.monthly_week), class: 'monthly-week'
+          = select_tag "event[rules][#{index}][monthly_day]", options_for_select(weekday_options, rule.monthly_day), class: 'monthly-day'
+          of the month until the expiration date below.
+    %li
+      %label
+        = radio_button_tag "event[rules][#{index}][rule]", 'monthly_date', rule.is_monthly_date?
+        %span
+          This event repeats every
+          = select_tag "event[rules][#{index}][monthly_date]", options_for_select(date_of_month_options, rule.monthly_date), class: 'monthly-date'
+          of the month until the expiration date below.
+    %li
+      %label
+        = link_to 'Remove this rule', '#', class: 'remove-rule'

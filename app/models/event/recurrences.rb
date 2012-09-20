@@ -5,17 +5,20 @@ module Event::Recurrences
 
   included do
 
-    attr_reader :schedule
-    attr_writer :weekly_day, :monthly_week, :monthly_day, :monthly_date
-    before_validation :write_rules
+    attr_reader :schedule, :rules
+    #before_validation :add_recurrence_rules
     before_validation :add_recurrence_times
     after_initialize :unserialize_schedule
     before_save :serialize_schedule
 
   end
-  
+
+  def rule_description
+    schedule.rrules.map(&:to_s).to_sentence
+  end
+
   def is_recurring?
-    schedule && (rule.present? or times.present? or @set_rule == 'none')
+    schedule && (rules.present? or times.present?)
   end
     
   def is_recurrence!
@@ -26,53 +29,11 @@ module Event::Recurrences
     @is_recurrence
   end
 
-  def is_daily?
-    rule.is_a? DailyRule
-  end
-
-  def is_weekly?
-    rule.is_a? WeeklyRule
-  end
-
-  def is_monthly_week?
-    rule.is_a?(MonthlyRule) && rule.to_hash[:validations].key?(:day_of_week)
-  end
-  
-  def is_monthly_date?
-    rule.is_a?(MonthlyRule) && rule.to_hash[:validations].key?(:day_of_month)
-  end
-  
-  def monthly_date
-    rule = get_monthly_date_rule
-    rule ? get_monthly_date_rule.first.to_i : mday
-  end
-
-  def monthly_day
-    rule = get_monthly_rule
-    rule ? rule.keys.first.to_i : wday
-  end
-
-  def monthly_week
-    rule = get_monthly_rule
-    rule ? rule.values.first.first.to_i : wmonth
-  end
-    
-  def rule=(value)
-    @set_rule = value
-  end
-
-  def rule
-    @schedule.rrules.first
-  end
-  
   def mday
     start_datetime.andand.mday
   end
 
-  def weekly_day
-    is_weekly? ? rule.to_hash[:validations][:day][0] : wday
-  end
-  
+
   def wday
     start_datetime.andand.wday.to_i
   end
@@ -86,9 +47,8 @@ module Event::Recurrences
       schedule.remove_exception_time rule
     }
   end
-   
+
   def clear_rules!
-    return if rules.blank?
     schedule.rrules.each do |rule|
       schedule.remove_recurrence_rule rule
     end
@@ -108,7 +68,11 @@ module Event::Recurrences
     end
     
   end
-  
+
+  def empty_rule
+    Event::RecurrenceRule.new event: self
+  end
+
   class RecurrenceTime
     attr_accessor :start_date, :start_time
     def initialize(time)
@@ -116,56 +80,43 @@ module Event::Recurrences
       @start_time = time.strftime '%l:%M %P'
     end
   end
-  
-    
+
+  def rules=(values)
+    @schedule = fresh_schedule if new_record?
+    @rules = []
+    clear_rules!
+    values.each do |k, rule_params|
+      rule_params[:event] = self
+      rule = Event::RecurrenceRule.new rule_params
+      iced_rule = rule.to_ice_cube
+      if iced_rule.present?
+        @schedule.add_recurrence_rule iced_rule
+        @rules << rule
+      end
+    end
+  end
+
+
   private
     
-  def add_daily_rule!
-    add_rule Rule.daily
-  end
-
-  def add_monthly_date_rule!
-    add_rule Rule.monthly.day_of_month(@monthly_date.to_i)
-  end
-
-  def add_monthly_week_rule!
-    @monthly_day ||= start_datetime.stftime("%u")
-    @monthly_week ||= (start_datetime.mday.to_f / 7.to_f).ceil
-    day = [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday].at(@monthly_day.to_i - 1)
-    add_rule Rule.monthly.day_of_week day => [@monthly_week.to_i]
-  end
-  
-  def add_weekly_rule!
-    @weekly_day ||= start_datetime.stftime("%u")
-    add_rule Rule.weekly(1).day(@weekly_day.to_i)
-  end
-    
-  def add_rule(rule)
-    clear_rules!
-    rule.until(expires_on.to_time) if expires_on.present?
-    schedule.add_recurrence_rule rule
-  end
-
   # be sure not to remove exception dates when we get there
   def unserialize_schedule
-    rules = read_attribute 'rules'
-    @schedule = (rules.blank? or rules == "--- \n") ? fresh_schedule : Schedule.from_yaml(rules)
+    ice_rules = read_attribute 'rules'
+    begin
+      @schedule = (ice_rules.blank? or ice_rules == "--- \n") ? fresh_schedule : Schedule.from_yaml(ice_rules)
+      @rules = @schedule.rrules.map { |item| Event::RecurrenceRule.new ice_rule: item, event: self }
+    rescue TypeError
+      @rules = []
+      @schedule = fresh_schedule
+    end
   end
   
   def fresh_schedule
     Schedule.new
   end
 
-  def get_monthly_rule
-    rule.present? ? rule.to_hash[:validations][:day_of_week] : nil
-  end
-  
-  def get_monthly_date_rule
-    rule.present? ? rule.to_hash[:validations][:day_of_month] : nil
-  end
-  
   def serialize_schedule
-    if is_recurring? or @times.present?
+    if @rules.present? or @times.present?
       update_rule_expirations!
       write_attribute 'rules', @schedule.to_yaml
     end
@@ -179,18 +130,20 @@ module Event::Recurrences
     @times.each { |time| schedule.add_recurrence_time time } if @times.present?
   end
   
-  def write_rules
-    if @set_rule
-      @schedule = fresh_schedule if new_record?
-      case @set_rule
-      when 'none' then clear_rules!
-      when 'daily' then add_daily_rule!
-      when 'weekly' then add_weekly_rule!
-      when 'monthly_week' then add_monthly_week_rule!
-      when 'monthly_date' then add_monthly_date_rule!
-      end
-    end
-  end
+  #def add_recurrence_rules
+  #  if @rules.present?
+  #    @schedule = fresh_schedule if new_record?
+  #    clear_rules!
+  #    @rules.each do |rule_params|
+  #      rule_params.event = self
+  #      rule = Event::RecurrenceRule.new rule_params
+  #      iced_rule = rule.to_ice_cube
+  #      if iced_rule.present?
+  #        schedule.add_recurrence_rule iced_rule
+  #      end
+  #    end
+  #  end
+  #end
 
   def update_rule_expirations!
     @schedule.start_time = start_datetime

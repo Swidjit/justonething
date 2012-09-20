@@ -23,6 +23,7 @@
 //= require jquery.smooth-scroll.min
 //= require lightview
 //= require excanvas
+//= require ajaxupload
 //= require_directory .
 
 jQuery(function() {
@@ -284,10 +285,27 @@ $("a.add_item, .add_item a").live('click',function(){
   }
 });
 
+
 var swidjit = function() {
   return {
     currentCity : function(){
       return window.location.pathname.split('/')[1];
+    },
+    initItemSuggestion: function(id, url) {
+        var suggest_item = function(){
+          $.ajax({
+            type: 'POST',
+            url: '#{suggested_item_path}',
+            data: {item_id: id, format: 'json'},
+            success: function(data) {
+              $("span.notice").text(data.notice);
+              if (data.success)
+                $("#suggest-form").css('overflow','hidden').animate({height: "0px"}, {queue:false, duration: 300})
+            }
+          });
+        }
+        $(".suggest-item").live("autocompleteselect", suggest_item);
+        $(".ui-menu-item").live('click', function(){ suggest_item($(".suggest-item"))});
     },
     loadAddItemForm : function(href){
       $("#add_item_form").load(href, function(){

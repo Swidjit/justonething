@@ -2,7 +2,6 @@ setExpirationDate = ->
   expires_on_name = @name.replace /\[\w{3,5}_date/, '[expires_on'
   nextDayDate = $(@).datepicker 'getDate'
   nextDayDate.setDate nextDayDate.getDate() + 1
-  console.log expires_on_name, nextDayDate
   $('input[name="' + expires_on_name + '"]').datepicker 'setDate', nextDayDate
 
 $('.event_start_date').live 'change', ->
@@ -12,3 +11,6 @@ $('.event_start_date').live 'change', ->
 
 $('.event_end_date').live 'change', ->
   setExpirationDate.apply this
+
+
+

@@ -5,29 +5,4 @@
   = hidden_field_tag 'item_id', item.id
   = submit_tag("Suggest")
 
-:javascript
-  $(".suggest-item").live("autocompleteselect",function(){
-    suggest_item($(this));
-  });
-  $(".ui-menu-item").live('click',function(){
-    suggest_item($(".suggest-item"));
-  });
-  function suggest_item($self){
-    document.write('Hello World!');
-    var url = '#{suggested_item_path}';
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: { item_id: @item.id, format: 'json' },
-      success: function(data){
-        $("span.notice").text(data.notice);
-        if(data.success){
-          $("#suggest-form").css('overflow','hidden').animate(
-            {height: "0px"},
-            {queue:false, duration: 300});
-        }
-      },
-      error: function(xhr,status,data){
-      }
-    });
-  }
+= javascript_tag "swidjit.initItemSuggestion(#{item.id}, '#{suggested_item_path}');"
