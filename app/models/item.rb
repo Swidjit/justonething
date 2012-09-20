@@ -188,7 +188,7 @@ class Item < ActiveRecord::Base
 
   private
   def handle_has_expiration
-    if has_expiration.to_i == 0
+    if has_expiration.present? and has_expiration.to_i == 0
       self.expires_on = nil
     end
   end

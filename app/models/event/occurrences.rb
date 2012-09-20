@@ -46,7 +46,7 @@ module Event::Occurrences
   def cancel_occurrence(date)
     times = schedule.occurrences_between Date.parse(date).to_time.beginning_of_day, Date.parse(date).to_time.end_of_day
     times.each do |time|
-      schedule.add_exception_time time
+      @extimes << time
     end
     save
     Reminder.send_cancellation_notices self, date

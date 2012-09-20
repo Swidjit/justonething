@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe SuggestedItemController do
+describe SuggestedItemsController do
 
 end

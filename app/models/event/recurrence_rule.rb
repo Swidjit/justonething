@@ -2,7 +2,7 @@ class Event::RecurrenceRule
 
   include IceCube
 
-  attr_accessor :ice_rule, :rule
+  attr_accessor :rule
   attr_writer :weekly_day, :monthly_week, :monthly_day, :monthly_date
   attr_reader :event
 
@@ -20,17 +20,38 @@ class Event::RecurrenceRule
         when 'monthly_date'
           @monthly_date = options[:monthly_date]
       end
+    elsif @ice_rule
+      if is_daily?
+        @rule = 'daily'
+      elsif is_weekly?
+        @rule = 'weekly'
+        @weekly_day = weekly_day
+      elsif is_monthly_week?
+        @rule = 'monthly_week'
+        @monthly_day = monthly_day
+        @monthly_week = monthly_week
+      elsif is_monthly_date?
+        @rule = 'monthly_date'
+        @monthly_date = monthly_date
+      end
     end
-    #r.each { |k,v| instance_variable_set "@#{k}".to_sym, v }
+  end
+
+  def ice_rule
+    @ice_rule ||= to_ice_cube
   end
 
   def to_ice_cube
-    return case rule
-      when 'daily' then as_daily_rule
-      when 'weekly' then as_weekly_rule
-      when 'monthly_week' then as_monthly_week_rule
-      when 'monthly_date' then as_monthly_date_rule
-      else as_empty_rule
+    if rule.present?
+      return case rule
+        when 'daily' then as_daily_rule
+        when 'weekly' then as_weekly_rule
+        when 'monthly_week' then as_monthly_week_rule
+        when 'monthly_date' then as_monthly_date_rule
+        else as_empty_rule
+      end
+    else
+      return @ice_rule
     end
   end
 

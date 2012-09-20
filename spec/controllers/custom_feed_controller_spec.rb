@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CustomFeedController do
+describe CustomFeedsController do
 
   describe "GET 'new'" do
     it "returns http success" do

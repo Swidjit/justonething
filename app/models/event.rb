@@ -54,12 +54,17 @@ class Event < Item
   def duration
     @duration ||= end_datetime ? (end_datetime - start_datetime) : 2.hours    
   end
-  
-  
+
+  def expires_on=(value)
+    self.has_expiration = '1' if value.is_a?(Date)
+    super(value)
+  end
+
+
   private
 
   def start_datetime_in_future
-    errors.add(:start_date, "must not have already passed") if rule.blank? && start_datetime.present? && start_datetime < DateTime.now
+    errors.add(:start_date, "must not have already passed") if @rules.blank? && start_datetime.present? && start_datetime < DateTime.now
   end
   
   def event_ends_after_it_starts

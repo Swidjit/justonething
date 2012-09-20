@@ -6,10 +6,10 @@ module Event::Recurrences
   included do
 
     attr_reader :schedule, :rules
-    #before_validation :add_recurrence_rules
-    before_validation :add_recurrence_times
+    before_validation :add_recurrence_rules
+    #before_validation :add_recurrence_times
     after_initialize :unserialize_schedule
-    before_save :serialize_schedule
+    after_validation :serialize_schedule
 
   end
 
@@ -82,15 +82,12 @@ module Event::Recurrences
   end
 
   def rules=(values)
-    @schedule = fresh_schedule if new_record?
     @rules = []
-    clear_rules!
     values.each do |k, rule_params|
       rule_params[:event] = self
       rule = Event::RecurrenceRule.new rule_params
       iced_rule = rule.to_ice_cube
       if iced_rule.present?
-        @schedule.add_recurrence_rule iced_rule
         @rules << rule
       end
     end
@@ -103,53 +100,38 @@ module Event::Recurrences
   def unserialize_schedule
     ice_rules = read_attribute 'rules'
     begin
-      @schedule = (ice_rules.blank? or ice_rules == "--- \n") ? fresh_schedule : Schedule.from_yaml(ice_rules)
+      @schedule = (ice_rules.blank? or ice_rules == "--- \n") ? Schedule.new : Schedule.from_yaml(ice_rules)
       @rules = @schedule.rrules.map { |item| Event::RecurrenceRule.new ice_rule: item, event: self }
+      @extimes = @schedule.extimes
+      @times = @schedule.rtimes
     rescue TypeError
-      @rules = []
-      @schedule = fresh_schedule
+      @rules, @extimes, @times = [], [], []
+      @schedule = Schedule.new
     end
   end
   
-  def fresh_schedule
-    Schedule.new
-  end
-
   def serialize_schedule
-    if @rules.present? or @times.present?
-      update_rule_expirations!
-      write_attribute 'rules', @schedule.to_yaml
-    end
+    write_attribute 'rules', @schedule.to_yaml
   end
-  
-  def add_recurrence_times
-    return true if @times.blank?
-    @schedule ||= fresh_schedule
-    schedule.rtimes.each { |time| schedule.remove_recurrence_time time }
-    schedule.add_recurrence_time start_datetime
-    @times.each { |time| schedule.add_recurrence_time time } if @times.present?
-  end
-  
-  #def add_recurrence_rules
-  #  if @rules.present?
-  #    @schedule = fresh_schedule if new_record?
-  #    clear_rules!
-  #    @rules.each do |rule_params|
-  #      rule_params.event = self
-  #      rule = Event::RecurrenceRule.new rule_params
-  #      iced_rule = rule.to_ice_cube
-  #      if iced_rule.present?
-  #        schedule.add_recurrence_rule iced_rule
-  #      end
-  #    end
-  #  end
-  #end
 
-  def update_rule_expirations!
+  def add_recurrence_rules
+
+    @schedule = Schedule.new
     @schedule.start_time = start_datetime
     @schedule.end_time = expires_on.to_time if expires_on.present?
     @schedule.duration = duration
-    rule.until(expires_on.to_time) if rule.present? and expires_on.present?
+
+    @rules.each { |rule| @schedule.add_recurrence_rule rule.to_ice_cube } if @rules.present?
+    @extimes.each { |time| @schedule.add_exception_time(time) } if @extimes.present?
+    @times.each { |time| @schedule.add_recurrence_time time } if @times.present?
+
+    if expires_on.present? or expires_on_changed?
+      @schedule.rrules.each do |rule|
+        rule.until expires_on.to_time
+      end
+    end
+
+    true
   end
 
 end
