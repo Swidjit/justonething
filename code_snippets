@@ -32,3 +32,6 @@
       %li
         = render :partial => 'custom_feeds/sidebar_form'
         #new_cs_errors
+
+	    .span2{style:"margin:6px 20px 0 0px"}
+	      = render :partial => 'custom_feed_subscriptions/add_tag'
