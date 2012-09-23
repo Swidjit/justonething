@@ -106,16 +106,7 @@
                           = f.submit '+'
                           = f.text_field :name, :placeholder => 'list name'
                         #new_list_errors
-                - if signed_in?
-                  %h3
-                    %a.secHdr3{:href => "#"} Custom Feeds
-                  %div
-                    %ul.navMenus
-                      - current_user.custom_feed_subscriptions.each do |subscription|
-                        %li= link_to subscription.custom_feed.name, subscription.custom_feed
-                      %li
-                        = render :partial => 'custom_feeds/sidebar_form'
-                        #new_cs_errors
+
 
                 %h3
                   %a.secHdr1{:href => "#"} Meet Swidjit

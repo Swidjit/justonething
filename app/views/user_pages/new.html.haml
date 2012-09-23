@@ -1,0 +1,20 @@
+.headingLeft
+  %h2.page-heading
+    %i.icon-group        
+    Create a New Page
+.clear
+.indent
+  .mainDesc
+    Pages are a way to do this
+  
+= semantic_form_for :user_page, :url => {:action => "create"},  :html => { :id => "community-form"} do |f|
+  = f.inputs do
+    
+    .form-title
+      %i.icon-group
+      Add a New Page
+    = f.input :name,:input_html => {:placeholder => 'give your page a name'}    
+    .form-section-break
+    = f.input :body, :input_html => {:placeholder => 'enter in as much text as you would like'}
+    .form-section-break
+  = f.submit

@@ -1,0 +1,18 @@
+.contentRow.without_border.overflow-visible
+  .row-fluid    
+    .span12{style:"margin-left: -20px"}
+      .row-fluid
+        .span12
+          %h2.page-heading     
+            = link_to @user.display_name, profile_path(@user.display_name)  
+            >
+            = @user_page.name
+          
+
+      .row-fluid{style:"margin-top:15px;"}
+        .span12
+          = @user_page.body
+          
+          = link_to "edit",edit_user_page_path(@user_page)
+          = link_to "delete",user_page_path(@user_page), :method => :delete
+

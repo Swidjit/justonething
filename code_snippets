@@ -21,3 +21,14 @@
 	text-decoration: none;
 	text-shadow: 0px 1px 1px #4d4d4d;
 }
+
+- if signed_in?
+  %h3
+    %a.secHdr3{:href => "#"} Custom Feeds
+  %div
+    %ul.navMenus
+      - current_user.custom_feed_subscriptions.each do |subscription|
+        %li= link_to subscription.custom_feed.name, subscription.custom_feed
+      %li
+        = render :partial => 'custom_feeds/sidebar_form'
+        #new_cs_errors
