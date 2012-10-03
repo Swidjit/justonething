@@ -34,6 +34,7 @@
           .span5      
             #top_nav_menu
               - if signed_in?
+                = link_to "", destroy_user_session_url, :method => 'delete', :class => 'topLinks top7', :title => 'Log out'
                 = link_to "", edit_user_path(current_user), :class => 'topLinks top5', :title => 'Edit Profile'
                 = link_to "", user_offers_path(current_user.display_name), :class => 'topLinks icon_offer', :title => 'Offers'
                 = link_to "", user_notifications_path(current_user.display_name), :class => 'topLinks top4', :title => 'Notifications'
