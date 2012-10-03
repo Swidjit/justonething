@@ -17,8 +17,8 @@ class ItemsController < ApplicationController
   def new
     if params[:community_id].present?
       @item.communities << Community.find(params[:community_id])
-    end
-    if current_user.cities.any?
+      @item.item_visibility_rules.build(:visibility_id => params[:community_id], :visibility_type => 'Community')
+    elsif current_user.cities.any?
       @item.item_visibility_rules.build(:visibility_id => current_user.cities.first.id, :visibility_type => 'City')
       @item.cities << current_user.cities.first
     end

@@ -63,11 +63,11 @@ class CommunitiesController < ApplicationController
     else
       flash[:notice] = "This community requires an invitation to join"
     end
-    if request.referer.present?
-      redirect_to :back
-    else
-      redirect_to community_path(@community)
-    end
+    #if request.referer.present?
+    #  redirect_to :back
+    #else
+    redirect_to community_path(@community)
+    #end
   end
 
   def leave
