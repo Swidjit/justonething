@@ -28,11 +28,11 @@
           {queue:false, duration: 300});
       }
     );
-    $('.nested-reply').click(function(event) {
-      var e = event.target;
-      e.toggle();
-      
-      
+    $('.comment-show-reply').click(function(event) {
+      var $e = $(event.target);
+      var $p = $('#comment_'+$e.data('parent'));
+      $p.children('.reply-form').toggle().find('textarea').focus();
+      return false;
     });
   });
   
@@ -83,7 +83,6 @@
       %p You can have a private conversation about this item with its author.
     .comment_block
       = render 'offers'
-    %div{:style => "clear:both;"}
 
 = yield :middle
 
@@ -97,8 +96,12 @@
   .comment_block
     %a#comment{:name => 'comment'}
     = form_for @item.comments.build, {:url => comments_path(@item)} do |f|
-      = f.text_area :text, :class => 'user-suggestion'
-      = f.submit 'Comment'
+      .formrow.form-header
+        Add a comment
+      .formrow
+        = f.text_area :text, :class => 'user-suggestion'
+      .formrow
+        = f.submit 'Comment'
 
 -#
   .contentRow.h_pad.without_border.without_padding

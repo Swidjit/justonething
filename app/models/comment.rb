@@ -4,7 +4,7 @@ class Comment < ActiveRecord::Base
 
   references_users_in :text
 
-  attr_accessible :text, :parent_id
+  attr_accessible :text, :ancestry
 
   validates_presence_of :text, :item, :user
 

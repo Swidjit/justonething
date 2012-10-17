@@ -5,11 +5,11 @@ class CommunityInvitation < ActiveRecord::Base
   belongs_to :community
   has_many :notifications, :as => :notifier, :dependent => :delete_all
 
-  attr_accessible :community_id, :invitee_display_name
+  attr_accessible :community_id, :invitee_display_name, :invitee_user_id
 
-  attr_accessor :invitee_display_name
+  attr_accessor :invitee_display_name, :invitee_user_id
 
-  before_validation :convert_invitee_display_name_to_id, :on => :create
+  before_validation :set_invitee, :on => :create
 
   validates_presence_of :invitee, :inviter, :community, :status
   validate :inviter_belongs_to_community
@@ -30,9 +30,13 @@ class CommunityInvitation < ActiveRecord::Base
   end
 
 protected
-  def convert_invitee_display_name_to_id
+  def set_invitee
     unless self.invitee.present?
-      self.invitee = User.by_lower_display_name(self.invitee_display_name)
+      if !(self.invitee_user_id.nil?)
+        self.invitee = User.find(self.invitee_user_id)
+      else
+        self.invitee = User.by_lower_display_name(self.invitee_display_name)
+      end
     end
   end
 

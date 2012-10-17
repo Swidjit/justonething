@@ -660,6 +660,14 @@ ul.navMenus.extra_links {
 .add_item_txt:hover { text-decoration:underline;}
 .item_first { margin-left:20px; }
 
+.prof-link {
+  float: right;
+  padding: 10px 22px 0 0;
+  width: auto;
+  color: #075a8e;
+  font-size: 18px;
+  text-decoration: none;
+}
 
 .contentRow {
   width:100%;
@@ -1071,32 +1079,99 @@ a.iconLink6 {background: url('feed-menu-icon.png') no-repeat;}
   border-bottom:2px solid #eaeaea;
 }
 
+.comment_block {
+  border: 1px solid #666;
+  border-bottom: none;
+}
+.comment_block:last-child {
+  border-bottom: 1px solid #666;
+}
+.comment_block .comment_block {
+  border-width: 1px 0 0 0;
+}
+.comment {
+  position: relative;
+}
+
+.comment-delete {
+  display: block;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 18px;
+  text-decoration: none;
+  text-align: center;
+  background: #fff;
+  color: #999;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.comment-delete:hover {
+  color: #fff;
+  background: #ccc;
+  text-decoration: none;
+}
+.comment-left {
+  float: left;
+  width: 40px;
+  padding: 10px;
+  margin-right: -60px;
+}
+.comment-content {
+  float: left;
+  width: 100%;
+}
+.comment-right {
+  margin-left: 60px;
+  padding: 10px;
+}
+.comment-meta {
+  margin-right: 30px;
+}
+.comment-meta span.comment-author {
+  float: left;
+  font-size: 16px;
+}
+.comment-meta span.comment-date {
+  float: right;
+  font-size: 12px;
+}
+.comment_block .reply-form {
+  display: none;
+}
+
 .nested_comments {
   padding-left: 70px;
 }
 
-.comment_block span, .comment_block span a {
+.comment-meta, .comment-meta a {
   color:#075a8e;
-}
-.comment_block img {
-  float:left;
-  padding-right:20px;
 }
 .comment_block p {
   margin-bottom:10px;
   margin-top:0px;
 }
-.comment_block a.reply {
-  float:right;
-  text-decoration:none;
-  font-size:14px;
-  color:#075a8e;
-  padding-right:40px;
+.comment_block form {
+  padding: 10px;
+
 }
-.comment_block {
-  padding-top:10px;
+.comment_block textarea {
+  display: block;
+  height: 50px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
+.formrow {
+  padding: 6px 0;
+}
+.form-header {
+  color: #075a8e;
+  font-size: 16px;
+}
 
 .menu_with_dropdowns {
   float:right;

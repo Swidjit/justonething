@@ -181,11 +181,6 @@ mark{
   text-align: center;
 }
 
-.comment_block textarea, .offer_reply_form textarea {
-  height: 50px;
-  width: 100%;
-}
-
 .menu_with_dropdowns .dropdown_1column {
   z-index: 50;
 }

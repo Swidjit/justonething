@@ -1,16 +1,28 @@
-.comment_block
-  %p
-    = UserDecorator.new(comment.user).linked_profile_pic('40')
-    %span= link_to comment.user.display_name, profile_path(comment.user.display_name)
-    says
-    %p= comment.text
-    .nested-reply
-      %a{:href => "#"} reply
-      .reply-form
-        = form_for comment.item.comments.build do |f|
-          = f.hidden_field :ancestry, :value => comment.id
-          = f.text_area :text, :class => 'user-suggestion'
-          = f.submit 'Reply'
+.comment_block{:id => "comment_#{comment.id}"}
+  .comment.ui-helper-clearfix
+    - if current_user == comment.user || current_user == comment.item.user
+      = link_to '&times;'.html_safe, comment_path(comment.id), :method => :delete, :title => 'Delete comment', :class => 'comment-delete'
+    .comment-left
+      = UserDecorator.new(comment.user).linked_profile_pic('40')
+    .comment-content
+      .comment-right
+        .comment-meta.ui-helper-clearfix
+          %span.comment-author
+            = link_to comment.user.display_name, profile_path(comment.user.display_name)
+            says
+          %span.comment-date
+            = comment.created_at.strftime("%B %d, %Y at %l:%M %p")
+        %p= comment.text
+        - if comment.is_root?
+          %a{:href => "#", :class => 'comment-show-reply', :data => {:parent => comment.id}} reply
   - if comment.children.any?
     .nested_comments
       = render :partial => 'comments/comment', :collection => CommentDecorator.decorate(comment.children.order(:created_at))
+  - if comment.is_root?
+    .reply-form
+      = form_for comment.item.comments.build do |f|
+        = f.hidden_field :ancestry, :value => comment.id
+        .formrow
+          = f.text_area :text, :class => 'user-suggestion'
+        .formrow
+          = f.submit 'Reply'

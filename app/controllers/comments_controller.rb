@@ -19,10 +19,12 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    if @comment.destroy
-      flash[:notice] = "Bookmark removed"
-    else
-      flash[:error] = "An error occurred."
+    if current_user == @comment.user || current_user = @comment.item.user
+      if @comment.destroy
+        flash[:notice] = "Comment removed"
+      else
+        flash[:error] = "An error occurred."
+      end
     end
 
     redirect_to :back

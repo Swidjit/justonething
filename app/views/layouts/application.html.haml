@@ -142,12 +142,13 @@
                     = f.submit "Sign in"              
       
         .span9{style:"background-color:#fff"}
-          .add_item_bar
+          .add_item_bar.span9
             - if signed_in?
               .add_item_row
                 .addLink
                   %a#add_item_button{:href => "#"}
                 = current_decorated_user.item_creation_links
+                = link_to current_user.display_name, profile_path(current_user.display_name), :class => 'prof-link', :title => 'View profile'
                 %div{:style => "clear:both;"}
             - else
               .add_item_row.logged_out

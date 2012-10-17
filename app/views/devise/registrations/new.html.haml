@@ -1,3 +1,19 @@
+:javascript
+  function updateSuggestion(e) {
+    var oldSuggestion = $('#user_first_name').val()+$('#user_last_name').val();
+    var dispName = $('#user_display_name').val();
+    if (dispName == '' || dispName == oldSuggestion) {
+      window.setTimeout(function() {
+        var newSuggestion = $('#user_first_name').val()+$('#user_last_name').val();
+        $('#user_display_name').val(newSuggestion);
+      }, 1);
+    }
+  }
+  $(document).ready(function() {
+    $('#user_first_name').keydown(updateSuggestion);
+    $('#user_last_name').keydown(updateSuggestion);
+  });
+
 .title_heading= @title || 'Sign up'
 
 %p To take full advantage of Swidjit, you will need to login/register for the site.  unfortunately, those of you that had an account on the demo Swidjit platform will need to create a new one as the information will not be transferred over.
@@ -16,11 +32,6 @@
     %br
     = f.text_field :business_name
 
-  %div
-    = f.label :display_name
-    %br
-    = f.text_field :display_name
-
   %div#fname_signup
     = f.label :first_name
     %br
@@ -30,6 +41,11 @@
     = f.label :last_name
     %br
     = f.text_field :last_name
+
+  %div
+    = f.label :display_name
+    %br
+    = f.text_field :display_name
 
   %div
     = f.label :zipcode

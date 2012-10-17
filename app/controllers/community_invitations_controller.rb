@@ -6,6 +6,18 @@ class CommunityInvitationsController < ApplicationController
   authorize_resource :only => :create
 
   def create
+    email_pattern = /^[-a-z0-9_\+\.]+\@([-a-z0-9]+\.)+[a-z]{2,4}$/i
+    if !(params[:community_invitation][:invitee_display_name].empty?) && email_pattern.match(params[:community_invitation][:invitee_display_name])
+      email = params[:community_invitation][:invitee_display_name]
+      if User.where(:email => email).first.nil?
+        u = User.new
+        u.email = email;
+        u.save(:validate => false)
+        params[:community_invitation][:invitee_user_id] = u.id
+      else
+        params[:community_invitation][:invitee_display_name] = User.where(:email => email).first.display_name
+      end
+    end
     @community_invitation = CommunityInvitation.new(params[:community_invitation])
     @community_invitation.inviter = current_user
     @community_invitation.community_id = params[:id]

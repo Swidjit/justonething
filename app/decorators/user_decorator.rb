@@ -87,6 +87,8 @@ class UserDecorator < ApplicationDecorator
     if user.profile_pic.present?
       ImageDecorator.new(user.profile_pic).thumb("#{size}x#{size}>",pic_options)
     else
+      pic_options[:width] = size;
+      pic_options[:height] = size;
       h.image_tag('default-profile-picture.png', pic_options)
     end
   end

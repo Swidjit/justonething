@@ -9,5 +9,7 @@
 .offer_reply_form.hidden
   = form_for :offer_message, :url => offer_offer_messages_path(@offer) do |f|
     = f.hidden_field :offer_id, :value => @offer.id
-    = f.text_area :text
-    = f.submit 'reply'
+    .formrow
+      = f.text_area :text
+    .formrow
+      = f.submit 'reply'

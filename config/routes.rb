@@ -34,6 +34,8 @@ Swidjit::Application.routes.draw do
         resources :comments, :only => :create
       end
     end
+
+    resources :comments, :only => [:destroy]
     
     resources :collections, :only => [] do
       member do
