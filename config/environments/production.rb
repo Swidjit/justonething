@@ -82,7 +82,7 @@ Swidjit::Application.configure do
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[Swidjit] ",
     :sender_address => %{"Exception Notifier" <swidjit@swidjit.com>},
-    :exception_recipients => %w{furberd@gmail.com alex@swidjit.com elliot.betancourt@hipdotmedia.com}
+    :exception_recipients => %w{alex@swidjit.com aimm22@gmail.com}
 
 
 end
