@@ -64,8 +64,9 @@
           - if @item.respond_to?(:link_tag)
             Link:
             = @item.link_tag
-      posted by 
-      = link_to @item.user.display_name, profile_path(@item.user.display_name)    
+      - unless @item.user.nil?
+        posted by 
+        = link_to @item.user.display_name, profile_path(@item.user.display_name)    
       .multiLinks= @item.iconic_information(false)
     .span4
       .itemPic.wide{style:"width: 90%"}
