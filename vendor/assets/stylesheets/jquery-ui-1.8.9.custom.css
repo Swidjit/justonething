@@ -1165,6 +1165,10 @@ a.iconLink6 {background: url('feed-menu-icon.png') no-repeat;}
   box-sizing: border-box;
 }
 
+.fb-login-button {
+  overflow: hidden;
+}
+
 .formrow {
   padding: 6px 0;
 }
