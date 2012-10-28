@@ -150,5 +150,20 @@ JS3
     title << "Swidjit"
     title.join(' - ')
   end
+
+  def community_list(communities)
+    raise TypeError, 'communities must be an array' unless communities.is_a? Array
+    return if communities.count == 0
+
+    communities.collect do |comm|
+      raise TypeError, 'item must be a community or community id' unless (comm.is_a? Community or comm.is_a? Integer)
+      if comm.is_a? Community
+        link_to(comm.name, url_for(comm))
+      else
+        c = Community.find(comm)
+        link_to(c.name, url_for(c))
+      end
+    end.join(', ').html_safe
+  end
   
 end

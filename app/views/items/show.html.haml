@@ -48,6 +48,11 @@
       %h2.page-heading
         %i.icon-camera-retro        
         = @item.title
+  - if @item.community_ids.count > 0
+    .row-fluid
+      .span12
+        Belongs to the following communities:
+        = community_list(@item.community_ids)
   .row-fluid  
     .span12
       .btn-toolbar{style: "margin:15px 0 5px -2px"}
@@ -71,7 +76,6 @@
     .span4
       .itemPic.wide{style:"width: 90%"}
         = @item.thumb_with_lightbox  
-
   
 - if @item.allows_offers?
   .contentRow.h_pad.without_border.without_padding
