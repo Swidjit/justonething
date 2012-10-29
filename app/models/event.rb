@@ -44,8 +44,9 @@ class Event < Item
   }
 
   def self.datetimepicker_to_datetime(datetime_value, time_zone)
-    if datetime_value.is_a?(String) && datetime_value.present?
-      Time.strptime("#{datetime_value.strip} #{time_zone.tzinfo.current_period.abbreviation.to_s}",'%m/%d/%Y %l:%M %P %Z')
+    if datetime_value.present? && datetime_value.is_a?(String)
+      t = Time.strptime("#{datetime_value.strip}", '%m/%d/%Y %l:%M %P')
+      t.in_time_zone(time_zone)
     else
       datetime_value
     end
