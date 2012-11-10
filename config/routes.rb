@@ -150,6 +150,9 @@ Swidjit::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations",
       :omniauth_callbacks => "omniauth_callbacks" }
 
+  get '/users/finish_registration/:hash' => 'users#complete_shadow_user'
+  put '/users/finish_registration/:hash' => 'users#submit_shadow_user'
+
   post '/images/generate' => 'images#generate'
 
   resources :users, :only => [:edit, :update] do

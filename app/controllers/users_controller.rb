@@ -74,6 +74,33 @@ class UsersController < ApplicationController
     end
   end
 
+  def complete_shadow_user
+    @user = User.where(:confirmation_token => params[:hash]).first
+    unless @user.nil? or !@user.display_name.nil?
+
+    else
+      redirect_to '/'
+    end
+  end
+
+  def submit_shadow_user
+    @user = User.where(:confirmation_token => params[:hash]).first
+    unless @user.nil? or !@user.display_name.nil? or @user.email != params[:user][:email]
+      if User.where(:display_name => params[:user][:display_name]).count < 1
+        @user.display_name = params[:user][:display_name]
+        params[:user].delete(:display_name)
+      end
+      if @user.update_attributes(params[:user])
+        #sign_in @user, :bypass => true
+        redirect_to '/'
+      else
+        redirect_to 'complete_shadow_user'
+      end
+    else
+      redirect_to '/'
+    end
+  end
+
   private
   def load_resource
     @user = UserDecorator.find(params[:id])

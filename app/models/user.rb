@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   attr_accessible :about, :websites, :address, :phone, :geo_tag_list, :profile_pic,
     :profile_pic_id, :feeds_attributes, :as => :default
 
-  attr_readonly :display_name
+  attr_protected :display_name
 
   validate :is_thirteen?, :on => :create
   validates_presence_of :first_name, :last_name, :zipcode
@@ -163,7 +163,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   private
+  def add_to_city
+    # TODO: base this off of zipcode?
+    self.cities << City.first
+  end
+  
   def self.available_display_name(desired_display_name)
     similarly_named_users = User.where("display_name LIKE ?", "#{desired_display_name}%").order("display_name")
     taken_names = similarly_named_users.collect(&:display_name) + BLACK_LISTED_USER_URLS
@@ -178,12 +187,6 @@ class User < ActiveRecord::Base
 
     new_display_name
   end
-
-  def add_to_city
-    # TODO: base this off of zipcode?
-    self.cities << City.first
-  end
-
 
   def is_thirteen?
     errors.add(:base,'You must be at least 13 years of age to register') if is_thirteen.blank? || is_thirteen.to_i != 1

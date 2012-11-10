@@ -1,0 +1,74 @@
+:javascript
+  function updateSuggestion(e) {
+    var oldSuggestion = $('#user_first_name').val()+$('#user_last_name').val();
+    var dispName = $('#user_display_name').val();
+    if (dispName == '' || dispName == oldSuggestion) {
+      window.setTimeout(function() {
+        var newSuggestion = $('#user_first_name').val()+$('#user_last_name').val();
+        $('#user_display_name').val(newSuggestion);
+      }, 1);
+    }
+  }
+  $(document).ready(function() {
+    $('#user_first_name').keydown(updateSuggestion);
+    $('#user_last_name').keydown(updateSuggestion);
+  });
+
+.title_heading= @title || 'Sign up'
+
+%p To take full advantage of Swidjit, you will need to login/register for the site.
+
+= form_for(@user, :url => {:action => 'submit_shadow_user', :hash => params[:hash]}) do |f|
+
+  = error_messages_for(@user)
+
+  %div
+    = f.check_box :is_business, {:id => 'is_business_signup'}
+    = f.label :is_business, 'This Account is for a business or organization'
+  %br
+
+  %div#bname_signup.hidden
+    = f.label :business_name, 'Business or Organization Name'
+    %br
+    = f.text_field :business_name
+
+  %div#fname_signup
+    = f.label :first_name
+    %br
+    = f.text_field :first_name
+
+  %div#lname_signup
+    = f.label :last_name
+    %br
+    = f.text_field :last_name
+
+  %div
+    = f.label :display_name
+    %br
+    = f.text_field :display_name
+
+  %div
+    = f.label :zipcode
+    %br
+    = f.text_field :zipcode
+
+  %div
+    = f.label :email
+    %br
+    = f.email_field :email
+
+  %div
+    = f.label :password
+    %br
+    = f.password_field :password
+
+  %div
+    = f.label :password_confirmation
+    %br
+    = f.password_field :password_confirmation
+
+  %div
+    = f.check_box :is_thirteen
+    = f.label :is_thirteen, 'I am at least 13 years of age'
+
+  %div= f.submit "Sign up"

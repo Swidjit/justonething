@@ -11,7 +11,9 @@ class CommunityInvitationsController < ApplicationController
       email = params[:community_invitation][:invitee_display_name]
       if User.where(:email => email).first.nil?
         u = User.new
-        u.email = email;
+        u.email = email
+        u.confirmation_token = User.confirmation_token
+        u.skip_confirmation!
         u.save(:validate => false)
         params[:community_invitation][:invitee_user_id] = u.id
       else
@@ -22,6 +24,12 @@ class CommunityInvitationsController < ApplicationController
     @community_invitation.inviter = current_user
     @community_invitation.community_id = params[:id]
     if @community_invitation.save
+      unless params[:community_invitation][:invitee_user_id].nil?
+        u = User.find(params[:community_invitation][:invitee_user_id])
+        if u.display_name.nil?
+          InviteMailer.community_invite(u, @current_user, Community.find(params[:id])).deliver
+        end
+      end
       flash[:notice] = 'Invitation successfully sent'
     else
       flash[:notice] = "Invitation failed to send" #{@community_invitation.errors.full_messages}"

@@ -1,0 +1,14 @@
+!!! 5
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', :http_equiv => 'Content-Type'}
+  %body
+    %h1
+      = @from.full_name
+      wants you to join the
+      = "\"#{@community.name}\""
+      community on Swidjit
+    %p Swidjit is a new social site aimed at providing unprecedented access to the goods, services, information, organizations and activities available within your community.
+    %p
+      = link_to 'Click here', :controller => 'users', :action => 'complete_shadow_user', :hash => @to.confirmation_token
+      to set up your own account, and see what Swidjit has in store.
