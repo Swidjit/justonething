@@ -5,11 +5,7 @@ class CommunityInvitation < ActiveRecord::Base
   belongs_to :community
   has_many :notifications, :as => :notifier, :dependent => :delete_all
 
-  attr_accessible :community_id, :invitee_display_name, :invitee_user_id
-
-  attr_accessor :invitee_display_name, :invitee_user_id
-
-  before_validation :set_invitee, :on => :create
+  attr_accessible :community_id, :inviter_id, :invitee_id
 
   validates_presence_of :invitee, :inviter, :community, :status
   validate :inviter_belongs_to_community
@@ -30,15 +26,6 @@ class CommunityInvitation < ActiveRecord::Base
   end
 
 protected
-  def set_invitee
-    unless self.invitee.present?
-      if !(self.invitee_user_id.nil?)
-        self.invitee = User.find(self.invitee_user_id)
-      else
-        self.invitee = User.by_lower_display_name(self.invitee_display_name)
-      end
-    end
-  end
 
   def inviter_belongs_to_community
     unless self.inviter.present? && self.inviter.communities.include?(self.community)

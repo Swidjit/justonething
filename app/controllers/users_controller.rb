@@ -91,7 +91,7 @@ class UsersController < ApplicationController
         params[:user].delete(:display_name)
       end
       if @user.update_attributes(params[:user])
-        #sign_in @user, :bypass => true
+        sign_in @user, :bypass => true
         redirect_to '/'
       else
         redirect_to 'complete_shadow_user'

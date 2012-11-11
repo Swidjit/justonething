@@ -2,8 +2,9 @@
   .section-heading
     Invite People
   %p
-    So you've created a community, big deal.  A community is nothing without people!  So invite some:
+    So you've created a community, big deal.  A community is nothing without people!
+  %p To invite people to your community, simply enter a list of Swidjit usernames or emails, separated by commas
   
-  = form_for community.community_invitations.build do |f|
-    = f.text_field :invitee_display_name, { :class => 'autocomplete-user', :placeholder => 'swidjit username' }
-    = f.submit 'Send Invite'
+  = form_tag community_invitations_path(:id => community.id, :city_url_name => current_city.url_name) do
+    = text_field_tag :invitees, '', :size => 60
+    = submit_tag 'Send Invite'
