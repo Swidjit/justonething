@@ -23,14 +23,15 @@ class CommunityInvitationsController < ApplicationController
               u.save(:validate => false)
               if generate_invitation(u, community)
                 InviteMailer.community_invite(u, current_user, community).deliver
+                flash[:notice] = 'Invitation successfully sent'
               end
             else
-              generate_invitation(u, community)
+              flash[:notice] = 'Invitation successfully sent' if generate_invitation(u, community)
             end
           else
             u = User.by_lower_display_name(i.strip)
             unless u.nil?
-              generate_invitation(u, community)
+              flash[:notice] = 'Invitation successfully sent' if generate_invitation(u, community)
             end
           end
         end
