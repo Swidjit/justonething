@@ -1,3 +1,12 @@
+:javascript
+  $(function() {
+    $('#invitees').keyup(function(e) {
+      while($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css('borderTopWidth'))+parseFloat($(this).css('borderBottomWidth'))) {
+        $(this).height($(this).height()+1);
+      }
+    })
+  });
+
 .mainContent
   .headingLeft
     %h2.page-heading
