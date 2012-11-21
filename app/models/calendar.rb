@@ -34,7 +34,7 @@ class Calendar
     @events = @events.having_tag_with_name(@filter) if @filter.present?
     @events = @events.within_community(@community) if @community and @community_created
     @events = @events.includes(:user).where active: true
-    @events = @events.map {|event| event.occurrences_between(from, to)}.flatten.sort_by(&:start_datetime) unless @ical
+    @events = @events.map {|event| event.occurrences_between(from.to_time.beginning_of_day, to.to_time.end_of_day)}.flatten.sort_by(&:start_datetime) unless @ical
   end
   
   def user_events

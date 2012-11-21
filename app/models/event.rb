@@ -29,7 +29,7 @@ class Event < Item
     where("(#{Event.table_name}.start_datetime >= :from AND (end_datetime IS NULL OR #{Event.table_name}.end_datetime <= :to)) OR " + 
           "((#{Event.table_name}.expires_on IS NULL OR #{Event.table_name}.expires_on >= :from) AND " + 
           "#{Event.table_name}.rules IS NOT NULL AND #{Event.table_name}.rules NOT LIKE '%rrules:[]%')", 
-          { from: from.to_time.beginning_of_day.utc, to: to.to_time.end_of_day.utc })
+          { from: from.to_time.beginning_of_day, to: to.to_time.end_of_day })
   }
   
   scope :owned_or_bookmarked_by_or_rsvp_to, lambda { |user| 
