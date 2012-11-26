@@ -72,6 +72,10 @@ class Item < ActiveRecord::Base
   scope :having_tag_with_name, lambda { |tag_name| { :joins => :tags, :conditions => ["#{Tag.table_name}.name = ?", tag_name] } }
   scope :having_geo_tags, lambda { |tags| { :joins => :geo_tags, :conditions => ["#{GeoTag.table_name}.name IN (?)", tags.map(&:name)] } }
 
+  scope :of_type, lambda { |type|
+    where(["#{table_name}.type = ?", type])
+  }
+
   scope :flagged, :conditions => "EXISTS (SELECT * FROM #{ItemFlag.table_name} WHERE #{ItemFlag.table_name}.item_id = #{table_name}.id)"
 
   scope :within_community, lambda { |community|
