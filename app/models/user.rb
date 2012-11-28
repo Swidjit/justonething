@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   attr_accessible :about, :websites, :address, :phone, :geo_tag_list, :profile_pic,
     :profile_pic_id, :feeds_attributes, :as => :default
 
-  attr_protected :display_name
+  attr_accessible :display_name
 
   validate :is_thirteen?, :on => :create
   validates_presence_of :first_name, :last_name, :zipcode
