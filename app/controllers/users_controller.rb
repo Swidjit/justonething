@@ -94,7 +94,7 @@ class UsersController < ApplicationController
         sign_in @user, :bypass => true
         redirect_to '/'
       else
-        redirect_to 'complete_shadow_user'
+        redirect_to :action => 'complete_shadow_user'
       end
     else
       redirect_to '/'
