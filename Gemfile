@@ -40,7 +40,6 @@ group :assets do
   gem 'less'
 end
 
-gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 
 group :test do

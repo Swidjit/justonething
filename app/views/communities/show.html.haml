@@ -7,54 +7,29 @@
     })
   });
 
-.mainContent
-  .headingLeft
-    %h2.page-heading
-      %i.icon-group        
-      = @community.name 
-      [community]
-  .headingRight
-    .btn-group
-      %button.btn 
-        %i.icon-cog.icon-large
-      %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
-        %span.caret
-      %ul.dropdown-menu
+.info-block.clearfix
+  .info-left
+    = @community.image_tag
+  .info-right
+    %h1= @community.name
+    %span.owner
+      admin by
+      = link_to @community.user.display_name, profile_path(@community.user.display_name)
+    %p= @community.description
+- if can? :read_items, @community
+  .filter-box
+    .breadcrumbs
+      = link_to 'ithaca, ny', '/'
+      >
+      = link_to @community.name, community_path(@community)
+    .filter-tier
+    .filter-tier
+      filter by category:
+      = type_filter_links
+    .filter-tier
+      filter by tags:
+      = tag_filter_links
 
-        = @community.manage_links
-  .clear  
-  .page_sub_heading
-    admin by 
-    = link_to @community.user.display_name, profile_path(@community.user.display_name)
-  .clear
-  = @community.invitation_form
-  .section-heading
-    Community Description
-  .indent
-    = @community.description
-
-  .section-heading
-    #upcoming-events
-      .section-heading
-        Community Events
-      - if @upcoming_events.blank?
-        %p This user has no upcoming events.
-      - else
-        = render 'calendars/by_day', events: @upcoming_events
-      %p= link_to "#{@community.name}'s calendar", community_calendar_path(@community)
-
-  .section-heading
-    Community Posts
-  - if can? :read_items, @community
-    %div
-      filter by:  
-      = tabbed_item_types('type')
-    
-  = render :partial => 'feeds/endless_scroll'
-  
-- content_for :head do
-  %meta{:property => "og:title", :content => "#{@community.name} Community - Ithaca Swidjit"}
-  %meta{:property => "og:site_name", :content => "Ithaca Swidjit"}
-  %meta{:property => "fb:admins", :content => Facebook::APP_ID}
-  %meta{:name => "description", :content => @community.description.gsub(/<\/?[^>]*>/, "") }
+- else
+  %a.join-button join this community
 

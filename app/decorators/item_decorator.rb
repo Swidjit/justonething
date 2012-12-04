@@ -78,6 +78,14 @@ class ItemDecorator < ApplicationDecorator
     "<div class='fb-like' data-href='#{distinct_url}' data-send='false' data-layout='button_count' data-width='50' data-show-faces='false'></div>"
   end
 
+  def info_icons
+    info_icons = []
+    info_icons << price_tag
+    info_icons << location_tag
+    info_icons << condition_tag
+    info_icons.join("").html_safe
+  end
+
   def iconic_information(with_type=true)
     icon_tags = []
     icon_tags << tagged_as
@@ -109,7 +117,37 @@ class ItemDecorator < ApplicationDecorator
     end
   end
 
+  def links_bar
+    links = []
+    links.join('').html_safe
+  end
+
   def manage_links
+    links = []
+    if h.can? :manage, item
+      links << link_to('edit', edit_polymorphic_path(item))
+      if item.type == 'Event' and item.is_recurrence? and (h.params[:controller] == 'calendars' or h.params[:date])
+        links << link_to('Delete One', event_path(item, date: item.start_datetime.to_s(:ymd)), confirm: 'Are you sure? This will only delete this instance of the event, and not the entire event.', method: :delete)
+        links << link_to('Delete All', item, :confirm => 'Are you sure? This will delete all instances of the event.', :method => :delete)
+      else
+        links << link_to('Delete', item, :confirm => 'Are you sure?', :method => :delete)
+      end
+      active_text = item.active ? 'Deactivate' : 'Activate'
+      links << link_to(active_text, send("toggle_active_#{item.class.to_s.underscore}_path",item))
+    end
+
+    if h.can? :create, Item
+      links << link_to('Duplicate', send("duplicate_#{item.class.to_s.underscore}_path",item))
+    end
+
+    if h.current_user.present? && !item.flagged_by_user?(current_user)
+      links << link_to('Flag', send("flag_#{item.class.to_s.underscore}_path", item), :method => :put)
+    end
+
+    ('<ul class="link-list"><li>'+links.join('</li><li>')+'</li></ul>').html_safe
+  end
+
+  def manage_links_old
     links = []
 
     if h.can? :manage, item

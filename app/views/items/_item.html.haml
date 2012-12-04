@@ -1,18 +1,13 @@
-.contentRow
+.item-box.clearfix
   - if item.user.present? && item.user.id.present?
     %input{:type=>'hidden',:value=>item.user.id, :name => 'item_user_id'}
-  .itemPic
-    = item.class_feed
-    %br
-    = item.thumb_with_lightbox || item.thumb
-  .itemInfo
-    .itemTitle
-      .no_break_hide= link_to item.short_title, item
-    .itemDesc= item.short_description
-    .multiLinks
-      .no_break_hide
-        = item.iconic_information(false)
-      
-    .itemIcons
-      = item.manage_links_lite
-  .clear
+  .item-title
+    = link_to item.short_title, item
+  .item-pic
+    = item.thumb
+  .item-info
+    .item-desc= item.short_description
+    - if item.user.present?
+      .item-owner
+        post by
+        = link_to item.user.display_name, profile_path(item.user.display_name)

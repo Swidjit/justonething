@@ -1,25 +1,22 @@
-.contentRow.without_border.overflow-visible
-  .row-fluid
-    .span10
-      %h2.page-heading
-        %i.icon-camera-retro        
-        = "#{current_city.name} - #{@title}"
-
-  
-  .filter_wrapper
-    %div.tag_cloud
-      - if @hide_tabbed_types.blank?
-        %div.tabbed_types_wrapper
-          filter by:
-          = tabbed_item_types('type')
-      = tag_cloud_for @feed_items, @type_link
-    %div#category_search_wrapper
-      %form#category_search_form{:method => 'GET', action: search_feeds_path}
-        %input{:type => 'hidden', :name => 'type', :value => @type_link}
-        %input#category_search{:type => 'text', :name => 'q', :placeholder => 'Search this feed'}
-        %input#category_search_submit{:type => 'submit', :value => 'search'}
-
-  = render :partial => 'endless_scroll'
+.filter-box
+  .breakcrumbs
+    = link_to 'ithaca, ny', '/'
+    >
+    = link_to @title
+  .filter-tier
+  - if @type.nil? or @type == 'All'
+    .filter-tier
+      filter by category:
+      = type_filter_links
+  .filter-tier
+    filter by tags:
+    = tag_cloud_for @feed_items, @type_link
+- if @feed_items.empty?
+  %span.no-results No items found.
+- else
+  .feed.endless_scrolling
+    = render @feed_items.decorated
+    = render 'feeds/pageless', total_pages: @feed_items.total_pages, path_to_page: url_for(params.merge({:format => :js }))
 
 - content_for :head do
   %meta{:property => "og:title", :content => "#{@type} on Ithaca Swidjit"}

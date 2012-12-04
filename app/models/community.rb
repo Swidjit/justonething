@@ -12,6 +12,10 @@ class Community < ActiveRecord::Base
 
   before_create :add_creator_as_user
 
+  def image_tag
+    '<img />'.html_safe
+  end
+
 private
   def add_creator_as_user
     self.users << self.user

@@ -25,7 +25,7 @@ module ApplicationHelper
       html << ' '.html_safe
     end
 
-    content_tag :div, 'common tags: '.html_safe + html.html_safe
+    content_tag :div, html.html_safe
   end
 
   def error_messages_for(resource)
@@ -164,6 +164,88 @@ JS3
         link_to(c.name, url_for(c))
       end
     end.join(', ').html_safe
+  end
+
+  def category_feeds
+    links = []
+    links << link_to('have its', main_feeds_path(type: 'have_its'))
+    links << link_to('want its', main_feeds_path(type: 'want_its'))
+    links << link_to('thoughts', main_feeds_path(type: 'thoughts'))
+    links << link_to('links', main_feeds_path(type: 'links'))
+    links << link_to('events', main_feeds_path(type: 'events'))
+    links << link_to('collections', main_feeds_path(type: 'collections'))
+    ('<ul><li>'+links.join("</li><li>")+'</li></ul>').html_safe
+  end
+
+  def system_feeds
+    links = []
+    links << link_to('recommendations', recommendations_feeds_path)
+    links << link_to('all items', main_feeds_path)
+    if signed_in?
+      links << link_to('familiar users', familiar_users_feeds_path)
+      links << link_to('suggestions', suggested_items_feeds_path)
+      links << link_to('mentions', references_user_path(current_user))
+      links << link_to('inactive items', drafts_feeds_path)
+      if current_user.geo_tags.present?
+        links << link_to('nearby', nearby_feeds_path)
+      end
+    end
+    ('<ul><li>'+links.join("</li>\n<li>")+'</li></ul>').html_safe
+  end
+
+  def custom_feeds
+    links = [];
+
+
+    ('<ul><li>'+links.join("</li>\n<li>")+'</li></ul>').html_safe.html_safe
+  end
+
+  def community_feeds
+    links = []
+    if signed_in?
+      links << link_to('create a community', new_community_path)
+      current_user.communities.each do |comm|
+        links << link_to(comm.name, comm)
+      end
+    end
+    links << link_to('all communities', communities_path)
+    ('<ul><li>'+links.join("</li>\n<li>")+'</li></ul>').html_safe
+  end
+
+  def trending_tags
+    links = []
+
+    ('<ul><li>'+links.join("</li>\n<li>")+'</li></ul>').html_safe
+  end
+
+  def social_links
+
+  end
+
+  def posting_box
+    form_tag({}, {:class => "posting-form"}) do
+      haml_tag :div, :class => "field-desc" do
+        haml_tag :textarea, :placeholder => 'tell us about what you have to offer, what you need, or something interesting around town...'
+      end
+    end
+  end
+
+  def type_filter_links
+    links = []
+    links << link_to('all')
+    links << link_to('have-its')
+    links << link_to('want-its')
+    links << link_to('thoughts')
+    links << link_to('events')
+    links << link_to('collections')
+
+    links.join(' | ').html_safe
+  end
+
+  def tag_filter_links
+    links = []
+
+    links.join(' ').html_safe
   end
   
 end

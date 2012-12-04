@@ -121,11 +121,18 @@ class ItemsController < ApplicationController
   end
 
 private
+  # def arrayify_ids_fields_in_params
+  #   ic_sym = item_class.to_s.underscore.to_sym
+  #   %w( community_ids list_ids ).each do |ids_field|
+  #     if params[ic_sym][ids_field].present? && params[ic_sym][ids_field].is_a?(String)
+  #       params[ic_sym][ids_field] = params[ic_sym][ids_field].split(',')
+  #     end
+  #   end
+  # end
   def arrayify_ids_fields_in_params
-    ic_sym = item_class.to_s.underscore.to_sym
-    %w( community_ids list_ids ).each do |ids_field|
-      if params[ic_sym][ids_field].present? && params[ic_sym][ids_field].is_a?(String)
-        params[ic_sym][ids_field] = params[ic_sym][ids_field].split(',')
+    %w(community_ids list_ids).each do |ids_field|
+      if params[:item][ids_field].present? && params[:item][ids_field].is_a?(String)
+        params[:item][ids_field] = params[:item][ids_field].split(',')
       end
     end
   end
@@ -175,6 +182,7 @@ private
   end
 
   def item_params
-    params[item_class.to_s.underscore.to_sym]
+    #params[item_class.to_s.underscore.to_sym]
+    params[:item]
   end
 end

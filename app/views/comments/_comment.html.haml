@@ -1,5 +1,5 @@
 .comment_block{:id => "comment_#{comment.id}"}
-  .comment.ui-helper-clearfix
+  .comment.clearfix
     - if current_user == comment.user || current_user == comment.item.user
       = link_to '&times;'.html_safe, comment_path(comment.id), :method => :delete, :title => 'Delete comment', :class => 'comment-delete'
     .comment-left

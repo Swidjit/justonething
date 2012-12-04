@@ -1,63 +1,25 @@
-.contentRow.without_border.overflow-visible
-  .row-fluid    
-    .span3
-      %div{style:" padding: 12px; height: 130px"}
-        = @user.profile_pic
-      .user-pages
-        .section-heading
-          User Pages
-        .indent
-      #upcoming-events
-        .section-heading
-          User Events
-        - if @upcoming_events.blank?
-          %p This user has no upcoming events.
-        - else
-          = render 'calendars/by_day', events: @upcoming_events
-        %p= link_to "#{@user.display_name}'s calendar", user_calendar_path(@user)      
-      .user-info
-        /= @user.vouches_display/
-    .span9{style:"margin-left: -20px"}
-      .row-fluid
-        .span12
-          %h2.page-heading     
-            = @user.display_name
-      .row-fluid  
-        .span12
-          .btn-toolbar{style: "margin:15px 0 5px -2px"}     
-            = @user.manage_links(:li)
-      .row-fluid
-        .span12
-          #btxt
-            %ul{style:"list-style:none; margin: 0px"}
-              - %w( name about websites address phone ).each do |field|
-                - if @user.send(field).present?
-                  %li
-                    = "#{field}:"
-                    = @user.send(field)
-              - if @user.open_hours.any?
-                %li
-                  hours:
-                  %ul
-                    - @user.open_hours.each do |oh|
-                      %li
-                        = oh.day_of_week
-                        = oh.open_time
-                        to
-                        = oh.close_time
-            %a#moreLink{:href => ""}
-              View Full Bio
-              = image_tag('arrowDN.png')                  
-
-      .row-fluid{style:"margin-top:15px;"}
-        .span12
-          %div
-            = tabbed_item_types('type')
-          - if false # This will be for importance/familiarty ordering
-            .addTo.filter
-              Filters
-              = image_tag('arrowDN.png')
-      .row-fluid
-        .span12
-
-          = render :partial => 'feeds/endless_scroll'
+.info-block.clearfix
+  .info-left
+    = @user.profile_pic
+  .info-right
+    %h1= "#{@user.display_name} (#{@user.full_name})"
+    %span.join-date= "member since #{@user.confirmed_at.strftime('%m/%d/%Y')}"
+    %p= @user.about
+.filter-box
+  .breakcrumbs
+    = link_to 'ithaca, ny', '/'
+    >
+    = link_to "@#{@user.display_name}"
+  .filter-tier
+  .filter-tier
+    filter by category:
+    = type_filter_links
+  .filter-tier
+    filter by tags:
+    = tag_cloud_for @feed_items, @type_link
+- if @feed_items.empty?
+  %span.no-results No items found.
+- else
+  .feed.endless_scrolling
+    = render @feed_items.decorated
+    = render 'feeds/pageless', total_pages: @feed_items.total_pages, path_to_page: url_for(params.merge({:format => :js }))

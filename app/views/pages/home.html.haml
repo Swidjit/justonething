@@ -2,9 +2,6 @@
   = stylesheet_link_tag "homepage", :media => "all"
   = javascript_tag { "USER_LOGGED_IN = #{current_user.present?}" }
 
-.title_heading
-  Ithaca, NY
-
 %div{:style => "margin-top: 10px; width: 200px; float:left; margin-bottom: 15px"}
   %a.lightview{"data-lightview-options" => "\r\n     width: 638,\r\n     height: 360,\r\n     viewport: 'scale'\r\n   ", "data-lightview-type" => "iframe", :href => "https://s3.amazonaws.com/swidjit-prod/swidjit_intro.mov"}
     = image_tag 'intro_video_preview.png'

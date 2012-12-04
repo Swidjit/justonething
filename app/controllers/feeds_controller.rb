@@ -17,7 +17,11 @@ class FeedsController < ApplicationController
     end
 
     item_type_string = @type == 'items ' ? '' : @type
-    @title = "#{item_type_string} tagged " + (@title || '') 
+    unless @title.nil?
+      @title = "#{item_type_string} tagged " + @title
+    else
+      @title = item_type_string
+    end
     #- @title = @title + " feed [#{item_type_string}]"
 
     render_paginated_feed :index

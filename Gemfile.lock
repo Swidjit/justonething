@@ -153,9 +153,6 @@ GEM
       addressable (~> 2.2.6)
     less (2.2.2)
       commonjs (~> 0.2.6)
-    less-rails (2.2.3)
-      actionpack (>= 3.1)
-      less (~> 2.2.0)
     libv8 (3.3.10.4)
     libwebsocket (0.1.5)
       addressable
@@ -283,10 +280,6 @@ GEM
     turnip (0.3.0)
       gherkin (>= 2.5)
       rspec (~> 2.0)
-    twitter-bootstrap-rails (2.1.2)
-      actionpack (>= 3.1)
-      less-rails (~> 2.2.3)
-      railties (>= 3.1)
     tzinfo (0.3.33)
     uglifier (1.2.6)
       execjs (>= 0.3.0)
@@ -355,7 +348,6 @@ DEPENDENCIES
   stringex
   therubyracer (= 0.9.10)
   turnip (= 0.3.0)
-  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   unicorn (= 4.2.0)
   vcr

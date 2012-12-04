@@ -1,5 +1,5 @@
 - if @feed_items.empty?
-  %p No items found.
+  %span.no-results No items found.
 - else
   .feed.endless_scrolling
     = render @feed_items.decorated

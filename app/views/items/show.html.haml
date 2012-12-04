@@ -1,105 +1,31 @@
-:javascript
-  $(document).ready(function(){
-    $(".addTo2").toggle(
-      function () {
-        $("#visiEXP").animate(
-          {height:$(".visiRow").height()},
-          {queue:false, duration: 300},
-          $("#visiEXP").css('overflow','visible')
-        );
-      }, function () {
-        $("#visiEXP").css('overflow','hidden').animate(
-          {height: "0px"},
-          {queue:false, duration: 300});
-      }
-    );
-  });
-  $(document).ready(function(){
-    $(".reveal-suggest").toggle(
-      function () {
-        $("#suggest-form").animate(
-          {height:$(".suggest-form").height()},
-          {queue:false, duration: 300},
-          $("#suggest-form").css('overflow','visible')
-        );
-      }, function () {
-        $("#suggest-form").css('overflow','hidden').animate(
-          {height: "0px"},
-          {queue:false, duration: 300});
-      }
-    );
-    $('.comment-show-reply').click(function(event) {
-      var $e = $(event.target);
-      var $p = $('#comment_'+$e.data('parent'));
-      $p.children('.reply-form').toggle().find('textarea').focus();
-      return false;
-    });
-  });
-  
-.contentRow.without_border.overflow-visible
-  -if (!@item.expires_on.nil?) && (Date.strptime(@item.expires_on, '%m/%d/%Y') < Date.today)
-    .alert.expired-notice
-      %strong Notice:
-      This item expired on 
-      = @item.expires_on 
-      and it has not been deactivted or renewed by the author.  You may wish to comment or private message the author to check if it is still valid.
-  .row-fluid    
-    .span12
-      %h2.page-heading
-        %i.icon-camera-retro        
-        = @item.title
-  - if @item.community_ids.count > 0
-    .row-fluid
-      .span12
-        Belongs to the following communities:
-        = community_list(@item.community_ids)
-  .row-fluid  
-    .span12
-      .btn-toolbar{style: "margin:15px 0 5px -2px"}
-        = @item.manage_links
-  #suggest-form{style:"overflow:hidden; height: 0px"}
-    .row-fluid
-      .span12.padded10
-        = @item.suggest_item_form          
-  .row-fluid  
-    .span8
-      .item-body{style: "padding: 0px 10px;"}
-        #test
-          .itemDesc= @item.description
-          - if @item.respond_to?(:link_tag)
-            Link:
-            = @item.link_tag
-      - unless @item.user.nil?
-        posted by 
-        = link_to @item.user.display_name, profile_path(@item.user.display_name)    
-      .multiLinks= @item.iconic_information(false)
-    .span4
-      .itemPic.wide{style:"width: 90%"}
-        = @item.thumb_with_lightbox  
-  
-- if @item.allows_offers?
-  .contentRow.h_pad.without_border.without_padding
-    %p.header
-      %label Private Messages
-  .contentRow.h_pad.without_border.without_padding
-    - if can? :manage, @item
-      %p Private discussions with people who have contacted you about this item.
-    - else 
-      %p You can have a private conversation about this item with its author.
-    .comment_block
-      = render 'offers'
+- if (!@item.expires_on.nil?) && (Date.strptime(@item.expires_on, '%m/%d/%Y') <= Date.today)
+  .alert
+    %strong Notice:
+    This item expired on
+    = @item.expires_on
+    and it has not been deactivated or renewed by the author.  You may wish to comment or send a message to the author to check if it is still valid.
+.info-block.clearfix
+  .info-left
+    = @item.thumb_with_lightbox
+  .info-right
+    %h1= "#{@item.title}"
+    %span.owner
+      = "posted on #{@item.created_at.strftime('%m/%d/%Y')}"
+      - if @item.user.present?
+        by
+        = link_to @item.user.display_name, profile_path(@item.user.display_name)
+      = @item.info_icons
+      = @item.tagged_as
+.links-bar
+  = @item.links_bar
+%p= @item.description
 
-= yield :middle
-
-.contentRow.h_pad.without_border.without_padding
-  %p.header
-    %label Comments
-.contentRow.h_pad.without_border.without_padding
-  Or, comment publicly to all users who can view this item.
+%h2 Comments
+.comments-box
+  Comment publicly to all users who can view this item.
   - if @comments.any?
     = render :partial => 'comments/comment', :collection => CommentDecorator.decorate(@comments.order(:created_at))
-  .comment_block
-    %a#comment{:name => 'comment'}
+  .comment-block
     = form_for @item.comments.build, {:url => comments_path(@item)} do |f|
       .formrow.form-header
         Add a comment
@@ -108,20 +34,9 @@
       .formrow
         = f.submit 'Comment'
 
--#
-  .contentRow.h_pad.without_border.without_padding
-    %p.header
-      %label Recommendations
-  .contentRow.h_pad.without_border.without_padding
-    - if @item.recommendations.any?
-      = render :partial => 'recommendations/for_item', :collection => RecommendationDecorator.decorate(@item.recommendations)
-    - if can? :recommend, @item
-      .comment_block
-        Recommend
-        %a#recommend{:name => 'recommend'}
-        = form_for Recommendation.new, :url => recommendations_path(@item) do |f|
-          = f.text_area :description, { :class => 'user-suggestion' }
-          = f.submit 'Recommend'
+-content_for :right_links do
+  .page-links
+    = @item.manage_links
 
 - content_for :head do
   %meta{:property => "og:title", :content => "Swidjit - #{@item.title}"}
