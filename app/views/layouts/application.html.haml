@@ -86,13 +86,19 @@
                     .category-title collections
                     .category-desc containers to help you group together similar items
             .field-tags
-              %textarea{:name => 'item[tags]', :placeholder => 'tag your item'}
+              %textarea{:placeholder => 'tag your item'}
             .field-images
-              attach an image
+              .fileupload.thumbnail
+                #thumbnail
+                  attach an image
+                  =image_tag 'plus_button.png'
+                =hidden_field(:item, :thumbnail_id)
+                .uploaded-image
+                  %a.unload-image{:href => '#'}
             .field-links
-              %textarea{:name => 'item[link]', :placeholder => 'add a link'}
+              %textarea{:placeholder => 'add a link'}
             .field-location
-              %textarea{:name => 'item[location]', :placeholder => 'add a location'}
+              %textarea{:placeholder => 'add a location'}
             .icon-row.clearfix
               %a.field-button.item-add-link{:data => {:field => 'field-links'}}
                 =image_tag 'link_field.png'
@@ -105,6 +111,7 @@
               %a.field-button.item-add-time{:data => {:field => 'field-time'}}
                 =image_tag 'time_field.png'
               %a.publish-item publish item
+            =javascript_include_tag 'images/dynamic_image_upload'  
         = yield
       #right_bar
         = social_links

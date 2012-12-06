@@ -1,5 +1,11 @@
 $ ->
   thumb = $('.thumbnail')
+  up_container = $('.uploaded-image')
+
+  thumb.find('.unload-image').click( ->
+    up_container.removeClass('with-image')
+    $('#thumbnail_id').val('')
+  )
 
   # https://github.com/valums/ajax-upload
   window.logoUploader = new AjaxUpload('thumbnail', {
@@ -11,7 +17,7 @@ $ ->
     data : {'image_param': 'thumbnail'}
 
     onSubmit: (file, extension) ->
-      $('.thumbnail').addClass('loading')
+      thumb.addClass('loading')
 
     onComplete: (file, response) ->
       image_url = response.url
@@ -19,15 +25,17 @@ $ ->
 
       # Replace logo image source, but don't remove its 'loading'
       # class until the new image is fully loaded.
-      if (thumb.find('img').length == 0)
-        thumb.append('<img />')
-      thumb.find('img').load ->
+      if (up_container.find('img').length == 0)
+        up_container.append('<img />')
+      up_container.find('img').load ->
         image = $(this)
         image.parent('.thumbnail').removeClass('loading')
         image.unbind()
-      thumb.find('img').attr('src', image_url)
+      up_container.find('img').attr('src', image_url)
+
+      up_container.addClass('with-image')
 
       # Update the hidden field with the uploaded image's ID for
       # form submission.
-      $('#thumbnail_id').val(image_id)
+      $('#item_thumbnail_id').val(image_id)
   })

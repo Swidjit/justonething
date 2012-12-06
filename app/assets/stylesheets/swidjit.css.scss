@@ -260,6 +260,7 @@ i.ad {
 
 .field-images {
   background: image-url('image_field.png') no-repeat;
+  position: relative;
   display: none;
   margin: 6px 0;
   padding-left: 30px;
@@ -267,6 +268,7 @@ i.ad {
 
 .field-location {
   background: image-url('location_field.png') no-repeat;
+  position: relative;
   display: none;
   margin: 6px 0;
   padding-left: 30px;
@@ -341,6 +343,34 @@ a.publish-item {
   background: #362d28;
   border: 1px solid #666;
   cursor: default;
+}
+
+#thumbnail {
+  margin-bottom: 4px;
+}
+#thumbnail > img {
+  vertical-align: bottom;
+}
+.uploaded-image {
+  display: none;
+  background: #f5fdc2;
+  padding: 10px;
+  position: relative;
+}
+.uploaded-image img {
+  border: 1px solid #999;
+}
+.uploaded-image.with-image {
+  display: inline-block;
+}
+.unload-image {
+  display: block;
+  background: image-url('x_button.png') no-repeat;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .info-block {

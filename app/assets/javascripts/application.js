@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ajaxupload
 //= require_self
 
 jQuery(function() {
