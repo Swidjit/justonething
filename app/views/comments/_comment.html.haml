@@ -1,4 +1,4 @@
-.comment_block{:id => "comment_#{comment.id}"}
+.comment-block{:id => "comment_#{comment.id}"}
   .comment.clearfix
     - if current_user == comment.user || current_user == comment.item.user
       = link_to '&times;'.html_safe, comment_path(comment.id), :method => :delete, :title => 'Delete comment', :class => 'comment-delete'
@@ -6,7 +6,7 @@
       = UserDecorator.new(comment.user).linked_profile_pic('40')
     .comment-content
       .comment-right
-        .comment-meta.ui-helper-clearfix
+        .comment-meta.clearfix
           %span.comment-author
             = link_to comment.user.display_name, profile_path(comment.user.display_name)
             says

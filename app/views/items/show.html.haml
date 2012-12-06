@@ -33,6 +33,14 @@
         = f.text_area :text, :class => 'user-suggestion'
       .formrow
         = f.submit 'Comment'
+:javascript
+  $(function() {
+    $('.comment-show-reply').click(function() {
+      var cid = '#comment_'+$(this).data('parent');
+      $(cid).find('.reply-form').show();
+      $(this).hide();
+    });
+  });
 
 -content_for :right_links do
   .page-links

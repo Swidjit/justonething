@@ -25,6 +25,11 @@ a:visited {
   text-align: center;
 }
 
+h2 {
+  margin: 6px 0;
+  font-size: 20px;
+}
+
 i.ad {
   display: inline-block;
   width: 0; 
@@ -381,6 +386,9 @@ a.publish-item {
   float: left;
   width: 240px;
 }
+.info-left img {
+  width: 240px;
+}
 .info-block .info-right {
   margin-left: 250px;
 }
@@ -443,22 +451,55 @@ a.publish-item {
   position: relative;
 }
 .comment-delete {
+  display: block;
   position: absolute;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 18px;
+  text-decoration: none;
+  text-align: center;
+  background: #fff;
+  color: #999;
   top: 10px;
   right: 10px;
+}
+.comment-delete:hover {
+  color: #fff;
+  background: #ccc;
+  text-decoration: none;
 }
 .comment-left {
   float: left;
   padding: 10px;
+  width: 40px;
+  margin-right: -60px;
+}
+.comment-content {
+  float: left;
+  width: 100%;
 }
 .comment-right {
+  margin-left: 60px;
   padding: 10px;
 }
+.comment-meta {
+  margin-right: 30px;
+}
 .comment-author {
-  display: block;
+  float: left;
+  font-size: 16px;
 }
 .comment-date {
+  float: right;
   font-size: 12px;
+}
+.comment-meta, .comment-meta a {
+  color: #075a8e;
+}
+.comment-block p {
+  margin-bottom: 10px;
+  margin-top: 0;
 }
 
 .new_user {
@@ -503,4 +544,44 @@ a.publish-item {
 }
 .form-title {
   font-size: 24px;
+}
+
+.comment-block {
+  border: 1px solid #ccc;
+  border-bottom: none;
+}
+.comment-block:last-child {
+  border-bottom: 1px solid #999;
+}
+
+.comment-block form {
+  padding: 10px;
+}
+
+.form-header {
+  font-size: 16px;
+  color: #075A8E;
+}
+.formrow {
+  padding: 6px 0;
+}
+.comment-block textarea {
+  display: block;
+  height: 50px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.reply-form {
+  display: none;
+}
+.nested_comments {
+  padding-left: 70px;
+}
+
+.nested_comments > .comment-block {
+  border-width: 1px 0 0 0;
 }
