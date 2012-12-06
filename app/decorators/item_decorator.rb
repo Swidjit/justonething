@@ -308,7 +308,7 @@ class ItemDecorator < ApplicationDecorator
 
   def thumb
     if item.thumbnail.present?
-      ImageDecorator.new(item.thumbnail).thumb
+      ImageDecorator.new(item.thumbnail).thumb('200x200>')
     else
       h.image_tag("item-thumbnails/#{item.class.to_s.underscore.gsub('_', '-')}-thumbnail.png")
     end
