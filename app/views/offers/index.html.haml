@@ -1,19 +1,19 @@
-%div.title_heading private messages
+%h2 Messages
 
 - @offers.group_by(&:item).each do |item, offers|
-  %div.contentRow
-    %div.title_heading= item.title
-    - offers.each do |offer|
-      %div.offer_container
-        %a{:href => "#", :class => 'toggle-offer-wrapper'}= image_tag 'right_arrow.png', :class => 'left'
-        .accordian_offer_heading
-          from
-          %span= link_to offer.user.display_name, profile_path(offer.user.display_name)
-
-        %span.right= link_to 'delete msg', offer_path(offer), :method => :delete
-
-        %div.clear
-
-        -# float right delete_offer
-        %div.offer_wrapper.hidden
-          = render :partial => 'offer', :locals => { :@offer => offer }
+  .message-item.clearfix
+    .message-item-name
+      -if item.user_id == current_user.id
+        =image_tag "itemIcon1.png"
+      = item.title
+    .message-item-threads
+      - offers.each do |offer|
+        %a{:href => offer_path(offer), :class => 'message-thread'}
+          Message with
+          - if offer.user_id == current_user.id
+            = item.user.display_name
+          - else
+            = offer.user.display_name
+        -#%span.right= link_to image_tag('x_button.png'), offer_path(offer), :method => :delete
+- if @offers.count < 1
+  You have no messages

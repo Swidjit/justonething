@@ -20,6 +20,30 @@
   = @item.links_bar
 %p= @item.description
 
+- if @item.user.present?
+  %h2 Private Messages
+  .pm-box
+    - if @item.user != current_user
+      - if @item.has_offer_from?(current_user)
+        = link_to 'View your messages on this item', offer_path(@item.offer_from(current_user))
+      - else
+        Send
+        =@item.user.display_name
+        a private message regarding this item
+        .comment-block
+          = form_for :offer, :url => item_offers_path(@item) do |f|
+            = f.hidden_field :item_id, :value => @item.id
+            .formrow
+              = text_area_tag :text
+            .formrow
+              = f.submit 'Send Message'
+    - else
+      - if @item.offers.present?
+        - @item.offers.each do |off|
+          = link_to "Messages from #{off.user.display_name}", offer_path(off)
+      - else
+        No private messages yet.
+
 %h2 Comments
 .comments-box
   Comment publicly to all users who can view this item.

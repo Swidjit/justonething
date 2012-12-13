@@ -54,63 +54,6 @@
           .feed-category Trending Tags
           = trending_tags
       #page_content
-        - if signed_in?
-          = form_tag({}, {:class => "posting-form"}) do
-            .posting-title add an item
-            .field-desc
-              %textarea{:name => 'item[description]', :placeholder => 'tell us about what you have to offer, what you need, or something interesting around town...'}
-            .field-title
-              %textarea{:name => 'item[title]', :placeholder => 'add a title'}
-            .field-category
-              select a category
-              .category-dropdown
-                = hidden_field_tag :item_type
-                .category-selection
-                  .category-title
-                  .category-desc
-                .dropdown-menu
-                  .dropdown-opt{:data => {:type => 'thoughts', :url => thoughts_path}}
-                    .category-title thoughts
-                    .category-desc comments, questions, announcements and information
-                  .dropdown-opt{:data => {:type => 'have-it', :url => have_its_path}}
-                    .category-title have-its
-                    .category-desc offer goods, services, spaces and experiences
-                  .dropdown-opt{:data => {:type => 'want-it', :url => want_its_path}}
-                    .category-title want-its
-                    .category-desc request access to goods, services, spaces and experiences
-                  .dropdown-opt{:data => {:type => 'event', :url => events_path}}
-                    .category-title events
-                    .category-desc performances, meetings, classes, excursions and more
-                  .dropdown-opt{:data => {:type => 'collection', :url => collections_path}}
-                    .category-title collections
-                    .category-desc containers to help you group together similar items
-            .field-tags
-              %textarea{:placeholder => 'tag your item'}
-            .field-images
-              .fileupload.thumbnail
-                #thumbnail
-                  attach an image
-                  =image_tag 'plus_button.png'
-                =hidden_field(:item, :thumbnail_id)
-                .uploaded-image
-                  %a.unload-image{:href => '#'}
-            .field-links
-              %textarea{:placeholder => 'add a link'}
-            .field-location
-              %textarea{:placeholder => 'add a location'}
-            .icon-row.clearfix
-              %a.field-button.item-add-link{:data => {:field => 'field-links'}}
-                =image_tag 'link_field.png'
-              %a.field-button.item-add-location{:data => {:field => 'field-location'}}
-                =image_tag 'location_field.png'
-              %a.field-button.item-add-image{:data => {:field => 'field-images'}}
-                =image_tag 'image_field.png'
-              %a.field-button.item-add-tags{:data => {:field => 'field-tags'}}
-                =image_tag 'tag_field.png'
-              %a.field-button.item-add-time{:data => {:field => 'field-time'}}
-                =image_tag 'time_field.png'
-              %a.publish-item publish item
-            =javascript_include_tag 'images/dynamic_image_upload'  
         = yield
       #right_bar
         = social_links
@@ -119,7 +62,6 @@
           .box-title what is swidjit?
           %ul.link-list
             %li= link_to "our story", pages_path(:page_name => :about)
-            %li= link_to "how it works"
             %li= link_to "some FAQ", pages_path(:page_name => :faq)
             %li= link_to "privacy policy", pages_path(:page_name => 'privacy-policy')
             %li= link_to "contact us", contact_path
@@ -127,6 +69,64 @@
           .right-box
             .box-title give us feedback
             =text_area_tag :feedback
+    #floating_form
+      - if signed_in?
+        = form_tag({}, {:class => "posting-form"}) do
+          .posting-title add an item
+          .field-desc
+            %textarea{:name => 'item[description]', :placeholder => 'tell us about what you have to offer, what you need, or something interesting around town...'}
+          .field-title
+            %textarea{:name => 'item[title]', :placeholder => 'add a title'}
+          .field-category
+            select a category
+            .category-dropdown
+              = hidden_field_tag :item_type
+              .category-selection
+                .category-title
+                .category-desc
+              .dropdown-menu
+                .dropdown-opt{:data => {:type => 'thoughts', :url => thoughts_path}}
+                  .category-title thoughts
+                  .category-desc comments, questions, announcements and information
+                .dropdown-opt{:data => {:type => 'have-it', :url => have_its_path}}
+                  .category-title have-its
+                  .category-desc offer goods, services, spaces and experiences
+                .dropdown-opt{:data => {:type => 'want-it', :url => want_its_path}}
+                  .category-title want-its
+                  .category-desc request access to goods, services, spaces and experiences
+                .dropdown-opt{:data => {:type => 'event', :url => events_path}}
+                  .category-title events
+                  .category-desc performances, meetings, classes, excursions and more
+                .dropdown-opt{:data => {:type => 'collection', :url => collections_path}}
+                  .category-title collections
+                  .category-desc containers to help you group together similar items
+          .field-tags{:data => {:autocomplete => autocomplete_search_tags_path}}
+            %input.tag-input{:type => 'text', :id => 'item_tag_list', :name => 'item[tag_list]'}
+          .field-images
+            .fileupload.thumbnail
+              #thumbnail
+                attach an image
+                =image_tag 'plus_button.png'
+              =hidden_field(:item, :thumbnail_id)
+              .uploaded-image
+                %a.unload-image{:href => '#'}
+          .field-links
+            %textarea{:name => 'item[link]', :placeholder => 'add a link'}
+          .field-geotags{:data => {:autocomplete => autocomplete_search_geo_tags_path}}
+            %input.tag-input{:type => 'text', :id => 'item_geo_tag_list', :name => 'item[geo_tag_list]'}
+          .icon-row.clearfix
+            %a.field-button.item-add-link{:data => {:field => 'field-links'}}
+              =image_tag 'link_field.png'
+            %a.field-button.item-add-location{:data => {:field => 'field-geotags'}}
+              =image_tag 'location_field.png'
+            %a.field-button.item-add-image{:data => {:field => 'field-images'}}
+              =image_tag 'image_field.png'
+            %a.field-button.item-add-tags{:data => {:field => 'field-tags'}}
+              =image_tag 'tag_field.png'
+            %a.field-button.item-add-time{:data => {:field => 'field-time'}}
+              =image_tag 'time_field.png'
+            %a.publish-item publish item
+          =javascript_include_tag 'images/dynamic_image_upload'
                
     :javascript
       var _gaq = _gaq || [];

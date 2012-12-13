@@ -26,7 +26,7 @@ a:visited {
 }
 
 h2 {
-  margin: 6px 0;
+  margin: 6px 0 10px 0;
   font-size: 20px;
 }
 
@@ -163,8 +163,8 @@ i.ad {
   position: absolute;
   left: 200px;
   right: 200px;
-  top: 0;
-  padding: 20px 0;
+  top: 64px;
+  padding: 0 0 20px 0;
 }
 
 #right_bar {
@@ -185,6 +185,15 @@ i.ad {
   padding: 10px;
   background: #F5FDC2;
   margin: 0 0 10px 0;
+}
+
+#floating_form {
+  background: #fff;
+  position: absolute;
+  top: 80px;
+  left: 200px;
+  right: 200px;
+  padding: 10px 0;
 }
 
 .posting-form {
@@ -253,6 +262,7 @@ i.ad {
   height: 24px;
   display: none;
   margin: 6px 0;
+  padding-left: 30px;
 }
 
 .field-links {
@@ -271,7 +281,7 @@ i.ad {
   padding-left: 30px;
 }
 
-.field-location {
+.field-geotags {
   background: image-url('location_field.png') no-repeat;
   position: relative;
   height: 24px;
@@ -584,4 +594,156 @@ a.publish-item {
 
 .nested_comments > .comment-block {
   border-width: 1px 0 0 0;
+}
+.message-item {
+  line-height: 26px;
+}
+.message-item img {
+  display: inline-block;
+}
+.message-item-name {
+  display: block;
+  float: left;
+  text-align: right;
+  font-size: 16px;
+  width: 160px;
+  padding-left: 40px;
+  padding-right: 10px;
+}
+.message-item-name img {
+  vertical-align: middle;
+}
+.message-item-threads {
+  float: left;
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+.message-item-threads img {
+  vertical-align: middle;
+  margin-left: 20px;
+}
+
+.offer-mesage {
+
+}
+.offer-message-meta {
+  float: left;
+  text-align: right;
+  font-size: 16px;
+  width: 100px;
+  padding-top: 10px;
+}
+.offer-message-text {
+  margin-left: 110px;
+  border-left: 1px solid #ccc;
+  padding: 10px 10px 30px 10px;
+  border-bottom: 1px solid #ccc;
+}
+.offer-message:last-child .offer-message-text {
+  border-bottom: none;
+}
+.message-reply {
+  border-top: 1px solid #ccc;
+  position: relative;
+  height: 160px;
+}
+.message-reply label {
+  display: inline-block;
+  font-size: 14px;
+  width: 100px;
+  text-align: right;
+}
+.message-reply textarea {
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 10px;
+  left: 110px;
+  right: 0;
+  bottom: 60px;
+  resize: none;
+}
+.message-reply input[type="submit"] {
+  position: absolute;
+  right: 10px;
+  top: 110px;
+}
+
+ul.token-input-list {
+  overflow: hidden;
+  height: auto !important;
+  border: 1px solid #999;
+  cursor: text;
+  font-size: 12px;
+  min-height: 1px;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  list-style: none;
+  clear: left;
+}
+li.token-input-input-token {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+li.token-input-input-token input {
+  border: 0;
+  width: 100px;
+  padding: 3px 8px;
+  background: #fff;
+  margin: 2px 0;
+  -webkit-appearance: caret;
+}
+li.token-input-token {
+  overflow: hidden;
+  margin: 3px;
+  padding: 1px 3px;
+  cursor: default;
+  font-size: 14px;
+  float: left;
+  white-space: nowrap;
+  background-color: #eee;
+  border: 1px solid #666;
+  text-align: center;
+  color: #333;
+}
+.token-input-token p {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+.token-input-delete-token {
+  color: #999;
+  margin-left: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.token-input-dropdown {
+  position: absolute;
+  width: 400px;
+  background: #fff;
+  overflow: hidden;
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 0 1px 1px 1px;
+  font-size: 14px;
+  cursor: default;
+  z-index: 500;
+}
+.token-input-dropdown p {
+  margin: 0;
+  padding: 10px;
+}
+.token-input-dropdown ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.token-input-dropdown li {
+  padding: 4px 10px;
+}
+.token-input-dropdown li:hover {
+  background: #eee;
 }

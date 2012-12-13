@@ -21,6 +21,11 @@ class OffersController < ApplicationController
     end
   end
 
+  def show
+    @offer = Offer.find(params[:id])
+    @item = @offer.item
+  end
+
   def destroy
     @offer.destroy
     redirect_to :back
@@ -42,6 +47,6 @@ private
 
   def load_all_offers_for_current_user
     user_id = current_user.id
-    @offers = Offer.for_user(current_user)
+    @offers = Offer.from_user(current_user) + Offer.for_user(current_user)
   end
 end

@@ -40,7 +40,8 @@ class Item < ActiveRecord::Base
 
   attr_protected :user, :posted_by_user
   attr_accessible :title, :description, :has_expiration, :tag_list, :geo_tag_list, :active,
-    :expires_on, :community_ids, :list_ids, :thumbnail, :thumbnail_id, :city_ids
+    :expires_on, :community_ids, :list_ids, :thumbnail, :thumbnail_id, :city_ids, :link
+  validates :link, :allow_nil => true, :allow_blank => true, :format => { :with => /^(http|https):\/\//, :message => 'Link must begin with http:// or https://' }
 
   has_and_belongs_to_many :tags, :uniq => true, :conditions => "tags.type IS NULL"
   has_and_belongs_to_many :geo_tags, :join_table => :items_tags, :association_foreign_key => :tag_id, :uniq => true, :conditions => "tags.type = 'GeoTag'"

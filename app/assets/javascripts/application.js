@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.tokeninput
 //= require ajaxupload
 //= require_self
 
@@ -57,8 +58,12 @@ $(document).ready(function(){
 });
 
 var Swidjit = {
+  titleModified: false,
   prepPostingForm: function($form) {
-    $form.find('.field-desc textarea').focus(this.showPostingForm.bind(this, $form));
+    $form.find('.field-desc textarea').focus(this.showPostingForm.bind(this, $form)).keyup(this.updateTitle.bind(this, $form));
+    $form.find('.field-title textarea').change(function() {
+      Swidjit.titleModified = true;
+    });
     $form.find('.category-dropdown').click(function(e) {
       $form.find('.dropdown-menu').toggle();
     });
@@ -68,11 +73,39 @@ var Swidjit = {
     $form.find('.field-button').click(function() {
       $form.find('.'+$(this).data('field')).show();
       this.parentNode.removeChild(this);
+      Swidjit.adjustPageTop($form.outerHeight());
     });
 
     $form.find('.publish-item').click(function() {
       $form.submit();
     });
+
+    $tags = $form.find('.field-tags');
+    $tags.find('.tag-input').tokenInput(
+      $tags.data('autocomplete'), {
+        hintText: 'Tag your item',
+        preventDuplicates:'true',
+        minChars:2
+      }
+    );
+    $geotags = $form.find('.field-geotags');
+    $geotags.find('.tag-input').tokenInput(
+      $geotags.data('autocomplete'), {
+        hintText: 'Add location tags',
+        preventDuplicates: 'true',
+        minChars: 2
+      }
+    );
+  },
+
+  adjustPageTop: function(h) {
+    $('#page_content').css('top',h);
+  },
+
+  updateTitle: function($form, e) {
+    if (!this.titleModified) {
+      $form.find('.field-title textarea').val($(e.target).val().substring(0,40));
+    }
   },
 
   setCategory: function($form, cat) {
@@ -85,5 +118,6 @@ var Swidjit = {
 
   showPostingForm: function($form) {
     $form.addClass('expanded');
+    Swidjit.adjustPageTop($form.outerHeight());
   }
 }

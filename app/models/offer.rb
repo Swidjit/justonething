@@ -17,7 +17,7 @@ class Offer < ActiveRecord::Base
   }, :message => "You cannot message yourself about your own item." }
 
   #validate :item_type_is_allowed
-
+  scope :from_user, lambda { |user| where(user_id: user.id) }
   scope :for_user, lambda { |user| { :joins => :item, :conditions => ["#{Item.table_name}.user_id = ?", user.id] } }
 
   private

@@ -1,0 +1,22 @@
+%h2
+  Messages with
+  -if @offer.user_id == current_user.id
+    =@item.user.display_name
+  -else
+    =@offer.user.display_name
+  about
+  = link_to @item.title, polymorphic_path(@item)
+.message-thread
+  - @offer.messages.each do |om|
+    .offer-message
+      .offer-message-meta
+        =link_to om.user.display_name, profile_path(om.user.display_name)
+      .offer-message-text
+        =om.text.gsub("<","&lt;").gsub(">","&gt;").gsub("\n","<br />").html_safe
+.message-reply
+  = form_for :offer_message, :url => offer_offer_messages_path(@offer) do |f|
+    = f.hidden_field :offer_id, :value => @offer.id
+    .formrow
+      = f.label :text, 'New Message:'
+      = f.text_area :text
+    = f.submit 'Send'

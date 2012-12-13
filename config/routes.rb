@@ -142,7 +142,7 @@ Swidjit::Application.routes.draw do
     resources :rsvps, :only => [:create,:destroy,:index]
     resources :reminders, :only => [:create, :destroy]
 
-    resources :offers, :only => [:destroy] do
+    resources :offers, :only => [:show, :destroy] do
       resources :offer_messages, :only => [:create]
     end
   end
