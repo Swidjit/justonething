@@ -56,7 +56,11 @@
       #page_content
         = yield
       #right_bar
-        = social_links
+        #socialmedia_icons
+          = link_to image_tag('icons/twitter.png'), 'https://twitter.com/#!/Swidjit'
+          = link_to image_tag('icons/facebook.png'), 'http://www.facebook.com/pages/Swidjit/194313903947215'
+          = link_to image_tag('icons/googleplus.png', :alt => 'GooglePlus'), 'https://plus.google.com/u/0/b/116234830703382726755/'
+          = link_to image_tag('icons/youtube.png'), 'http://www.youtube.com/user/Swidjit'
         = yield :right_links
         .right-box
           .box-title what is swidjit?
@@ -72,9 +76,13 @@
     #floating_form
       - if signed_in?
         = form_tag({}, {:class => "posting-form"}) do
-          .posting-title add an item
+          .posting-title
+            - if params[:controller] == 'communities'
+              add an item to this community
+            - else
+              add an item
           .field-desc
-            %textarea{:name => 'item[description]', :placeholder => 'tell us about what you have to offer, what you need, or something interesting around town...'}
+            %textarea{:name => 'item[description]', :placeholder => (params[:controller] == 'communities' ? "share something with #{@community.name}" : 'tell us about what you have to offer, what you need, or something interesting around town...')}
           .field-title
             %textarea{:name => 'item[title]', :placeholder => 'add a title'}
           .field-category
@@ -114,6 +122,29 @@
             %textarea{:name => 'item[link]', :placeholder => 'add a link'}
           .field-geotags{:data => {:autocomplete => autocomplete_search_geo_tags_path}}
             %input.tag-input{:type => 'text', :id => 'item_geo_tag_list', :name => 'item[geo_tag_list]'}
+          .field-visibility
+            %input{:type => 'hidden', :name => 'item[community_ids]', :id => 'item_community_ids', :value => "#{@community.nil? ? '' : @community.id}"}
+            %input{:type => 'hidden', :name => 'item[city_ids]', :id => 'item_city_ids', :value => "#{@community.nil? ? current_city.id : ''}"}
+            %input{:type => 'hidden', :name => 'item[list_ids]', :id => 'item_list_ids', :value => ''}
+            %ul.visibility-tokens
+              %li
+                - if @community.nil?
+                  = current_city.display_name
+                  %a{:href => '#', :data => {:vistype => 'city', :visid => current_city.id}}= '&times;'.html_safe
+                - else
+                  = @community.name
+                  %a{:href => '#', :data => {:vistype => 'community', :visid => @community.id}}= '&times;'.html_safe
+            %a.add-visibility{:href => '#'}
+              add visibility rule
+              %i.ad
+            .visibility-rule-dropdown
+              - add_visibility_rule_options.each do |group,rules|
+                .rule-group
+                  = group.titleize
+                - rules.each do |rule|
+                  %a{:href => "#", :class => 'rule-name', :data => {:vistype => rule[:type], :visid => rule[:vis_id]}}= rule[:name]
+                - if rules.count == 0
+                  .rule-empty You don't have any
           .icon-row.clearfix
             %a.field-button.item-add-link{:data => {:field => 'field-links'}}
               =image_tag 'link_field.png'
@@ -126,6 +157,12 @@
             %a.field-button.item-add-time{:data => {:field => 'field-time'}}
               =image_tag 'time_field.png'
             %a.publish-item publish item
+            %a.visibility-button{:href => '#'}
+              Visible to
+              - if @community.nil?
+                = current_city.display_name
+              - else
+                = @community.name
           =javascript_include_tag 'images/dynamic_image_upload'
                
     :javascript

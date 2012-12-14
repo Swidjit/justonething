@@ -69,18 +69,50 @@ var Swidjit = {
     });
     $form.find('.dropdown-opt').mousedown(function() {
       Swidjit.setCategory($form, this);
+      return false;
     });
     $form.find('.field-button').click(function() {
       $form.find('.'+$(this).data('field')).show();
       this.parentNode.removeChild(this);
       Swidjit.adjustPageTop($form.outerHeight());
+      return false;
+    });
+    $form.find('.visibility-button').click(function() {
+      $form.find('.field-visibility').show();
+      this.parentNode.removeChild(this);
+      Swidjit.adjustPageTop($form.outerHeight());
+      return false;
     });
 
     $form.find('.publish-item').click(function() {
       $form.submit();
     });
 
-    $tags = $form.find('.field-tags');
+    $form.find('.visibility-tokens').on('click', 'li a', function() {
+      $this = $(this);
+      Swidjit.removeVisRule($form, $this.data('vistype'), $this.data('visid'));
+      this.parentNode.parentNode.removeChild(this.parentNode);
+    });
+
+    $form.find('.add-visibility').click(function() {
+      var $dd = $form.find('.visibility-rule-dropdown');
+      $dd.css('top', $(this.parentNode).outerHeight());
+      $dd.toggle();
+    });
+    $form.find('.visibility-rule-dropdown').on('click', '.rule-name', function() {
+      var $this = $(this);
+      var $ruleset = $form.find('#item_'+$this.data('vistype')+'_ids');
+      var id = $this.data('visid');
+      var v = $ruleset.val();
+      if (!v.match(new RegExp('\b'+id+'\b'))) {
+        v = v.substring(0, v.length-1)+(v.length > 0 ? ',' : '')+id;
+        $ruleset.val(v);
+        $form.find('.visibility-tokens').append($('<li>'+$this.text()+'<a href="#" data-vistype="'+$this.data('vistype')+'" data-visid="'+$this.data('visid')+'">&times;</a></li>'));
+      }
+      $form.find('.visibility-rule-dropdown').hide();
+    });
+
+    var $tags = $form.find('.field-tags');
     $tags.find('.tag-input').tokenInput(
       $tags.data('autocomplete'), {
         hintText: 'Tag your item',
@@ -88,7 +120,7 @@ var Swidjit = {
         minChars:2
       }
     );
-    $geotags = $form.find('.field-geotags');
+    var $geotags = $form.find('.field-geotags');
     $geotags.find('.tag-input').tokenInput(
       $geotags.data('autocomplete'), {
         hintText: 'Add location tags',
@@ -99,13 +131,24 @@ var Swidjit = {
   },
 
   adjustPageTop: function(h) {
-    $('#page_content').css('top',h);
+    $('#page_content').css('top',h+20);
   },
 
   updateTitle: function($form, e) {
     if (!this.titleModified) {
       $form.find('.field-title textarea').val($(e.target).val().substring(0,40));
     }
+  },
+
+  removeVisRule: function($form, type, id) {
+    var v = $form.find('#item_'+type+'_ids').val();
+    if (v.indexOf(id+',') > -1) {
+      v = v.replace(id+',', '');
+    } else {
+      v = v.replace(id, '');
+    }
+    console.log(v);
+    $form.find('#item_'+type+'_ids').val(v);
   },
 
   setCategory: function($form, cat) {

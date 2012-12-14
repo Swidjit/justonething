@@ -28,6 +28,14 @@ module ApplicationHelper
     content_tag :div, html.html_safe
   end
 
+  def add_visibility_rule_options
+    option_hash = {}
+    option_hash['cities'] = current_user.cities.collect{|c| {:name => c.display_name, :type => 'city', :vis_id => c.id} }
+    option_hash['communities'] = current_user.communities.collect{|c| {:name => c.name, :type => "community", :vis_id => c.id} }
+    option_hash['lists'] = current_user.lists.collect{|c| {:name => c.name, :type => "list", :vis_id => c.id} }
+    option_hash
+  end
+
   def error_messages_for(resource)
     return "" if resource.errors.empty?
 

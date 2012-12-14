@@ -5,16 +5,6 @@ class ItemDecorator < ApplicationDecorator
   include SharedDecorations
   linkifies_all_in :description, :title
 
-  def add_visibility_rule_options
-    user = item.user || h.current_user
-
-    option_hash = {}
-    option_hash['cities'] = user.cities.collect{|c| {:name => c.display_name, :type => 'city', :vis_id => c.id} }
-    option_hash['communities'] = user.communities.collect{|c| {:name => c.name, :type => "community", :vis_id => c.id} }
-    option_hash['lists'] = user.lists.collect{|c| {:name => c.name, :type => "list", :vis_id => c.id} }
-    option_hash
-  end
-
   def class_feed
     content_tag(:span, link_to("#{item.class.to_s.titleize}:", main_feeds_path(:type => item.class.to_s.pluralize.underscore)), :class => 'title_heading')
   end
