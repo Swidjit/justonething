@@ -9,14 +9,28 @@
   .breakcrumbs
     = link_to 'ithaca, ny', '/'
     >
-    = link_to "@#{@user.display_name}"
+    = link_to "@#{@user.display_name}", profile_path(@user.display_name)
+    - unless @valid_type.nil?
+      >
+      = link_to @valid_type, profile_path(@user.display_name, type: params[:type])
+    - unless @tags.nil? or @tags.empty?
+      >
+      = link_to @tags[0], profile_path(@user.display_name, type: params[:type], tags: params[:tags])
   .filter-tier
   .filter-tier
     filter by category:
-    = type_filter_links
+    = link_to 'all', profile_path(@user.display_name)
+    |
+    = link_to_if params[:type]!='have_its', 'have-its', profile_path(@user.display_name, type: 'have_its')
+    |
+    = link_to_if params[:type]!='want_its', 'want-its', profile_path(@user.display_name, type: 'want_its')
+    |
+    = link_to_if params[:type]!='thoughts', 'thoughts', profile_path(@user.display_name, type: 'thoughts')
+    |
+    = link_to_if params[:type]!='events', 'events', profile_path(@user.display_name, type: 'events')
   .filter-tier
     filter by tags:
-    = tag_cloud_for @feed_items, @type_link
+    = tag_cloud @feed_items, lambda { |tags| profile_path(@user.display_name, tags: tags, type: params[:type]) }
 - if @feed_items.empty?
   %span.no-results No items found.
 - else

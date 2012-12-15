@@ -10,9 +10,15 @@ class UsersController < ApplicationController
     item_type = params[:type] || 'all'
     @feed_items = @user.items
     if %w( events have_its want_its links thoughts ).include? item_type
-      @feed_items = @feed_items.where(:type => item_type.camelize.singularize)
+      @valid_type = item_type.gsub('_','-')
+      #@feed_items = @feed_items.where(:type => item_type.camelize.singularize)
+      @feed_items = @feed_items.of_type(item_type.camelize.singularize)
     else
       params[:type] = 'all'
+    end
+    if params[:tags].present?
+      @tags = params[:tags].split(',')
+      @feed_items = @feed_items.having_tag_with_name(@tags[0])
     end
     @feed_items = @feed_items.access_controlled_for(current_user, current_city, current_ability)
     render_paginated_feed :show

@@ -28,6 +28,28 @@ module ApplicationHelper
     content_tag :div, html.html_safe
   end
 
+  def tag_cloud(feed_items, path_func)
+    if feed_items.present?
+      taglist = Tag.find(:all,
+                    :select => 'tags.name, count(tags.name) as tag_count',
+                    :conditions => ['items.id in (?)', feed_items.collect(&:id)],
+                    :joins => 'INNER JOIN "items_tags" ON "items_tags"."tag_id" = "tags"."id" INNER JOIN "items" ON "items"."id" = "items_tags"."item_id"',
+                    :order => 'count(tags.name) DESC, tags.name',
+                    :limit => '20',
+                    :group => 'tags.name')
+    else
+      taglist = []
+    end
+
+    html = '';
+    taglist.each do |this_tag|
+      html << content_tag(:span,(link_to this_tag.name, path_func.call(this_tag.name)))
+      html << ' '.html_safe
+    end
+
+    content_tag :div, html.html_safe
+  end
+
   def add_visibility_rule_options
     option_hash = {}
     option_hash['cities'] = current_user.cities.collect{|c| {:name => c.display_name, :type => 'city', :vis_id => c.id} }

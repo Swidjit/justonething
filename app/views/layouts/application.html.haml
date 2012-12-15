@@ -33,7 +33,7 @@
           = link_to "profile", profile_path(current_user.display_name)
           = link_to "events", calendar_path
           = link_to "messages", user_offers_path(current_user.display_name)
-          = link_to "collections"
+          = link_to "collections", main_feeds_path(type: 'collections')
           = link_to "bookmarks", bookmarks_path
     #content
       #feed_bar
