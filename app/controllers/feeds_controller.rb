@@ -2,6 +2,25 @@ class FeedsController < ApplicationController
   before_filter :authenticate_user!, :only => :familiar_users
 
   def index
+    item_type = params[:type] || 'all'
+    if %w( events have_its want_its links thoughts ).include? item_type
+      @valid_type = item_type.titleize
+      @feed_items = Item.of_type(item_type.camelize.singularize)
+    else
+      @valid_type = 'All'
+      @feed_items = Item.find(:all)
+    end
+    if params[:tags].present?
+      @tags = params[:tags].split(',')
+      @tags.each do |tag|
+        @feed_items = @feed_items.having_tag_with_name(tag)
+      end
+    end
+    @feed_items = @feed_items.access_controlled_for(current_user, current_city, current_ability)
+    render_paginated_feed :index
+  end
+
+  def index_old
     if params[:tag_name].present?
       @tag = Tag.find_by_name(params[:tag_name])
       @title = %& "#{params[:tag_name]}"&

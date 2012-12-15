@@ -28,7 +28,7 @@ module ApplicationHelper
     content_tag :div, html.html_safe
   end
 
-  def tag_cloud(feed_items, path_func)
+  def tag_cloud(feed_items, path_func, prev_tags = [])
     if feed_items.present?
       taglist = Tag.find(:all,
                     :select => 'tags.name, count(tags.name) as tag_count',
@@ -43,7 +43,8 @@ module ApplicationHelper
 
     html = '';
     taglist.each do |this_tag|
-      html << content_tag(:span,(link_to this_tag.name, path_func.call(this_tag.name)))
+      tags_mod = ((prev_tags||[])+[this_tag.name]).uniq.join(',')
+      html << content_tag(:span,(link_to this_tag.name, path_func.call(tags_mod)))
       html << ' '.html_safe
     end
 

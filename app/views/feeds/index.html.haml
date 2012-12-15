@@ -1,16 +1,21 @@
 .filter-box
   .breakcrumbs
     = link_to 'ithaca, ny', '/'
-    >
-    = link_to @title
+    - unless @valid_type.nil?
+      >
+      = link_to @valid_type, main_feeds_path(type: params[:type])
+    - unless @tags.nil? or @tags.empty?
+      - @tags.each_index do |i|
+        >
+        = link_to "##{@tags[i]}", main_feeds_path(type: params[:type], tags: @tags[0..i].join(','))
   .filter-tier
-  - if @type.nil? or @type == 'All'
+  - if @valid_type.nil? or params[:type] == 'all'
     .filter-tier
       filter by category:
       = type_filter_links
   .filter-tier
     filter by tags:
-    = tag_cloud_for @feed_items, @type_link
+    = tag_cloud @feed_items, lambda { |tags| main_feeds_path(type: params[:type], tags: tags) }, @tags
 - if @feed_items.empty?
   %span.no-results No items found.
 - else
