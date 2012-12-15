@@ -121,6 +121,9 @@
           .field-links
             %textarea{:name => 'item[link]', :placeholder => 'add a link'}
           .field-geotags{:data => {:autocomplete => autocomplete_search_geo_tags_path}}
+            .event-location.hidden
+              .flabel event location
+              %input{:type => 'text', :name => 'item[location]', :id => 'item_location'}
             %input.tag-input{:type => 'text', :id => 'item_geo_tag_list', :name => 'item[geo_tag_list]'}
           .field-visibility
             %input{:type => 'hidden', :name => 'item[community_ids]', :id => 'item_community_ids', :value => "#{@community.nil? ? '' : @community.id}"}
@@ -145,6 +148,23 @@
                   %a{:href => "#", :class => 'rule-name', :data => {:vistype => rule[:type], :visid => rule[:vis_id]}}= rule[:name]
                 - if rules.count == 0
                   .rule-empty You don't have any
+          .field-time
+            .expiration-field
+              %span.flabel expires on
+              %input.datepicker{:type => 'text', :name => 'item[expires_on]', :id => 'item_expires_on'}
+            .event-time-field.hidden
+              .frow
+                %span.flabel start date
+                %input.datepicker{:type => 'text', :name => 'item[start_date]', :id => 'item_start_date'}
+              .frow
+                %span.flabel start time
+                %input.timepicker{:type => 'text', :name => 'item[start_time]', :id => 'item_start_time'}
+              .frow
+                %span.flabel end date
+                %input.datepicker{:type => 'text', :name => 'item[end_date]', :id => 'item_end_date'}
+              .frow
+                %span.flabel end time
+                %input.timepicker{:type => 'text', :name => 'item[end_time]', :id => 'item_end_time'}
           .icon-row.clearfix
             %a.field-button.item-add-link{:data => {:field => 'field-links'}}
               =image_tag 'link_field.png'
