@@ -4,14 +4,16 @@
     %title= page_title
     %link{:rel => 'shortcut icon', :href => '/favicon.ico' }
     = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
     :javascript
       var base_list_url = '#{list_path(0)}';
       var base_custom_feed_element_url = '#{custom_feed_element_path(0)}';
       var fb_app_id = '#{Facebook::APP_ID}';
+    = javascript_include_tag "application"
     = yield :head
     = csrf_meta_tags
   %body
+    = render :partial => 'layouts/facebook_js'
+
     #top_bar
       #search_bar
         %a#logo{:href => '/'}
@@ -53,7 +55,7 @@
         .feed-box
           .feed-category Trending Tags
           = trending_tags
-      #page_content
+      #page_content{:class => signed_in? ? '' : 'nologin'}
         = yield
       #right_bar
         #socialmedia_icons
@@ -73,8 +75,8 @@
           .right-box
             .box-title give us feedback
             =text_area_tag :feedback
-    #floating_form
-      - if signed_in?
+    - if signed_in?
+      #floating_form
         = form_tag({}, {:class => "posting-form"}) do
           .posting-title
             - if params[:controller] == 'communities'
