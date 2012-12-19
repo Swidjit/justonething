@@ -13,7 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.tokeninput
+//= require jquery.ui.datepicker
+//= require jquery.ui.timepicker
 //= require ajaxupload
+//= require item
 //= require_self
 
 jQuery(function() {
@@ -54,7 +57,10 @@ $(document).ready(function(){
   
   $('.posting-form').each(function(k, p) {
     Swidjit.prepPostingForm($(p));
-  });
+  }).submit(Swidjit.submitPostingForm);
+
+  $('.datepicker').datepicker();
+  $('.timepicker').timepicker({showPeriod: true});
 });
 
 var Swidjit = {
@@ -156,11 +162,35 @@ var Swidjit = {
     $form.find('.category-selection').find('.category-desc').text($(cat).find('.category-desc').text());
     $form.find('#item_type').val($(cat).data('type'));
 
+    if ($(cat).data('type') === 'event') {
+      $form.find('.expiration-field').hide();
+      $form.find('.event-location').show();
+      $form.find('.event-time-field').show();
+    } else {
+      $form.find('.event-time-field').hide();
+      $form.find('.event-location').hide();
+      $form.find('.expiration-field').show();
+    }
+    Swidjit.adjustPageTop($form.outerHeight());
+
     $form.attr('action', $(cat).data('url'));
   },
 
   showPostingForm: function($form) {
     $form.addClass('expanded');
     Swidjit.adjustPageTop($form.outerHeight());
+  },
+
+  submitPostingForm: function() {
+    $form = $(this);
+    var type = $form.find('#item_type').val();
+    // TODO: validate form
+    if (type !== 'event') {
+      $form.find('#item_start_date').remove();
+      $form.find('#item_start_time').remove();
+      $form.find('#item_end_date').remove();
+      $form.find('#item_end_time').remove();
+      $form.find('#item_location').remove();
+    }
   }
 }

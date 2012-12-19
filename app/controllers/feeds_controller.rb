@@ -5,10 +5,10 @@ class FeedsController < ApplicationController
     item_type = params[:type] || 'all'
     if %w( events have_its want_its links thoughts ).include? item_type
       @valid_type = item_type.titleize
-      @feed_items = Item.of_type(item_type.camelize.singularize)
+      @feed_items = Item.of_type(item_type.camelize.singularize).access_controlled_for(current_user, current_city, current_ability)
     else
       @valid_type = 'All'
-      @feed_items = Item.find(:all)
+      @feed_items = Item.access_controlled_for(current_user, current_city, current_ability)
     end
     if params[:tags].present?
       @tags = params[:tags].split(',')
@@ -16,7 +16,7 @@ class FeedsController < ApplicationController
         @feed_items = @feed_items.having_tag_with_name(tag)
       end
     end
-    @feed_items = @feed_items.access_controlled_for(current_user, current_city, current_ability)
+    #@feed_items = @feed_items.access_controlled_for(current_user, current_city, current_ability)
     render_paginated_feed :index
   end
 

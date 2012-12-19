@@ -6,8 +6,8 @@ class EventDecorator < ItemDecorator
   end
 
   def start_datetime(format = 'datetime')
-    if params[:event].present? && params[:event]["start_#{format}".to_sym].present?
-      params[:event]["start_#{format}".to_sym]
+    if params[:item].present? && params[:item]["start_#{format}".to_sym].present?
+      params[:item]["start_#{format}".to_sym]
     elsif event.start_datetime.present?
       event.start_datetime.strftime(send("#{format}_format"))
     end
@@ -18,8 +18,8 @@ class EventDecorator < ItemDecorator
   end
 
   def end_datetime(format = 'datetime')
-    if params[:event].present? && params[:event]["end_#{format}".to_sym].present?
-      params[:event]["end_#{format}".to_sym]
+    if params[:item].present? && params[:item]["end_#{format}".to_sym].present?
+      params[:item]["end_#{format}".to_sym]
     elsif event.end_datetime.present?
       event.end_datetime.strftime(send("#{format}_format"))
     end

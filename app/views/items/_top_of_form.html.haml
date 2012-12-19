@@ -4,9 +4,5 @@
       - f.object.errors.full_messages.each do |err|
         %li= err
 = f.inputs :class => 'title_box' do
-  %li.text
-    = image_tag('blue_tag.png')
-    post basics
-    %span required
   = f.input :description, :as => :text, :input_html => {:class => 'user-suggestion item_description comnt', :placeholder => 'describe your item here, no character limit'}
   = f.input :title, :input_html => {:class => 'user-suggestion item_title', :autocomplete => :off, :placeholder => 'post title'}

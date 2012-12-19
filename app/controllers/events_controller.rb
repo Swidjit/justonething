@@ -39,14 +39,14 @@ class EventsController < ItemsController
   
   
   def convert_times_to_db_format
-    if params[:event].present?
-      if params[:event][:start_date].present? && params[:event][:start_time].present?
-        start_date_time = params[:event][:start_date] + ' ' + params[:event][:start_time]
-        params[:event][:start_datetime] = Event.datetimepicker_to_datetime(start_date_time,Time.zone)
+    if params[:item].present?
+      if params[:item][:start_date].present? && params[:item][:start_time].present?
+        start_date_time = params[:item][:start_date] + ' ' + params[:item][:start_time]
+        params[:item][:start_datetime] = Event.datetimepicker_to_datetime(start_date_time,Time.zone)
       end
-      if params[:event][:end_date].present? && params[:event][:end_time].present?
-        end_date_time = params[:event][:end_date] + ' ' + params[:event][:end_time]
-        params[:event][:end_datetime] = Event.datetimepicker_to_datetime(end_date_time,Time.zone)
+      if params[:item][:end_date].present? && params[:item][:end_time].present?
+        end_date_time = params[:item][:end_date] + ' ' + params[:item][:end_time]
+        params[:item][:end_datetime] = Event.datetimepicker_to_datetime(end_date_time,Time.zone)
       end
     end
   end
