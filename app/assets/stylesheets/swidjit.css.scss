@@ -274,10 +274,17 @@ i.ad {
 .field-tags {
   background: image-url('tag_field.png') no-repeat;
   position: relative;
-  height: 24px;
+  height: 40px;
   display: none;
   margin: 6px 0;
   padding-left: 30px;
+}
+.presets {
+  display: none;
+}
+.presets a {
+  font-size: 14px;
+  padding: 4px 6px 0 6px;
 }
 
 .field-links {

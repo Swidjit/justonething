@@ -147,6 +147,9 @@ var Swidjit = {
         minChars:2
       }
     );
+    $tags.find('.presets a').click(function() {
+      $tags.find('.tag-input').tokenInput('add', {id: $(this).text(), name: $(this).text()});
+    });
     var $geotags = $form.find('.field-geotags');
     $geotags.find('.tag-input').tokenInput(
       $geotags.data('autocomplete'), {
@@ -192,6 +195,9 @@ var Swidjit = {
       $form.find('.event-location').hide();
       $form.find('.expiration-field').show();
     }
+    $form.find('.presets').hide();
+    $form.find('.presets-'+$(cat).data('type')).show();
+    console.log('.presets-'+$(cat).data('type'));
     Swidjit.adjustPageTop($form.outerHeight());
 
     $form.attr('action', $(cat).data('url'));

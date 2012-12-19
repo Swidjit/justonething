@@ -113,6 +113,21 @@
                   .category-desc containers to help you group together similar items
           .field-tags{:data => {:autocomplete => autocomplete_search_tags_path}}
             %input.tag-input{:type => 'text', :id => 'item_tag_list', :name => 'item[tag_list]'}
+            .presets.presets-have-it
+              - ItemPresetTag.where(:item_type => 'HaveIt').each do |tag|
+                %a{:href => '#'}= tag.tag
+            .presets.presets-want-it
+              - ItemPresetTag.where(:item_type => 'WantIt').each do |tag|
+                %a{:href => '#'}= tag.tag
+            .presets.presets-thoughts
+              - ItemPresetTag.where(:item_type => 'Thought').each do |tag|
+                %a{:href => '#'}= tag.tag
+            .presets.presets-event
+              - ItemPresetTag.where(:item_type => 'Event').each do |tag|
+                %a{:href => '#'}= tag.tag
+            .presets.presets-collection
+              - ItemPresetTag.where(:item_type => 'Collection').each do |tag|
+                %a{:href => '#'}= tag.tag
           .field-images
             .fileupload.thumbnail
               #thumbnail
