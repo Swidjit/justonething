@@ -61,6 +61,27 @@ $(document).ready(function(){
 
   $('.datepicker').datepicker();
   $('.timepicker').timepicker({showPeriod: true});
+
+  $('.add_item a').click(function(e) {
+    var $this = $(this);
+    console.log('aargh');
+    if ($this.data('item-type')) {
+      var tags = $this.data('tags').split(',');
+      var $form = $('.posting-form');
+      var type = $form.find('#item_type').val();
+      if (type === '' || type === $this.data('item-type')) {
+        console.log($this.data('item-type'));
+        Swidjit.setCategory($form, $('.type-opt-'+$this.data('item-type')).get(0));
+        Swidjit.showPostingForm($form);
+        $form.find('.item-add-tags').hide();
+        $form.find('.field-tags').show();
+        var $tagfield = $form.find('.field-tags .tag-input');
+        for (var i = 0; i < tags.length; i++) {
+          $tagfield.tokenInput('add', {id: tags[i], name: tags[i]});
+        }
+      }
+    }
+  });
 });
 
 var Swidjit = {
@@ -181,16 +202,54 @@ var Swidjit = {
     Swidjit.adjustPageTop($form.outerHeight());
   },
 
+  ensureField: function(section, input, button) {
+    $(section).show();
+    if (button !== undefined) {
+      $(button).hide();
+    }
+    if ($(input).val() === '') {
+      $(input).css('border-color', '#dd0000');
+      return false;
+    }
+    $(input).css('border-color', '');
+    return true;
+  },
+
+  showErrors: function($form, errors) {
+    if (Array.isArray(errors)) {
+      $form.find('.field-errors').show().text(errors.join('<br />'));
+    } else {
+      $form.find('.field-errors').show().text(errors);
+    }
+  },
+
   submitPostingForm: function() {
     $form = $(this);
     var type = $form.find('#item_type').val();
-    // TODO: validate form
-    if (type !== 'event') {
-      $form.find('#item_start_date').remove();
-      $form.find('#item_start_time').remove();
-      $form.find('#item_end_date').remove();
-      $form.find('#item_end_time').remove();
-      $form.find('#item_location').remove();
+    if (type === 'event') {
+      var valid = true;
+      valid = Swidjit.ensureField('.field-title', '#item_title') && valid;
+      valid = Swidjit.ensureField('.field-geotags', '#item_location', '.item-add-location') && valid;
+      valid = Swidjit.ensureField('.field-time', '#item_start_date', '.item-add-time') && valid;
+      valie = Swidjit.ensureField('.field-time', '#item_start_time', '.item-add-time') && valid;
+      if (!valid) {
+        Swidjit.showErrors($form, 'Please fill in the highlighted fields');
+      }
+      return valid;
+    } else if (type === '') {
+      Swidjit.showErrors($form, 'Please select an item category');
+      return false;
+    } else {
+      if (Swidjit.ensureField('.field-title', '#item_title')) {
+        $form.find('#item_start_date').remove();
+        $form.find('#item_start_time').remove();
+        $form.find('#item_end_date').remove();
+        $form.find('#item_end_time').remove();
+        $form.find('#item_location').remove();
+      } else {
+        Swidjit.showErrors($form, 'Please fill in the highlighted fields');
+        return false;
+      }
     }
   }
 }

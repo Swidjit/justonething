@@ -249,6 +249,13 @@ i.ad {
   display: block;
 }
 
+.field-errors {
+  color: #fff;
+  font-size: 14px;
+  padding-bottom: 6px;
+  display: none;
+}
+
 .field-category {
   position: relative;
   background: image-url('posting_field.png') no-repeat;
@@ -940,4 +947,8 @@ li.token-input-token {
 }
 .ui-timepicker-hour-cell:hover, .ui-timepicker-minute-cell:hover {
   background: #ddd;
+}
+
+.fb-login-button {
+  overflow: hidden;
 }

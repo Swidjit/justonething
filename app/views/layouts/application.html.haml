@@ -83,10 +83,11 @@
               add an item to this community
             - else
               add an item
+          .field-errors
           .field-desc
             %textarea{:name => 'item[description]', :placeholder => (params[:controller] == 'communities' ? "share something with #{@community.name}" : 'tell us about what you have to offer, what you need, or something interesting around town...')}
           .field-title
-            %textarea{:name => 'item[title]', :placeholder => 'add a title'}
+            %textarea{:name => 'item[title]', :id => 'item_title', :placeholder => 'add a title'}
           .field-category
             select a category
             .category-dropdown
@@ -95,19 +96,19 @@
                 .category-title
                 .category-desc
               .dropdown-menu
-                .dropdown-opt{:data => {:type => 'thoughts', :url => thoughts_path}}
+                .dropdown-opt.type-opt-thoughts{:data => {:type => 'thoughts', :url => thoughts_path}}
                   .category-title thoughts
                   .category-desc comments, questions, announcements and information
-                .dropdown-opt{:data => {:type => 'have-it', :url => have_its_path}}
+                .dropdown-opt.type-opt-have-it{:data => {:type => 'have-it', :url => have_its_path}}
                   .category-title have-its
                   .category-desc offer goods, services, spaces and experiences
-                .dropdown-opt{:data => {:type => 'want-it', :url => want_its_path}}
+                .dropdown-opt.type-opt-want-it{:data => {:type => 'want-it', :url => want_its_path}}
                   .category-title want-its
                   .category-desc request access to goods, services, spaces and experiences
-                .dropdown-opt{:data => {:type => 'event', :url => events_path}}
+                .dropdown-opt.type-opt-event{:data => {:type => 'event', :url => events_path}}
                   .category-title events
                   .category-desc performances, meetings, classes, excursions and more
-                .dropdown-opt{:data => {:type => 'collection', :url => collections_path}}
+                .dropdown-opt.type-opt-collection{:data => {:type => 'collection', :url => collections_path}}
                   .category-title collections
                   .category-desc containers to help you group together similar items
           .field-tags{:data => {:autocomplete => autocomplete_search_tags_path}}
